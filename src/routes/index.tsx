@@ -112,74 +112,133 @@ function Home() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main id="main-content" className="flex-1 pb-20 md:pb-0">
-        {/* HERO — boutique therapeutic */}
-        <section className="relative bg-background pb-10 md:pb-14">
-          <div className="mx-auto max-w-[1280px] px-4 md:px-6">
-            <div className="overflow-hidden rounded-b-[2rem] md:rounded-b-[2.5rem] bg-surface-warm shadow-[var(--shadow-soft)]">
-              <div className="grid md:grid-cols-2">
-                {/* IMAGE — visual left in RTL */}
-                <div className="order-1">
-                  <img
-                    src={inbarPhoto}
-                    alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}`}
-                    width={760}
-                    height={620}
-                    loading="eager"
-                    className="h-72 w-full object-cover sm:h-96 md:h-full md:min-h-[520px]"
-                  />
+        {/* HERO — Academic Authority */}
+        <section className="relative overflow-hidden bg-background pt-8 pb-16 md:pt-14 md:pb-24">
+          <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 px-5 md:gap-14 md:px-8 lg:grid-cols-12">
+            {/* TEXT — col-span-7, visual right in RTL */}
+            <div className="order-2 space-y-8 lg:order-1 lg:col-span-7">
+              <div className="space-y-5">
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-12 bg-copper" aria-hidden />
+                  <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-copper">
+                    מאסטרקלאס · מצוינות קלינית
+                  </span>
                 </div>
 
-                {/* TEXT — visual right in RTL */}
-                <div className="order-2 flex flex-col justify-center px-7 py-10 sm:px-10 md:px-14 md:py-16">
-                  <p className="kicker mb-4">פדיקור טיפולי | {SITE.city}</p>
-                  <h1 className="display font-normal leading-[1.15] text-primary-deep text-[2rem] sm:text-[2.4rem] md:text-[2.7rem] lg:text-[3rem]">
-                    ענבר פרחי -<br />
-                    פדיקוריסטית טיפולית<br />
-                    לטיפול בכף הרגל
-                  </h1>
+                <h1 className="display text-[2.6rem] leading-[0.95] text-ink sm:text-[3.2rem] md:text-[4.2rem] lg:text-[5rem]">
+                  ענבר פרחי
+                  <span className="display-italic mt-2 block bg-gradient-to-l from-primary-deep to-primary bg-clip-text text-transparent">
+                    סמכות קלינית לבריאות כף הרגל
+                  </span>
+                </h1>
 
-                  <p className="mt-6 max-w-[32rem] text-[1.02rem] leading-[1.85] text-ink-soft">
-                    טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית, סדקים וטיפול מותאם לחולי סוכרת.
-                  </p>
-                  <p className="mt-4 max-w-[32rem] text-[0.95rem] leading-[1.8] text-ink">
-                    כאן מטפלים בכאב, בבושה ובחוסר הנוחות — בלי שיפוטיות ועם ניסיון של מעל 12 שנה.
-                  </p>
+                <p className="max-w-2xl text-[1.05rem] leading-[1.75] text-ink-soft md:text-[1.18rem]">
+                  מומחית לבריאות כף הרגל, מרצה ומכשירה פדיקוריסטיות לפי הפרוטוקולים הרפואיים המתקדמים בעולם.
+                </p>
+              </div>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-3">
-                    <a
-                      href={SITE.whatsappUrl}
-                      target="_blank"
-                      rel="noopener"
-                      className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-[0.95rem] font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-colors duration-300 hover:bg-primary-deep"
-                    >
-                      <MessageCircle className="h-4 w-4" aria-hidden />
-                      קביעת טיפול בוואטסאפ
-                    </a>
-                    <a
-                      href={SITE.wazeUrl}
-                      target="_blank"
-                      rel="noopener"
-                      className="inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-transparent px-6 py-3.5 text-[0.95rem] font-semibold text-ink transition-colors duration-300 hover:border-primary hover:text-primary-deep"
-                    >
-                      <MapPin className="h-4 w-4 text-copper" aria-hidden />
-                      ניווט לקליניקה
-                    </a>
+              {/* Stats strip */}
+              <div className="grid grid-cols-3 gap-4 border-y border-border py-6 md:gap-8 md:py-8">
+                <div>
+                  <div className="font-heading text-2xl font-bold text-primary-deep md:text-3xl">12+</div>
+                  <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-text-muted md:text-[11px]">
+                    שנות ניסיון קליני
+                  </div>
+                </div>
+                <div>
+                  <div className="font-heading text-2xl font-bold text-primary-deep md:text-3xl">IWGDF</div>
+                  <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-text-muted md:text-[11px]">
+                    פרוטוקול סוכרת
+                  </div>
+                </div>
+                <div>
+                  <div className="font-heading text-2xl font-bold text-primary-deep md:text-3xl">20+</div>
+                  <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-text-muted md:text-[11px]">
+                    בוגרות הכשרה
+                  </div>
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <a
+                  href={`${SITE.whatsappUrl}?text=${encodeURIComponent("שלום ענבר, אני מעוניינ/ת להזמין הרצאה מקצועית.")}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-primary-deep px-9 py-4 text-[0.98rem] font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <GraduationCap className="h-4 w-4" aria-hidden />
+                  <span className="relative z-10">הזמיני הרצאה מקצועית</span>
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 translate-y-full bg-white/10 transition-transform duration-500 group-hover:translate-y-0"
+                  />
+                </a>
+                <a
+                  href={SITE.whatsappUrl}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-border bg-surface px-8 py-4 text-[0.98rem] font-bold text-primary-deep shadow-sm transition-colors duration-300 hover:border-primary-deep/30 hover:bg-surface-warm"
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden />
+                  קביעת טיפול בקליניקה
+                </a>
+              </div>
+
+              {/* Trust line — desktop only */}
+              <div className="hidden items-center gap-5 pt-2 opacity-70 md:flex">
+                <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-text-muted">
+                  בשיתוף והשתלמות:
+                </span>
+                <span className="font-heading text-sm font-bold tracking-tight text-ink-soft">
+                  השתלמויות באיכילוב
+                </span>
+                <span className="h-3 w-px bg-border" aria-hidden />
+                <span className="font-heading text-sm font-bold tracking-tight text-ink-soft">
+                  פרוטוקול IWGDF
+                </span>
+              </div>
+            </div>
+
+            {/* IMAGE — col-span-5, visual left in RTL */}
+            <div className="order-1 lg:order-2 lg:col-span-5">
+              <div className="relative mx-auto max-w-md lg:max-w-none">
+                {/* Decorative halo */}
+                <div
+                  aria-hidden
+                  className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl"
+                />
+
+                <div className="relative z-10 overflow-hidden rounded-[2.25rem] border-[10px] border-surface bg-surface-warm shadow-[var(--shadow-lift)] md:border-[12px]">
+                  <img
+                    src={inbarPhoto}
+                    alt="ענבר פרחי, פדיקוריסטית טיפולית ומרצה לפדיקוריסטיות"
+                    width={600}
+                    height={750}
+                    loading="eager"
+                    className="aspect-[4/5] w-full object-cover"
+                  />
+
+                  {/* Top badge */}
+                  <div className="absolute top-5 left-5 inline-flex items-center gap-1.5 rounded-full bg-copper px-3.5 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.18em] text-white shadow-lg md:top-6 md:left-6 md:text-[11px]">
+                    <Award className="h-3 w-3" aria-hidden />
+                    מרצה ומדריכה
                   </div>
 
-                  <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[0.82rem] text-ink-soft">
-                    {PROOF_CHIPS.map(({ icon: Icon, label }) => (
-                      <li key={label} className="flex items-center gap-2">
-                        <Icon className="h-4 w-4 flex-shrink-0 text-primary" aria-hidden strokeWidth={1.8} />
-                        <span className="font-medium">{label}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Bottom proof tag */}
+                  <div className="absolute bottom-6 right-6 rounded-2xl border border-white/60 bg-surface/90 p-4 shadow-xl backdrop-blur-md md:bottom-8 md:right-8 md:p-5">
+                    <p className="font-heading text-2xl font-black leading-none text-primary-deep md:text-3xl">
+                      150+
+                    </p>
+                    <p className="mt-1.5 text-[10px] font-bold leading-tight text-ink md:text-[11px]">
+                      שעות השתלמות
+                      <br />
+                      שנתיות
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-            <p className="mx-4 mt-3 text-center text-[0.78rem] text-text-muted md:mx-6 md:text-right">
-              קליניקה טיפולית ב{SITE.city} · יחס אישי, סטריליות והכוונה להמשך
-            </p>
           </div>
         </section>
 

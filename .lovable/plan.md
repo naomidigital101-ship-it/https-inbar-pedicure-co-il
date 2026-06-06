@@ -1,98 +1,105 @@
-# תוכנית שדרוג לפרודקשן — ענבר פרחי
 
-המטרה: להפוך את האתר הקיים למותג סמכות רפואי־טיפולי פרימיום, RTL, עם SEO/GEO מלא. שומרים על כל הראוטינג, האדמין, מחולל התוכן, הטפסים והדאטה הקיימים — מחליפים אומנות, צפיפות, היררכיה, מטא־דאטה וארכיטקטורת תוכן.
+# עיצוב מחדש של ה-Hero — Academic Authority
 
-## 1. דיזיין טוקנים (`src/styles.css`)
-החלפת הפלטה לטוקנים שביקשת (oklch מקבילים):
-- `--background` #FBF7F0, `--surface` #FFFFFF, `--surface-warm` #F4E9DF
-- `--primary` (sage) #2F6F5E, `--primary-soft` #DCEBE4, `--primary-deep` כהה יותר
-- `--blush` #E8C8BE, `--copper` #B87954
-- `--ink` #102321, `--ink-soft` #5F6B67, `--border` rgba(16,35,33,.12)
-- `--shadow-elegant` רך וחם, `--radius` 22px
-שמירה על Heebo + Frank Ruhl Libre. לעדכן `kicker`, `display`, `display-italic`.
+## מטרה
+החלפת ה-Hero הקיים במיצוב חדש: ענבר כ**אוטוריטה רפואית ומרצה לפדיקוריסטיות**, לא כפדיקוריסטית מקומית. CTA ראשי = "הזמיני הרצאה מקצועית". CTA משני = "קביעת טיפול בקליניקה".
 
-## 2. Header (`SiteHeader.tsx`)
-- גובה 76px קומפקטי, max-width 1240, רקע `bg-surface/90` עם blur
-- CTA קטן בוואטסאפ בנאב הדסקטופ
-- מובייל: כפתור וואטסאפ דביק תחתון גלובלי (קומפוננטה חדשה `StickyWhatsApp`)
+## מה משתנה (Hero בלבד)
+קובץ יחיד: `src/routes/index.tsx`, סקשן `{/* HERO */}`. שאר הסקשנים, ה-SEO, ה-JSON-LD, ה-Header וה-Footer — לא נוגעים.
 
-## 3. Hero חדש (`src/routes/index.tsx`)
-Grid דו־טורי RTL, min-h 82vh, מרווחים מהודקים, בלי דד־זונים.
-- Eyebrow: "פדיקור טיפולי | בית אל"
-- H1: "ענבר פרחי — פדיקוריסטית טיפולית לכף הרגל"
-- Subcopy + משפט אמון
-- 2 CTA: וואטסאפ (sage מלא) + ניווט (outline)
-- 4 פרוף־צ'יפס (12+ שנים, סוכרת, מרצה, סטריליות)
-- תמונת ענבר עם פאנל sage-soft מוסט מאחור, radius 24, border חם, shadow רך
-- caption מתחת
-- mini-strip לוגי אמון/מקורות (משרד הבריאות, NHS, AAD, IDF) בתחתית ה־hero
+## קומפוזיציה (12-col grid, RTL)
 
-## 4. Problem Navigation — "מה מטריד אותך בכף הרגל?"
-סקשן מיד אחרי ה־hero, גריד 3×2 דסקטופ / 1×6 מובייל. 6 כרטיסים קומפקטיים עם אייקון Lucide עדין, כותרת, משפט הסבר, לינק "לפרטים →". hover sage עדין.
+```text
+┌─────────────────────────────────────────────────────────┐
+│  [col-span-7 — טקסט]            [col-span-5 — פורטרט]  │
+│  ─── Masterclass & Clinical Excellence                  │
+│  ענבר פרחי                       ┌──────────────────┐  │
+│  Professional Authority          │  badge "מרצה"    │  │
+│  (serif italic, סייג'-גרדיאנט)   │                  │  │
+│                                  │   תמונת ענבר     │  │
+│  משפט תת-כותרת רפואי-יוקרתי     │   במסגרת לבנה    │  │
+│                                  │   עם רקע sage     │  │
+│  ─────────────────────────       │   מטושטש          │  │
+│  12+   IWGDF   20+               │                  │  │
+│  ניסיון פרוטוקול בוגרות          │  ┌─150+──┐       │  │
+│  ─────────────────────────       │  │שעות   │       │  │
+│                                  │  └───────┘       │  │
+│  [הזמיני הרצאה]  [טיפול בקליניקה]└──────────────────┘  │
+│                                                          │
+│  בשיתוף: איכילוב · פרוטוקול IWGDF                       │
+└─────────────────────────────────────────────────────────┘
+```
 
-## 5. סקשנים חדשים בעמוד הבית
-- **פרוטוקול הסטריליות של ענבר** — 4 שלבים עם אייקונים
-- **מתי לפנות לרופא לפני טיפול** — רשימת דגלים אדומים בקופסת `surface-warm`
-- **שאלות שמתביישים לשאול** — Accordion רגיש (5 שאלות שניתנו)
-- **מרכז הידע** — 6 קטגוריות עם תצוגה מקדימה של מאמרים אחרונים
-- **About teaser** + **ציטוט מטופלת** (placeholder לאישור ענבר)
-- **CTA אחרון** עם וואטסאפ/Waze/שעות
+## טוקנים (התאמה למערכת הקיימת)
+כל הצבעים מהפרוטוטיפ ממופים לטוקנים סמנטיים קיימים ב-`src/styles.css` — לא מוסיפים hex בקומפוננטות:
+- רקע `#FDFCFB` → `bg-background` (הטוקן הקיים כבר קרוב, נוודא)
+- ירוק עמוק `#2D5A50` → `--sage` הקיים (`#2F6F5E` — תואם)
+- זהב `#C5A27D` → נוסיף/נמפה ל-`--accent-gold` (אם לא קיים, נוסיף ל-`:root` ב-oklch)
+- טקסט `#1A2E2A` → `--ink` הקיים
+- גרי-100 לגבולות → `--border` הקיים
 
-## 6. עמודי שירות (`src/routes/services.$slug.tsx` + `src/lib/services-content.ts`)
-לכל אחד מ־6 השירותים, מבנה אחיד:
-1. Direct answer summary (קופסה sage-soft בראש)
-2. מהי הבעיה
-3. איך מזהים
-4. איך ענבר מטפלת
-5. מה קורה בביקור
-6. מה לא לעשות בבית
-7. מתי לפנות לרופא
-8. FAQ (Accordion + FAQPage JSON-LD)
-9. CTA וואטסאפ
-10. לינקים פנימיים לשירותים/מאמרים קשורים
+**גופנים**: שמירה על Frank Ruhl Libre לכותרות (במקום Platypi) + Heebo לגוף (במקום Assistant). זו הוראת ליבה בזיכרון. ה-italic-serif בכותרת ייעשה עם Frank Ruhl Libre italic — נראה דומה ויותר עברי.
 
-## 7. SEO/GEO
-- `__root.tsx`: ודא `lang="he" dir="rtl"`, OG/Twitter דיפולטים, JSON-LD `MedicalBusiness` מורחב (address, geo, openingHours, areaServed, medicalSpecialty: Podiatry), `Person` לענבר
-- כל ראוט: `head()` עם title/description/canonical/og ייחודיים
-- `index.tsx`: Title "ענבר פרחי | פדיקוריסטית טיפולית בבית אל", description שניתן, JSON-LD `LocalBusiness` + `BreadcrumbList`
-- עמודי שירות: `Service` + `FAQPage` + `BreadcrumbList`
-- מאמרים: `Article` (קיים — לוודא)
-- `robots.txt` קיים — תקין
-- `sitemap.xml` קיים — מוודא שכולל את כל ה־services וה־articles
-- `alt` בעברית לכל תמונה, היררכיית כותרות נקייה (H1 יחיד לעמוד)
+## תוכן ה-Hero (עברית בלבד — מסירים את ה-"Professional Authority" באנגלית)
 
-## 8. אדמין / מחולל תוכן
-שומרים את הקיים. מוסיפים שדות חדשים ל־`ai_articles` (או טבלת `ai_topics`):
-- `content_type` enum: service / article / glossary / sensitive_faq / case_study / video_script / prevention_guide
-- `foot_problem`, `target_audience`, `search_intent`, `medical_sensitivity_level`
-- `when_to_refer_doctor` (text), `cta`, `internal_links` (jsonb)
-- `review_status` enum: ai_draft / waiting_review / professionally_reviewed / published
-- `reviewed_by_inbar` boolean, `last_updated` timestamp
-מיגרציית Supabase + עדכון UI ב־`admin.content.tsx` (שדות + פילטרים + badge סטטוס).
+- **Eyebrow**: קו זהב 48px + טקסט uppercase tracking-wide:
+  `"מאסטרקלאס · מצוינות קלינית"` (במקום אנגלית)
+- **H1** (Frank Ruhl Libre, 56-96px):
+  שורה 1: `ענבר פרחי` (bold/ink)
+  שורה 2: `סמכות קלינית לבריאות כף הרגל` (italic, גרדיאנט sage→sage בהיר)
+- **Sub** (Heebo, 20-22px, muted): `מומחית לבריאות כף הרגל, מרצה ומכשירה פדיקוריסטיות לפי הפרוטוקולים הרפואיים המתקדמים בעולם.`
+- **Stats strip** (3 עמודות עם קווי border אופקיים מעל ומתחת):
+  - `12+` · שנות ניסיון קליני
+  - `IWGDF` · פרוטוקול סוכרת
+  - `20+` · בוגרות הכשרה
+- **CTAs**:
+  - ראשי: `הזמיני הרצאה מקצועית` — pill מלא sage, shadow רך sage/20, hover scale 1.02
+  - משני: `קביעת טיפול בקליניקה` — pill outline על רקע לבן, מקושר ל-WhatsApp הקיים
+- **Trust line**: רצועה אופקית דקה ב-opacity-60: `"בשיתוף והשתלמות:"` + טקסט "השתלמות באיכילוב · פרוטוקול IWGDF" (טקסט בלבד, לא לוגואים — אין הסמכה רשמית מאיכילוב, ניסוח זהיר)
 
-## 9. מובייל
-- Hero: H1 → subcopy → CTA → תמונה (סדר נכון)
-- Sticky WhatsApp bar תחתון
-- פונטים: H1 36–40px מובייל, 56–64 דסקטופ
-- בלי overflow, גריד 1 טור עד 768
+## תמונה (col-span-5)
+- שימוש בנכס הקיים `inbarPhoto` מ-`@/assets/inbar-hero-clinic.png` (כבר שקוף-רקע)
+- עטיפה: `rounded-[40px]`, `border-[12px] border-white`, `shadow-2xl`
+- מאחור: blob מעורפל `bg-sage/5 blur-3xl` כהילה
+- **Badge עליון-שמאל** (zהב, pill): `"מרצה ומדריכה"`
+- **Badge תחתון-ימין** (לבן blur, rounded): `150+` גדול + `שעות השתלמות שנתיות` מתחת
+- `alt="ענבר פרחי, פדיקוריסטית טיפולית ומרצה"`
 
-## 10. QA סופי
-מעבר על דסקטופ + מובייל בכל עמוד שינוי, תיקון: דד־זונים, ניגודיות, alt, hierarchy, RTL, שבירת טקסט.
+## מובייל
+- היפוך ל-`order-1` תמונה, `order-2` טקסט
+- H1 יורד ל-40-44px
+- Stats 3 עמודות נשאר (קומפקטי) — אם צפוף נעבור ל-2 עמודות
+- CTAs מלאי-רוחב מוערמים אנכית
+- מסירים את ה-trust line על מובייל (חוסכים אורך) — נשאר רק על md+
 
----
+## אנימציה
+- Hero מופיע עם stagger 80ms: eyebrow → H1 שורה 1 → H1 שורה 2 → sub → stats → CTAs
+- פורטרט: scale מ-1.02 ל-1.00, opacity 0→1, 600ms
+- Hover על CTA ראשי: scale 1.02 + shimmer פנימי לבן 10%
+- שמירה על `prefers-reduced-motion` (השבתה)
 
-### קבצים שיתווספו/יעודכנו
-- `src/styles.css` — טוקנים
-- `src/components/shared/SiteHeader.tsx` — קומפקטי + CTA
-- `src/components/shared/StickyWhatsApp.tsx` — חדש
-- `src/components/home/*` — Hero, ProblemNav, Sterility, RedFlags, ShameFAQ, KnowledgeTeaser, ClosingCTA
-- `src/routes/index.tsx` — הרכבה + מטא + JSON-LD
-- `src/routes/__root.tsx` — JSON-LD מורחב
-- `src/routes/services.$slug.tsx` + `src/lib/services-content.ts` — תוכן מלא ל־6 שירותים + FAQ JSON-LD
-- `src/routes/services.index.tsx` — שיפור צפיפות
-- `src/routes/admin.content.tsx` — שדות חדשים
-- מיגרציית Supabase — עמודות חדשות ל־`ai_articles`
+## SEO
+- H1 יחיד נשמר
+- `alt` עברי לתמונה
+- אין שינוי ב-meta/JSON-LD (אלה מטופלים ברמת ה-Route)
 
-### הערות
-- לא ממציאים ביקורות/תעודות/תוצאות — כל מקום שדורש ראיה יסומן כ־placeholder עם הערה "ממתין לאישור ענבר".
-- שומרים את הראוטינג, האוטופיילוט, מערכת המאמרים והאימייל הקיימים.
+## מה לא נכלל (לפי בקשת המשתמש — Hero בלבד)
+- אין שינוי בסקשנים אחרים (Services, Concerns, Process, FAQ, וכו')
+- אין שינוי ב-Header/Footer/Sticky WhatsApp
+- אין שינוי ב-routes אחרים
+- אין שינוי בלוגיקת backend או admin
+
+## פירוט טכני (לאינג'יניר)
+1. עדכון `src/styles.css`: הוספת `--accent-gold` ב-oklch אם חסר (כ-`oklch(0.73 0.07 70)` בערך, התאמת `#C5A27D`). אם הטוקן כבר קיים בשם אחר (copper?) — שימוש חוזר בו.
+2. עריכת `src/routes/index.tsx` — החלפת הסקשן בין `{/* HERO — boutique therapeutic */}` לסיום ה-`</section>` של ה-hero (שורות ~115-180 בערך) בקומפוננטה חדשה.
+3. שימוש בקלאסים סמנטיים בלבד: `bg-background`, `text-ink`, `bg-sage`, `text-sage`, `border-border`, `text-muted`, `bg-accent-gold` וכו' — אסור hex בקומפוננטה.
+4. שמירה על ה-imports הקיימים, הוספת `Award`/`GraduationCap` אם חסרים (כבר מיובאים).
+5. אי-החלפה של תמונת `inbarPhoto`.
+
+## QA
+- צילום מסך ב-1440 (דסקטופ) וב-390 (מובייל), בדיקה ש:
+  - אין overflow אופקי ב-RTL
+  - ה-H1 לא נשבר מכוער
+  - ה-CTAs קריאים, contrast AA
+  - ה-stats לא מתפרקים
+  - הפורטרט לא נחתך
