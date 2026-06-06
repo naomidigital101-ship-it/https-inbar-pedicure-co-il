@@ -414,6 +414,86 @@ function MasterclassPage() {
           </div>
         </section>
 
+        {/* FUNGAL DEEP DIVE */}
+        <section className="bg-surface-warm py-20 md:py-24">
+          <div className="mx-auto max-w-[1200px] px-5 md:px-8">
+            <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+              <div className="space-y-6 lg:col-span-7">
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-12 bg-copper" aria-hidden />
+                  <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-copper">
+                    תחום הליבה של הקליניקה
+                  </span>
+                </div>
+                <h2 className="display text-3xl text-ink md:text-[2.5rem]">
+                  פטרת ציפורניים —{" "}
+                  <span className="display-italic text-primary-deep">
+                    איפה שרוב הקליניקות נכשלות
+                  </span>
+                </h2>
+                <p className="text-[1.05rem] leading-[1.85] text-ink-soft">
+                  אונכומיקוזיס הוא לא טיפול אחד. זו אבחנה מבדלת בין ארבעה סוגי זיהום,
+                  התמודדות עם עמידות לחומרים, ניהול עומק החדירה לתוך מיטת הציפורן,
+                  וטיפול בחזרתיות שמתרחשת אצל יותר משליש מהמטופלים. רוב הפדיקוריסטיות
+                  והרופאים מציעים פתרונות חלקיים — חומר מקומי, גרידה, או מרשם שלא
+                  מותאם לסוג הזיהום.
+                </p>
+                <p className="text-[1.05rem] leading-[1.85] text-ink-soft">
+                  כאן תלמדי את מה שגרם למאות מטופלים להגיע לקליניקה אחרי שניסו הכל:
+                  פרוטוקול שכבתי, אבחנה מדויקת, ושיקום BIO שהופך ציפורן מנותקת
+                  לתוצאה אסתטית יציבה.
+                </p>
+
+                <div className="grid grid-cols-1 gap-3 border-t border-border pt-6 sm:grid-cols-3">
+                  {FUNGAL_KPIS.map(({ label, value }) => (
+                    <div key={label}>
+                      <div className="font-heading text-2xl font-bold text-primary-deep">
+                        {value}
+                      </div>
+                      <div className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-text-muted">
+                        {label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <aside className="lg:col-span-5">
+                <div className="rounded-[1.75rem] border border-border bg-surface p-7 shadow-[var(--shadow-elegant)] md:p-8">
+                  <div className="mb-5 flex items-center gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-deep text-primary-foreground">
+                      <Layers className="h-5 w-5" aria-hidden strokeWidth={1.6} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-copper">
+                        תוצאות לימוד
+                      </p>
+                      <h3 className="font-heading text-lg font-bold text-ink">
+                        מה תדעי לעשות בסוף המודול
+                      </h3>
+                    </div>
+                  </div>
+                  <ul className="space-y-3">
+                    {FUNGAL_OUTCOMES.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2.5 text-[0.95rem] leading-[1.7] text-ink"
+                      >
+                        <CheckCircle2
+                          className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary-deep"
+                          aria-hidden
+                          strokeWidth={1.8}
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
         {/* INCLUDES */}
         <section className="bg-primary-deep py-20 text-primary-foreground md:py-24">
           <div className="mx-auto max-w-[1200px] px-5 md:px-8">
