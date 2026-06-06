@@ -113,71 +113,58 @@ function Home() {
       <SiteHeader />
       <main id="main-content" className="flex-1">
         {/* HERO — boutique therapeutic */}
-        <section className="relative overflow-hidden">
-          {/* Warm ivory base + soft radial light */}
-          <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_85%_10%,var(--copper-soft)_0%,transparent_55%),radial-gradient(ellipse_90%_70%_at_10%_90%,var(--primary-soft)_0%,transparent_60%),linear-gradient(180deg,var(--surface-warm)_0%,var(--background)_100%)] opacity-90" />
-          {/* Subtle grain */}
-          <div aria-hidden className="absolute inset-0 opacity-[0.18] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.18 0 0 0 0 0.16 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")" }} />
+        <section className="relative bg-background pb-10 md:pb-14">
+          <div className="mx-auto max-w-[1280px] px-4 md:px-6">
+            <div className="overflow-hidden rounded-b-[2rem] md:rounded-b-[2.5rem] bg-surface-warm shadow-[var(--shadow-soft)]">
+              <div className="grid md:grid-cols-2">
+                {/* IMAGE — visual left in RTL */}
+                <div className="order-1">
+                  <img
+                    src={inbarPhoto}
+                    alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}`}
+                    width={760}
+                    height={620}
+                    loading="eager"
+                    className="h-72 w-full object-cover sm:h-96 md:h-full md:min-h-[520px]"
+                  />
+                </div>
 
-          <div className="relative mx-auto grid max-w-[1280px] items-center gap-10 px-6 pb-12 pt-10 md:grid-cols-2 md:gap-16 md:pb-20 md:pt-16">
-            {/* IMAGE — left side in RTL */}
-            <div className="order-1 md:order-1">
-              <div className="relative overflow-hidden rounded-[1.25rem] bg-surface">
-                <img
-                  src={inbarPhoto}
-                  alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}`}
-                  width={720}
-                  height={620}
-                  loading="eager"
-                  className="aspect-[7/6] w-full object-cover"
-                />
-              </div>
-            </div>
+                {/* TEXT — visual right in RTL */}
+                <div className="order-2 flex flex-col justify-center px-7 py-10 sm:px-10 md:px-14 md:py-16">
+                  <h1 className="display font-normal leading-[1.15] text-primary-deep text-[2rem] sm:text-[2.4rem] md:text-[2.7rem] lg:text-[3rem]">
+                    ענבר פרחי -<br />
+                    פדיקוריסטית טיפולית<br />
+                    לטיפול בכף הרגל
+                  </h1>
 
-            {/* TEXT — right side in RTL */}
-            <div className="order-2 md:order-2">
-              <h1 className="display text-[2.2rem] font-normal leading-[1.15] text-primary-deep sm:text-[2.75rem] md:text-[3.1rem] lg:text-[3.4rem]">
-                ענבר פרחי -<br />
-                פדיקוריסטית טיפולית<br />
-                לטיפול בכף הרגל
-              </h1>
+                  <p className="mt-6 max-w-[32rem] text-[1.02rem] leading-[1.85] text-ink-soft">
+                    טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית וסדקים
+                  </p>
 
-              <p className="mt-6 max-w-[34rem] text-[1.05rem] leading-[1.8] text-ink-soft">
-                טיפול עדין, סטרילי ומקצועי ביבלות, פטרת,<br />
-                ציפורן חודרנית וסדקים
-              </p>
-
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                  href={SITE.whatsappUrl}
-                  target="_blank"
-                  rel="noopener"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-[0.95rem] font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-all duration-300 hover:bg-primary-deep"
-                >
-                  <MessageCircle className="h-4 w-4" aria-hidden />
-                  קביעת טיפול בוואטסאפ
-                </a>
-                <a
-                  href={SITE.wazeUrl}
-                  target="_blank"
-                  rel="noopener"
-                  className="inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-transparent px-6 py-3.5 text-[0.95rem] font-semibold text-ink transition-all duration-300 hover:border-primary hover:text-primary-deep"
-                >
-                  <MapPin className="h-4 w-4" aria-hidden />
-                  ניווט לקליניקה
-                </a>
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    <a
+                      href={SITE.whatsappUrl}
+                      target="_blank"
+                      rel="noopener"
+                      className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-[0.95rem] font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-colors duration-300 hover:bg-primary-deep"
+                    >
+                      <MessageCircle className="h-4 w-4" aria-hidden />
+                      קביעת טיפול בוואטסאפ
+                    </a>
+                    <a
+                      href={SITE.wazeUrl}
+                      target="_blank"
+                      rel="noopener"
+                      className="inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-transparent px-6 py-3.5 text-[0.95rem] font-semibold text-ink transition-colors duration-300 hover:border-primary hover:text-primary-deep"
+                    >
+                      <MapPin className="h-4 w-4 text-copper" aria-hidden />
+                      ניווט לקליניקה
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Scroll cue */}
-          <a
-            href="#concerns"
-            aria-label="המשך לסקשן הבא"
-            className="relative mx-auto mb-8 hidden h-10 w-10 items-center justify-center rounded-full border border-copper/30 bg-surface/70 text-copper backdrop-blur-sm transition-colors hover:border-copper hover:text-primary-deep md:flex"
-          >
-            <ChevronDown className="h-4 w-4 animate-bounce" aria-hidden />
-          </a>
         </section>
 
         {/* CONCERNS — מה מטריד אותך בכף הרגל */}
