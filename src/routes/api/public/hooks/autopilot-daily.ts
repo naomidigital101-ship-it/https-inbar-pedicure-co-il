@@ -7,9 +7,9 @@ import {
 import { suggestTopicsCore } from "@/lib/ai-content.server";
 
 const NOTIFY_EMAIL = "naomi.digital101@gmail.com";
-const SENDER_DOMAIN = "notify.lazyrider.org";
-const FROM = `הרוכב העצלן <autopilot@${SENDER_DOMAIN}>`;
-const SITE_BASE = "https://lazyrider.org";
+const SENDER_DOMAIN = "notify.inbar-farchi.lovable.app";
+const FROM = `ענבר פרחי <autopilot@${SENDER_DOMAIN}>`;
+const SITE_BASE = "https://inbar-farchi.lovable.app";
 
 type RunResult = {
   topicTitle: string;
@@ -63,7 +63,7 @@ function renderHtml(opts: {
   <h2 style="font-family:'Frank Ruhl Libre',serif;font-size:20px;margin:24px 0 12px;">מאמרים מהריצה</h2>
   <ul style="list-style:none;padding:0;margin:0;">${items || '<li style="color:#777;">לא נוצרו מאמרים בריצה הזאת.</li>'}</ul>
 
-  <p style="margin-top:32px;color:#888;font-size:12px;text-align:center;">הודעה אוטומטית מהאוטופיילוט של הרוכב העצלן</p>
+  <p style="margin-top:32px;color:#888;font-size:12px;text-align:center;">הודעה אוטומטית מהאוטופיילוט של ענבר פרחי</p>
 </div>
 </body></html>`;
 }

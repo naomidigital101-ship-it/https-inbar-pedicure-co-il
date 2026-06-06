@@ -24,13 +24,13 @@ export const Route = createFileRoute("/article/$slug")({
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "מאמר לא נמצא | הרוכב העצלן" }],
+        meta: [{ title: "מאמר לא נמצא | ענבר פרחי" }],
       };
     }
     const { article } = loaderData;
-    const title = `${article.title} | הרוכב העצלן`;
+    const title = `${article.title} | ענבר פרחי`;
     const description = article.metaDescription ?? article.excerpt;
-    const SITE = "https://lazyrider.org";
+    const SITE = "https://inbar-farchi.lovable.app";
     const path = `/article/${params.slug}`;
     const url = `${SITE}${path}`;
     const heroImageAbs = article.heroImage.startsWith("http")
@@ -78,7 +78,7 @@ export const Route = createFileRoute("/article/$slug")({
       },
       publisher: {
         "@type": "Organization",
-        name: "הרוכב העצלן",
+        name: "ענבר פרחי",
       },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       inLanguage: "he-IL",

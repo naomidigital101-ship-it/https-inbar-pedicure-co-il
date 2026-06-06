@@ -11,7 +11,7 @@ import { getAiArticleBySlugAdmin } from "@/lib/ai-content.functions";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/admin/preview/$slug")({
-  head: () => ({ meta: [{ title: "תצוגה מקדימה | הרוכב העצלן" }, { name: "robots", content: "noindex, nofollow" }] }),
+  head: () => ({ meta: [{ title: "תצוגה מקדימה | ענבר פרחי" }, { name: "robots", content: "noindex, nofollow" }] }),
   component: PreviewPage,
 });
 

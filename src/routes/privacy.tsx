@@ -3,11 +3,11 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 
-const SITE = "https://lazyrider.org";
+const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/privacy`;
-const TITLE = "מדיניות פרטיות | הרוכב העצלן";
+const TITLE = "מדיניות פרטיות | ענבר פרחי";
 const DESCRIPTION =
-  "מדיניות הפרטיות של הרוכב העצלן. איזה מידע נאסף עליכם, מה אנחנו עושים איתו, ואיך אתם יכולים לבקש את הסרתו.";
+  "מדיניות הפרטיות של ענבר פרחי. איזה מידע נאסף עליכם, מה אנחנו עושים איתו, ואיך אתם יכולים לבקש את הסרתו.";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -29,7 +29,7 @@ const sections: { title: string; body: string[] }[] = [
   {
     title: "1. מבוא",
     body: [
-      "אנו באתר הרוכב העצלן מכבדים את פרטיות המשתמשים שלנו. מסמך זה מסביר איזה מידע אנו אוספים, איך אנו משתמשים בו, ואיזה זכויות יש לכם בנוגע למידע שלכם.",
+      "אנו באתר ענבר פרחי מכבדים את פרטיות המשתמשים שלנו. מסמך זה מסביר איזה מידע אנו אוספים, איך אנו משתמשים בו, ואיזה זכויות יש לכם בנוגע למידע שלכם.",
       "המדיניות נכתבה בהתאם לחוק הגנת הפרטיות, התשמא 1981 ולתקנותיו.",
     ],
   },

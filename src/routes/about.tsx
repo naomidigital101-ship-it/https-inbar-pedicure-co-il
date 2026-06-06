@@ -7,12 +7,12 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import heroAsset from "@/assets/inbar-farchi.jpg.asset.json";
 const heroImage = heroAsset.url;
 
-const SITE = "https://lazyrider.org";
+const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/about`;
 const HERO_ABS = `${SITE}${heroImage}`;
-const TITLE = "אודות נעמי | הרוכב העצלן";
+const TITLE = "אודות נעמי | ענבר פרחי";
 const DESCRIPTION =
-  "הסיפור מאחורי הרוכב העצלן. נעמי, רוכבת KTM 250 2T EXC מבנימין, מתרגמת ידע טכני באופנועי שטח לעברית פשוטה שחוסכת כסף וטעויות.";
+  "הסיפור מאחורי ענבר פרחי. נעמי, רוכבת KTM 250 2T EXC מבנימין, מתרגמת ידע טכני באופנועי שטח לעברית פשוטה שחוסכת כסף וטעויות.";
 
 const personSchema = {
   "@context": "https://schema.org",

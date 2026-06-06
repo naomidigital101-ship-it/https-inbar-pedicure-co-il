@@ -3,11 +3,11 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 
-const SITE = "https://lazyrider.org";
+const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/accessibility`;
-const TITLE = "הצהרת נגישות | הרוכב העצלן";
+const TITLE = "הצהרת נגישות | ענבר פרחי";
 const DESCRIPTION =
-  "הצהרת הנגישות של אתר הרוכב העצלן. אמצעי הנגישות שיושמו, רמת ההתאמה לתקן ת״י 5568, ופרטי קשר לדיווח על תקלות נגישות.";
+  "הצהרת הנגישות של אתר ענבר פרחי. אמצעי הנגישות שיושמו, רמת ההתאמה לתקן ת״י 5568, ופרטי קשר לדיווח על תקלות נגישות.";
 
 export const Route = createFileRoute("/accessibility")({
   head: () => ({
@@ -29,7 +29,7 @@ const sections: { title: string; body: string[] }[] = [
   {
     title: "1. המחויבות שלנו לנגישות",
     body: [
-      "אתר הרוכב העצלן רואה בנגישות ערך מרכזי, ומחויב להנגיש את שירותיו ותכניו לכלל המשתמשים, לרבות אנשים עם מוגבלויות.",
+      "אתר ענבר פרחי רואה בנגישות ערך מרכזי, ומחויב להנגיש את שירותיו ותכניו לכלל המשתמשים, לרבות אנשים עם מוגבלויות.",
       "האתר נבנה בהתאם לתקן הישראלי ת״י 5568 ברמת AA, המבוסס על הנחיות הנגישות הבינלאומיות WCAG 2.1.",
     ],
   },

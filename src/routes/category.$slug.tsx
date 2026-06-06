@@ -52,14 +52,14 @@ export const Route = createFileRoute("/category/$slug")({
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
-      return { meta: [{ title: "קטגוריה לא נמצאה | הרוכב העצלן" }] };
+      return { meta: [{ title: "קטגוריה לא נמצאה | ענבר פרחי" }] };
     }
     const { category, pageArticles, currentPage, totalPages } = loaderData;
     const url = `/category/${params.slug}`;
-    const SITE_URL = "https://lazyrider.org";
+    const SITE_URL = "https://inbar-farchi.lovable.app";
     const absUrl = `${SITE_URL}${url}`;
     const pageSuffix = currentPage > 1 ? ` - עמוד ${currentPage}` : "";
-    const title = `${category.name}${pageSuffix} | הרוכב העצלן`;
+    const title = `${category.name}${pageSuffix} | ענבר פרחי`;
     const description = category.description.slice(0, 155);
 
     const collectionSchema = {
@@ -69,7 +69,7 @@ export const Route = createFileRoute("/category/$slug")({
       description,
       url,
       inLanguage: "he-IL",
-      isPartOf: { "@type": "WebSite", name: "הרוכב העצלן", url: `${SITE_URL}/` },
+      isPartOf: { "@type": "WebSite", name: "ענבר פרחי", url: `${SITE_URL}/` },
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: pageArticles.length,

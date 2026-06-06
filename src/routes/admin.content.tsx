@@ -32,7 +32,7 @@ import { getIndexationStatus, submitForIndexing, inspectArticleUrl } from "@/lib
 export const Route = createFileRoute("/admin/content")({
   head: () => ({
     meta: [
-      { title: "ניהול תוכן AI | הרוכב העצלן" },
+      { title: "ניהול תוכן AI | ענבר פרחי" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -1385,7 +1385,7 @@ function IndexationTab() {
           הגש את כל החסרים לאינדוקס
         </button>
         <a
-          href="https://search.google.com/search-console?resource_id=https%3A%2F%2Flazyrider.org%2F"
+          href="https://search.google.com/search-console?resource_id=https%3A%2F%2Finbar-farchi.lovable.app%2F"
           target="_blank"
           rel="noopener noreferrer"
           className="border border-[#c9b8a3] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44] hover:bg-[#ede2d4]"

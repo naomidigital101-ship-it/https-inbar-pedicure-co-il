@@ -4,11 +4,11 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 
-const SITE = "https://lazyrider.org";
+const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/contact`;
-const TITLE = "צור קשר | הרוכב העצלן";
+const TITLE = "צור קשר | ענבר פרחי";
 const DESCRIPTION =
-  "יצירת קשר עם הרוכב העצלן. שאלות על תחזוקה, ציוד, מסלולים או שיתופי פעולה - נשמח לשמוע.";
+  "יצירת קשר עם ענבר פרחי. שאלות על תחזוקה, ציוד, מסלולים או שיתופי פעולה - נשמח לשמוע.";
 
 const contactSchema = {
   "@context": "https://schema.org",

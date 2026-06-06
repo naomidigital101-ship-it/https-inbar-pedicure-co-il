@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
     meta: [
-      { title: "Admin Login | הרוכב העצלן" },
+      { title: "Admin Login | ענבר פרחי" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

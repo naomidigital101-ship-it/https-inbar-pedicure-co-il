@@ -9,7 +9,7 @@ import { checkIsAdmin, getLeads, type LeadRow } from "@/lib/admin.functions";
 export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard | הרוכב העצלן" },
+      { title: "Admin Dashboard | ענבר פרחי" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

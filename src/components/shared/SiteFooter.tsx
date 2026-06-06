@@ -34,7 +34,7 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <section aria-labelledby="footer-brand" className="space-y-4">
             <h2 id="footer-brand" className="text-lg font-black text-[#1d3a35]">
-              הרוכב העצלן
+              ענבר פרחי
             </h2>
             <p className="text-sm leading-relaxed text-[#6b5f55]">
               הפורטל המוביל לרוכבי אופנועי שטח בישראל. מדריכי תחזוקה, ביקורות
@@ -113,7 +113,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-[#b8dcd4] pt-6 text-[11px] font-bold uppercase tracking-widest text-[#6b5f55] md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <span>© {year} הרוכב העצלן</span>
+            <span>© {year} ענבר פרחי</span>
             <span>כל הזכויות שמורות</span>
           </div>
           <nav aria-label="קישורים משפטיים" className="flex flex-wrap gap-x-6 gap-y-2">

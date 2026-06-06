@@ -43,7 +43,7 @@ export const ArticlePayloadSchema = z.object({
     "technique",
     "parts",
   ]),
-  author: z.string().default("הרוכב העצלן"),
+  author: z.string().default("ענבר פרחי"),
   heroAlt: z.string().min(8).max(160),
   heroImagePrompt: z.string().min(20).max(500),
   intro: z.array(z.string().min(20)).min(2).max(5),
@@ -416,7 +416,7 @@ export async function suggestTopicsCore(opts: {
     .map((c) => `- ${c.slug}: ${c.name} — ${c.shortName} (יש ${coverage.get(c.slug) ?? 0} מאמרים)`)
     .join("\n");
 
-  const system = `אתה עורך תוכן ראשי באתר "הרוכב העצלן" — אתר ישראלי על אופנועי שטח/אנדורו.
+  const system = `אתה עורך תוכן ראשי באתר "ענבר פרחי" — אתר ישראלי על אופנועי שטח/אנדורו.
 כל התוכן בעברית RTL. הקהל: רוכבים ישראלים, מתחילים עד מתקדמים.
 הימנע ממקף ארוך (—), מילים פלצניות וסימנים מזהי AI.
 הצע נושאים חדשים ייחודיים שמייצרים ערך אמיתי, עם פוטנציאל SEO גבוה (long-tail keywords ישראליים).
@@ -461,7 +461,7 @@ export async function generateArticleCore(opts: {
 
   const cat = categories.find((c) => c.slug === opts.topic.category_slug);
 
-  const system = `אתה כותב תוכן בכיר באתר "הרוכב העצלן".
+  const system = `אתה כותב תוכן בכיר באתר "ענבר פרחי".
 
 כללי כתיבה מחייבים:
 - עברית RTL, רהוטה, פשוטה, לקהל ישראלי.
@@ -502,7 +502,7 @@ ${linksList}
   "metaDescription": "מטה תיאור 80-160 תווים",
   "category": "${cat?.name ?? ""}",
   "categorySlug": "${opts.topic.category_slug}",
-  "author": "הרוכב העצלן",
+  "author": "ענבר פרחי",
   "heroAlt": "תיאור תמונה ראשית בעברית",
   "heroImagePrompt": "english prompt for AI image generator describing the hero image realistic photography style",
   "intro": ["פסקה 1", "פסקה 2"],
@@ -1455,7 +1455,7 @@ export async function enrichPublishedArticle(opts: {
 
   const existingFaqs = p.faqs.map((f) => `- ${f.q}`).join("\n");
 
-  const system = `אתה עורך תוכן בכיר באתר "הרוכב העצלן". המאמר כבר פורסם. תפקידך לאתר הזדמנויות שיכולות להעלות משמעותית את הערך, החוויה והדירוג. אסור מקף ארוך, אסור סימני AI. עברית טבעית.`;
+  const system = `אתה עורך תוכן בכיר באתר "ענבר פרחי". המאמר כבר פורסם. תפקידך לאתר הזדמנויות שיכולות להעלות משמעותית את הערך, החוויה והדירוג. אסור מקף ארוך, אסור סימני AI. עברית טבעית.`;
 
   const prompt = `המאמר הקיים:
 כותרת: ${p.title}
