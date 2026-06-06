@@ -326,7 +326,7 @@ function Home() {
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
                 <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-surface shadow-[var(--shadow-elegant)] md:h-40 md:w-40">
-                  <img src={inbarPhoto.url} alt="ענבר פרחי" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
+                  <img src={inbarPhoto} alt="ענבר פרחי" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
                 </div>
               </div>
               <div>
@@ -390,7 +390,7 @@ function Home() {
           <div className="mx-auto grid max-w-[1180px] gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <div className="relative">
               <div aria-hidden className="absolute -inset-4 rounded-[2.5rem] bg-copper-soft opacity-50" />
-              <img src={inbarPhoto.url} alt="ענבר פרחי בקליניקה" width={560} height={680} loading="lazy" className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]" />
+              <img src={inbarPhoto} alt="ענבר פרחי בקליניקה" width={560} height={680} loading="lazy" className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]" />
             </div>
             <div>
               <p className="kicker mb-4">נעים מאוד</p>
