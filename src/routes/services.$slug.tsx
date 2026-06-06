@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { SITE } from "@/lib/site-config";
-import { SERVICES_BY_SLUG, SERVICES } from "@/lib/services-content";
+import { SERVICES_BY_SLUG, SERVICES, type ServicePage } from "@/lib/services-content";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -74,7 +74,7 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServicePage() {
-  const { service: s } = Route.useLoaderData();
+  const { service: s } = Route.useLoaderData() as { service: ServicePage };
   const related = SERVICES.filter((x) => x.slug !== s.slug).slice(0, 3);
 
   return (
