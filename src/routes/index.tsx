@@ -8,7 +8,7 @@ import { FlagshipCards } from "@/components/home/FlagshipCards";
 import { TreatmentFinder } from "@/components/home/TreatmentFinder";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
-import inbarPhoto from "@/assets/inbar-hero-clinic.png";
+import inbarPhoto from "@/assets/inbar-hero-editorial.jpg";
 
 const SERVICES = [
   { slug: "corns", icon: Footprints, title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
