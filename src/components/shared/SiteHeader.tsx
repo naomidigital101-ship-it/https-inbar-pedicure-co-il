@@ -61,19 +61,19 @@ export function SiteHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#222] bg-[#0a0a0a]">
+    <header className="sticky top-0 z-50 border-b border-[#d6c5ac] bg-[#fefaf6]">
       <div className="flex items-center justify-between px-8 py-4 text-[11px] uppercase tracking-widest">
         <div className="flex items-center gap-8">
-          <a href="/" className="flex items-center gap-2 text-lg lg:text-xl font-black text-[#f0f0f0]">
+          <a href="/" className="flex items-center gap-2 text-lg lg:text-xl font-black text-[#2a1f1a]">
             <span>הרוכב</span>
-            <span className="text-[#e63000]">העצלן</span>
+            <span className="text-[#8b3a52]">העצלן</span>
           </a>
-          <nav className="hidden items-center gap-6 font-bold text-[#909090] lg:flex" aria-label="ניווט ראשי">
+          <nav className="hidden items-center gap-6 font-bold text-[#6b5f55] lg:flex" aria-label="ניווט ראשי">
             {navLinks.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="transition-colors hover:text-[#f0f0f0]"
+                className="transition-colors hover:text-[#2a1f1a]"
               >
                 {l.label}
               </a>
@@ -85,7 +85,7 @@ export function SiteHeader() {
             >
               <button
                 type="button"
-                className="flex items-center gap-1 transition-colors hover:text-[#f0f0f0]"
+                className="flex items-center gap-1 transition-colors hover:text-[#2a1f1a]"
                 aria-haspopup="true"
                 aria-expanded={megaOpen}
                 onClick={() => setMegaOpen((v) => !v)}
@@ -100,14 +100,14 @@ export function SiteHeader() {
                   onMouseEnter={openMega}
                   onMouseLeave={scheduleCloseMega}
                 >
-                  <div className="border border-[#222] bg-[#0a0a0a] p-4 shadow-2xl">
-                  <div className="mb-3 flex items-center justify-between border-b border-[#222] pb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#e63000]">
+                  <div className="border border-[#d6c5ac] bg-[#fefaf6] p-4 shadow-2xl">
+                  <div className="mb-3 flex items-center justify-between border-b border-[#d6c5ac] pb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#8b3a52]">
                       // CATALOG
                     </span>
                     <a
                       href="/products"
-                      className="text-[10px] font-bold uppercase tracking-widest text-[#f0f0f0] hover:text-[#e63000]"
+                      className="text-[10px] font-bold uppercase tracking-widest text-[#2a1f1a] hover:text-[#8b3a52]"
                     >
                       לכל הקטגוריות ←
                     </a>
@@ -117,10 +117,10 @@ export function SiteHeader() {
                       <a
                         key={c.href}
                         href={c.href}
-                        className="group flex flex-col gap-2 border border-[#222] bg-[#111] p-3 transition-colors hover:border-[#e63000] hover:bg-[#181818]"
+                        className="group flex flex-col gap-2 border border-[#d6c5ac] bg-[#f5ede4] p-3 transition-colors hover:border-[#8b3a52] hover:bg-[#e8dccc]"
                         role="menuitem"
                       >
-                        <div className="aspect-[4/3] overflow-hidden bg-[#0a0a0a]">
+                        <div className="aspect-[4/3] overflow-hidden bg-[#fefaf6]">
                           {c.image && (
                             <img
                               src={c.image}
@@ -131,17 +131,17 @@ export function SiteHeader() {
                           )}
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-[9px] font-bold uppercase tracking-widest text-[#e63000]">
+                          <span className="text-[9px] font-bold uppercase tracking-widest text-[#8b3a52]">
                             [ {c.code} ]
                           </span>
-                          <span className="text-[9px] font-bold uppercase tracking-widest text-[#909090]">
+                          <span className="text-[9px] font-bold uppercase tracking-widest text-[#6b5f55]">
                             {c.count} פריטים
                           </span>
                         </div>
-                        <h3 className="text-sm font-black text-[#f0f0f0] group-hover:text-[#e63000]">
+                        <h3 className="text-sm font-black text-[#2a1f1a] group-hover:text-[#8b3a52]">
                           {c.label}
                         </h3>
-                        <p className="text-[11px] font-bold leading-relaxed text-[#909090]">
+                        <p className="text-[11px] font-bold leading-relaxed text-[#6b5f55]">
                           {c.desc}
                         </p>
                       </a>
@@ -167,9 +167,9 @@ export function SiteHeader() {
             onClick={() => setOpen((v) => !v)}
           >
             {open ? (
-              <X className="h-5 w-5 text-[#f0f0f0]" aria-hidden="true" />
+              <X className="h-5 w-5 text-[#2a1f1a]" aria-hidden="true" />
             ) : (
-              <Menu className="h-5 w-5 text-[#f0f0f0]" aria-hidden="true" />
+              <Menu className="h-5 w-5 text-[#2a1f1a]" aria-hidden="true" />
             )}
           </button>
         </div>
@@ -178,10 +178,10 @@ export function SiteHeader() {
       {open && (
         <nav
           id="mobile-nav"
-          className="border-t border-[#222] bg-[#0a0a0a] lg:hidden"
+          className="border-t border-[#d6c5ac] bg-[#fefaf6] lg:hidden"
           aria-label="ניווט במובייל"
         >
-          <div className="border-b border-[#1a1a1a] px-4 py-3">
+          <div className="border-b border-[#ede2d4] px-4 py-3">
             <SiteSearch variant="mobile" />
           </div>
           {navLinks.map((l) => (
@@ -189,12 +189,12 @@ export function SiteHeader() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block border-b border-[#1a1a1a] px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-[#909090]"
+              className="block border-b border-[#ede2d4] px-8 py-4 text-[11px] font-bold uppercase tracking-widest text-[#6b5f55]"
             >
               {l.label}
             </a>
           ))}
-          <div className="border-b border-[#1a1a1a] px-8 py-3 text-[10px] font-bold uppercase tracking-widest text-[#e63000]">
+          <div className="border-b border-[#ede2d4] px-8 py-3 text-[10px] font-bold uppercase tracking-widest text-[#8b3a52]">
             // מוצרים
           </div>
           {productCats.map((c) => (
@@ -202,7 +202,7 @@ export function SiteHeader() {
               key={c.href}
               href={c.href}
               onClick={() => setOpen(false)}
-              className="flex items-center gap-3 border-b border-[#1a1a1a] px-8 py-3"
+              className="flex items-center gap-3 border-b border-[#ede2d4] px-8 py-3"
             >
               {c.image && (
                 <img
@@ -213,10 +213,10 @@ export function SiteHeader() {
                 />
               )}
               <div className="flex flex-col">
-                <span className="text-[12px] font-black uppercase tracking-widest text-[#f0f0f0]">
+                <span className="text-[12px] font-black uppercase tracking-widest text-[#2a1f1a]">
                   {c.label}
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#909090]">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#6b5f55]">
                   {c.count} פריטים
                 </span>
               </div>

@@ -79,25 +79,25 @@ function AdminContent() {
 
   if (!ready) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0a]">
-        <p className="text-sm font-bold text-[#a0a0a0]">בודק הרשאות...</p>
+      <div className="flex min-h-screen items-center justify-center bg-[#fefaf6]">
+        <p className="text-sm font-bold text-[#6b5f55]">בודק הרשאות...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]" dir="rtl">
-      <header className="border-b border-[#222] bg-[#111]">
+    <div className="min-h-screen bg-[#fefaf6]" dir="rtl">
+      <header className="border-b border-[#d6c5ac] bg-[#f5ede4]">
         <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
           <div className="flex items-center gap-4">
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
               [ AI // CONTENT ]
             </span>
-            <h1 className="text-lg font-black text-[#f0f0f0]">ניהול תוכן AI</h1>
+            <h1 className="text-lg font-black text-[#2a1f1a]">ניהול תוכן AI</h1>
           </div>
           <Link
             to="/admin"
-            className="text-xs font-bold uppercase tracking-wider text-[#999] hover:text-[#e63000]"
+            className="text-xs font-bold uppercase tracking-wider text-[#5a4f48] hover:text-[#8b3a52]"
           >
             ← חזרה לפאנל ראשי
           </Link>
@@ -105,37 +105,37 @@ function AdminContent() {
         <div className="mx-auto flex max-w-[1400px] flex-wrap gap-2 px-4 py-4 md:px-8">
           <button
             onClick={() => scrollToSection("dashboard-section")}
-            className="border border-[#222] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#ccc] transition-colors hover:border-[#e63000] hover:text-[#f0f0f0]"
+            className="border border-[#d6c5ac] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#3a2f28] transition-colors hover:border-[#8b3a52] hover:text-[#2a1f1a]"
           >
             לוח בקרה
           </button>
           <button
             onClick={() => scrollToSection("topics-section")}
-            className="border border-[#222] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#ccc] transition-colors hover:border-[#e63000] hover:text-[#f0f0f0]"
+            className="border border-[#d6c5ac] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#3a2f28] transition-colors hover:border-[#8b3a52] hover:text-[#2a1f1a]"
           >
             נושאים
           </button>
           <button
             onClick={() => scrollToSection("articles-section")}
-            className="border border-[#222] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#ccc] transition-colors hover:border-[#e63000] hover:text-[#f0f0f0]"
+            className="border border-[#d6c5ac] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#3a2f28] transition-colors hover:border-[#8b3a52] hover:text-[#2a1f1a]"
           >
             מאמרים
           </button>
           <button
             onClick={() => scrollToSection("indexation-section")}
-            className="border border-[#222] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#ccc] transition-colors hover:border-[#e63000] hover:text-[#f0f0f0]"
+            className="border border-[#d6c5ac] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#3a2f28] transition-colors hover:border-[#8b3a52] hover:text-[#2a1f1a]"
           >
             אינדוקס Google
           </button>
           <button
             onClick={() => scrollToSection("settings-section")}
-            className="border border-[#222] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#ccc] transition-colors hover:border-[#e63000] hover:text-[#f0f0f0]"
+            className="border border-[#d6c5ac] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#3a2f28] transition-colors hover:border-[#8b3a52] hover:text-[#2a1f1a]"
           >
             הגדרות
           </button>
           <button
             onClick={() => scrollToSection("autopilot-history-section")}
-            className="border border-[#222] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#ccc] transition-colors hover:border-[#e63000] hover:text-[#f0f0f0]"
+            className="border border-[#d6c5ac] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#3a2f28] transition-colors hover:border-[#8b3a52] hover:text-[#2a1f1a]"
           >
             היסטוריית אוטופיילוט
           </button>
@@ -170,7 +170,7 @@ function DashboardTab() {
   const fn = useServerFn(dashboardStats);
   const q = useQuery({ queryKey: ["ai", "stats"], queryFn: () => fn() });
 
-  if (q.isLoading) return <p className="text-sm text-[#999]">טוען...</p>;
+  if (q.isLoading) return <p className="text-sm text-[#5a4f48]">טוען...</p>;
   const a = q.data?.articles ?? {};
   const t = q.data?.topics ?? {};
   const cards = [
@@ -186,11 +186,11 @@ function DashboardTab() {
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
       {cards.map((c) => (
-        <div key={c.label} className="border border-[#222] bg-[#111] p-4">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[#909090]">
+        <div key={c.label} className="border border-[#d6c5ac] bg-[#f5ede4] p-4">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
             {c.label}
           </p>
-          <p className="mt-1 text-3xl font-black text-[#f0f0f0]">{c.value}</p>
+          <p className="mt-1 text-3xl font-black text-[#2a1f1a]">{c.value}</p>
         </div>
       ))}
     </div>
@@ -580,43 +580,43 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
   return (
     <div>
       {/* ===== AUTOPILOT — top, prominent ===== */}
-      <div className="mb-6 border-2 border-[#e63000] bg-gradient-to-br from-[#1a0a06] to-[#0a0a0a] p-6 shadow-[0_0_40px_rgba(230,48,0,0.15)]">
+      <div className="mb-6 border-2 border-[#8b3a52] bg-gradient-to-br from-[#1a0a06] to-[#fefaf6] p-6 shadow-[0_0_40px_rgba(230,48,0,0.15)]">
         <div className="mb-3 flex items-center justify-between">
-          <div className="text-[11px] font-black uppercase tracking-[0.3em] text-[#e63000]">
+          <div className="text-[11px] font-black uppercase tracking-[0.3em] text-[#8b3a52]">
             🚀 [ AUTOPILOT — הפעלה אחת, כל התהליך ]
           </div>
         </div>
-        <p className="mb-3 text-base font-bold leading-relaxed text-[#f0f0f0]">
+        <p className="mb-3 text-base font-bold leading-relaxed text-[#2a1f1a]">
           לחיצה אחת מריצה את כל השלבים אוטומטית, אחד אחרי השני:
         </p>
-        <ol className="mb-4 grid grid-cols-1 gap-2 text-sm text-[#ccc] md:grid-cols-5">
-          <li className="border border-[#333] bg-[#0a0a0a] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#e63000]">שלב 1</div>
-            <div className="font-bold text-[#f0f0f0]">💡 הצעת נושאים</div>
-            <div className="text-xs text-[#999]">AI מציע נושאים חדשים</div>
+        <ol className="mb-4 grid grid-cols-1 gap-2 text-sm text-[#3a2f28] md:grid-cols-5">
+          <li className="border border-[#c9b8a3] bg-[#fefaf6] px-3 py-2">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#8b3a52]">שלב 1</div>
+            <div className="font-bold text-[#2a1f1a]">💡 הצעת נושאים</div>
+            <div className="text-xs text-[#5a4f48]">AI מציע נושאים חדשים</div>
           </li>
-          <li className="border border-[#333] bg-[#0a0a0a] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#e63000]">שלב 2</div>
-            <div className="font-bold text-[#f0f0f0]">✍️ כתיבת מאמרים</div>
-            <div className="text-xs text-[#999]">כל נושא בתור הופך למאמר מלא</div>
+          <li className="border border-[#c9b8a3] bg-[#fefaf6] px-3 py-2">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#8b3a52]">שלב 2</div>
+            <div className="font-bold text-[#2a1f1a]">✍️ כתיבת מאמרים</div>
+            <div className="text-xs text-[#5a4f48]">כל נושא בתור הופך למאמר מלא</div>
           </li>
-          <li className="border border-[#333] bg-[#0a0a0a] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#e63000]">שלב 3</div>
-            <div className="font-bold text-[#f0f0f0]">📢 פרסום</div>
-            <div className="text-xs text-[#999]">כל המאמרים מתפרסמים מיד</div>
+          <li className="border border-[#c9b8a3] bg-[#fefaf6] px-3 py-2">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#8b3a52]">שלב 3</div>
+            <div className="font-bold text-[#2a1f1a]">📢 פרסום</div>
+            <div className="text-xs text-[#5a4f48]">כל המאמרים מתפרסמים מיד</div>
           </li>
-          <li className="border border-[#333] bg-[#0a0a0a] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#e63000]">שלב 4</div>
-            <div className="font-bold text-[#f0f0f0]">🔬 אימות עובדות</div>
-            <div className="text-xs text-[#999]">בדיקה מול מקורות סמכותיים</div>
+          <li className="border border-[#c9b8a3] bg-[#fefaf6] px-3 py-2">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#8b3a52]">שלב 4</div>
+            <div className="font-bold text-[#2a1f1a]">🔬 אימות עובדות</div>
+            <div className="text-xs text-[#5a4f48]">בדיקה מול מקורות סמכותיים</div>
           </li>
-          <li className="border border-[#333] bg-[#0a0a0a] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#e63000]">שלב 5</div>
-            <div className="font-bold text-[#f0f0f0]">🔍 QA והעשרה</div>
-            <div className="text-xs text-[#999]">תיקונים, תמונות, וידאו, FAQ</div>
+          <li className="border border-[#c9b8a3] bg-[#fefaf6] px-3 py-2">
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#8b3a52]">שלב 5</div>
+            <div className="font-bold text-[#2a1f1a]">🔍 QA והעשרה</div>
+            <div className="text-xs text-[#5a4f48]">תיקונים, תמונות, וידאו, FAQ</div>
           </li>
         </ol>
-        <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-[#ccc]">
+        <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-[#3a2f28]">
           <label className="flex items-center gap-2">
             הצע
             <input
@@ -625,11 +625,11 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
               max={20}
               value={bulkSuggest}
               onChange={(e) => setBulkSuggest(Number(e.target.value))}
-              className="w-16 border border-[#333] bg-[#0a0a0a] px-2 py-1 text-center font-bold text-[#f0f0f0]"
+              className="w-16 border border-[#c9b8a3] bg-[#fefaf6] px-2 py-1 text-center font-bold text-[#2a1f1a]"
             />
             נושאים חדשים
           </label>
-          <span className="text-[#666]">→ ואז יכתוב את <strong className="text-[#f0f0f0]">כל</strong> הנושאים בתור</span>
+          <span className="text-[#7a6e65]">→ ואז יכתוב את <strong className="text-[#2a1f1a]">כל</strong> הנושאים בתור</span>
         </div>
         <button
           onClick={() => {
@@ -639,23 +639,23 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
             autopilot.mutate();
           }}
           disabled={autopilot.isPending}
-          className="w-full bg-[#e63000] px-8 py-4 text-base font-black uppercase tracking-widest text-[#0a0a0a] hover:bg-[#ff3a00] disabled:opacity-60"
+          className="w-full bg-[#8b3a52] px-8 py-4 text-base font-black uppercase tracking-widest text-[#fefaf6] hover:bg-[#ff3a00] disabled:opacity-60"
         >
           {autopilot.isPending ? "⏳ מריץ אוטופיילוט... אל תסגור את הדף" : "🚀 הפעל אוטופיילוט מלא"}
         </button>
         {apProgress && (
-          <div className="mt-4 border border-[#e63000] bg-[#0a0a0a] p-4">
+          <div className="mt-4 border border-[#8b3a52] bg-[#fefaf6] p-4">
             <div className="mb-2 flex items-center justify-between">
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
                 שלב {apProgress.step}/5 — {apProgress.label}
               </div>
-              <div className="text-xs font-bold text-[#f0f0f0]">
+              <div className="text-xs font-bold text-[#2a1f1a]">
                 {apProgress.current}{apProgress.total > 0 ? ` / ${apProgress.total}` : ""}
               </div>
             </div>
-            <div className="mb-2 h-2 w-full overflow-hidden bg-[#222]">
+            <div className="mb-2 h-2 w-full overflow-hidden bg-[#d6c5ac]">
               <div
-                className="h-full bg-[#e63000] transition-all duration-300"
+                className="h-full bg-[#8b3a52] transition-all duration-300"
                 style={{
                   width: `${apProgress.total > 0 ? Math.min(100, Math.round((apProgress.current / apProgress.total) * 100)) : ((apProgress.step - 1) / 5) * 100}%`,
                 }}
@@ -665,17 +665,17 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
               {[1, 2, 3, 4, 5].map((s) => (
                 <div
                   key={s}
-                  className={`h-1 ${s < apProgress.step ? "bg-[#e63000]" : s === apProgress.step ? "bg-[#ff3a00]" : "bg-[#222]"}`}
+                  className={`h-1 ${s < apProgress.step ? "bg-[#8b3a52]" : s === apProgress.step ? "bg-[#ff3a00]" : "bg-[#d6c5ac]"}`}
                 />
               ))}
             </div>
-            <div className="text-xs text-[#ccc]">{apProgress.detail}</div>
+            <div className="text-xs text-[#3a2f28]">{apProgress.detail}</div>
             {apProgress.log.length > 0 && (
               <details className="mt-2">
-                <summary className="cursor-pointer text-[10px] font-bold uppercase tracking-wider text-[#999] hover:text-[#f0f0f0]">
+                <summary className="cursor-pointer text-[10px] font-bold uppercase tracking-wider text-[#5a4f48] hover:text-[#2a1f1a]">
                   יומן ריצה ({apProgress.log.length})
                 </summary>
-                <div className="mt-2 max-h-40 overflow-y-auto border border-[#222] bg-[#000] p-2 font-mono text-[10px] text-[#999]">
+                <div className="mt-2 max-h-40 overflow-y-auto border border-[#d6c5ac] bg-[#000] p-2 font-mono text-[10px] text-[#5a4f48]">
                   {apProgress.log.map((line, i) => (
                     <div key={i}>{line}</div>
                   ))}
@@ -687,8 +687,8 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       </div>
 
       {/* ===== Manual controls — separate, secondary ===== */}
-      <div className="mb-4 border border-[#222] bg-[#0a0a0a] p-4">
-        <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#999]">
+      <div className="mb-4 border border-[#d6c5ac] bg-[#fefaf6] p-4">
+        <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#5a4f48]">
           [ שליטה ידנית — שלב בודד ]
         </div>
         <div className="flex flex-wrap gap-2">
@@ -699,7 +699,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
             generateAll.mutate();
           }}
           disabled={generateAll.isPending}
-          className="bg-[#4a6fff] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#0a0a0a] hover:bg-[#6a8fff] disabled:opacity-60"
+          className="bg-[#4a6fff] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fefaf6] hover:bg-[#6a8fff] disabled:opacity-60"
         >
           {generateAll.isPending ? "כותב..." : "✍️ כתוב את כל הנושאים"}
         </button>
@@ -709,7 +709,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
             publishAll.mutate();
           }}
           disabled={publishAll.isPending}
-          className="bg-[#0a8a3a] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#0a0a0a] hover:bg-[#0aa84a] disabled:opacity-60"
+          className="bg-[#0a8a3a] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fefaf6] hover:bg-[#0aa84a] disabled:opacity-60"
         >
           {publishAll.isPending ? "מפרסם..." : "📢 פרסם הכל מיד"}
         </button>
@@ -719,7 +719,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
             factCheck.mutate();
           }}
           disabled={factCheck.isPending}
-          className="bg-[#c98a00] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#0a0a0a] hover:bg-[#e6a000] disabled:opacity-60"
+          className="bg-[#c98a00] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fefaf6] hover:bg-[#e6a000] disabled:opacity-60"
         >
           {factCheck.isPending ? "מאמת..." : "🔬 אימות עובדות"}
         </button>
@@ -729,34 +729,34 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
             postQa.mutate();
           }}
           disabled={postQa.isPending}
-          className="border border-[#e63000] bg-transparent px-4 py-2 text-xs font-black uppercase tracking-wider text-[#e63000] hover:bg-[#e63000] hover:text-[#0a0a0a] disabled:opacity-60"
+          className="border border-[#8b3a52] bg-transparent px-4 py-2 text-xs font-black uppercase tracking-wider text-[#8b3a52] hover:bg-[#8b3a52] hover:text-[#fefaf6] disabled:opacity-60"
         >
           {postQa.isPending ? "מריץ QA..." : "🔍 QA על מפורסמים"}
         </button>
         </div>
         {qaProgress && (
-          <div className="mt-4 border border-[#e63000] bg-[#150505] p-3">
+          <div className="mt-4 border border-[#8b3a52] bg-[#150505] p-3">
             <div className="mb-2 flex items-center justify-between">
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
                 [ QA על מפורסמים — בתהליך ]
               </div>
-              <div className="text-xs font-bold text-[#ccc]">
+              <div className="text-xs font-bold text-[#3a2f28]">
                 {qaProgress.current}{qaProgress.total > 0 ? ` / ${qaProgress.total}` : ""}
               </div>
             </div>
-            <div className="mb-2 h-2 w-full bg-[#222]">
+            <div className="mb-2 h-2 w-full bg-[#d6c5ac]">
               <div
-                className="h-full bg-[#e63000] transition-all"
+                className="h-full bg-[#8b3a52] transition-all"
                 style={{ width: `${qaProgress.total > 0 ? Math.min(100, Math.round((qaProgress.current / qaProgress.total) * 100)) : 0}%` }}
               />
             </div>
             <div className="mb-2 truncate text-xs text-[#ffaa88]">
               ▶ {qaProgress.currentSlug}
             </div>
-            <div className="flex flex-wrap gap-3 text-xs text-[#ccc]">
+            <div className="flex flex-wrap gap-3 text-xs text-[#3a2f28]">
               <span>נסרקו: <b className="text-[#fff]">{qaProgress.scanned}</b></span>
               <span>עברו: <b className="text-[#0aa84a]">{qaProgress.passed}</b></span>
-              <span>נכשלו: <b className="text-[#e63000]">{qaProgress.failed}</b></span>
+              <span>נכשלו: <b className="text-[#8b3a52]">{qaProgress.failed}</b></span>
               <span>תוקנו: <b className="text-[#c98a00]">{qaProgress.fixed}</b></span>
             </div>
             {qaProgress.log.length > 0 && (
@@ -764,7 +764,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                 <summary className="cursor-pointer text-[10px] font-bold uppercase tracking-widest text-[#888]">
                   יומן ({qaProgress.log.length})
                 </summary>
-                <div className="mt-2 max-h-40 overflow-y-auto bg-[#0a0a0a] p-2 font-mono text-[10px] text-[#aaa]">
+                <div className="mt-2 max-h-40 overflow-y-auto bg-[#fefaf6] p-2 font-mono text-[10px] text-[#aaa]">
                   {qaProgress.log.slice().reverse().map((line, i) => (
                     <div key={i}>{line}</div>
                   ))}
@@ -776,20 +776,20 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       </div>
 
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm font-bold text-[#ccc]">
+        <p className="text-sm font-bold text-[#3a2f28]">
           {q.data?.length ?? 0} נושאים בתור
         </p>
         <button
           onClick={() => suggest.mutate()}
           disabled={suggest.isPending}
-          className="bg-[#e63000] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#0a0a0a] hover:bg-[#ff3a00] disabled:opacity-60"
+          className="bg-[#8b3a52] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fefaf6] hover:bg-[#ff3a00] disabled:opacity-60"
         >
           {suggest.isPending ? "מציע..." : "הצע 5 נושאים חדשים"}
         </button>
       </div>
-      <div className="overflow-x-auto border border-[#222]">
+      <div className="overflow-x-auto border border-[#d6c5ac]">
         <table className="w-full text-right">
-          <thead className="bg-[#111] text-[10px] font-black uppercase tracking-wider text-[#999]">
+          <thead className="bg-[#f5ede4] text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
             <tr>
               <th className="px-3 py-2">כותרת</th>
               <th className="px-3 py-2">קטגוריה</th>
@@ -800,11 +800,11 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
           </thead>
           <tbody>
             {(q.data ?? []).map((t) => (
-              <tr key={t.id} className="border-t border-[#222] text-sm text-[#ccc]">
+              <tr key={t.id} className="border-t border-[#d6c5ac] text-sm text-[#3a2f28]">
                 <td className="px-3 py-2">{t.title}</td>
-                <td className="px-3 py-2 text-[#909090]">{t.category_slug}</td>
-                <td className="px-3 py-2 text-[#909090]">{t.score}</td>
-                <td className="px-3 py-2 text-[#909090]">{t.status}</td>
+                <td className="px-3 py-2 text-[#6b5f55]">{t.category_slug}</td>
+                <td className="px-3 py-2 text-[#6b5f55]">{t.score}</td>
+                <td className="px-3 py-2 text-[#6b5f55]">{t.status}</td>
                 <td className="px-3 py-2">
                   <div className="flex flex-wrap gap-2">
                     {t.status === "pending" && (
@@ -821,7 +821,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                           onClick={() =>
                             updateStatus.mutate({ id: t.id, status: "rejected" })
                           }
-                          className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#999]"
+                          className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#5a4f48]"
                         >
                           דחה
                         </button>
@@ -830,7 +830,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                             if (!confirm("למחוק את הנושא?")) return;
                             deleteTopicM.mutate(t.id);
                           }}
-                          className="border border-[#7a1a1a] px-2 py-1 text-[10px] font-bold uppercase text-[#e63000]"
+                          className="border border-[#7a1a1a] px-2 py-1 text-[10px] font-bold uppercase text-[#8b3a52]"
                         >
                           מחק
                         </button>
@@ -840,7 +840,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                       <button
                         onClick={() => generate.mutate(t.id)}
                         disabled={generate.isPending}
-                        className="bg-[#e63000] px-2 py-1 text-[10px] font-bold uppercase text-[#0a0a0a] disabled:opacity-60"
+                        className="bg-[#8b3a52] px-2 py-1 text-[10px] font-bold uppercase text-[#fefaf6] disabled:opacity-60"
                       >
                         {generate.isPending ? "מייצר..." : "צור מאמר"}
                       </button>
@@ -915,20 +915,20 @@ function DetailDialog({
       aria-modal="true"
     >
       <div
-        className="max-h-[85vh] w-full max-w-3xl overflow-y-auto border-2 border-[#e63000] bg-[#0a0a0a] p-6"
+        className="max-h-[85vh] w-full max-w-3xl overflow-y-auto border-2 border-[#8b3a52] bg-[#fefaf6] p-6"
         onClick={(e) => e.stopPropagation()}
         dir="rtl"
       >
-        <div className="mb-4 flex items-start justify-between gap-4 border-b border-[#222] pb-3">
+        <div className="mb-4 flex items-start justify-between gap-4 border-b border-[#d6c5ac] pb-3">
           <div>
-            <div className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+            <div className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
               {detail.kind === "fact" ? "[ אימות עובדות — פירוט מלא ]" : "[ דוח QA — פירוט מלא ]"}
             </div>
-            <h3 className="mt-1 text-lg font-black text-[#f0f0f0]">{detail.title}</h3>
+            <h3 className="mt-1 text-lg font-black text-[#2a1f1a]">{detail.title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="border border-[#444] px-3 py-1 text-xs font-black uppercase text-[#ccc] hover:border-[#e63000] hover:text-[#e63000]"
+            className="border border-[#444] px-3 py-1 text-xs font-black uppercase text-[#3a2f28] hover:border-[#8b3a52] hover:text-[#8b3a52]"
             aria-label="סגור"
           >
             סגור ✕
@@ -948,14 +948,14 @@ function DetailDialog({
 function FactDetail({ report }: { report: FactCheckReport }) {
   const corrections = report.corrections ?? [];
   return (
-    <div className="space-y-4 text-sm text-[#ccc]">
+    <div className="space-y-4 text-sm text-[#3a2f28]">
       <div className="grid grid-cols-3 gap-3">
         <Stat label="טענות שנבדקו" value={report.claims_reviewed ?? 0} />
         <Stat label="תיקונים שהוצעו" value={report.corrections_proposed ?? 0} />
         <Stat label="תיקונים שיושמו" value={report.corrections_applied ?? 0} />
       </div>
       {report.checked_at && (
-        <p className="text-xs text-[#999]">
+        <p className="text-xs text-[#5a4f48]">
           נבדק: {new Date(report.checked_at).toLocaleString("he-IL")}
           {report.model ? ` · מודל: ${report.model}` : ""}
         </p>
@@ -978,31 +978,31 @@ function FactDetail({ report }: { report: FactCheckReport }) {
               <div className="mb-2 flex items-center justify-between gap-2">
                 <span
                   className={`px-2 py-0.5 text-[10px] font-black uppercase ${
-                    c.applied ? "bg-[#0a8a3a] text-[#0a0a0a]" : "bg-[#c98a00] text-[#0a0a0a]"
+                    c.applied ? "bg-[#0a8a3a] text-[#fefaf6]" : "bg-[#c98a00] text-[#fefaf6]"
                   }`}
                 >
                   {c.applied ? "✓ תוקן" : "⚠️ הוצע ולא יושם"}
                 </span>
                 {c.confidence && (
-                  <span className="text-[10px] text-[#999]">ביטחון: {c.confidence}</span>
+                  <span className="text-[10px] text-[#5a4f48]">ביטחון: {c.confidence}</span>
                 )}
               </div>
               <div className="space-y-1.5 text-xs leading-relaxed">
                 <div>
-                  <span className="font-black text-[#e63000]">לפני: </span>
+                  <span className="font-black text-[#8b3a52]">לפני: </span>
                   <span className="text-[#f0a0a0] line-through">{c.original}</span>
                 </div>
                 <div>
                   <span className="font-black text-[#0a8a3a]">אחרי: </span>
                   <span className="text-[#a0e8b0]">{c.corrected}</span>
                 </div>
-                <div className="border-t border-[#222] pt-1.5">
-                  <span className="font-black text-[#ccc]">מה היה לא בסדר: </span>
-                  <span className="text-[#999]">{c.whatWasWrong}</span>
+                <div className="border-t border-[#d6c5ac] pt-1.5">
+                  <span className="font-black text-[#3a2f28]">מה היה לא בסדר: </span>
+                  <span className="text-[#5a4f48]">{c.whatWasWrong}</span>
                 </div>
                 <div>
-                  <span className="font-black text-[#ccc]">מקור: </span>
-                  <span className="text-[#999]" dir="ltr">{c.source}</span>
+                  <span className="font-black text-[#3a2f28]">מקור: </span>
+                  <span className="text-[#5a4f48]" dir="ltr">{c.source}</span>
                 </div>
               </div>
             </li>
@@ -1018,7 +1018,7 @@ function QaDetail({ report, attempts }: { report: QaReport; attempts: number }) 
   const errors = issues.filter((i) => i.severity === "error");
   const warns = issues.filter((i) => i.severity === "warn");
   return (
-    <div className="space-y-4 text-sm text-[#ccc]">
+    <div className="space-y-4 text-sm text-[#3a2f28]">
       <div className="grid grid-cols-3 gap-3">
         <Stat label="ניסיונות QA" value={attempts} />
         <Stat label="שגיאות" value={errors.length} />
@@ -1032,7 +1032,7 @@ function QaDetail({ report, attempts }: { report: QaReport; attempts: number }) 
         {report.passed ? "✓ המאמר עבר את כל בדיקות ה-QA" : "✗ המאמר לא עבר את כל בדיקות ה-QA"}
       </div>
       {issues.length === 0 ? (
-        <p className="text-xs text-[#999]">לא נמצאו בעיות.</p>
+        <p className="text-xs text-[#5a4f48]">לא נמצאו בעיות.</p>
       ) : (
         <ul className="space-y-2">
           {issues.map((it, i) => (
@@ -1040,7 +1040,7 @@ function QaDetail({ report, attempts }: { report: QaReport; attempts: number }) 
               key={i}
               className={`border-r-4 p-3 ${
                 it.severity === "error"
-                  ? "border-r-[#e63000] bg-[#1a0806]"
+                  ? "border-r-[#8b3a52] bg-[#1a0806]"
                   : "border-r-[#c98a00] bg-[#1a1408]"
               }`}
             >
@@ -1048,17 +1048,17 @@ function QaDetail({ report, attempts }: { report: QaReport; attempts: number }) 
                 <span
                   className={`px-2 py-0.5 text-[10px] font-black uppercase ${
                     it.severity === "error"
-                      ? "bg-[#e63000] text-[#0a0a0a]"
-                      : "bg-[#c98a00] text-[#0a0a0a]"
+                      ? "bg-[#8b3a52] text-[#fefaf6]"
+                      : "bg-[#c98a00] text-[#fefaf6]"
                   }`}
                 >
                   {it.severity === "error" ? "שגיאה" : "אזהרה"}
                 </span>
-                <span className="text-[10px] uppercase tracking-wider text-[#999]">
+                <span className="text-[10px] uppercase tracking-wider text-[#5a4f48]">
                   {it.category}
                 </span>
               </div>
-              <p className="text-xs leading-relaxed text-[#ccc]">{it.message}</p>
+              <p className="text-xs leading-relaxed text-[#3a2f28]">{it.message}</p>
             </li>
           ))}
         </ul>
@@ -1069,9 +1069,9 @@ function QaDetail({ report, attempts }: { report: QaReport; attempts: number }) 
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="border border-[#222] bg-[#111] p-3 text-center">
-      <div className="text-[10px] font-bold uppercase tracking-wider text-[#999]">{label}</div>
-      <div className="mt-1 text-2xl font-black text-[#f0f0f0]">{value}</div>
+    <div className="border border-[#d6c5ac] bg-[#f5ede4] p-3 text-center">
+      <div className="text-[10px] font-bold uppercase tracking-wider text-[#5a4f48]">{label}</div>
+      <div className="mt-1 text-2xl font-black text-[#2a1f1a]">{value}</div>
     </div>
   );
 }
@@ -1125,9 +1125,9 @@ function ArticlesTab() {
   };
 
   return (
-    <div className="overflow-x-auto border border-[#222]">
+    <div className="overflow-x-auto border border-[#d6c5ac]">
       <table className="w-full text-right">
-        <thead className="bg-[#111] text-[10px] font-black uppercase tracking-wider text-[#999]">
+        <thead className="bg-[#f5ede4] text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
           <tr>
             <th className="px-3 py-2">כותרת</th>
             <th className="px-3 py-2">slug</th>
@@ -1149,12 +1149,12 @@ function ArticlesTab() {
             const qaErrors = qaIssues.filter((i) => i.severity === "error").length;
             const qaWarns = qaIssues.filter((i) => i.severity === "warn").length;
             return (
-            <tr key={a.id} className="border-t border-[#222] text-sm text-[#ccc]">
+            <tr key={a.id} className="border-t border-[#d6c5ac] text-sm text-[#3a2f28]">
               <td className="px-3 py-2">{a.title}</td>
-              <td className="px-3 py-2 text-[#909090]" dir="ltr">
+              <td className="px-3 py-2 text-[#6b5f55]" dir="ltr">
                 {a.slug}
               </td>
-              <td className="px-3 py-2 text-[#909090]">{a.status}</td>
+              <td className="px-3 py-2 text-[#6b5f55]">{a.status}</td>
               <td className="px-3 py-2">
                 {qaReport ? (
                   <button
@@ -1166,18 +1166,18 @@ function ArticlesTab() {
                     <span
                       className={`inline-block px-1.5 py-0.5 font-black uppercase ${
                         qaReport.passed
-                          ? "bg-[#0a8a3a] text-[#0a0a0a]"
-                          : "bg-[#7a1a1a] text-[#f0f0f0]"
+                          ? "bg-[#0a8a3a] text-[#fefaf6]"
+                          : "bg-[#7a1a1a] text-[#2a1f1a]"
                       }`}
                     >
                       {qaReport.passed ? `✓ עבר QA` : `✗ QA נכשל`}
                     </span>
-                    <span className="text-[9px] text-[#999]">
+                    <span className="text-[9px] text-[#5a4f48]">
                       {a.qa_attempts} ניסיונות · {qaErrors} שגיאות · {qaWarns} אזהרות
                     </span>
                   </button>
                 ) : (
-                  <span className="text-[10px] text-[#666]">— {a.qa_attempts} ניסיונות</span>
+                  <span className="text-[10px] text-[#7a6e65]">— {a.qa_attempts} ניסיונות</span>
                 )}
               </td>
               <td className="px-3 py-2">
@@ -1191,18 +1191,18 @@ function ArticlesTab() {
                     <span
                       className={`inline-block w-fit px-1.5 py-0.5 font-black uppercase ${
                         (fc.corrections_applied ?? 0) > 0
-                          ? "bg-[#c98a00] text-[#0a0a0a]"
-                          : "bg-[#0a8a3a] text-[#0a0a0a]"
+                          ? "bg-[#c98a00] text-[#fefaf6]"
+                          : "bg-[#0a8a3a] text-[#fefaf6]"
                       }`}
                     >
                       {(fc.corrections_applied ?? 0) > 0
                         ? `✓ תוקנו ${fc.corrections_applied}`
                         : "✓ אומת"}
                     </span>
-                    <span className="text-[9px] text-[#666]">{fcDate}</span>
+                    <span className="text-[9px] text-[#7a6e65]">{fcDate}</span>
                   </button>
                 ) : (
-                  <span className="text-[10px] text-[#666]">— לא אומת</span>
+                  <span className="text-[10px] text-[#7a6e65]">— לא אומת</span>
                 )}
               </td>
               <td className="px-3 py-2">
@@ -1210,27 +1210,27 @@ function ArticlesTab() {
                   <button
                     onClick={() => requeue.mutate(a.id)}
                     disabled={requeue.isPending}
-                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#ccc]"
+                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#3a2f28]"
                   >
                     {requeue.isPending ? "מריץ QA..." : "QA חוזר"}
                   </button>
                   {a.status !== "published" && a.status !== "archived" && (
                     <button
                       onClick={() => pub.mutate(a.id)}
-                      className="bg-[#0a8a3a] px-2 py-1 text-[10px] font-bold uppercase text-[#0a0a0a]"
+                      className="bg-[#0a8a3a] px-2 py-1 text-[10px] font-bold uppercase text-[#fefaf6]"
                     >
                       פרסם
                     </button>
                   )}
                   <button
                     onClick={() => openArticle(a.slug, a.status)}
-                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#ccc]"
+                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#3a2f28]"
                   >
                     {a.status === "published" ? "תצוגה" : "תצוגה מקדימה"}
                   </button>
                   <button
                     onClick={() => arch.mutate(a.id)}
-                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#999]"
+                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#5a4f48]"
                   >
                     ארכב
                   </button>
@@ -1331,13 +1331,13 @@ function IndexationTab() {
 
   return (
     <div className="space-y-4">
-      <div className="border border-[#222] bg-[#0d0d0d] p-4 text-xs text-[#999]">
+      <div className="border border-[#d6c5ac] bg-[#faf3eb] p-4 text-xs text-[#5a4f48]">
         <p>
-          טבלה זו מציגה <b className="text-[#ccc]">פרוקסי</b> לאינדוקס: עמוד עם impressions בתוצאות חיפוש (90 ימים אחרונים) נחשב מאונדקס.
-          זה לא מדויק — עמוד יכול להיות מאונדקס בלי שאף אחד חיפש אותו. כדי לקבל את הסטטוס <b className="text-[#ccc]">האמיתי</b> של Google ללא ספק, לחצי
-          <b className="text-[#ccc]"> "בדוק במציאות"</b> בשורה הרלוונטית — זה קורא ל-URL Inspection API הרשמי.
+          טבלה זו מציגה <b className="text-[#3a2f28]">פרוקסי</b> לאינדוקס: עמוד עם impressions בתוצאות חיפוש (90 ימים אחרונים) נחשב מאונדקס.
+          זה לא מדויק — עמוד יכול להיות מאונדקס בלי שאף אחד חיפש אותו. כדי לקבל את הסטטוס <b className="text-[#3a2f28]">האמיתי</b> של Google ללא ספק, לחצי
+          <b className="text-[#3a2f28]"> "בדוק במציאות"</b> בשורה הרלוונטית — זה קורא ל-URL Inspection API הרשמי.
         </p>
-        <p className="mt-2 text-[10px] text-[#666]">
+        <p className="mt-2 text-[10px] text-[#7a6e65]">
           הערה: Google אינו חושף Indexing API להגשה ישירה (רק Job Postings/Livestream). "הגש לאינדוקס" מבצע: (1) ping ל-IndexNow → מודיע ל-Bing/Yandex מיידית. (2) PUT ל-sitemap ב-Search Console → מאיץ את Googlebot.
         </p>
         {q.data?.error && (
@@ -1348,11 +1348,11 @@ function IndexationTab() {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="text-xs text-[#ccc]">
+        <div className="text-xs text-[#3a2f28]">
           {q.isLoading ? "טוען..." : (
             <>
               <b className="text-[#0a8a3a]">{indexedCount}</b> מאונדקסים ·{" "}
-              <b className="text-[#e63000]">{totalCount - indexedCount}</b> חסרים ·{" "}
+              <b className="text-[#8b3a52]">{totalCount - indexedCount}</b> חסרים ·{" "}
               סה"כ <b>{totalCount}</b>
             </>
           )}
@@ -1364,8 +1364,8 @@ function IndexationTab() {
               onClick={() => setFilter(f)}
               className={`px-2 py-1 text-[10px] font-black uppercase tracking-wider ${
                 filter === f
-                  ? "bg-[#e63000] text-[#0a0a0a]"
-                  : "border border-[#333] text-[#999]"
+                  ? "bg-[#8b3a52] text-[#fefaf6]"
+                  : "border border-[#c9b8a3] text-[#5a4f48]"
               }`}
             >
               {f === "missing" ? "חסרים" : f === "indexed" ? "מאונדקסים" : "הכל"}
@@ -1374,13 +1374,13 @@ function IndexationTab() {
         </div>
         <button
           onClick={() => qc.invalidateQueries({ queryKey: ["gsc", "indexation"] })}
-          className="border border-[#333] px-2 py-1 text-[10px] font-bold uppercase text-[#ccc]"
+          className="border border-[#c9b8a3] px-2 py-1 text-[10px] font-bold uppercase text-[#3a2f28]"
         >
           🔄 רענן
         </button>
         <button
           onClick={submitAllMissing}
-          className="bg-[#e63000] px-3 py-1 text-[10px] font-black uppercase text-[#0a0a0a]"
+          className="bg-[#8b3a52] px-3 py-1 text-[10px] font-black uppercase text-[#fefaf6]"
         >
           הגש את כל החסרים לאינדוקס
         </button>
@@ -1388,19 +1388,19 @@ function IndexationTab() {
           href="https://search.google.com/search-console?resource_id=https%3A%2F%2Flazyrider.org%2F"
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-[#333] px-2 py-1 text-[10px] font-bold uppercase text-[#ccc] hover:bg-[#1a1a1a]"
+          className="border border-[#c9b8a3] px-2 py-1 text-[10px] font-bold uppercase text-[#3a2f28] hover:bg-[#ede2d4]"
         >
           🔗 פתח Search Console
         </a>
       </div>
 
       {submitResult && (
-        <div className="border border-[#e63000] bg-[#0d0d0d] p-4 text-xs text-[#ccc]">
+        <div className="border border-[#8b3a52] bg-[#faf3eb] p-4 text-xs text-[#3a2f28]">
           <div className="mb-2 flex items-center justify-between">
-            <b className="text-[#e63000]">תוצאת הגשה</b>
+            <b className="text-[#8b3a52]">תוצאת הגשה</b>
             <button
               onClick={() => setSubmitResult(null)}
-              className="text-[10px] text-[#666] hover:text-[#ccc]"
+              className="text-[10px] text-[#7a6e65] hover:text-[#3a2f28]"
             >
               סגור ✕
             </button>
@@ -1411,17 +1411,17 @@ function IndexationTab() {
             </li>
             <li>
               IndexNow (Bing/Yandex):{" "}
-              <b className={submitResult.indexNow.ok ? "text-[#0a8a3a]" : "text-[#e63000]"}>
+              <b className={submitResult.indexNow.ok ? "text-[#0a8a3a]" : "text-[#8b3a52]"}>
                 {submitResult.indexNow.ok ? "✓ הצליח" : "✗ נכשל"}
               </b>{" "}
-              <span className="text-[#666]">HTTP {submitResult.indexNow.status}</span>
+              <span className="text-[#7a6e65]">HTTP {submitResult.indexNow.status}</span>
               {submitResult.indexNowError && (
                 <span className="text-[#f0a0a0]"> — {submitResult.indexNowError}</span>
               )}
             </li>
             <li>
               Sitemap resubmit ל-Google:{" "}
-              <b className={submitResult.sitemapResubmitted ? "text-[#0a8a3a]" : "text-[#e63000]"}>
+              <b className={submitResult.sitemapResubmitted ? "text-[#0a8a3a]" : "text-[#8b3a52]"}>
                 {submitResult.sitemapResubmitted ? "✓ הצליח" : "✗ נכשל"}
               </b>
               {submitResult.sitemapError && (
@@ -1432,21 +1432,21 @@ function IndexationTab() {
                 href={submitResult.sitemapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#909090] underline"
+                className="text-[#6b5f55] underline"
               >
                 צפה ב-sitemap
               </a>
             </li>
-            <li className="text-[10px] text-[#666]">
+            <li className="text-[10px] text-[#7a6e65]">
               IndexNow key: <a href={submitResult.indexNowKeyLocation} target="_blank" rel="noopener noreferrer" className="underline">{submitResult.indexNowKeyLocation}</a>
             </li>
-            <li className="text-[10px] text-[#666]">
+            <li className="text-[10px] text-[#7a6e65]">
               זמן: {submitResult.startedAt} → {submitResult.finishedAt}
             </li>
           </ul>
           {submitResult.inspectionLinks.length > 0 && (
             <details className="mt-3">
-              <summary className="cursor-pointer text-[11px] font-bold text-[#ccc]">
+              <summary className="cursor-pointer text-[11px] font-bold text-[#3a2f28]">
                 לינקים ישירים ל-Search Console ({submitResult.inspectionLinks.length})
               </summary>
               <ul className="mt-2 space-y-1 text-[10px]" dir="ltr">
@@ -1465,15 +1465,15 @@ function IndexationTab() {
               </ul>
             </details>
           )}
-          <p className="mt-3 text-[10px] text-[#666]">
+          <p className="mt-3 text-[10px] text-[#7a6e65]">
             הערה: Googlebot עשוי לקחת מ-כמה דקות עד מספר ימים להגיע ולאנדקס בפועל. לחצי "בדוק במציאות" בשורה אחרי שעה-כמה ימים כדי לראות את הסטטוס הרשמי.
           </p>
         </div>
       )}
 
-      <div className="overflow-x-auto border border-[#222]">
-        <table className="w-full text-right text-sm text-[#ccc]">
-          <thead className="bg-[#111] text-[10px] font-black uppercase tracking-wider text-[#999]">
+      <div className="overflow-x-auto border border-[#d6c5ac]">
+        <table className="w-full text-right text-sm text-[#3a2f28]">
+          <thead className="bg-[#f5ede4] text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
             <tr>
               <th className="px-3 py-2">כותרת</th>
               <th className="px-3 py-2">URL</th>
@@ -1490,18 +1490,18 @@ function IndexationTab() {
             {rows.map((r) => {
               const ins = inspectResults[r.url];
               return (
-              <tr key={r.url} className="border-t border-[#222] align-top">
+              <tr key={r.url} className="border-t border-[#d6c5ac] align-top">
                 <td className="px-3 py-2 max-w-[300px] truncate" title={r.title}>{r.title}</td>
-                <td className="px-3 py-2 text-[10px] text-[#909090]" dir="ltr">
+                <td className="px-3 py-2 text-[10px] text-[#6b5f55]" dir="ltr">
                   /article/{r.slug}
                 </td>
-                <td className="px-3 py-2 text-[10px] text-[#666]">{r.source}</td>
+                <td className="px-3 py-2 text-[10px] text-[#7a6e65]">{r.source}</td>
                 <td className="px-3 py-2">
                   <span
                     className={`inline-block px-1.5 py-0.5 text-[10px] font-black uppercase ${
                       r.indexed
-                        ? "bg-[#0a8a3a] text-[#0a0a0a]"
-                        : "bg-[#7a1a1a] text-[#f0f0f0]"
+                        ? "bg-[#0a8a3a] text-[#fefaf6]"
+                        : "bg-[#7a1a1a] text-[#2a1f1a]"
                     }`}
                   >
                     {r.indexed ? "✓ יש impressions" : "✗ אין impressions"}
@@ -1513,28 +1513,28 @@ function IndexationTab() {
                       <span
                         className={`inline-block px-1.5 py-0.5 font-black uppercase ${
                           ins.verdict === "PASS"
-                            ? "bg-[#0a8a3a] text-[#0a0a0a]"
+                            ? "bg-[#0a8a3a] text-[#fefaf6]"
                             : ins.verdict === "PARTIAL"
-                            ? "bg-[#8a6a0a] text-[#0a0a0a]"
+                            ? "bg-[#8a6a0a] text-[#fefaf6]"
                             : ins.verdict === "FAIL"
-                            ? "bg-[#7a1a1a] text-[#f0f0f0]"
-                            : "bg-[#333] text-[#ccc]"
+                            ? "bg-[#7a1a1a] text-[#2a1f1a]"
+                            : "bg-[#c9b8a3] text-[#3a2f28]"
                         }`}
                       >
                         {ins.verdict}
                       </span>
-                      <div className="text-[#999]">{ins.coverageState}</div>
+                      <div className="text-[#5a4f48]">{ins.coverageState}</div>
                       {ins.lastCrawlTime && (
-                        <div className="text-[#666]">crawl: {new Date(ins.lastCrawlTime).toLocaleDateString("he-IL")}</div>
+                        <div className="text-[#7a6e65]">crawl: {new Date(ins.lastCrawlTime).toLocaleDateString("he-IL")}</div>
                       )}
                     </div>
                   ) : (
-                    <span className="text-[#555]">—</span>
+                    <span className="text-[#7a6e65]">—</span>
                   )}
                 </td>
                 <td className="px-3 py-2 text-[11px]">{r.impressions}</td>
                 <td className="px-3 py-2 text-[11px]">{r.clicks}</td>
-                <td className="px-3 py-2 text-[11px] text-[#999]">
+                <td className="px-3 py-2 text-[11px] text-[#5a4f48]">
                   {r.position ?? "—"}
                 </td>
                 <td className="px-3 py-2">
@@ -1542,7 +1542,7 @@ function IndexationTab() {
                     <button
                       onClick={() => submitOne(r.url)}
                       disabled={submitting === r.url}
-                      className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#ccc] disabled:opacity-50"
+                      className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#3a2f28] disabled:opacity-50"
                     >
                       {submitting === r.url ? "שולח..." : "הגש לאינדוקס"}
                     </button>
@@ -1557,7 +1557,7 @@ function IndexationTab() {
                       href={r.inspectionLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border border-[#333] px-2 py-1 text-center text-[10px] font-bold uppercase text-[#999] hover:bg-[#1a1a1a]"
+                      className="border border-[#c9b8a3] px-2 py-1 text-center text-[10px] font-bold uppercase text-[#5a4f48] hover:bg-[#ede2d4]"
                     >
                       פתח ב-GSC ↗
                     </a>
@@ -1568,7 +1568,7 @@ function IndexationTab() {
             })}
             {!q.isLoading && !rows.length && (
               <tr>
-                <td colSpan={9} className="px-3 py-6 text-center text-xs text-[#666]">
+                <td colSpan={9} className="px-3 py-6 text-center text-xs text-[#7a6e65]">
                   אין שורות לתצוגה
                 </td>
               </tr>
@@ -1620,7 +1620,7 @@ function SettingsTabImpl() {
     onError: (e) => toast.error(`שגיאה: ${(e as Error).message}`),
   });
 
-  if (!form) return <p className="text-sm text-[#999]">טוען...</p>;
+  if (!form) return <p className="text-sm text-[#5a4f48]">טוען...</p>;
 
   const days = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
 
@@ -1633,7 +1633,7 @@ function SettingsTabImpl() {
           max={50}
           value={form.posts_per_week}
           onChange={(e) => setForm({ ...form, posts_per_week: +e.target.value })}
-          className="w-full border border-[#222] bg-[#0a0a0a] px-3 py-2 text-[#f0f0f0]"
+          className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-3 py-2 text-[#2a1f1a]"
         />
       </Field>
       <Field label="ימי פרסום">
@@ -1652,8 +1652,8 @@ function SettingsTabImpl() {
               }
               className={`flex h-10 w-10 items-center justify-center border text-sm font-bold ${
                 form.publish_days.includes(i)
-                  ? "border-[#e63000] bg-[#e63000] text-[#0a0a0a]"
-                  : "border-[#222] text-[#999]"
+                  ? "border-[#8b3a52] bg-[#8b3a52] text-[#fefaf6]"
+                  : "border-[#d6c5ac] text-[#5a4f48]"
               }`}
             >
               {d}
@@ -1668,11 +1668,11 @@ function SettingsTabImpl() {
           max={23}
           value={form.publish_hour}
           onChange={(e) => setForm({ ...form, publish_hour: +e.target.value })}
-          className="w-full border border-[#222] bg-[#0a0a0a] px-3 py-2 text-[#f0f0f0]"
+          className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-3 py-2 text-[#2a1f1a]"
         />
       </Field>
       <Field label="פרסום אוטומטי (ללא אישור ידני)">
-        <label className="flex items-center gap-2 text-sm text-[#ccc]">
+        <label className="flex items-center gap-2 text-sm text-[#3a2f28]">
           <input
             type="checkbox"
             checked={form.auto_publish}
@@ -1685,7 +1685,7 @@ function SettingsTabImpl() {
         <input
           value={form.topic_model}
           onChange={(e) => setForm({ ...form, topic_model: e.target.value })}
-          className="w-full border border-[#222] bg-[#0a0a0a] px-3 py-2 text-[#f0f0f0]"
+          className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-3 py-2 text-[#2a1f1a]"
           dir="ltr"
         />
       </Field>
@@ -1693,7 +1693,7 @@ function SettingsTabImpl() {
         <input
           value={form.article_model}
           onChange={(e) => setForm({ ...form, article_model: e.target.value })}
-          className="w-full border border-[#222] bg-[#0a0a0a] px-3 py-2 text-[#f0f0f0]"
+          className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-3 py-2 text-[#2a1f1a]"
           dir="ltr"
         />
       </Field>
@@ -1701,7 +1701,7 @@ function SettingsTabImpl() {
         <input
           value={form.qa_model}
           onChange={(e) => setForm({ ...form, qa_model: e.target.value })}
-          className="w-full border border-[#222] bg-[#0a0a0a] px-3 py-2 text-[#f0f0f0]"
+          className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-3 py-2 text-[#2a1f1a]"
           dir="ltr"
         />
       </Field>
@@ -1709,14 +1709,14 @@ function SettingsTabImpl() {
         <input
           value={form.image_model}
           onChange={(e) => setForm({ ...form, image_model: e.target.value })}
-          className="w-full border border-[#222] bg-[#0a0a0a] px-3 py-2 text-[#f0f0f0]"
+          className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-3 py-2 text-[#2a1f1a]"
           dir="ltr"
         />
       </Field>
       <button
         onClick={() => save.mutate()}
         disabled={save.isPending}
-        className="bg-[#e63000] px-6 py-3 text-xs font-black uppercase tracking-wider text-[#0a0a0a] disabled:opacity-60"
+        className="bg-[#8b3a52] px-6 py-3 text-xs font-black uppercase tracking-wider text-[#fefaf6] disabled:opacity-60"
       >
         {save.isPending ? "שומר..." : "שמור הגדרות"}
       </button>
@@ -1727,7 +1727,7 @@ function SettingsTabImpl() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#999]">
+      <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-[#5a4f48]">
         {label}
       </label>
       {children}
@@ -1745,9 +1745,9 @@ function AdminSection({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="space-y-4 border border-[#222] bg-[#111] p-4 md:p-6">
-      <div className="flex items-center justify-between gap-3 border-b border-[#222] pb-3">
-        <h2 className="text-base font-black text-[#f0f0f0]">{title}</h2>
+    <section id={id} className="space-y-4 border border-[#d6c5ac] bg-[#f5ede4] p-4 md:p-6">
+      <div className="flex items-center justify-between gap-3 border-b border-[#d6c5ac] pb-3">
+        <h2 className="text-base font-black text-[#2a1f1a]">{title}</h2>
       </div>
       {children}
     </section>
@@ -1774,9 +1774,9 @@ function AutopilotHistoryTab() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded border border-[#222] bg-[#0a0a0a] p-3 text-sm text-[#ccc]">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded border border-[#d6c5ac] bg-[#fefaf6] p-3 text-sm text-[#3a2f28]">
         <div>
-          <div className="font-semibold text-[#f0f0f0]">תזמון אוטומטי: כל יום ב-10:00 בבוקר</div>
+          <div className="font-semibold text-[#2a1f1a]">תזמון אוטומטי: כל יום ב-10:00 בבוקר</div>
           <div className="mt-1 text-xs text-[#888]">
             דו"ח נשלח אוטומטית אל <span className="text-[#c9a84c]">naomi.digital101@gmail.com</span> עם הלינקים והסטטוס של כל מאמר.
           </div>
@@ -1787,7 +1787,7 @@ function AutopilotHistoryTab() {
             trigger.mutate();
           }}
           disabled={trigger.isPending}
-          className="border border-[#e63000] bg-[#e63000] px-4 py-2 text-xs font-black uppercase tracking-wider text-white transition-colors hover:bg-[#c52800] disabled:opacity-50"
+          className="border border-[#8b3a52] bg-[#8b3a52] px-4 py-2 text-xs font-black uppercase tracking-wider text-white transition-colors hover:bg-[#c52800] disabled:opacity-50"
         >
           {trigger.isPending ? "⏳ מפעיל..." : "▶ הפעל עכשיו"}
         </button>
@@ -1811,8 +1811,8 @@ function AutopilotHistoryTab() {
             const progress = Array.isArray(rawResults) ? null : (rawResults?.progress ?? null);
             const log = Array.isArray(rawResults) ? [] : (rawResults?.log ?? []);
             return (
-              <details key={run.id} className="rounded border border-[#222] bg-[#0a0a0a] p-3 text-sm">
-                <summary className="flex cursor-pointer flex-wrap items-center gap-3 text-[#f0f0f0]">
+              <details key={run.id} className="rounded border border-[#d6c5ac] bg-[#fefaf6] p-3 text-sm">
+                <summary className="flex cursor-pointer flex-wrap items-center gap-3 text-[#2a1f1a]">
                   <span className="text-xs text-[#888]">
                     {new Date(run.started_at).toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" })}
                   </span>
@@ -1827,11 +1827,11 @@ function AutopilotHistoryTab() {
                   >
                     {run.status === "completed" ? "הסתיים" : run.status === "failed" ? "נכשל" : "רץ"}
                   </span>
-                  <span className="text-xs text-[#999]">מקור: {run.trigger}</span>
+                  <span className="text-xs text-[#5a4f48]">מקור: {run.trigger}</span>
                   <span className="ml-auto flex gap-2 text-xs">
-                    <span className="text-[#888]">נושאים: <b className="text-[#ccc]">{run.suggested}</b></span>
-                    <span className="text-[#888]">נוצרו: <b className="text-[#ccc]">{run.generated}</b></span>
-                    <span className="text-[#888]">QA: <b className="text-[#ccc]">{run.passed}</b></span>
+                    <span className="text-[#888]">נושאים: <b className="text-[#3a2f28]">{run.suggested}</b></span>
+                    <span className="text-[#888]">נוצרו: <b className="text-[#3a2f28]">{run.generated}</b></span>
+                    <span className="text-[#888]">QA: <b className="text-[#3a2f28]">{run.passed}</b></span>
                     <span className="text-[#888]">פורסמו: <b className="text-green-400">{run.published}</b></span>
                     {run.email_status && (
                       <span className={run.email_status.startsWith("queued") ? "text-green-500" : "text-red-400"}>
@@ -1840,19 +1840,19 @@ function AutopilotHistoryTab() {
                     )}
                   </span>
                 </summary>
-                <div className="mt-3 space-y-2 border-t border-[#222] pt-3">
+                <div className="mt-3 space-y-2 border-t border-[#d6c5ac] pt-3">
                   {run.error_message && (
                     <div className="rounded bg-red-900/30 p-2 text-xs text-red-300">שגיאה: {run.error_message}</div>
                   )}
                   {progress && run.status !== "completed" && run.status !== "failed" && (
-                    <div className="rounded border border-[#222] bg-[#111] p-3 text-xs text-[#ccc]">
+                    <div className="rounded border border-[#d6c5ac] bg-[#f5ede4] p-3 text-xs text-[#3a2f28]">
                       <div className="mb-2 flex items-center justify-between gap-3">
-                        <span className="font-bold text-[#f0f0f0]">שלב {progress.step}/5 — {progress.label}</span>
+                        <span className="font-bold text-[#2a1f1a]">שלב {progress.step}/5 — {progress.label}</span>
                         <span>{progress.current}{progress.total > 0 ? ` / ${progress.total}` : ""}</span>
                       </div>
-                      <div className="mb-2 h-2 overflow-hidden bg-[#222]">
+                      <div className="mb-2 h-2 overflow-hidden bg-[#d6c5ac]">
                         <div
-                          className="h-full bg-[#e63000] transition-all duration-300"
+                          className="h-full bg-[#8b3a52] transition-all duration-300"
                           style={{ width: `${progress.total > 0 ? Math.min(100, Math.round((progress.current / progress.total) * 100)) : ((progress.step - 1) / 5) * 100}%` }}
                         />
                       </div>
@@ -1864,11 +1864,11 @@ function AutopilotHistoryTab() {
                   ) : (
                     <ul className="space-y-2">
                       {results.map((r, i) => (
-                        <li key={i} className="flex flex-wrap items-center gap-2 rounded bg-[#111] p-2 text-xs">
+                        <li key={i} className="flex flex-wrap items-center gap-2 rounded bg-[#f5ede4] p-2 text-xs">
                           <span>
                             {r.error ? "❌" : r.published ? "✅" : r.passed ? "🟡" : "⚠️"}
                           </span>
-                          <span className="font-semibold text-[#f0f0f0]">{r.topicTitle}</span>
+                          <span className="font-semibold text-[#2a1f1a]">{r.topicTitle}</span>
                           {r.slug && (
                             <a
                               href={`/article/${r.slug}`}
@@ -1885,7 +1885,7 @@ function AutopilotHistoryTab() {
                     </ul>
                   )}
                   {log.length > 0 && (
-                    <details className="rounded border border-[#222] bg-[#111] p-2 text-[10px] text-[#999]">
+                    <details className="rounded border border-[#d6c5ac] bg-[#f5ede4] p-2 text-[10px] text-[#5a4f48]">
                       <summary className="cursor-pointer font-bold uppercase tracking-wider">יומן ריצה</summary>
                       <div className="mt-2 space-y-1 font-mono">
                         {log.map((line, index) => (

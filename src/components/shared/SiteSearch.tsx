@@ -126,8 +126,8 @@ export function SiteSearch({ variant = "desktop" }: { variant?: "desktop" | "mob
 
   return (
     <div ref={wrapRef} className={`relative ${widthClass}`}>
-      <div className="flex items-center gap-2 border border-[#222] bg-[#111] px-3 py-2 focus-within:border-[#e63000]">
-        <Search className="h-4 w-4 text-[#909090]" aria-hidden="true" />
+      <div className="flex items-center gap-2 border border-[#d6c5ac] bg-[#f5ede4] px-3 py-2 focus-within:border-[#8b3a52]">
+        <Search className="h-4 w-4 text-[#6b5f55]" aria-hidden="true" />
         <input
           type="search"
           value={q}
@@ -138,7 +138,7 @@ export function SiteSearch({ variant = "desktop" }: { variant?: "desktop" | "mob
           onFocus={() => setOpen(true)}
           placeholder="חיפוש מאמרים או מוצרים..."
           aria-label="חיפוש באתר"
-          className="flex-1 bg-transparent text-xs font-bold text-[#f0f0f0] placeholder:text-[#666] focus:outline-none"
+          className="flex-1 bg-transparent text-xs font-bold text-[#2a1f1a] placeholder:text-[#7a6e65] focus:outline-none"
         />
         {q && (
           <button
@@ -148,7 +148,7 @@ export function SiteSearch({ variant = "desktop" }: { variant?: "desktop" | "mob
               setQ("");
               setOpen(false);
             }}
-            className="text-[#909090] hover:text-[#f0f0f0]"
+            className="text-[#6b5f55] hover:text-[#2a1f1a]"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -156,7 +156,7 @@ export function SiteSearch({ variant = "desktop" }: { variant?: "desktop" | "mob
       </div>
 
       {open && q.trim().length >= 2 && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-full min-w-[280px] border border-[#222] bg-[#0a0a0a] shadow-2xl">
+        <div className="absolute right-0 top-full z-50 mt-2 w-full min-w-[280px] border border-[#d6c5ac] bg-[#fefaf6] shadow-2xl">
           {results.length === 0 ? (
             <div className="px-3 py-4 text-xs font-bold text-[#888]">
               לא נמצאו תוצאות עבור "{q}"
@@ -167,13 +167,13 @@ export function SiteSearch({ variant = "desktop" }: { variant?: "desktop" | "mob
                 <li key={`${r.kind}-${r.href}`}>
                   <a
                     href={r.href}
-                    className="flex flex-col gap-1 border-b border-[#1a1a1a] px-3 py-2.5 transition-colors hover:bg-[#181818]"
+                    className="flex flex-col gap-1 border-b border-[#ede2d4] px-3 py-2.5 transition-colors hover:bg-[#e8dccc]"
                     onClick={() => setOpen(false)}
                   >
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#e63000]">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#8b3a52]">
                       {r.subtitle}
                     </span>
-                    <span className="text-sm font-black text-[#f0f0f0]">
+                    <span className="text-sm font-black text-[#2a1f1a]">
                       {r.title}
                     </span>
                   </a>

@@ -2,44 +2,44 @@ import type { Article } from "@/lib/articles";
 
 export function ArticleHero({ article }: { article: Article }) {
   return (
-    <header className="border-b border-[#222] bg-[#0a0a0a]">
+    <header className="border-b border-[#d6c5ac] bg-[#fefaf6]">
       <div className="mx-auto max-w-[1400px] px-4 py-12 md:px-8 md:py-16">
         <div className="mb-6 flex items-center gap-3">
-          <span className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
             {article.category}
           </span>
-          <span aria-hidden="true" className="h-px w-12 bg-[#222]" />
+          <span aria-hidden="true" className="h-px w-12 bg-[#d6c5ac]" />
         </div>
 
-        <h1 className="mb-6 text-3xl font-black leading-tight text-[#f0f0f0] md:text-5xl lg:text-6xl">
+        <h1 className="mb-6 text-3xl font-black leading-tight text-[#2a1f1a] md:text-5xl lg:text-6xl">
           {article.title}
         </h1>
 
-        <p className="mb-8 max-w-3xl text-base font-bold leading-relaxed text-[#999] md:text-lg">
+        <p className="mb-8 max-w-3xl text-base font-bold leading-relaxed text-[#5a4f48] md:text-lg">
           {article.excerpt}
         </p>
 
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-wider text-[#a0a0a0]">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-wider text-[#6b5f55]">
           <span>
-            כותב: <span className="text-[#f0f0f0]">{article.author}</span>
+            כותב: <span className="text-[#2a1f1a]">{article.author}</span>
           </span>
-          <span aria-hidden="true" className="text-[#333]">|</span>
-          <time dateTime={article.date} className="text-[#f0f0f0]">
+          <span aria-hidden="true" className="text-[#c9b8a3]">|</span>
+          <time dateTime={article.date} className="text-[#2a1f1a]">
             {article.dateLabel}
           </time>
           {article.dateModified && article.dateModifiedLabel && (
             <>
-              <span aria-hidden="true" className="text-[#333]">|</span>
+              <span aria-hidden="true" className="text-[#c9b8a3]">|</span>
               <span>
                 עודכן:{" "}
-                <time dateTime={article.dateModified} className="text-[#f0f0f0]">
+                <time dateTime={article.dateModified} className="text-[#2a1f1a]">
                   {article.dateModifiedLabel}
                 </time>
               </span>
             </>
           )}
-          <span aria-hidden="true" className="text-[#333]">|</span>
-          <span className="text-[#e63000]">{article.readingTime}</span>
+          <span aria-hidden="true" className="text-[#c9b8a3]">|</span>
+          <span className="text-[#8b3a52]">{article.readingTime}</span>
         </div>
       </div>
     </header>

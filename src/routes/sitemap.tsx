@@ -36,14 +36,14 @@ type SectionProps = {
 function Section({ title, items }: SectionProps) {
   if (items.length === 0) return null;
   return (
-    <section className="border-t border-[#222] py-8">
-      <h2 className="mb-4 text-2xl font-bold text-[#f0f0f0]">{title}</h2>
+    <section className="border-t border-[#d6c5ac] py-8">
+      <h2 className="mb-4 text-2xl font-bold text-[#2a1f1a]">{title}</h2>
       <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => (
           <li key={item.href}>
             <Link
               to={item.href}
-              className="block rounded px-3 py-2 text-[#c0c0c0] transition-colors hover:bg-[#1a1a1a] hover:text-[#e63000]"
+              className="block rounded px-3 py-2 text-[#c0c0c0] transition-colors hover:bg-[#ede2d4] hover:text-[#8b3a52]"
             >
               {item.label}
             </Link>
@@ -104,22 +104,22 @@ function SitemapPage() {
       <main id="main-content" className="flex-1">
         <div className="mx-auto max-w-[1200px] px-4 py-12 md:px-8 md:py-16">
           <header className="mb-8">
-            <h1 className="mb-3 text-4xl font-black text-[#f0f0f0] md:text-5xl">
+            <h1 className="mb-3 text-4xl font-black text-[#2a1f1a] md:text-5xl">
               מפת אתר
             </h1>
-            <p className="max-w-2xl text-[#a0a0a0]">
+            <p className="max-w-2xl text-[#6b5f55]">
               כל הדפים באתר במקום אחד — מאמרים, קטגוריות, מוצרים ודפי שירות.
             </p>
             <div className="mt-4 flex flex-wrap gap-3 text-sm">
               <a
                 href="/sitemap.xml"
-                className="rounded border border-[#333] px-3 py-1 text-[#c0c0c0] hover:border-[#e63000] hover:text-[#e63000]"
+                className="rounded border border-[#c9b8a3] px-3 py-1 text-[#c0c0c0] hover:border-[#8b3a52] hover:text-[#8b3a52]"
               >
                 sitemap.xml (למנועי חיפוש)
               </a>
               <a
                 href="/rss.xml"
-                className="rounded border border-[#333] px-3 py-1 text-[#c0c0c0] hover:border-[#e63000] hover:text-[#e63000]"
+                className="rounded border border-[#c9b8a3] px-3 py-1 text-[#c0c0c0] hover:border-[#8b3a52] hover:text-[#8b3a52]"
               >
                 RSS feed
               </a>

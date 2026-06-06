@@ -94,17 +94,17 @@ function renderRich(
       target="_blank"
       rel={buildExternalRel(best.link.href, best.link.rel)}
       title={best.link.title}
-      className="font-black text-[#f0f0f0] underline decoration-[#e63000] decoration-2 underline-offset-4 hover:text-[#e63000]"
+      className="font-black text-[#2a1f1a] underline decoration-[#8b3a52] decoration-2 underline-offset-4 hover:text-[#8b3a52]"
     >
       {matchText}
-      <span aria-hidden="true" className="ms-0.5 text-[10px] text-[#e63000]">↗</span>
+      <span aria-hidden="true" className="ms-0.5 text-[10px] text-[#8b3a52]">↗</span>
     </a>
   ) : (
     <a
       key={`int-${best.linkIdx}`}
       href={best.link.href}
       title={best.link.title}
-      className="font-black text-[#f0f0f0] underline decoration-[#e63000] decoration-2 underline-offset-4 hover:text-[#e63000]"
+      className="font-black text-[#2a1f1a] underline decoration-[#8b3a52] decoration-2 underline-offset-4 hover:text-[#8b3a52]"
     >
       {matchText}
     </a>
@@ -131,19 +131,19 @@ export function ArticleBody({ article }: { article: Article }) {
       {article.tldr && article.tldr.length > 0 && (
         <aside
           aria-label="תקציר מהיר"
-          className="mb-8 border-r-4 border-[#e63000] bg-[#0d0d0d] p-5"
+          className="mb-8 border-r-4 border-[#8b3a52] bg-[#faf3eb] p-5"
           data-speakable="true"
         >
-          <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+          <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
             תקציר מהיר
           </div>
           <dl className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
             {article.tldr.map((row, i) => (
-              <div key={`tldr-${i}`} className="flex flex-col border-b border-[#1a1a1a] pb-2 last:border-b-0">
-                <dt className="text-[11px] font-bold uppercase tracking-wider text-[#a0a0a0]">
+              <div key={`tldr-${i}`} className="flex flex-col border-b border-[#ede2d4] pb-2 last:border-b-0">
+                <dt className="text-[11px] font-bold uppercase tracking-wider text-[#6b5f55]">
                   {row.label}
                 </dt>
-                <dd className="text-sm font-black text-[#f0f0f0]">{row.value}</dd>
+                <dd className="text-sm font-black text-[#2a1f1a]">{row.value}</dd>
               </div>
             ))}
           </dl>
@@ -153,7 +153,7 @@ export function ArticleBody({ article }: { article: Article }) {
       {article.intro.map((p, i) => (
         <p
           key={`intro-${i}`}
-          className="mb-5 text-base font-bold leading-relaxed text-[#ccc] md:text-lg"
+          className="mb-5 text-base font-bold leading-relaxed text-[#3a2f28] md:text-lg"
         >
           {renderRich(p, links, usedLinks)}
         </p>
@@ -162,19 +162,19 @@ export function ArticleBody({ article }: { article: Article }) {
       {article.specTable && (
         <section aria-label={article.specTable.title ?? "טבלת מפרט"} className="my-8">
           {article.specTable.title && (
-            <h2 className="mb-3 text-xl font-black text-[#f0f0f0] md:text-2xl">
+            <h2 className="mb-3 text-xl font-black text-[#2a1f1a] md:text-2xl">
               {article.specTable.title}
             </h2>
           )}
-          <div className="overflow-x-auto border border-[#222]">
+          <div className="overflow-x-auto border border-[#d6c5ac]">
             <table className="w-full border-collapse text-right text-sm">
               <thead>
-                <tr className="bg-[#0d0d0d]">
+                <tr className="bg-[#faf3eb]">
                   {article.specTable.columns.map((col, i) => (
                     <th
                       key={`col-${i}`}
                       scope="col"
-                      className="border-b border-[#222] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#e63000]"
+                      className="border-b border-[#d6c5ac] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#8b3a52]"
                     >
                       {col}
                     </th>
@@ -183,11 +183,11 @@ export function ArticleBody({ article }: { article: Article }) {
               </thead>
               <tbody>
                 {article.specTable.rows.map((row, r) => (
-                  <tr key={`row-${r}`} className="even:bg-[#0a0a0a]">
+                  <tr key={`row-${r}`} className="even:bg-[#fefaf6]">
                     {row.map((cell, c) => (
                       <td
                         key={`cell-${r}-${c}`}
-                        className="border-b border-[#1a1a1a] px-3 py-2 font-bold text-[#ccc]"
+                        className="border-b border-[#ede2d4] px-3 py-2 font-bold text-[#3a2f28]"
                       >
                         {cell}
                       </td>
@@ -198,7 +198,7 @@ export function ArticleBody({ article }: { article: Article }) {
             </table>
           </div>
           {article.specTable.caption && (
-            <p className="mt-2 text-xs font-bold text-[#a0a0a0]">
+            <p className="mt-2 text-xs font-bold text-[#6b5f55]">
               {article.specTable.caption}
             </p>
           )}
@@ -210,14 +210,14 @@ export function ArticleBody({ article }: { article: Article }) {
           {section.level === 2 ? (
             <h2
               id={section.id}
-              className="mt-12 mb-4 scroll-mt-24 text-2xl font-black leading-tight text-[#f0f0f0] md:text-3xl"
+              className="mt-12 mb-4 scroll-mt-24 text-2xl font-black leading-tight text-[#2a1f1a] md:text-3xl"
             >
               {section.heading}
             </h2>
           ) : (
             <h3
               id={section.id}
-              className="mt-8 mb-3 scroll-mt-24 text-xl font-black leading-tight text-[#f0f0f0] md:text-2xl"
+              className="mt-8 mb-3 scroll-mt-24 text-xl font-black leading-tight text-[#2a1f1a] md:text-2xl"
             >
               {section.heading}
             </h3>
@@ -226,7 +226,7 @@ export function ArticleBody({ article }: { article: Article }) {
           {section.paragraphs?.map((p, i) => (
             <p
               key={`${section.id}-p-${i}`}
-              className="mb-4 text-base font-bold leading-relaxed text-[#ccc]"
+              className="mb-4 text-base font-bold leading-relaxed text-[#3a2f28]"
             >
               {renderRich(p, links, usedLinks)}
             </p>
@@ -240,10 +240,10 @@ export function ArticleBody({ article }: { article: Article }) {
                   return (
                     <li
                       key={`${section.id}-li-${i}`}
-                      className="text-base font-bold leading-relaxed text-[#ccc]"
+                      className="text-base font-bold leading-relaxed text-[#3a2f28]"
                     >
                       <div className="flex gap-3">
-                        <span aria-hidden="true" className="min-w-[1.75rem] text-[#e63000]">
+                        <span aria-hidden="true" className="min-w-[1.75rem] text-[#8b3a52]">
                           {i + 1}.
                         </span>
                         <span>{renderRich(getItemText(item), links, usedLinks)}</span>
@@ -260,10 +260,10 @@ export function ArticleBody({ article }: { article: Article }) {
                   return (
                     <li
                       key={`${section.id}-li-${i}`}
-                      className="text-base font-bold leading-relaxed text-[#ccc]"
+                      className="text-base font-bold leading-relaxed text-[#3a2f28]"
                     >
                       <div className="flex gap-3">
-                        <span aria-hidden="true" className="text-[#e63000]">←</span>
+                        <span aria-hidden="true" className="text-[#8b3a52]">←</span>
                         <span>{renderRich(getItemText(item), links, usedLinks)}</span>
                       </div>
                       {img && <InlineItemImage image={img} />}
@@ -280,10 +280,10 @@ export function ArticleBody({ article }: { article: Article }) {
                 src={section.image.src}
                 alt={section.image.alt}
                 loading="lazy"
-                className="block w-full border border-[#222]"
+                className="block w-full border border-[#d6c5ac]"
               />
               {section.image.caption && (
-                <figcaption className="mt-3 text-xs font-bold text-[#a0a0a0]">
+                <figcaption className="mt-3 text-xs font-bold text-[#6b5f55]">
                   {section.image.caption}
                 </figcaption>
               )}
@@ -291,8 +291,8 @@ export function ArticleBody({ article }: { article: Article }) {
           )}
 
           {section.infographic && (
-            <figure className="my-6 max-w-sm border border-[#e63000]/40 bg-black p-4">
-              <div className="mb-2 inline-block bg-[#e63000] px-2 py-1 text-xs font-black text-white">
+            <figure className="my-6 max-w-sm border border-[#8b3a52]/40 bg-black p-4">
+              <div className="mb-2 inline-block bg-[#8b3a52] px-2 py-1 text-xs font-black text-white">
                 אינפוגרפיקה
               </div>
               <img
@@ -302,7 +302,7 @@ export function ArticleBody({ article }: { article: Article }) {
                 className="block w-full"
               />
               {section.infographic.caption && (
-                <figcaption className="mt-3 text-sm font-bold text-[#ccc]">
+                <figcaption className="mt-3 text-sm font-bold text-[#3a2f28]">
                   {section.infographic.caption}
                 </figcaption>
               )}
@@ -311,7 +311,7 @@ export function ArticleBody({ article }: { article: Article }) {
 
           {section.video && (
             <figure className="my-6 max-w-xl">
-              <div className="relative w-full overflow-hidden border border-[#222] bg-black" style={{ aspectRatio: "16 / 9" }}>
+              <div className="relative w-full overflow-hidden border border-[#d6c5ac] bg-black" style={{ aspectRatio: "16 / 9" }}>
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${section.video.youtubeId}?rel=0`}
                   title={section.video.title}
@@ -322,7 +322,7 @@ export function ArticleBody({ article }: { article: Article }) {
                 />
               </div>
               {section.video.caption && (
-                <figcaption className="mt-3 text-xs font-bold text-[#a0a0a0]">
+                <figcaption className="mt-3 text-xs font-bold text-[#6b5f55]">
                   {section.video.caption}
                 </figcaption>
               )}
@@ -345,7 +345,7 @@ export function ArticleBody({ article }: { article: Article }) {
         <section className="mt-16">
           <h2
             id="faq"
-            className="mt-12 mb-4 scroll-mt-24 text-2xl font-black leading-tight text-[#f0f0f0] md:text-3xl"
+            className="mt-12 mb-4 scroll-mt-24 text-2xl font-black leading-tight text-[#2a1f1a] md:text-3xl"
           >
             שאלות נפוצות
           </h2>
@@ -353,12 +353,12 @@ export function ArticleBody({ article }: { article: Article }) {
             {article.faqs.map((f, i) => (
               <div
                 key={`faq-${i}`}
-                className="border border-[#222] bg-[#0d0d0d] p-5"
+                className="border border-[#d6c5ac] bg-[#faf3eb] p-5"
               >
-                <dt className="mb-2 text-lg font-black text-[#f0f0f0]">
+                <dt className="mb-2 text-lg font-black text-[#2a1f1a]">
                   {f.q}
                 </dt>
-                <dd className="text-base font-bold leading-relaxed text-[#ccc]">
+                <dd className="text-base font-bold leading-relaxed text-[#3a2f28]">
                   {f.a}
                 </dd>
               </div>
@@ -371,23 +371,23 @@ export function ArticleBody({ article }: { article: Article }) {
         <section className="mt-16">
           <h2
             id="glossary"
-            className="mt-12 mb-2 scroll-mt-24 text-2xl font-black leading-tight text-[#f0f0f0] md:text-3xl"
+            className="mt-12 mb-2 scroll-mt-24 text-2xl font-black leading-tight text-[#2a1f1a] md:text-3xl"
           >
             מילון מונחים
           </h2>
-          <p className="mb-6 text-sm font-bold text-[#a0a0a0]">
+          <p className="mb-6 text-sm font-bold text-[#6b5f55]">
             כל המושגים שעשויים להיות לא ברורים, בהסבר פשוט.
           </p>
           <dl className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {article.glossary.map((g, i) => (
               <div
                 key={`gl-${i}`}
-                className="border-r-2 border-[#e63000] bg-[#0d0d0d] p-4"
+                className="border-r-2 border-[#8b3a52] bg-[#faf3eb] p-4"
               >
-                <dt className="mb-1 text-base font-black text-[#f0f0f0]">
+                <dt className="mb-1 text-base font-black text-[#2a1f1a]">
                   {g.term}
                 </dt>
-                <dd className="text-sm font-bold leading-relaxed text-[#bbb]">
+                <dd className="text-sm font-bold leading-relaxed text-[#4a3f38]">
                   {g.definition}
                 </dd>
               </div>
@@ -397,26 +397,26 @@ export function ArticleBody({ article }: { article: Article }) {
       )}
 
       {article.authorBio && (
-        <section className="mt-16 border border-[#222] bg-[#0d0d0d] p-6">
-          <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+        <section className="mt-16 border border-[#d6c5ac] bg-[#faf3eb] p-6">
+          <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
             על הכותב
           </div>
-          <h2 className="mb-2 text-xl font-black text-[#f0f0f0]">
+          <h2 className="mb-2 text-xl font-black text-[#2a1f1a]">
             {article.author}
           </h2>
-          <p className="text-sm font-bold leading-relaxed text-[#bbb]">
+          <p className="text-sm font-bold leading-relaxed text-[#4a3f38]">
             {article.authorBio}
           </p>
         </section>
       )}
 
       {article.checklist && article.checklist.items.length > 0 && (
-        <section className="mt-12 border-2 border-dashed border-[#e63000]/60 bg-[#0a0a0a] p-6 print:border-black">
+        <section className="mt-12 border-2 border-dashed border-[#8b3a52]/60 bg-[#fefaf6] p-6 print:border-black">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-xl font-black text-[#f0f0f0] md:text-2xl">
+            <h2 className="text-xl font-black text-[#2a1f1a] md:text-2xl">
               {article.checklist.title ?? "צ'קליסט"}
             </h2>
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
               ניתן להדפסה
             </span>
           </div>
@@ -424,11 +424,11 @@ export function ArticleBody({ article }: { article: Article }) {
             {article.checklist.items.map((item, i) => (
               <li
                 key={`chk-${i}`}
-                className="flex items-start gap-3 text-sm font-bold leading-relaxed text-[#ccc]"
+                className="flex items-start gap-3 text-sm font-bold leading-relaxed text-[#3a2f28]"
               >
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 inline-block h-4 w-4 flex-shrink-0 border border-[#666]"
+                  className="mt-0.5 inline-block h-4 w-4 flex-shrink-0 border border-[#7a6e65]"
                 />
                 <span>{item}</span>
               </li>
@@ -439,18 +439,18 @@ export function ArticleBody({ article }: { article: Article }) {
 
       {article.sources && article.sources.length > 0 && (
         <section className="mt-12">
-          <h2 className="mb-3 text-xl font-black text-[#f0f0f0] md:text-2xl">
+          <h2 className="mb-3 text-xl font-black text-[#2a1f1a] md:text-2xl">
             מקורות וקריאה נוספת
           </h2>
           <ul className="space-y-2">
             {article.sources.map((s, i) => (
-              <li key={`src-${i}`} className="text-sm font-bold text-[#ccc]">
-                <span aria-hidden="true" className="text-[#e63000]">←</span>{" "}
+              <li key={`src-${i}`} className="text-sm font-bold text-[#3a2f28]">
+                <span aria-hidden="true" className="text-[#8b3a52]">←</span>{" "}
                 <a
                   href={s.url}
                   target="_blank"
                   rel={buildExternalRel(s.url, "dofollow")}
-                  className="text-[#f0f0f0] underline decoration-[#e63000] underline-offset-4 hover:text-[#e63000]"
+                  className="text-[#2a1f1a] underline decoration-[#8b3a52] underline-offset-4 hover:text-[#8b3a52]"
                 >
                   {s.label}
                 </a>
@@ -460,7 +460,7 @@ export function ArticleBody({ article }: { article: Article }) {
         </section>
       )}
 
-      <figure className="mt-16 max-w-md overflow-hidden border border-[#222]">
+      <figure className="mt-16 max-w-md overflow-hidden border border-[#d6c5ac]">
         <div className="aspect-[4/3] w-full overflow-hidden">
           <img
             src={article.heroImage}
@@ -469,7 +469,7 @@ export function ArticleBody({ article }: { article: Article }) {
             loading="lazy"
           />
         </div>
-        <figcaption className="border-t border-[#222] bg-[#0d0d0d] px-4 py-2 text-[11px] font-bold text-[#a0a0a0]">
+        <figcaption className="border-t border-[#d6c5ac] bg-[#faf3eb] px-4 py-2 text-[11px] font-bold text-[#6b5f55]">
           {article.heroAlt}
         </figcaption>
       </figure>
@@ -488,10 +488,10 @@ function InlineItemImage({
         src={image.src}
         alt={image.alt}
         loading="lazy"
-        className="block w-full border border-[#222] bg-[#0a0a0a]"
+        className="block w-full border border-[#d6c5ac] bg-[#fefaf6]"
       />
       {image.caption && (
-        <figcaption className="mt-2 text-[11px] font-bold leading-snug text-[#a0a0a0]">
+        <figcaption className="mt-2 text-[11px] font-bold leading-snug text-[#6b5f55]">
           {image.caption}
         </figcaption>
       )}

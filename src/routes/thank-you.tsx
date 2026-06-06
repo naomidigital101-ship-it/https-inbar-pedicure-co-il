@@ -26,18 +26,18 @@ function ThankYouPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main id="main-content" className="flex-1">
-        <section className="border-b border-[#222] bg-[#0a0a0a]">
+        <section className="border-b border-[#d6c5ac] bg-[#fefaf6]">
           <div className="mx-auto max-w-[1400px] px-4 py-20 text-center md:px-8 md:py-28">
             <div className="mb-6 flex items-center justify-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
                 [ SYS // OK ]
               </span>
             </div>
-            <h1 className="mx-auto mb-6 max-w-3xl text-4xl font-black leading-tight text-[#f0f0f0] md:text-6xl">
+            <h1 className="mx-auto mb-6 max-w-3xl text-4xl font-black leading-tight text-[#2a1f1a] md:text-6xl">
               הצ׳קליסט שלך מוכן!{" "}
-              <span className="text-[#e63000]">לחץ להורדה</span>
+              <span className="text-[#8b3a52]">לחץ להורדה</span>
             </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-base font-bold leading-relaxed text-[#999] md:text-lg">
+            <p className="mx-auto mb-10 max-w-2xl text-base font-bold leading-relaxed text-[#5a4f48] md:text-lg">
               ההורדה אמורה להתחיל אוטומטית. אם לא, לחץ על הכפתור למטה כדי להוריד
               את ה-PDF המלא (48 פריטים, 4 עמודים).
             </p>
@@ -45,14 +45,14 @@ function ThankYouPage() {
               <a
                 href={CHECKLIST_PDF_URL}
                 download="checklist-47-dirt-road-guide.pdf"
-                className="inline-flex items-center gap-3 bg-[#e63000] px-8 py-4 text-sm font-black uppercase tracking-wider text-[#0a0a0a] transition-colors hover:bg-[#ff3a00]"
+                className="inline-flex items-center gap-3 bg-[#8b3a52] px-8 py-4 text-sm font-black uppercase tracking-wider text-[#fefaf6] transition-colors hover:bg-[#ff3a00]"
               >
                 <span aria-hidden="true">↓</span>
                 הורד את הצ׳קליסט (PDF)
               </a>
               <Link
                 to="/"
-                className="inline-flex items-center gap-3 border border-[#333] bg-transparent px-6 py-4 text-sm font-black uppercase tracking-wider text-[#999] transition-colors hover:border-[#666] hover:text-white"
+                className="inline-flex items-center gap-3 border border-[#c9b8a3] bg-transparent px-6 py-4 text-sm font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#7a6e65] hover:text-white"
               >
                 חזרה לדף הבית
               </Link>

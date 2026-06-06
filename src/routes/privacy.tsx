@@ -92,22 +92,22 @@ function PrivacyPage() {
       <SiteHeader />
       <main id="main-content" className="flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "מדיניות פרטיות" }]} />
-        <article className="border-b border-[#222] bg-[#0a0a0a]">
+        <article className="border-b border-[#d6c5ac] bg-[#fefaf6]">
           <div className="mx-auto max-w-[760px] px-4 py-14 md:px-8 md:py-20">
             <div className="mb-8 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
                 מסמכים משפטיים
               </span>
-              <span aria-hidden="true" className="h-px w-12 bg-[#222]" />
+              <span aria-hidden="true" className="h-px w-12 bg-[#d6c5ac]" />
             </div>
-            <h1 className="mb-6 text-4xl font-black leading-tight text-[#f0f0f0] md:text-5xl">
+            <h1 className="mb-6 text-4xl font-black leading-tight text-[#2a1f1a] md:text-5xl">
               מדיניות פרטיות
             </h1>
             <p className="mb-10 text-sm text-[#888]">עודכן לאחרונה: מאי 2026</p>
-            <div className="space-y-10 text-base leading-loose text-[#d8d8d8]">
+            <div className="space-y-10 text-base leading-loose text-[#3a2f28]">
               {sections.map((s) => (
                 <section key={s.title}>
-                  <h2 className="mb-4 text-xl font-bold text-[#f0f0f0]">{s.title}</h2>
+                  <h2 className="mb-4 text-xl font-bold text-[#2a1f1a]">{s.title}</h2>
                   {s.body.map((p, i) => (
                     <p key={i} className="mb-3">
                       {p}

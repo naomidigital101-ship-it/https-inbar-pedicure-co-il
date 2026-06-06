@@ -26,17 +26,17 @@ export function SiteFooter() {
 
   return (
     <footer
-      className="border-t border-[#222] bg-[#0a0a0a] text-[#d8d8d8]"
+      className="border-t border-[#d6c5ac] bg-[#fefaf6] text-[#3a2f28]"
       role="contentinfo"
       aria-label="פוטר האתר"
     >
       <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <section aria-labelledby="footer-brand" className="space-y-4">
-            <h2 id="footer-brand" className="text-lg font-black text-[#f0f0f0]">
+            <h2 id="footer-brand" className="text-lg font-black text-[#2a1f1a]">
               הרוכב העצלן
             </h2>
-            <p className="text-sm leading-relaxed text-[#909090]">
+            <p className="text-sm leading-relaxed text-[#6b5f55]">
               הפורטל המוביל לרוכבי אופנועי שטח בישראל. מדריכי תחזוקה, ביקורות
               אופנועים, מסלולי שטח, קטלוג ציוד הגנה וטכניקות רכיבה - הכל בעברית,
               הכל מהשטח.
@@ -46,7 +46,7 @@ export function SiteFooter() {
           <nav aria-labelledby="footer-categories" className="space-y-4">
             <h2
               id="footer-categories"
-              className="text-[11px] font-black uppercase tracking-widest text-[#f0f0f0]"
+              className="text-[11px] font-black uppercase tracking-widest text-[#2a1f1a]"
             >
               קטגוריות תוכן
             </h2>
@@ -55,7 +55,7 @@ export function SiteFooter() {
                 <li key={c.slug}>
                   <a
                     href={`/category/${c.slug}`}
-                    className="text-[#b8b8b8] transition-colors hover:text-[#e63000]"
+                    className="text-[#4a3f38] transition-colors hover:text-[#8b3a52]"
                     title={c.name}
                   >
                     {c.name}
@@ -68,7 +68,7 @@ export function SiteFooter() {
           <nav aria-labelledby="footer-products" className="space-y-4">
             <h2
               id="footer-products"
-              className="text-[11px] font-black uppercase tracking-widest text-[#f0f0f0]"
+              className="text-[11px] font-black uppercase tracking-widest text-[#2a1f1a]"
             >
               קטלוג ציוד
             </h2>
@@ -77,7 +77,7 @@ export function SiteFooter() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="text-[#b8b8b8] transition-colors hover:text-[#e63000]"
+                    className="text-[#4a3f38] transition-colors hover:text-[#8b3a52]"
                   >
                     {l.label}
                   </a>
@@ -89,7 +89,7 @@ export function SiteFooter() {
           <nav aria-labelledby="footer-site" className="space-y-4">
             <h2
               id="footer-site"
-              className="text-[11px] font-black uppercase tracking-widest text-[#f0f0f0]"
+              className="text-[11px] font-black uppercase tracking-widest text-[#2a1f1a]"
             >
               האתר
             </h2>
@@ -98,7 +98,7 @@ export function SiteFooter() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="inline-flex items-center gap-2 text-[#b8b8b8] transition-colors hover:text-[#e63000]"
+                    className="inline-flex items-center gap-2 text-[#4a3f38] transition-colors hover:text-[#8b3a52]"
                   >
                     {l.label === "RSS" ? (
                       <Rss className="h-3.5 w-3.5" aria-hidden="true" />
@@ -111,7 +111,7 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-[#222] pt-6 text-[11px] font-bold uppercase tracking-widest text-[#909090] md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-[#d6c5ac] pt-6 text-[11px] font-bold uppercase tracking-widest text-[#6b5f55] md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             <span>© {year} הרוכב העצלן</span>
             <span>כל הזכויות שמורות</span>
@@ -121,13 +121,13 @@ export function SiteFooter() {
               <a
                 key={l.href}
                 href={l.href}
-                className="transition-colors hover:text-[#f0f0f0]"
+                className="transition-colors hover:text-[#2a1f1a]"
               >
                 {l.label}
               </a>
             ))}
           </nav>
-          <div className="text-[#e63000]">בנוי בישראל</div>
+          <div className="text-[#8b3a52]">בנוי בישראל</div>
         </div>
       </div>
     </footer>
