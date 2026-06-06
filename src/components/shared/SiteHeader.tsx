@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
 
 const navLinks = [
@@ -33,6 +33,15 @@ export function SiteHeader() {
               </a>
             );
           })}
+          <a
+            href={SITE.whatsappUrl}
+            target="_blank"
+            rel="noopener"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.85rem] font-bold text-primary-foreground transition-colors hover:bg-primary-deep"
+          >
+            <MessageCircle className="h-4 w-4" aria-hidden />
+            וואטסאפ
+          </a>
         </nav>
         <button type="button" className="lg:hidden p-2 text-ink" aria-label="תפריט" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

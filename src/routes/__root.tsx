@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { AccessibilityMenu } from "@/components/shared/AccessibilityMenu";
 import { CookieConsent } from "@/components/shared/CookieConsent";
+import { StickyWhatsApp } from "@/components/shared/StickyWhatsApp";
 import { SITE } from "@/lib/site-config";
 
 function NotFoundComponent() {
@@ -115,20 +116,45 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "MedicalBusiness",
+          "@type": ["MedicalBusiness", "HealthAndBeautyBusiness", "LocalBusiness"],
+          "@id": SITE.url + "/#business",
           name: SITE.brand,
           url: SITE.url,
           description: SITE.shortDescription,
           telephone: SITE.phoneIntl,
           email: SITE.email,
+          priceRange: "₪₪",
+          image: SITE.url + "/apple-touch-icon.png",
           address: {
             "@type": "PostalAddress",
             addressLocality: SITE.city,
             addressRegion: SITE.region,
             addressCountry: "IL",
           },
+          areaServed: [
+            { "@type": "City", name: SITE.city },
+            { "@type": "AdministrativeArea", name: SITE.region },
+            { "@type": "City", name: "ירושלים" },
+            { "@type": "City", name: "רמאללה" },
+          ],
           openingHoursSpecification: SITE.hoursOpeningSpec,
           medicalSpecialty: "Podiatry",
+          knowsAbout: [
+            "פדיקור טיפולי",
+            "טיפול ביבלות",
+            "טיפול בפטרת",
+            "ציפורן חודרנית",
+            "סדקים בעקב",
+            "פדיקור לחולי סוכרת",
+            "אורטוניקסיה",
+            "שיקום ציפורן BIO",
+          ],
+          founder: {
+            "@type": "Person",
+            name: SITE.brand,
+            jobTitle: "פדיקוריסטית טיפולית",
+            description: "פדיקוריסטית טיפולית עם מעל 12 שנות ניסיון, מרצה לפדיקוריסטיות, מתמחה בטיפול בכף הרגל של חולי סוכרת.",
+          },
         }),
       },
     ],
@@ -164,6 +190,7 @@ function RootComponent() {
       <Outlet />
       <AccessibilityMenu />
       <CookieConsent />
+      <StickyWhatsApp />
     </QueryClientProvider>
   );
 }

@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, MapPin, ChevronDown, GraduationCap, Award, Check } from "lucide-react";
+import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, MapPin, GraduationCap, Award, AlertTriangle, BookOpen, Package, Wind } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { SITE } from "@/lib/site-config";
+import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import inbarPhoto from "@/assets/inbar-hero-clinic.png";
 
 const SERVICES = [
@@ -111,7 +111,7 @@ function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="flex-1 pb-20 md:pb-0">
         {/* HERO — boutique therapeutic */}
         <section className="relative bg-background pb-10 md:pb-14">
           <div className="mx-auto max-w-[1280px] px-4 md:px-6">
@@ -131,6 +131,7 @@ function Home() {
 
                 {/* TEXT — visual right in RTL */}
                 <div className="order-2 flex flex-col justify-center px-7 py-10 sm:px-10 md:px-14 md:py-16">
+                  <p className="kicker mb-4">פדיקור טיפולי | {SITE.city}</p>
                   <h1 className="display font-normal leading-[1.15] text-primary-deep text-[2rem] sm:text-[2.4rem] md:text-[2.7rem] lg:text-[3rem]">
                     ענבר פרחי -<br />
                     פדיקוריסטית טיפולית<br />
@@ -138,7 +139,10 @@ function Home() {
                   </h1>
 
                   <p className="mt-6 max-w-[32rem] text-[1.02rem] leading-[1.85] text-ink-soft">
-                    טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית וסדקים
+                    טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית, סדקים וטיפול מותאם לחולי סוכרת.
+                  </p>
+                  <p className="mt-4 max-w-[32rem] text-[0.95rem] leading-[1.8] text-ink">
+                    כאן מטפלים בכאב, בבושה ובחוסר הנוחות — בלי שיפוטיות ועם ניסיון של מעל 12 שנה.
                   </p>
 
                   <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -161,9 +165,21 @@ function Home() {
                       ניווט לקליניקה
                     </a>
                   </div>
+
+                  <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[0.82rem] text-ink-soft">
+                    {PROOF_CHIPS.map(({ icon: Icon, label }) => (
+                      <li key={label} className="flex items-center gap-2">
+                        <Icon className="h-4 w-4 flex-shrink-0 text-primary" aria-hidden strokeWidth={1.8} />
+                        <span className="font-medium">{label}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
+            <p className="mx-4 mt-3 text-center text-[0.78rem] text-text-muted md:mx-6 md:text-right">
+              קליניקה טיפולית ב{SITE.city} · יחס אישי, סטריליות והכוונה להמשך
+            </p>
           </div>
         </section>
 
@@ -274,6 +290,120 @@ function Home() {
                   </Link>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        {/* STERILITY PROTOCOL */}
+        <section className="bg-surface-warm py-20 md:py-24">
+          <div className="mx-auto max-w-[1180px] px-6">
+            <div className="mb-12 max-w-2xl">
+              <p className="kicker mb-3">פרוטוקול הסטריליות של ענבר</p>
+              <h2 className="display text-3xl text-ink md:text-[2.5rem]">
+                סטריליות זה לא <span className="display-italic text-primary-deep">בונוס — זו חובה</span>
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-ink-soft">
+                כל טיפול מתחיל בפרוטוקול קבוע, גם כשנראה מהקליניקה החוצה שהכול רגוע. ככה אני מבטיחה שלא תיקחו מכאן כלום חוץ מהקלה.
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+              {[
+                { icon: Package, title: "כלים חד־פעמיים", desc: "סכינים, להבים ופצירות נפתחים מולך מאריזה סטרילית סגורה." },
+                { icon: ShieldCheck, title: "עיקור אוטוקלאב", desc: "כל כלי רב־פעמי עובר ניקוי אולטרה־סוני ועיקור בלחץ ואדים." },
+                { icon: HeartPulse, title: "פרוטוקול סוכרת", desc: "לחולי סוכרת — בלי חתכים, בלי השרייה, ובדיקה לפי IWGDF." },
+                { icon: Wind, title: "סביבה נקייה", desc: "משטח עבודה מחוטא בין מטופל למטופל, מסכה וכפפות בכל טיפול." },
+              ].map(({ icon: Icon, title, desc }) => (
+                <article key={title} className="rounded-2xl border border-border bg-surface p-6">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary-soft text-primary-deep">
+                    <Icon className="h-5 w-5" aria-hidden strokeWidth={1.6} />
+                  </div>
+                  <h3 className="display text-lg text-ink">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{desc}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* RED FLAGS */}
+        <section className="bg-background py-20 md:py-24">
+          <div className="mx-auto max-w-[1100px] px-6">
+            <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:items-start">
+              <div>
+                <p className="kicker mb-3">חשוב לדעת</p>
+                <h2 className="display text-3xl text-ink md:text-[2.3rem]">
+                  מתי נכון לפנות <span className="display-italic text-primary-deep">לרופא לפני טיפול</span>
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-ink-soft">
+                  פדיקור טיפולי הוא כלי חזק, אבל יש סימנים שמחייבים בדיקה רפואית מקדימה. אם את/ה מזהה אחד מאלה — אני אשמח להפנות לרופא המתאים לפני שנמשיך.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-destructive/25 bg-surface-warm p-6 md:p-8">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-destructive/10 text-destructive">
+                    <AlertTriangle className="h-5 w-5" aria-hidden strokeWidth={1.8} />
+                  </div>
+                  <h3 className="display text-xl text-ink">דגלים אדומים</h3>
+                </div>
+                <ul className="grid gap-3 text-sm leading-relaxed text-ink-soft sm:grid-cols-2">
+                  {[
+                    "פצע פתוח, דימום או הפרשה מכף הרגל",
+                    "כאב חד שלא מתפוגג גם במנוחה",
+                    "נפיחות משמעותית או חום מקומי",
+                    "חשד לזיהום (אדמומיות מתפשטת, ריח חזק)",
+                    "פצע ברגל אצל חולה סוכרת — דחוף",
+                    "תחושת נימול או חוסר תחושה ברגל",
+                    "שינוי צבע חד של ציפורן או עור",
+                    "שטף דם תת־צפורני אחרי חבלה",
+                  ].map((flag) => (
+                    <li key={flag} className="flex items-start gap-2.5">
+                      <span aria-hidden className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-destructive" />
+                      <span>{flag}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-5 border-t border-border pt-4 text-xs leading-relaxed text-text-muted">
+                  בכל ספק — אני אשמח לבחון, להגיד מה אני רואה ולהפנות אם צריך. אין דבר כזה "שאלה מיותרת".
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* KNOWLEDGE HUB TEASER */}
+        <section className="bg-surface-warm py-20 md:py-24">
+          <div className="mx-auto max-w-[1240px] px-6">
+            <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+              <div className="max-w-2xl">
+                <p className="kicker mb-3">מרכז הידע לבריאות כף הרגל</p>
+                <h2 className="display text-3xl text-ink md:text-[2.5rem]">
+                  ידע מבוסס, <span className="display-italic text-primary-deep">בעברית פשוטה</span>
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-ink-soft">
+                  עשרות מאמרים על יבלות, פטרת, ציפורניים, סוכרת ומניעה — כתובים על בסיס פרוטוקולים של משרד הבריאות, NHS, AAD ו-IWGDF.
+                </p>
+              </div>
+              <Link to="/knowledge" className="group inline-flex items-center gap-2 text-sm font-bold text-primary-deep hover:text-copper">
+                כל המאמרים <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden />
+              </Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {KNOWLEDGE_CATEGORIES_NAV.slice(0, 6).map((cat) => (
+                <Link
+                  key={cat.slug}
+                  to="/category/$slug"
+                  params={{ slug: cat.slug }}
+                  className="group flex items-center justify-between gap-4 rounded-2xl border border-border bg-surface px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[var(--shadow-soft)]"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-soft text-primary-deep group-hover:bg-primary-deep group-hover:text-primary-foreground">
+                      <BookOpen className="h-4 w-4" aria-hidden strokeWidth={1.8} />
+                    </div>
+                    <span className="display text-base text-ink">{cat.label}</span>
+                  </div>
+                  <ArrowLeft className="h-4 w-4 text-copper transition-transform group-hover:-translate-x-1" aria-hidden />
+                </Link>
+              ))}
             </div>
           </div>
         </section>
