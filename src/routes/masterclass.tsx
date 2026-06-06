@@ -17,6 +17,9 @@ import {
   BookOpen,
   Star,
   ArrowLeft,
+  FlaskConical,
+  Layers,
+  Activity,
 } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
@@ -44,7 +47,7 @@ const FOR_WHO = [
   {
     icon: HeartPulse,
     title: "ותיקה שהגיעה לתקרה",
-    desc: "את עובדת שנים, אבל המקרים המורכבים — חולי סוכרת, ציפורן חודרנית עמוקה, פטרת כרונית — עדיין שולחים אותך לחפש תשובות. נסגור את הפערים.",
+    desc: "את עובדת שנים, אבל פטרת ציפורניים שחוזרת, סוכרת מורכבת וציפורן חודרנית עמוקה עדיין שולחים אותך לחפש תשובות. כאן תקבלי פרוטוקול ברור לכל אחד מהמקרים האלה.",
   },
   {
     icon: Award,
@@ -56,6 +59,17 @@ const FOR_WHO = [
 const MODULES = [
   {
     n: "01",
+    icon: Microscope,
+    title: "פטרת ציפורניים — אבחנה, פרוטוקול ושיקום",
+    bullets: [
+      "אבחנה מבדלת מדויקת: DLSO, PSO, WSO וזיהומי Candida",
+      "פרוטוקול טיפול שכבתי מותאם לעובי, מיקום ומידת מעורבות",
+      "מתי לטפל בקליניקה ומתי להפנות לדרמטולוג לבדיקת תרבית",
+      "שיקום ציפורן מנותקת בשיטת BIO עד תוצאה אסתטית יציבה",
+    ],
+  },
+  {
+    n: "02",
     icon: Stethoscope,
     title: "אנטומיה קלינית של כף הרגל",
     bullets: [
@@ -65,7 +79,7 @@ const MODULES = [
     ],
   },
   {
-    n: "02",
+    n: "03",
     icon: HeartPulse,
     title: "פרוטוקול IWGDF לחולי סוכרת",
     bullets: [
@@ -75,23 +89,13 @@ const MODULES = [
     ],
   },
   {
-    n: "03",
+    n: "04",
     icon: Scissors,
     title: "ציפורן חודרנית ואורטוניקסיה",
     bullets: [
       "אבחנה מבדלת: דלקת, התעבות, התלפפות",
       "התקנת ברייסים בשיטות שונות (BS, 3TO, COMBI)",
       "ליווי המטופל עד החלמה מלאה",
-    ],
-  },
-  {
-    n: "04",
-    icon: Microscope,
-    title: "פטרת ושיקום ציפורן BIO",
-    bullets: [
-      "זיהוי סוגי פטרת ויעילות חומרים",
-      "שיקום ציפורן מנותקת בשיטת BIO שלב אחר שלב",
-      "המלצות טיפול ביתי עד תוצאה יציבה",
     ],
   },
   {
@@ -120,6 +124,7 @@ const INCLUDES = [
   "8 מפגשים פרונטליים אינטנסיביים בקליניקה",
   "ספר עבודה מודפס + סיכומים דיגיטליים לכל מודול",
   "ערכת התחלה של חומרים מקצועיים מ-Pharm Foot",
+  "ספריית case studies של 12+ מקרי פטרת מורכבים מהקליניקה — לפני/אחרי, פרוטוקול ומעקב",
   "תרגול מעשי על מטופלים אמיתיים בליווי צמוד",
   "קבוצת WhatsApp פעילה לבוגרות לאורך כל השנה",
   "מפגש המשך אישי 1:1 חודש אחרי סיום הקורס",
@@ -128,6 +133,10 @@ const INCLUDES = [
 ] as const;
 
 const FAQ = [
+  {
+    q: "למה הקורס שם דגש כל כך גדול על פטרת ציפורניים?",
+    a: "כי זה התחום שבו מטופלים מסתובבים בין קליניקות שנים בלי פתרון אמיתי. הפרוטוקול שנלמד בקורס פותח בקליניקה תוך עבודה על מאות מקרים, וכולל אבחנה מבדלת, טיפול שכבתי ושיקום BIO — שילוב שלא מלמדים ברוב הקורסים בארץ.",
+  },
   {
     q: "האם צריך ניסיון קודם כדי להירשם?",
     a: "כן. הקורס מיועד לפדיקוריסטיות מוסמכות בלבד — לפחות שנת ניסיון בשטח. אם את עדיין בשלב לימודי בסיס, נשמח להמליץ על מסלול הכנה.",
@@ -175,6 +184,26 @@ const TESTIMONIALS = [
   },
 ] as const;
 
+const FUNGAL_OUTCOMES = [
+  "לזהות סוג הזיהום (DLSO, PSO, WSO, Candida) לפי סימנים ויזואליים",
+  "לבנות תכנית טיפול שכבתית מותאמת לעובי ולמיקום",
+  "לדעת מתי לטפל לבד ומתי להפנות לדרמטולוג",
+  "לשקם ציפורן מנותקת בשיטת BIO עד תוצאה אסתטית",
+  "לבנות לוח מעקב של 12 חודשים למניעת חזרת הזיהום",
+] as const;
+
+const FUNGAL_KPIS = [
+  { label: "מפגשים ייעודיים לפטרת", value: "2 מתוך 8" },
+  { label: "Case studies מהקליניקה", value: "12+" },
+  { label: "פרוטוקול חזרתיות", value: "12 חודשי מעקב" },
+] as const;
+
+const HERO_TRUST = [
+  { icon: Microscope, label: "מאות מקרי פטרת בשנה" },
+  { icon: FlaskConical, label: "פרוטוקול ייחודי לקליניקה" },
+  { icon: Activity, label: "ליווי עד החלמה מלאה" },
+] as const;
+
 export const Route = createFileRoute("/masterclass")({
   head: () => ({
     meta: [
@@ -182,7 +211,7 @@ export const Route = createFileRoute("/masterclass")({
       {
         name: "description",
         content:
-          "מאסטרקלאס לפדיקוריסטיות מקצועיות בהנחיית ענבר פרחי. 8 מפגשים אינטנסיביים: פרוטוקול IWGDF, אורטוניקסיה, שיקום BIO ומיתוג קליני. מחזור הכשרה 2026.",
+          "מאסטרקלאס לפדיקוריסטיות מקצועיות בהנחיית ענבר פרחי. דגש מיוחד על פטרת ציפורניים — אבחנה, פרוטוקול שכבתי ושיקום BIO. בנוסף: IWGDF לסוכרת, אורטוניקסיה ומיתוג קליני. מחזור 2026.",
       },
       {
         property: "og:title",
@@ -191,7 +220,7 @@ export const Route = createFileRoute("/masterclass")({
       {
         property: "og:description",
         content:
-          "8 מפגשים אינטנסיביים שמשדרגים פדיקוריסטית למומחית קלינית. בהנחיית ענבר פרחי.",
+          "8 מפגשים אינטנסיביים שמשדרגים פדיקוריסטית למומחית קלינית, עם דגש מיוחד על פטרת ציפורניים. בהנחיית ענבר פרחי.",
       },
       { property: "og:url", content: SITE.url + "/masterclass" },
       { property: "og:image", content: SITE.url + inbarPhoto },
@@ -206,7 +235,7 @@ export const Route = createFileRoute("/masterclass")({
           "@type": "Course",
           name: "מאסטרקלאס לפדיקוריסטיות מקצועיות",
           description:
-            "8 מפגשים אינטנסיביים בפדיקור טיפולי קליני: פרוטוקול IWGDF, אורטוניקסיה, שיקום BIO, סטריליות ומיתוג מקצועי.",
+            "8 מפגשים אינטנסיביים בפדיקור טיפולי קליני: פטרת ציפורניים — אבחנה, פרוטוקול ושיקום BIO, פרוטוקול IWGDF לסוכרת, אורטוניקסיה, סטריליות ומיתוג מקצועי.",
           provider: {
             "@type": "Organization",
             name: SITE.brand,
@@ -245,8 +274,8 @@ function MasterclassPage() {
               </h1>
 
               <p className="max-w-2xl text-[1.05rem] leading-[1.75] text-ink-soft md:text-[1.18rem]">
-                8 מפגשים אינטנסיביים. פרוטוקול IWGDF לסוכרת, אורטוניקסיה, שיקום BIO,
-                סטריליות רפואית ומיתוג מקצועי. הכל בהנחיה אישית של ענבר פרחי בקליניקה.
+                פטרת ציפורניים, אורטוניקסיה, פרוטוקול IWGDF לסוכרת ושיקום BIO.
+                8 מפגשים אינטנסיביים שמלמדים אותך לטפל במקרים שרוב הקליניקות בארץ שולחות הלאה.
               </p>
 
               <div className="flex flex-col gap-4 sm:flex-row">
@@ -270,6 +299,15 @@ function MasterclassPage() {
                   <BookOpen className="h-4 w-4" aria-hidden />
                   צפייה בסילבוס המלא
                 </a>
+              </div>
+
+              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-1">
+                {HERO_TRUST.map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-center gap-2 text-[0.86rem] font-semibold text-ink-soft">
+                    <Icon className="h-3.5 w-3.5 text-copper" aria-hidden strokeWidth={1.8} />
+                    {label}
+                  </div>
+                ))}
               </div>
 
               <div className="grid grid-cols-2 gap-3 border-t border-border pt-6 md:grid-cols-4 md:gap-4">
