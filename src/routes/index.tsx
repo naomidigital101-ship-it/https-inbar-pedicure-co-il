@@ -119,37 +119,40 @@ function Home() {
           {/* Subtle grain */}
           <div aria-hidden className="absolute inset-0 opacity-[0.18] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.18 0 0 0 0 0.16 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")" }} />
 
-          <div className="relative mx-auto grid max-w-[1240px] items-center gap-12 px-6 pb-16 pt-14 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:pb-24 md:pt-20 lg:gap-20">
-            {/* TEXT — right side in RTL (order-1 on md) */}
-            <div className="order-2 md:order-1">
-              <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-copper/25 bg-surface/70 px-4 py-1.5 backdrop-blur-sm">
-                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-copper" />
-                <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-copper">פדיקור טיפולי · {SITE.city}</span>
+          <div className="relative mx-auto grid max-w-[1280px] items-center gap-10 px-6 pb-12 pt-10 md:grid-cols-2 md:gap-16 md:pb-20 md:pt-16">
+            {/* IMAGE — left side in RTL */}
+            <div className="order-1 md:order-1">
+              <div className="relative overflow-hidden rounded-[1.25rem] bg-surface">
+                <img
+                  src={inbarPhoto}
+                  alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}`}
+                  width={720}
+                  height={620}
+                  loading="eager"
+                  className="aspect-[7/6] w-full object-cover"
+                />
               </div>
+            </div>
 
-              <h1 className="display text-[2.4rem] leading-[1.08] text-ink sm:text-5xl md:text-[3.4rem] lg:text-[3.75rem]">
-                ענבר פרחי <span className="text-copper">·</span>
-                <br />
-                <span className="display-italic text-primary-deep">פדיקוריסטית טיפולית</span>
-                <br />
-                <span className="text-ink">לכף הרגל</span>
+            {/* TEXT — right side in RTL */}
+            <div className="order-2 md:order-2">
+              <h1 className="display text-[2.2rem] font-normal leading-[1.15] text-primary-deep sm:text-[2.75rem] md:text-[3.1rem] lg:text-[3.4rem]">
+                ענבר פרחי -<br />
+                פדיקוריסטית טיפולית<br />
+                לטיפול בכף הרגל
               </h1>
 
-              <p className="mt-6 max-w-[34rem] text-[1.05rem] leading-[1.7] text-ink-soft md:text-lg">
-                טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית, סדקים וטיפול מותאם לחולי סוכרת.
+              <p className="mt-6 max-w-[34rem] text-[1.05rem] leading-[1.8] text-ink-soft">
+                טיפול עדין, סטרילי ומקצועי ביבלות, פטרת,<br />
+                ציפורן חודרנית וסדקים
               </p>
 
-              <p className="mt-5 max-w-[34rem] border-r-2 border-copper/60 pr-4 text-[0.97rem] leading-relaxed text-ink/85">
-                כאן מטפלים בכאב, בבושה ובחוסר הנוחות, בלי שיפוטיות ועם ניסיון של מעל 12 שנה.
-              </p>
-
-              {/* CTAs */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a
                   href={SITE.whatsappUrl}
                   target="_blank"
                   rel="noopener"
-                  className="group inline-flex items-center gap-2.5 rounded-full bg-primary-deep px-7 py-3.5 text-[0.95rem] font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all duration-300 hover:bg-primary hover:shadow-[var(--shadow-lift)]"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-3.5 text-[0.95rem] font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-all duration-300 hover:bg-primary-deep"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden />
                   קביעת טיפול בוואטסאפ
@@ -158,44 +161,12 @@ function Home() {
                   href={SITE.wazeUrl}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-2.5 rounded-full border border-ink/20 bg-surface/80 px-6 py-3.5 text-[0.95rem] font-bold text-ink backdrop-blur-sm transition-all duration-300 hover:border-copper hover:bg-surface hover:text-primary-deep"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-ink/15 bg-transparent px-6 py-3.5 text-[0.95rem] font-semibold text-ink transition-all duration-300 hover:border-primary hover:text-primary-deep"
                 >
-                  <MapPin className="h-4 w-4 text-copper" aria-hidden />
+                  <MapPin className="h-4 w-4" aria-hidden />
                   ניווט לקליניקה
                 </a>
               </div>
-
-              {/* Proof chips */}
-              <ul className="mt-9 flex flex-wrap gap-x-2.5 gap-y-2.5">
-                {PROOF_CHIPS.map(({ icon: Icon, label }) => (
-                  <li
-                    key={label}
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3.5 py-1.5 text-[0.78rem] font-semibold text-ink-soft backdrop-blur-sm transition-colors hover:border-copper/50 hover:text-ink"
-                  >
-                    <Icon className="h-3.5 w-3.5 text-copper" aria-hidden strokeWidth={1.8} />
-                    {label}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* IMAGE — left side in RTL (order-2 on md) */}
-            <div className="relative order-1 md:order-2">
-              <div aria-hidden className="absolute -inset-3 -z-10 rounded-[2.25rem] bg-gradient-to-br from-primary-soft/70 via-surface/40 to-copper-soft/60 blur-[2px]" />
-              <div aria-hidden className="absolute -bottom-4 -left-4 -z-10 hidden h-32 w-32 rounded-full border border-copper/30 md:block" />
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-border/70 bg-surface shadow-[0_30px_60px_-30px_rgb(29_58_53/0.28),0_8px_24px_-12px_rgb(29_58_53/0.12)]">
-                <img
-                  src={inbarPhoto}
-                  alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}, טיפול בכף הרגל בקליניקה סטרילית`}
-                  width={720}
-                  height={820}
-                  loading="eager"
-                  className="aspect-[5/6] w-full object-cover"
-                />
-              </div>
-              <p className="mt-3 px-2 text-[0.78rem] leading-relaxed text-text-muted">
-                קליניקה טיפולית ב{SITE.city} · יחס אישי, סטריליות והכוונה להמשך
-              </p>
             </div>
           </div>
 
