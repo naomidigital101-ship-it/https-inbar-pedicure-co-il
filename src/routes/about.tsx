@@ -4,7 +4,8 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { LeadMagnet } from "@/components/shared/LeadMagnet";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
-import heroImage from "@/assets/about-naomi-hero.webp";
+import heroAsset from "@/assets/inbar-farchi.jpg.asset.json";
+const heroImage = heroAsset.url;
 
 const SITE = "https://lazyrider.org";
 const PAGE_URL = `${SITE}/about`;
