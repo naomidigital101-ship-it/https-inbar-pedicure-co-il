@@ -260,18 +260,18 @@ function Home() {
           </div>
         </section>
 
-        {/* TRUST STRIP */}
-        <section className="border-y border-border bg-surface-warm py-6">
-          <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-x-10 gap-y-3 px-6 text-[11px] font-bold uppercase tracking-[0.18em] text-text-muted">
+        {/* MEDICAL AUTHORITY LOGOS */}
+        <section className="bg-background py-6">
+          <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-[10.5px] font-bold uppercase tracking-[0.2em] text-text-muted">
+            <span>מבוסס פרוטוקולים של</span>
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
             <span>איכילוב</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
             <span>משרד הבריאות</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
-            <span>IWGDF · סוכרת</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
-            <span>NHS guidelines</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
-            <span>IDF · רפואה צבאית</span>
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
+            <span>IWGDF</span>
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
+            <span>NHS</span>
           </div>
         </section>
 
