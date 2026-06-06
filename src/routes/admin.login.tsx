@@ -40,14 +40,14 @@ function AdminLogin() {
 
   return (
     <div
-      className="flex min-h-screen items-center justify-center bg-[#fefaf6] px-4"
+      className="flex min-h-screen items-center justify-center bg-[#fdfbf7] px-4"
       dir="rtl"
     >
-      <div className="w-full max-w-md border border-[#d6c5ac] bg-[#f5ede4] p-8">
-        <div className="mb-6 text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
+      <div className="w-full max-w-md border border-[#b8dcd4] bg-[#e9f4f1] p-8">
+        <div className="mb-6 text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
           [ SYS // ADMIN ]
         </div>
-        <h1 className="mb-6 text-3xl font-black text-[#2a1f1a]">
+        <h1 className="mb-6 text-3xl font-black text-[#1d3a35]">
           כניסת מנהל
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
@@ -66,7 +66,7 @@ function AdminLogin() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
-              className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-4 py-3 font-bold text-[#2a1f1a] focus:border-[#8b3a52] focus:outline-none disabled:opacity-60"
+              className="w-full border border-[#b8dcd4] bg-[#fdfbf7] px-4 py-3 font-bold text-[#1d3a35] focus:border-[#5fa898] focus:outline-none disabled:opacity-60"
             />
           </div>
           <div>
@@ -84,13 +84,13 @@ function AdminLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
-              className="w-full border border-[#d6c5ac] bg-[#fefaf6] px-4 py-3 font-bold text-[#2a1f1a] focus:border-[#8b3a52] focus:outline-none disabled:opacity-60"
+              className="w-full border border-[#b8dcd4] bg-[#fdfbf7] px-4 py-3 font-bold text-[#1d3a35] focus:border-[#5fa898] focus:outline-none disabled:opacity-60"
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#8b3a52] px-6 py-3 text-sm font-black uppercase tracking-wider text-[#fefaf6] transition-colors hover:bg-[#ff3a00] disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full bg-[#5fa898] px-6 py-3 text-sm font-black uppercase tracking-wider text-[#fdfbf7] transition-colors hover:bg-[#ff3a00] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? "מתחבר..." : "התחבר"}
           </button>

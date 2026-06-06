@@ -77,7 +77,7 @@ function AdminDashboard() {
 
   if (authState !== "ready") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#fefaf6]">
+      <div className="flex min-h-screen items-center justify-center bg-[#fdfbf7]">
         <p className="text-sm font-bold text-[#6b5f55]">בודק הרשאות...</p>
       </div>
     );
@@ -114,20 +114,20 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fefaf6]" dir="rtl">
-      <header className="border-b border-[#d6c5ac] bg-[#f5ede4]">
+    <div className="min-h-screen bg-[#fdfbf7]" dir="rtl">
+      <header className="border-b border-[#b8dcd4] bg-[#e9f4f1]">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-4 md:px-8">
           <div className="flex items-center gap-4">
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
               [ SYS // ADMIN ]
             </span>
-            <h1 className="text-lg font-black text-[#2a1f1a]">
+            <h1 className="text-lg font-black text-[#1d3a35]">
               ניהול לידים
             </h1>
           </div>
           <button
             onClick={handleLogout}
-            className="border border-[#d6c5ac] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#8b3a52] hover:text-[#8b3a52]"
+            className="border border-[#b8dcd4] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
           >
             התנתק
           </button>
@@ -140,12 +140,12 @@ function AdminDashboard() {
             <p className="text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
               סה״כ לידים
             </p>
-            <p className="text-3xl font-black text-[#2a1f1a]">{leads.length}</p>
+            <p className="text-3xl font-black text-[#1d3a35]">{leads.length}</p>
           </div>
           <button
             onClick={handleExportCSV}
             disabled={leads.length === 0}
-            className="bg-[#8b3a52] px-6 py-3 text-xs font-black uppercase tracking-wider text-[#fefaf6] transition-colors hover:bg-[#ff3a00] disabled:cursor-not-allowed disabled:opacity-60"
+            className="bg-[#5fa898] px-6 py-3 text-xs font-black uppercase tracking-wider text-[#fdfbf7] transition-colors hover:bg-[#ff3a00] disabled:cursor-not-allowed disabled:opacity-60"
           >
             ייצוא ל-CSV
           </button>
@@ -155,15 +155,15 @@ function AdminDashboard() {
           <p className="text-sm font-bold text-[#6b5f55]">טוען...</p>
         )}
         {leadsQuery.isError && (
-          <p className="text-sm font-bold text-[#8b3a52]">
+          <p className="text-sm font-bold text-[#5fa898]">
             שגיאה בטעינת הלידים
           </p>
         )}
 
         {leadsQuery.data && (
-          <div className="overflow-x-auto border border-[#d6c5ac]">
+          <div className="overflow-x-auto border border-[#b8dcd4]">
             <table className="w-full text-right">
-              <thead className="bg-[#f5ede4] text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
+              <thead className="bg-[#e9f4f1] text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
                 <tr>
                   <th className="px-4 py-3">אימייל</th>
                   <th className="px-4 py-3">מקור</th>
@@ -184,7 +184,7 @@ function AdminDashboard() {
                   leads.map((l: LeadRow) => (
                     <tr
                       key={l.id}
-                      className="border-t border-[#d6c5ac] text-sm font-bold text-[#3a2f28]"
+                      className="border-t border-[#b8dcd4] text-sm font-bold text-[#2d4a44]"
                     >
                       <td className="px-4 py-3" dir="ltr">
                         {l.email}
