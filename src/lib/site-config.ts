@@ -44,3 +44,23 @@ export const KNOWLEDGE_CATEGORIES_NAV = [
   { slug: "prevention", label: "מניעה ותחזוקה" },
   { slug: "sports-feet", label: "ספורטאים ומבוגרים" },
 ] as const;
+
+/**
+ * שיתופי פעולה מקצועיים — מותגים שענבר עובדת איתם בקליניקה.
+ * להוספת מותג: דחפי אובייקט חדש עם name, url, וקומפוננטת לוגו.
+ */
+export type PartnerBrand = {
+  slug: string;
+  name: string;
+  url: string;
+  tagline: string;
+};
+
+export const PARTNERS: readonly PartnerBrand[] = [
+  {
+    slug: "pharm-foot",
+    name: "Pharm Foot",
+    url: "https://christinabeauty.co.il/Pharm-FOOT",
+    tagline: "פדיקור פודולוגי מקצועי",
+  },
+] as const;

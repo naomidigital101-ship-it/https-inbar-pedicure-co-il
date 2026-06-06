@@ -5,6 +5,7 @@ import { SITE, SERVICES_NAV } from "@/lib/site-config";
 const navLinks = [
   { label: "בית", href: "/" },
   { label: "שירותים", href: "/services" },
+  { label: "מאסטרקלאס", href: "/masterclass" },
   { label: "מרכז הידע", href: "/knowledge" },
   { label: "אודות ענבר", href: "/about" },
   { label: "צור קשר", href: "/contact" },

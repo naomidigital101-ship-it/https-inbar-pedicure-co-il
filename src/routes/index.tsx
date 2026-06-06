@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, MapPin, GraduationCap, Award, AlertTriangle, BookOpen, Package, Wind } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
+import { PartnersStrip } from "@/components/shared/PartnersStrip";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import inbarPhoto from "@/assets/inbar-hero-clinic.png";
 
@@ -243,6 +244,8 @@ function Home() {
         </section>
 
         {/* CONCERNS — מה מטריד אותך בכף הרגל */}
+        <PartnersStrip />
+
         <section id="concerns" className="relative bg-background py-20 md:py-24">
           <div className="mx-auto max-w-[1240px] px-6">
             <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
