@@ -117,27 +117,12 @@ function Home() {
       <SiteHeader />
       <ConsultationTab />
       <main id="main-content" className="flex-1 pb-20 md:pb-0">
-        {/* HERO — Cinematic Authority */}
+        {/* HERO — Editorial Clinical (split layout, no text/face overlap) */}
         <section className="relative isolate overflow-hidden bg-background">
-          {/* Background image — fills right side (RTL), fades to background on left */}
-          <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
-            <img
-              src={inbarPhoto}
-              alt=""
-              width={1200}
-              height={1400}
-              loading="eager"
-              className="absolute inset-y-0 right-0 h-full w-full object-cover object-[70%_center] opacity-95 md:w-[62%] md:object-center"
-            />
-            {/* Cream fade overlay — left to right on desktop, full on mobile */}
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/30 to-background md:via-background/40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent md:hidden" />
-          </div>
-
-          <div className="grain absolute inset-0 -z-10 opacity-30" aria-hidden />
-
-          <div className="mx-auto flex min-h-[82vh] max-w-[1280px] flex-col justify-center px-6 py-20 md:py-28 lg:px-10">
-            <div className="max-w-2xl space-y-7">
+          <div className="grain absolute inset-0 -z-10 opacity-20" aria-hidden />
+          <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 py-16 md:py-24 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-28">
+            {/* Text column */}
+            <div className="order-2 space-y-7 lg:order-1 lg:col-span-7">
               <div className="flex items-center gap-3">
                 <span className="h-px w-12 bg-copper" aria-hidden />
                 <span className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-copper">
@@ -145,7 +130,7 @@ function Home() {
                 </span>
               </div>
 
-              <h1 className="display text-[2.8rem] leading-[0.95] text-ink sm:text-[3.6rem] md:text-[5rem] lg:text-[5.5rem]">
+              <h1 className="display text-[2.6rem] leading-[1.02] text-ink sm:text-[3.4rem] md:text-[4.4rem] lg:text-[5rem]">
                 ענבר פרחי
                 <span className="display-italic mt-3 block text-primary-deep">
                   סמכות קלינית
@@ -170,7 +155,7 @@ function Home() {
                 </a>
                 <a
                   href="/masterclass"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-copper/50 bg-surface/80 px-8 py-4 text-[0.98rem] font-bold text-primary-deep backdrop-blur-sm transition-colors duration-300 hover:border-copper hover:bg-surface"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-copper/50 bg-surface px-8 py-4 text-[0.98rem] font-bold text-primary-deep transition-colors duration-300 hover:border-copper hover:bg-surface-warm"
                 >
                   <GraduationCap className="h-4 w-4 text-copper" aria-hidden />
                   מאסטרקלאס לפדיקוריסטיות
@@ -178,7 +163,7 @@ function Home() {
               </div>
 
               {/* Inline stats */}
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-4">
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">
                 {[
                   { n: "12+", l: "שנות ניסיון קליני" },
                   { n: "IWGDF", l: "פרוטוקול סוכרת" },
@@ -189,6 +174,31 @@ function Home() {
                     <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-text-muted">{s.l}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Image column — framed editorial portrait with copper accents */}
+            <div className="relative order-1 lg:order-2 lg:col-span-5">
+              {/* Copper decorative frame, offset behind */}
+              <div className="pointer-events-none absolute -top-4 -right-4 hidden h-full w-full rounded-tr-[80px] border border-copper/40 lg:block" aria-hidden />
+              <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-24 w-24 border-b border-l border-copper/60 lg:block" aria-hidden />
+
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-tr-[80px] rounded-bl-[28px] bg-surface-warm shadow-[var(--shadow-elegant)]">
+                <img
+                  src={inbarPhoto}
+                  alt="ענבר פרחי — פדיקוריסטית טיפולית בקליניקה"
+                  width={900}
+                  height={1125}
+                  loading="eager"
+                  className="h-full w-full object-cover object-[60%_top]"
+                />
+                {/* Experience badge */}
+                <div className="absolute bottom-0 right-0 flex items-end gap-3 border-t border-r border-border bg-surface/95 p-5 backdrop-blur-sm">
+                  <span className="font-heading text-3xl font-bold leading-none text-copper">12+</span>
+                  <span className="pb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-ink">
+                    שנות ניסיון<br />קליני
+                  </span>
+                </div>
               </div>
             </div>
           </div>
