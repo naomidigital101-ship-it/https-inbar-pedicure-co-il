@@ -296,8 +296,6 @@ function Home() {
 
         {/* PULL QUOTE */}
         <section className="bg-surface-warm py-24">
-        </section>
-        {/* placeholder anchor */}
           <div className="mx-auto max-w-[1000px] px-6">
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
