@@ -4,7 +4,7 @@ import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Acti
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SITE } from "@/lib/site-config";
-import inbarPhoto from "@/assets/inbar-farchi.jpg.asset.json";
+import inbarPhoto from "@/assets/inbar-hero-clinic.jpg";
 
 const SERVICES = [
   { slug: "corns", icon: Footprints, title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
@@ -85,8 +85,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: `${SITE.brand} | ${SITE.tagline}` },
       { property: "og:description", content: SITE.shortDescription },
       { property: "og:url", content: SITE.url + "/" },
-      { property: "og:image", content: SITE.url + inbarPhoto.url },
-      { name: "twitter:image", content: SITE.url + inbarPhoto.url },
+      { property: "og:image", content: SITE.url + inbarPhoto },
+      { name: "twitter:image", content: SITE.url + inbarPhoto },
     ],
     links: [{ rel: "canonical", href: SITE.url + "/" }],
     scripts: [
@@ -185,7 +185,7 @@ function Home() {
               <div aria-hidden className="absolute -bottom-4 -left-4 -z-10 hidden h-32 w-32 rounded-full border border-copper/30 md:block" />
               <div className="relative overflow-hidden rounded-[1.75rem] border border-border/70 bg-surface shadow-[0_30px_60px_-30px_rgb(29_58_53/0.28),0_8px_24px_-12px_rgb(29_58_53/0.12)]">
                 <img
-                  src={inbarPhoto.url}
+                  src={inbarPhoto}
                   alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}, טיפול בכף הרגל בקליניקה סטרילית`}
                   width={720}
                   height={820}
@@ -326,7 +326,7 @@ function Home() {
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
                 <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-surface shadow-[var(--shadow-elegant)] md:h-40 md:w-40">
-                  <img src={inbarPhoto.url} alt="ענבר פרחי" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
+                  <img src={inbarPhoto} alt="ענבר פרחי" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
                 </div>
               </div>
               <div>
@@ -390,7 +390,7 @@ function Home() {
           <div className="mx-auto grid max-w-[1180px] gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <div className="relative">
               <div aria-hidden className="absolute -inset-4 rounded-[2.5rem] bg-copper-soft opacity-50" />
-              <img src={inbarPhoto.url} alt="ענבר פרחי בקליניקה" width={560} height={680} loading="lazy" className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]" />
+              <img src={inbarPhoto} alt="ענבר פרחי בקליניקה" width={560} height={680} loading="lazy" className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]" />
             </div>
             <div>
               <p className="kicker mb-4">נעים מאוד</p>
