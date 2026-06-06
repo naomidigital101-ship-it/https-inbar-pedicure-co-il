@@ -19,7 +19,9 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
@@ -79,9 +81,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesSlugRoute = ServicesSlugRouteImport.update({
+  id: '/services/$slug',
+  path: '/services/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
@@ -142,7 +154,9 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/services/': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
@@ -163,7 +177,9 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/services': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
@@ -185,7 +201,9 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
+  '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/services/': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
@@ -208,7 +226,9 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/article/$slug'
     | '/category/$slug'
+    | '/services/$slug'
     | '/admin/'
+    | '/services/'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
     | '/api/public/hooks/autopilot-daily'
@@ -229,7 +249,9 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/article/$slug'
     | '/category/$slug'
+    | '/services/$slug'
     | '/admin'
+    | '/services'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
     | '/api/public/hooks/autopilot-daily'
@@ -250,7 +272,9 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/article/$slug'
     | '/category/$slug'
+    | '/services/$slug'
     | '/admin/'
+    | '/services/'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
     | '/api/public/hooks/autopilot-daily'
@@ -272,7 +296,9 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
   CategorySlugRoute: typeof CategorySlugRoute
+  ServicesSlugRoute: typeof ServicesSlugRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
   AdminPreviewSlugRoute: typeof AdminPreviewSlugRoute
   ApiPublicIndexnowRoute: typeof ApiPublicIndexnowRoute
   ApiPublicHooksAutopilotDailyRoute: typeof ApiPublicHooksAutopilotDailyRoute
@@ -351,11 +377,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/$slug': {
+      id: '/services/$slug'
+      path: '/services/$slug'
+      fullPath: '/services/$slug'
+      preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/category/$slug': {
@@ -432,7 +472,9 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   ArticleSlugRoute: ArticleSlugRoute,
   CategorySlugRoute: CategorySlugRoute,
+  ServicesSlugRoute: ServicesSlugRoute,
   AdminIndexRoute: AdminIndexRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
   AdminPreviewSlugRoute: AdminPreviewSlugRoute,
   ApiPublicIndexnowRoute: ApiPublicIndexnowRoute,
   ApiPublicHooksAutopilotDailyRoute: ApiPublicHooksAutopilotDailyRoute,
