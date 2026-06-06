@@ -4,6 +4,9 @@ import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Acti
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { PartnersStrip } from "@/components/shared/PartnersStrip";
+import { FlagshipCards } from "@/components/home/FlagshipCards";
+import { TreatmentFinder } from "@/components/home/TreatmentFinder";
+import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import inbarPhoto from "@/assets/inbar-hero-clinic.png";
 
