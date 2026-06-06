@@ -357,7 +357,7 @@ function Home() {
               <div aria-hidden className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-copper-soft/20 blur-3xl" />
               <div aria-hidden className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-copper-soft/20 blur-3xl" />
               <div className="relative">
-                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-copper-sog" style={{ color: "var(--copper-soft)" }}>קביעת תור</p>
+                <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: "var(--copper-soft)" }}>קביעת תור</p>
                 <h2 className="display text-4xl text-white md:text-5xl lg:text-6xl">
                   מוכנים לחזור <span className="display-italic">ללכת בלי כאב?</span>
                 </h2>
