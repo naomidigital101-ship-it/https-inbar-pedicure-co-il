@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, MapPin, ChevronDown, GraduationCap, Award, Check } from "lucide-react";
+import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, MapPin, ChevronDown, GraduationCap, Award, Check, AlertTriangle, BookOpen, Stethoscope, Package, Wind, ClipboardCheck } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { SITE } from "@/lib/site-config";
+import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import inbarPhoto from "@/assets/inbar-hero-clinic.png";
 
 const SERVICES = [
