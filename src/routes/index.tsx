@@ -4,7 +4,7 @@ import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Acti
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SITE } from "@/lib/site-config";
-import inbarPhoto from "@/assets/inbar-hero-clinic.jpg";
+import inbarPhoto from "@/assets/inbar-hero-clinic.png";
 
 const SERVICES = [
   { slug: "corns", icon: Footprints, title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
