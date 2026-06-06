@@ -4,7 +4,14 @@
  */
 
 export type Source = { label: string; url: string };
-export type Section = { heading: string; body: string; bullets?: string[]; cites?: number[] };
+export type Section = {
+  heading: string;
+  body?: string;
+  bullets?: string[];
+  cites?: number[];
+  table?: { headers: string[]; rows: string[][] };
+  fromClinic?: string;
+};
 
 export type ServicePage = {
   slug: string;
@@ -13,6 +20,8 @@ export type ServicePage = {
   subtitle: string;
   metaTitle: string;
   metaDescription: string;
+  tldr: string;
+  quickFacts: { label: string; value: string }[];
   intro: string;
   sections: Section[];
   redFlags: string[];
