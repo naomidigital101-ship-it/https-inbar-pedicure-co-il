@@ -4,7 +4,7 @@ import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Acti
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SITE } from "@/lib/site-config";
-import inbarPhoto from "@/assets/inbar-farchi.jpg.asset.json";
+import inbarPhoto from "@/assets/inbar-hero-clinic.jpg";
 
 const SERVICES = [
   { slug: "corns", icon: Footprints, title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
@@ -85,8 +85,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: `${SITE.brand} | ${SITE.tagline}` },
       { property: "og:description", content: SITE.shortDescription },
       { property: "og:url", content: SITE.url + "/" },
-      { property: "og:image", content: SITE.url + inbarPhoto.url },
-      { name: "twitter:image", content: SITE.url + inbarPhoto.url },
+      { property: "og:image", content: SITE.url + inbarPhoto },
+      { name: "twitter:image", content: SITE.url + inbarPhoto },
     ],
     links: [{ rel: "canonical", href: SITE.url + "/" }],
     scripts: [
@@ -185,7 +185,7 @@ function Home() {
               <div aria-hidden className="absolute -bottom-4 -left-4 -z-10 hidden h-32 w-32 rounded-full border border-copper/30 md:block" />
               <div className="relative overflow-hidden rounded-[1.75rem] border border-border/70 bg-surface shadow-[0_30px_60px_-30px_rgb(29_58_53/0.28),0_8px_24px_-12px_rgb(29_58_53/0.12)]">
                 <img
-                  src={inbarPhoto.url}
+                  src={inbarPhoto}
                   alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}, טיפול בכף הרגל בקליניקה סטרילית`}
                   width={720}
                   height={820}
