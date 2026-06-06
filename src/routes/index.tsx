@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, Check } from "lucide-react";
+import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, MapPin, ChevronDown, GraduationCap, Award, Check } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SITE } from "@/lib/site-config";
@@ -13,6 +13,22 @@ const SERVICES = [
   { slug: "onycholysis", icon: Sparkles, title: "ציפורן מנותקת", desc: "שיקום ציפורן שהתנתקה ממיטת הציפורן בשיטת BIO." },
   { slug: "cracked-heels", icon: Activity, title: "עור סדוק ועקבים", desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל." },
   { slug: "diabetic-feet", icon: HeartPulse, title: "פדיקור לחולי סוכרת", desc: "פרוטוקול רפואי מאושר, ציוד חד־פעמי וסטריליות מלאה." },
+] as const;
+
+const CONCERNS = [
+  { slug: "corns", icon: Footprints, title: "יבלות בכף הרגל", desc: "כאב ממוקד בהליכה, עור מעובה מעל נקודות לחץ." },
+  { slug: "fungus", icon: Droplets, title: "פטרת עור וציפורן", desc: "גרד, התקלפות, ציפורן שהצהיבה או התעבתה." },
+  { slug: "ingrown-nails", icon: Scissors, title: "ציפורן חודרנית", desc: "כאב חד בצד הציפורן, אדמומיות או נפיחות חוזרת." },
+  { slug: "cracked-heels", icon: Activity, title: "סדקים בעקב", desc: "עור יבש שמתפצל, לעיתים מדמם ומקשה על הליכה." },
+  { slug: "onycholysis", icon: Sparkles, title: "ציפורן מנותקת", desc: "ציפורן שהתרוממה ממיטת הציפורן ודורשת שיקום BIO." },
+  { slug: "diabetic-feet", icon: HeartPulse, title: "פדיקור לחולי סוכרת", desc: "טיפול בטוח לפי פרוטוקול IWGDF, בלי חתכים, בלי סיכונים." },
+] as const;
+
+const PROOF_CHIPS = [
+  { icon: Award, label: "12+ שנות ניסיון" },
+  { icon: HeartPulse, label: "התמחות בחולי סוכרת" },
+  { icon: GraduationCap, label: "מרצה לפדיקוריסטיות" },
+  { icon: ShieldCheck, label: "טיפול סטרילי ועדין" },
 ] as const;
 
 const AUDIENCES = [
@@ -96,85 +112,166 @@ function Home() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main id="main-content" className="flex-1">
-        {/* HERO — editorial split */}
-        <section className="relative overflow-hidden bg-background">
-          <div aria-hidden className="absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-primary-soft opacity-60 blur-2xl" />
-          <div aria-hidden className="absolute -left-32 top-1/3 h-80 w-80 rounded-full bg-copper-soft opacity-40 blur-2xl" />
-          <div className="relative mx-auto grid max-w-[1280px] gap-14 px-6 py-20 md:grid-cols-[1.15fr_1fr] md:items-center md:py-28 lg:gap-20">
+        {/* HERO — boutique therapeutic */}
+        <section className="relative overflow-hidden">
+          {/* Warm ivory base + soft radial light */}
+          <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_85%_10%,var(--copper-soft)_0%,transparent_55%),radial-gradient(ellipse_90%_70%_at_10%_90%,var(--primary-soft)_0%,transparent_60%),linear-gradient(180deg,var(--surface-warm)_0%,var(--background)_100%)] opacity-90" />
+          {/* Subtle grain */}
+          <div aria-hidden className="absolute inset-0 opacity-[0.18] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.18 0 0 0 0 0.16 0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")" }} />
+
+          <div className="relative mx-auto grid max-w-[1240px] items-center gap-12 px-6 pb-16 pt-14 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:pb-24 md:pt-20 lg:gap-20">
+            {/* TEXT — right side in RTL (order-1 on md) */}
             <div className="order-2 md:order-1">
-              <div className="mb-8 flex items-center gap-3">
-                <span aria-hidden className="h-px w-10 bg-copper" />
-                <span className="kicker">פדיקור טיפולי · {SITE.city}</span>
+              <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-copper/25 bg-surface/70 px-4 py-1.5 backdrop-blur-sm">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-copper" />
+                <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-copper">פדיקור טיפולי · {SITE.city}</span>
               </div>
-              <h1 className="display mb-6 text-5xl text-ink md:text-6xl lg:text-7xl">
-                ללכת בלי כאב,
+
+              <h1 className="display text-[2.4rem] leading-[1.08] text-ink sm:text-5xl md:text-[3.4rem] lg:text-[3.75rem]">
+                ענבר פרחי <span className="text-copper">·</span>
                 <br />
-                <span className="display-italic text-primary-deep">לחזור לעצמך.</span>
+                <span className="display-italic text-primary-deep">פדיקוריסטית טיפולית</span>
+                <br />
+                <span className="text-ink">לכף הרגל</span>
               </h1>
-              <p className="mb-8 max-w-xl text-lg leading-relaxed text-ink-soft md:text-xl">
-                טיפול רפואי בכף הרגל לחולי סוכרת, ספורטאים, חיילים ולכל מי שכואב לו ללכת. שיטה סטרילית, פרוטוקולים של איכילוב, ליווי אישי עד החלמה.
+
+              <p className="mt-6 max-w-[34rem] text-[1.05rem] leading-[1.7] text-ink-soft md:text-lg">
+                טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית, סדקים וטיפול מותאם לחולי סוכרת.
               </p>
-              <ul className="mb-10 grid gap-2.5 sm:grid-cols-2">
-                {BULLETS.map((b) => (
-                  <li key={b} className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft">
-                    <Check className="mt-1 h-4 w-4 flex-shrink-0 text-primary" aria-hidden />
-                    <span>{b}</span>
+
+              <p className="mt-5 max-w-[34rem] border-r-2 border-copper/60 pr-4 text-[0.97rem] leading-relaxed text-ink/85">
+                כאן מטפלים בכאב, בבושה ובחוסר הנוחות, בלי שיפוטיות ועם ניסיון של מעל 12 שנה.
+              </p>
+
+              {/* CTAs */}
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href={SITE.whatsappUrl}
+                  target="_blank"
+                  rel="noopener"
+                  className="group inline-flex items-center gap-2.5 rounded-full bg-primary-deep px-7 py-3.5 text-[0.95rem] font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all duration-300 hover:bg-primary hover:shadow-[var(--shadow-lift)]"
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden />
+                  קביעת טיפול בוואטסאפ
+                </a>
+                <a
+                  href={SITE.wazeUrl}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-ink/20 bg-surface/80 px-6 py-3.5 text-[0.95rem] font-bold text-ink backdrop-blur-sm transition-all duration-300 hover:border-copper hover:bg-surface hover:text-primary-deep"
+                >
+                  <MapPin className="h-4 w-4 text-copper" aria-hidden />
+                  ניווט לקליניקה
+                </a>
+              </div>
+
+              {/* Proof chips */}
+              <ul className="mt-9 flex flex-wrap gap-x-2.5 gap-y-2.5">
+                {PROOF_CHIPS.map(({ icon: Icon, label }) => (
+                  <li
+                    key={label}
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3.5 py-1.5 text-[0.78rem] font-semibold text-ink-soft backdrop-blur-sm transition-colors hover:border-copper/50 hover:text-ink"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-copper" aria-hidden strokeWidth={1.8} />
+                    {label}
                   </li>
                 ))}
               </ul>
-              <div className="flex flex-wrap items-center gap-4">
-                <a href={SITE.whatsappUrl} target="_blank" rel="noopener" className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all hover:bg-primary-deep hover:shadow-[var(--shadow-lift)]">
-                  <MessageCircle className="h-4 w-4" aria-hidden /> קביעת תור בוואטסאפ
-                </a>
-                <a href={SITE.telUrl} className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-surface px-7 py-4 text-sm font-bold text-ink transition-colors hover:border-primary hover:text-primary">
-                  <Phone className="h-4 w-4 text-copper" aria-hidden /> {SITE.phoneDisplay}
-                </a>
+            </div>
+
+            {/* IMAGE — left side in RTL (order-2 on md) */}
+            <div className="relative order-1 md:order-2">
+              <div aria-hidden className="absolute -inset-3 -z-10 rounded-[2.25rem] bg-gradient-to-br from-primary-soft/70 via-surface/40 to-copper-soft/60 blur-[2px]" />
+              <div aria-hidden className="absolute -bottom-4 -left-4 -z-10 hidden h-32 w-32 rounded-full border border-copper/30 md:block" />
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-border/70 bg-surface shadow-[0_30px_60px_-30px_rgb(29_58_53/0.28),0_8px_24px_-12px_rgb(29_58_53/0.12)]">
+                <img
+                  src={inbarPhoto.url}
+                  alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}, טיפול בכף הרגל בקליניקה סטרילית`}
+                  width={720}
+                  height={820}
+                  loading="eager"
+                  className="aspect-[5/6] w-full object-cover"
+                />
               </div>
-              <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[11px] font-medium uppercase tracking-wider text-text-muted">
-                {TRUST.map((t, i) => (
-                  <span key={t} className="flex items-center gap-3">
-                    {i > 0 && <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />}
-                    {t}
-                  </span>
-                ))}
+              <p className="mt-3 px-2 text-[0.78rem] leading-relaxed text-text-muted">
+                קליניקה טיפולית ב{SITE.city} · יחס אישי, סטריליות והכוונה להמשך
+              </p>
+            </div>
+          </div>
+
+          {/* Scroll cue */}
+          <a
+            href="#concerns"
+            aria-label="המשך לסקשן הבא"
+            className="relative mx-auto mb-8 hidden h-10 w-10 items-center justify-center rounded-full border border-copper/30 bg-surface/70 text-copper backdrop-blur-sm transition-colors hover:border-copper hover:text-primary-deep md:flex"
+          >
+            <ChevronDown className="h-4 w-4 animate-bounce" aria-hidden />
+          </a>
+        </section>
+
+        {/* CONCERNS — מה מטריד אותך בכף הרגל */}
+        <section id="concerns" className="relative bg-background py-20 md:py-24">
+          <div className="mx-auto max-w-[1240px] px-6">
+            <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+              <div className="max-w-2xl">
+                <p className="kicker mb-3">לאבחון מהיר</p>
+                <h2 className="display text-3xl text-ink md:text-[2.5rem]">
+                  מה מטריד אותך <span className="display-italic text-primary-deep">בכף הרגל?</span>
+                </h2>
+                <p className="mt-4 text-base leading-relaxed text-ink-soft">
+                  בחרו את הבעיה הקרובה ביותר למה שאתם מרגישים, ואקח אתכם להסבר מלא, סימני אזהרה ופרוטוקול טיפול.
+                </p>
               </div>
             </div>
 
-            <div className="relative order-1 md:order-2">
-              <div aria-hidden className="absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-primary-soft via-surface to-copper-soft" />
-              <div className="relative overflow-hidden rounded-[2.5rem] shadow-[var(--shadow-lift)]">
-                <img
-                  src={inbarPhoto.url}
-                  alt={`${SITE.brand} — פדיקוריסטית טיפולית ב${SITE.city}`}
-                  width={720}
-                  height={860}
-                  loading="eager"
-                  className="aspect-[4/5] w-full object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-6 right-6 max-w-[220px] rounded-2xl bg-surface p-4 shadow-[var(--shadow-elegant)]">
-                <p className="display text-3xl text-primary-deep">200<span className="text-copper">+</span></p>
-                <p className="mt-1 text-xs leading-snug text-ink-soft">מטופלים שחזרו ללכת בלי כאב</p>
-              </div>
-              <div className="absolute -top-4 left-4 rounded-full bg-surface px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-copper shadow-[var(--shadow-soft)]">
-                12+ שנות ניסיון
-              </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {CONCERNS.map(({ slug, icon: Icon, title, desc }) => (
+                <Link
+                  key={slug}
+                  to="/services/$slug"
+                  params={{ slug }}
+                  className="group relative flex items-start gap-4 overflow-hidden rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-copper/40 hover:shadow-[var(--shadow-elegant)]"
+                >
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary-soft/70 text-primary-deep transition-colors group-hover:bg-primary-deep group-hover:text-primary-foreground">
+                    <Icon className="h-5 w-5" aria-hidden strokeWidth={1.6} />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="display text-lg text-ink">{title}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{desc}</p>
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-primary-deep group-hover:text-copper">
+                      לפרטים <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" aria-hidden />
+                    </span>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* TRUST STRIP */}
-        <section className="border-y border-border bg-surface-warm py-6">
-          <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-x-10 gap-y-3 px-6 text-[11px] font-bold uppercase tracking-[0.18em] text-text-muted">
+        {/* AUTHORITY STRIP */}
+        <section className="border-y border-border bg-surface-warm py-8">
+          <div className="mx-auto flex max-w-[1100px] items-center gap-5 px-6">
+            <div className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-copper/40 text-copper sm:flex">
+              <ShieldCheck className="h-5 w-5" aria-hidden strokeWidth={1.6} />
+            </div>
+            <p className="text-center text-[0.95rem] leading-relaxed text-ink-soft sm:text-right">
+              ענבר משלבת ניסיון טיפולי, הדרכת פדיקוריסטיות ופרוטוקול סטריליות מוקפד כדי לתת מענה <span className="font-bold text-ink">בטוח, רגיש ומקצועי</span>.
+            </p>
+          </div>
+        </section>
+
+        {/* MEDICAL AUTHORITY LOGOS */}
+        <section className="bg-background py-6">
+          <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-[10.5px] font-bold uppercase tracking-[0.2em] text-text-muted">
+            <span>מבוסס פרוטוקולים של</span>
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
             <span>איכילוב</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
             <span>משרד הבריאות</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
-            <span>IWGDF · סוכרת</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
-            <span>NHS guidelines</span>
-            <span aria-hidden className="h-1 w-1 rounded-full bg-copper" />
-            <span>IDF · רפואה צבאית</span>
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
+            <span>IWGDF</span>
+            <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
+            <span>NHS</span>
           </div>
         </section>
 
