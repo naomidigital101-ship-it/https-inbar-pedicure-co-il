@@ -1,7 +1,8 @@
+import type { ComponentType } from "react";
 import { PARTNERS } from "@/lib/site-config";
 import { PharmFootLogo } from "./PartnerLogos";
 
-const LOGO_MAP: Record<string, (props: { className?: string }) => JSX.Element> = {
+const LOGO_MAP: Record<string, ComponentType<{ className?: string }>> = {
   "pharm-foot": PharmFootLogo,
 };
 
