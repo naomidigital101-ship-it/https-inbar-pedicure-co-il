@@ -131,6 +131,7 @@ function Home() {
 
                 {/* TEXT — visual right in RTL */}
                 <div className="order-2 flex flex-col justify-center px-7 py-10 sm:px-10 md:px-14 md:py-16">
+                  <p className="kicker mb-4">פדיקור טיפולי | {SITE.city}</p>
                   <h1 className="display font-normal leading-[1.15] text-primary-deep text-[2rem] sm:text-[2.4rem] md:text-[2.7rem] lg:text-[3rem]">
                     ענבר פרחי -<br />
                     פדיקוריסטית טיפולית<br />
@@ -138,7 +139,10 @@ function Home() {
                   </h1>
 
                   <p className="mt-6 max-w-[32rem] text-[1.02rem] leading-[1.85] text-ink-soft">
-                    טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית וסדקים
+                    טיפול עדין, סטרילי ומקצועי ביבלות, פטרת, ציפורן חודרנית, סדקים וטיפול מותאם לחולי סוכרת.
+                  </p>
+                  <p className="mt-4 max-w-[32rem] text-[0.95rem] leading-[1.8] text-ink">
+                    כאן מטפלים בכאב, בבושה ובחוסר הנוחות — בלי שיפוטיות ועם ניסיון של מעל 12 שנה.
                   </p>
 
                   <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -161,9 +165,21 @@ function Home() {
                       ניווט לקליניקה
                     </a>
                   </div>
+
+                  <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[0.82rem] text-ink-soft">
+                    {PROOF_CHIPS.map(({ icon: Icon, label }) => (
+                      <li key={label} className="flex items-center gap-2">
+                        <Icon className="h-4 w-4 flex-shrink-0 text-primary" aria-hidden strokeWidth={1.8} />
+                        <span className="font-medium">{label}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
+            <p className="mx-4 mt-3 text-center text-[0.78rem] text-text-muted md:mx-6 md:text-right">
+              קליניקה טיפולית ב{SITE.city} · יחס אישי, סטריליות והכוונה להמשך
+            </p>
           </div>
         </section>
 
