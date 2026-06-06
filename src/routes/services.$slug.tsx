@@ -108,6 +108,18 @@ function ServicePage() {
         {/* Intro */}
         <section className="bg-white py-12">
           <div className="mx-auto max-w-[820px] px-6">
+            <div className="mb-8 rounded-2xl border-r-4 border-[#5fa898] bg-[#e9f4f1] p-6">
+              <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[#5fa898]">בקצרה</p>
+              <p className="text-base leading-relaxed text-[#1d3a35]">{s.tldr}</p>
+            </div>
+            <div className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {s.quickFacts.map((f) => (
+                <div key={f.label} className="rounded-xl border border-[#b8dcd4] bg-[#fdfbf7] p-4 text-center">
+                  <p className="mb-1 text-[11px] font-bold text-[#5fa898]">{f.label}</p>
+                  <p className="text-sm font-bold text-[#1d3a35]">{f.value}</p>
+                </div>
+              ))}
+            </div>
             <p className="text-lg leading-relaxed text-[#1d3a35]">{s.intro}</p>
           </div>
         </section>
@@ -130,6 +142,34 @@ function ServicePage() {
                       </li>
                     ))}
                   </ul>
+                )}
+                {sec.table && (
+                  <div className="mt-5 overflow-x-auto">
+                    <table className="w-full border-collapse text-sm">
+                      <thead>
+                        <tr className="bg-[#e9f4f1]">
+                          {sec.table.headers.map((h) => (
+                            <th key={h} className="border border-[#b8dcd4] p-3 text-right font-bold text-[#1d3a35]">{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sec.table.rows.map((row, ri) => (
+                          <tr key={ri} className="bg-white">
+                            {row.map((c, ci) => (
+                              <td key={ci} className="border border-[#b8dcd4] p-3 text-[#2d4a44]">{c}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+                {sec.fromClinic && (
+                  <div className="mt-5 rounded-2xl border-r-4 border-[#c4a574] bg-[#fdf8ef] p-5">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wide text-[#8a6d3a]">מהקליניקה שלי</p>
+                    <p className="text-sm leading-relaxed text-[#5a4a30]">{sec.fromClinic}</p>
+                  </div>
                 )}
                 {sec.cites && sec.cites.length > 0 && (
                   <p className="mt-4 text-xs text-[#6b5f55]">
