@@ -70,62 +70,77 @@ function AboutPage() {
       <main id="main-content" className="flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "אודות" }]} />
 
-        <article className="border-b border-[#b8dcd4] bg-[#fdfbf7]">
-          <div className="mx-auto max-w-[820px] px-4 py-14 md:px-8 md:py-20">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">אודות</span>
-              <span aria-hidden className="h-px w-12 bg-[#b8dcd4]" />
-            </div>
-
-            <h1 className="mb-8 text-4xl font-black leading-tight text-[#1d3a35] md:text-5xl">
-              היי, אני ענבר
-            </h1>
-
-            <figure className="mb-12 overflow-hidden rounded-3xl border border-[#b8dcd4] shadow-xl">
+        <article className="bg-background">
+          <div className="mx-auto grid max-w-[1180px] gap-14 px-6 py-20 md:grid-cols-[1fr_1.1fr] md:items-center md:py-28">
+            <div className="relative order-2 md:order-1">
+              <div aria-hidden className="absolute -inset-5 rounded-[2.5rem] bg-copper-soft opacity-50" />
               <img
                 src={heroAsset.url}
                 alt={`${SITE.brand} – פדיקוריסטית טיפולית בקליניקה`}
-                width={1200}
-                height={1200}
-                className="h-full w-full object-cover"
+                width={720}
+                height={900}
+                className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]"
               />
-            </figure>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="mb-6 flex items-center gap-3">
+                <span aria-hidden className="h-px w-10 bg-copper" />
+                <span className="kicker">אודות</span>
+              </div>
+              <h1 className="display mb-6 text-5xl text-ink md:text-6xl">
+                היי, אני <span className="display-italic text-primary-deep">ענבר</span>
+              </h1>
+              <p className="text-xl leading-relaxed text-ink-soft">
+                {paragraphs[0]}
+              </p>
+            </div>
+          </div>
 
-            <div className="space-y-5 text-lg leading-loose text-[#2d4a44]">
-              {paragraphs.map((p, i) => (
+          <div className="bg-surface-warm py-20">
+            <div className="mx-auto max-w-[760px] space-y-7 px-6 text-lg leading-loose text-ink-soft">
+              {paragraphs.slice(1).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
+          </div>
 
-            <section className="mt-14 rounded-3xl bg-white p-8 shadow-sm">
-              <h2 className="mb-6 text-xl font-black text-[#1d3a35]">הכשרה וניסיון</h2>
-              <ul className="space-y-3">
-                {credentials.map((c) => (
-                  <li key={c} className="flex items-start gap-3 text-base text-[#2d4a44]">
-                    <span aria-hidden className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#5fa898]" />
-                    <span>{c}</span>
+          <section className="bg-background py-20">
+            <div className="mx-auto max-w-[1180px] px-6">
+              <div className="mb-12 flex items-end justify-between gap-6">
+                <div>
+                  <p className="kicker mb-3">הכשרה וניסיון</p>
+                  <h2 className="display text-4xl text-ink md:text-5xl">
+                    הרקע <span className="display-italic text-primary-deep">המקצועי</span>
+                  </h2>
+                </div>
+              </div>
+              <ul className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-2">
+                {credentials.map((c, i) => (
+                  <li key={c} className="flex items-start gap-4 bg-surface p-7">
+                    <span className="display text-3xl text-copper">0{i + 1}</span>
+                    <span className="pt-2 text-base leading-relaxed text-ink">{c}</span>
                   </li>
                 ))}
               </ul>
-            </section>
 
-            <div className="mt-12 flex flex-wrap gap-3 border-t border-[#b8dcd4] pt-10">
-              <a
-                href={SITE.whatsappUrl}
-                target="_blank"
-                rel="noopener"
-                className="inline-flex items-center gap-2 rounded-full bg-[#25d366] px-6 py-3 text-sm font-bold text-white shadow-md transition-transform hover:scale-105"
-              >
-                <Phone className="h-4 w-4" aria-hidden /> וואטסאפ
-              </a>
-              <a
-                href={`mailto:${SITE.email}`}
-                className="inline-flex items-center gap-2 rounded-full border-2 border-[#5fa898] px-6 py-3 text-sm font-bold text-[#5fa898] transition-colors hover:bg-[#5fa898] hover:text-white"
-              >
-                <Mail className="h-4 w-4" aria-hidden /> שלחו לי מייל
-              </a>
+              <div className="mt-14 flex flex-wrap justify-center gap-4 border-t border-border pt-12">
+                <a
+                  href={SITE.whatsappUrl}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all hover:bg-primary-deep"
+                >
+                  <Phone className="h-4 w-4" aria-hidden /> קביעת תור בוואטסאפ
+                </a>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-surface px-7 py-4 text-sm font-bold text-ink transition-colors hover:border-primary hover:text-primary"
+                >
+                  <Mail className="h-4 w-4 text-copper" aria-hidden /> שלחו לי מייל
+                </a>
+              </div>
             </div>
-          </div>
+          </section>
         </article>
       </main>
       <SiteFooter />
