@@ -11,7 +11,7 @@ import {
   type UrlInspectionResult,
 } from "./gsc.server";
 
-const BASE_URL = "https://lazyrider.org";
+const BASE_URL = "https://inbar-farchi.lovable.app";
 
 export interface IndexationRow {
   slug: string;
@@ -114,7 +114,7 @@ export const submitForIndexing = createServerFn({ method: "POST" })
       finishedAt: new Date().toISOString(),
       indexNow: ping,
       indexNowError,
-      indexNowKeyLocation: "https://lazyrider.org/c4ecf7a2fbf37f34ba99965022da276f.txt",
+      indexNowKeyLocation: "https://inbar-farchi.lovable.app/c4ecf7a2fbf37f34ba99965022da276f.txt",
       sitemapResubmitted: sitemapOk,
       sitemapError,
       sitemapUrl: `${BASE_URL}/sitemap.xml`,

@@ -1,18 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { LeadMagnet } from "@/components/shared/LeadMagnet";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
+import { SITE } from "@/lib/site-config";
 import heroAsset from "@/assets/inbar-farchi.jpg.asset.json";
-const heroImage = heroAsset.url;
 
-const SITE = "https://lazyrider.org";
-const PAGE_URL = `${SITE}/about`;
-const HERO_ABS = `${SITE}${heroImage}`;
-const TITLE = "אודות נעמי | הרוכב העצלן";
+const PAGE_URL = `${SITE.url}/about`;
+const HERO_ABS = `${SITE.url}${heroAsset.url}`;
+const TITLE = `אודות ${SITE.brand} | פדיקוריסטית טיפולית`;
 const DESCRIPTION =
-  "הסיפור מאחורי הרוכב העצלן. נעמי, רוכבת KTM 250 2T EXC מבנימין, מתרגמת ידע טכני באופנועי שטח לעברית פשוטה שחוסכת כסף וטעויות.";
+  "ענבר פרחי, פדיקוריסטית טיפולית מבית אל עם 12+ שנות ניסיון. מתמחה בטיפול ביבלות, פטרת, ציפורן חודרנית וטיפול עדין לחולי סוכרת. השתלמויות באיכילוב, מרצה ומכשירה.";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -21,28 +19,13 @@ const personSchema = {
   url: PAGE_URL,
   mainEntity: {
     "@type": "Person",
-    name: "נעמי",
-    jobTitle: "כותבת ורוכבת אופנועי שטח",
-    description:
-      "רוכבת KTM 250 2T EXC מבנימין. מתרגמת ידע טכני באופנועי שטח לעברית פשוטה.",
+    name: SITE.brand,
+    jobTitle: "פדיקוריסטית טיפולית",
+    description: DESCRIPTION,
     image: HERO_ABS,
-    knowsAbout: [
-      "אופנועי שטח",
-      "תחזוקת אופנועים",
-      "KTM",
-      "אנדורו",
-      "טכניקת רכיבה",
-    ],
+    address: { "@type": "PostalAddress", addressLocality: SITE.city, addressRegion: SITE.region, addressCountry: "IL" },
+    knowsAbout: ["פדיקור טיפולי", "טיפול ביבלות", "פטרת כף הרגל", "ציפורן חודרנית", "אורטוניקסיה", "טיפול בחולי סוכרת", "שיטת BIO"],
   },
-};
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "בית", item: SITE + "/" },
-    { "@type": "ListItem", position: 2, name: "אודות", item: PAGE_URL },
-  ],
 };
 
 export const Route = createFileRoute("/about")({
@@ -55,24 +38,29 @@ export const Route = createFileRoute("/about")({
       { property: "og:url", content: PAGE_URL },
       { property: "og:type", content: "profile" },
       { property: "og:image", content: HERO_ABS },
-      { name: "twitter:title", content: TITLE },
-      { name: "twitter:description", content: DESCRIPTION },
       { name: "twitter:image", content: HERO_ABS },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(breadcrumbSchema) },
-      { type: "application/ld+json", children: JSON.stringify(personSchema) },
-    ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(personSchema) }],
   }),
   component: AboutPage,
 });
 
-const paragraphs: string[] = [
-  "קוראים לי נעמי, אני בת 22 ומתיישבת בבנימין, ולפני קצת יותר משנה עליתי בפעם הראשונה על אופנוע של חברה בלי באמת לדעת איך רוכבים. הרעד של המנוע, הפחד, האדרנלין, הכל קרה ביחד באותו רגע, וידעתי כבר אז שאני לא יורדת מזה. לפני זה היו שנים של עבודות משרד, ישיבות ומסכים ולוחות זמנים של מישהו אחר, וכשמצאתי את עצמי לראשונה על KTM 250 2T EXC בשטח של סוף השבוע, הבנתי שזה המקום היחיד שבו הראש שלי מצליח להשתתק לגמרי.",
-  "מהר מאוד גיליתי שהפער בין לרכוב לבין להבין באמת איך האופנוע עובד הוא ענק, ושהפער הזה עולה הרבה כסף. שילמתי למכונאים על דברים שהבנתי אחר כך שיכולתי לעשות לבד בחצי שעה בבית, עשיתי בשטח טעויות בסיסיות שאפשר היה למנוע בקלות אם רק היה לי איפה לקרוא עליהן בעברית, ופגשתי לא מעט אנשים שחשבו שאפשר לדפוק לי מחיר כי אני אישה שלא אמורה להבין במה מדובר. בכל פעם שניסיתי לחפש תשובה רצינית, מצאתי או פורומים ישנים, או סרטונים באנגלית שמדברים על אופנועים אחרים, או יעוץ מתנשא. כמעט שום דבר לא היה כתוב פשוט, מסודר ובעברית.",
-  "אז התחלתי לכתוב לעצמי. כל פעם שלמדתי משהו חדש על האופנוע, על תחזוקה, על טכניקת רכיבה או על ציוד, תיעדתי אותו בשפה שאני הייתי רוצה לקרוא בה כשהתחלתי. בלי להניח שאת או אתה כבר יודעים מה זה שים, איך מנקים מסנן אוויר נכון או למה רוכבים בעמידה, ובלי לזלזל באף שאלה. האתר הזה הוא בעצם אוסף של כל מה שהייתי רוצה שמישהו היה נותן לי ביד בשנה הראשונה שלי, ערוך כמו שצריך, מבוסס על ניסיון אמיתי ולא על תרגום של ויקיפדיה, ובנוי כדי לחסוך לכם את הכסף ואת הטעויות שאני כבר שילמתי עליהם.",
-  "אני לא רוכבת חמישים שנה, לא מכונאית מוסמכת ולא אלופת עולם. אני לומדת על ידי עשייה ומשתפת את כל מה שאני מגלה בדרך. אני קוראת, חוקרת, מתנסה, נופלת לפעמים, ומתרגמת את מה שיוצא לי מזה לשפה שאפשר באמת לעבוד איתה בבית, בסוף שבוע, לפני שיוצאים לשטח. במקום אחד תמצאו כאן מדריכי תחזוקה, השוואות בין דגמים, מדריכי ציוד, וטכניקת רכיבה, הכל מכוון לרוכבים ולרוכבות, מתחילים ומתקדמים, שרוצים פשוט להפסיק להיות תלויים בכל אחד על כל שטות. יום אחד אני רוצה להגיע גם לתחרויות. עד אז, אני כותבת. אם מצאתם טעות, יש לכם שאלה או משהו שהייתם רוצים שיהיה כאן, כתבו לי, אני קוראת כל הודעה ועונה אישית.",
+const paragraphs = [
+  "נעים מאוד, אני ענבר פרחי – פדיקוריסטית טיפולית המתמחה בטיפול במחלות רגליים, יבלות, פטרת ושיקום ציפורניים בשיטת BIO.",
+  "בעיניי טיפול בכף הרגל הוא הרבה מעבר לפינוק. הוא חלק בלתי נפרד מהבריאות הכללית ומאיכות החיים היומיומית. מגיע לכל אדם ללכת בלי כאב, להרגיש נוחות וביטחון בכל צעד.",
+  "כל רגל מספרת סיפור אחר, והשליחות שלי היא להבין את מקור הבעיה ולטפל בה מהשורש – לא רק לשפר את המראה, אלא את איכות החיים. אני משלבת ידע רפואי, דיוק ואמפתיה, מתוך משיכה אמיתית לעולם הרפואה ורצון לעזור לאנשים.",
+  "אני עוברת השתלמויות קבועות בבית החולים איכילוב, מתמחה בטיפול בחולי סוכרת לפי פרוטוקולים רפואיים מאושרים, ומרצה לפדיקוריסטיות טיפוליות ברחבי הארץ – להעלות מודעות לכאב שכל כך הרבה אנשים סובלים ממנו בשתיקה.",
+  "המטרה שלי פשוטה – להחזיר לכם את הבריאות, הנוחות והקלות בכל צעד.",
+];
+
+const credentials = [
+  "12+ שנות ניסיון בטיפול רפואי בכף הרגל",
+  "השתלמויות קבועות בבית החולים איכילוב",
+  "התמחות בטיפול בחולי סוכרת לפי פרוטוקולים רפואיים",
+  "התמחות בשיטת BIO לשיקום ציפורניים",
+  "מרצה ומכשירה פדיקוריסטיות טיפוליות",
+  "200+ טיפולים מוצלחים מסוגים שונים",
 ];
 
 function AboutPage() {
@@ -80,53 +68,65 @@ function AboutPage() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main id="main-content" className="flex-1">
-        <Breadcrumb
-          items={[{ label: "בית", href: "/" }, { label: "אודות" }]}
-        />
+        <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "אודות" }]} />
 
-        <article className="border-b border-[#d6c5ac] bg-[#fefaf6]">
-          <div className="mx-auto max-w-[760px] px-4 py-14 md:px-8 md:py-20">
-            <div className="mb-8 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
-                אודות
-              </span>
-              <span aria-hidden="true" className="h-px w-12 bg-[#d6c5ac]" />
+        <article className="border-b border-[#b8dcd4] bg-[#fdfbf7]">
+          <div className="mx-auto max-w-[820px] px-4 py-14 md:px-8 md:py-20">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">אודות</span>
+              <span aria-hidden className="h-px w-12 bg-[#b8dcd4]" />
             </div>
 
-            <h1 className="mb-10 text-4xl font-black leading-tight text-[#2a1f1a] md:text-5xl">
-              היי, אני נעמי
+            <h1 className="mb-8 text-4xl font-black leading-tight text-[#1d3a35] md:text-5xl">
+              היי, אני ענבר
             </h1>
 
-            <figure className="mb-12 overflow-hidden border border-[#d6c5ac]">
+            <figure className="mb-12 overflow-hidden rounded-3xl border border-[#b8dcd4] shadow-xl">
               <img
-                src={heroImage}
-                alt="נעמי על אופנוע KTM 250 EXC כתום בשטח סלעי בשעת שקיעה"
-                width={1920}
-                height={1080}
+                src={heroAsset.url}
+                alt={`${SITE.brand} – פדיקוריסטית טיפולית בקליניקה`}
+                width={1200}
+                height={1200}
                 className="h-full w-full object-cover"
               />
             </figure>
 
-            <div className="space-y-6 text-lg leading-loose text-[#3a2f28]">
+            <div className="space-y-5 text-lg leading-loose text-[#2d4a44]">
               {paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
 
-            <div className="mt-12 border-t border-[#d6c5ac] pt-10">
+            <section className="mt-14 rounded-3xl bg-white p-8 shadow-sm">
+              <h2 className="mb-6 text-xl font-black text-[#1d3a35]">הכשרה וניסיון</h2>
+              <ul className="space-y-3">
+                {credentials.map((c) => (
+                  <li key={c} className="flex items-start gap-3 text-base text-[#2d4a44]">
+                    <span aria-hidden className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#5fa898]" />
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <div className="mt-12 flex flex-wrap gap-3 border-t border-[#b8dcd4] pt-10">
               <a
-                href="mailto:hello@dirt-road-guide.lovable.app"
-                className="inline-flex items-center gap-3 border-2 border-[#8b3a52] bg-[#8b3a52] px-6 py-3 text-sm font-black uppercase tracking-widest text-[#fefaf6] transition-colors hover:bg-transparent hover:text-[#8b3a52] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8b3a52]"
-                aria-label="שליחת מייל לנעמי"
+                href={SITE.whatsappUrl}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center gap-2 rounded-full bg-[#25d366] px-6 py-3 text-sm font-bold text-white shadow-md transition-transform hover:scale-105"
               >
-                <Mail className="h-5 w-5" aria-hidden="true" />
-                כתבו לי
+                <Phone className="h-4 w-4" aria-hidden /> וואטסאפ
+              </a>
+              <a
+                href={`mailto:${SITE.email}`}
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[#5fa898] px-6 py-3 text-sm font-bold text-[#5fa898] transition-colors hover:bg-[#5fa898] hover:text-white"
+              >
+                <Mail className="h-4 w-4" aria-hidden /> שלחו לי מייל
               </a>
             </div>
           </div>
         </article>
-
-        <LeadMagnet />
       </main>
       <SiteFooter />
     </div>

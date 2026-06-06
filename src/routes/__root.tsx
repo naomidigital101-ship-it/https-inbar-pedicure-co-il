@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { AccessibilityMenu } from "@/components/shared/AccessibilityMenu";
 import { CookieConsent } from "@/components/shared/CookieConsent";
+import { SITE } from "@/lib/site-config";
 
 function NotFoundComponent() {
   return (
@@ -74,18 +75,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "הרוכב העצלן" },
+      { name: "author", content: SITE.brand },
       { name: "google-site-verification", content: "qrCeqz9Z18M-JRIpuVm-5R53R53QUDUpuGPFt0h3mq8" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "הרוכב העצלן" },
+      { property: "og:site_name", content: SITE.brand },
       { property: "og:locale", content: "he_IL" },
       { name: "twitter:card", content: "summary_large_image" },
-      { title: "הרוכב העצלן | פורטל אופנועי שטח בישראל" },
-      { property: "og:title", content: "הרוכב העצלן | פורטל אופנועי שטח בישראל" },
-      { name: "twitter:title", content: "הרוכב העצלן | פורטל אופנועי שטח בישראל" },
-      { name: "description", content: "הפורטל המוביל לרוכבי שטח בישראל - מדריכי תחזוקה, ביקורות אופנועים, מסלולים, ציוד וטכניקות רכיבה." },
-      { property: "og:description", content: "הפורטל המוביל לרוכבי שטח בישראל - מדריכי תחזוקה, ביקורות אופנועים, מסלולים, ציוד וטכניקות רכיבה." },
-      { name: "twitter:description", content: "הפורטל המוביל לרוכבי שטח בישראל - מדריכי תחזוקה, ביקורות אופנועים, מסלולים, ציוד וטכניקות רכיבה." },
+      { title: `${SITE.brand} | ${SITE.tagline}` },
+      { property: "og:title", content: `${SITE.brand} | ${SITE.tagline}` },
+      { name: "twitter:title", content: `${SITE.brand} | ${SITE.tagline}` },
+      { name: "description", content: SITE.shortDescription },
+      { property: "og:description", content: SITE.shortDescription },
+      { name: "twitter:description", content: SITE.shortDescription },
     ],
     links: [
       {
@@ -99,7 +100,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "alternate",
         type: "application/rss+xml",
-        title: "הרוכב העצלן — מאמרים חדשים (RSS)",
+        title: `${SITE.brand} — מאמרים חדשים (RSS)`,
         href: "/rss.xml",
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -114,11 +115,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "הרוכב העצלן",
-          url: "https://lazyrider.org",
-          description:
-            "הפורטל המוביל לרוכבי שטח בישראל - מדריכי תחזוקה, ביקורות וטיפים מכאניים.",
+          "@type": "MedicalBusiness",
+          name: SITE.brand,
+          url: SITE.url,
+          description: SITE.shortDescription,
+          telephone: SITE.phoneIntl,
+          email: SITE.email,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: SITE.city,
+            addressRegion: SITE.region,
+            addressCountry: "IL",
+          },
+          openingHoursSpecification: SITE.hoursOpeningSpec,
+          medicalSpecialty: "Podiatry",
         }),
       },
     ],

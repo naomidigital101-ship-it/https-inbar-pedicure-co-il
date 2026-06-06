@@ -7,9 +7,9 @@ import {
 import { suggestTopicsCore } from "@/lib/ai-content.server";
 
 const NOTIFY_EMAIL = "naomi.digital101@gmail.com";
-const SENDER_DOMAIN = "notify.lazyrider.org";
-const FROM = `הרוכב העצלן <autopilot@${SENDER_DOMAIN}>`;
-const SITE_BASE = "https://lazyrider.org";
+const SENDER_DOMAIN = "notify.inbar-farchi.lovable.app";
+const FROM = `ענבר פרחי <autopilot@${SENDER_DOMAIN}>`;
+const SITE_BASE = "https://inbar-farchi.lovable.app";
 
 type RunResult = {
   topicTitle: string;
@@ -48,7 +48,7 @@ function renderHtml(opts: {
     .join("");
 
   return `<!doctype html>
-<html dir="rtl" lang="he"><body style="margin:0;background:#ffffff;font-family:Heebo,Arial,sans-serif;color:#d6c5ac;">
+<html dir="rtl" lang="he"><body style="margin:0;background:#ffffff;font-family:Heebo,Arial,sans-serif;color:#b8dcd4;">
 <div style="max-width:640px;margin:0 auto;padding:24px;">
   <h1 style="font-family:'Frank Ruhl Libre',serif;color:#ede2d4;font-size:28px;margin:0 0 8px;">דו"ח אוטופיילוט יומי</h1>
   <div style="color:#777;font-size:14px;margin-bottom:24px;">${escapeHtml(new Date(opts.startedAt).toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" }))}</div>
@@ -63,7 +63,7 @@ function renderHtml(opts: {
   <h2 style="font-family:'Frank Ruhl Libre',serif;font-size:20px;margin:24px 0 12px;">מאמרים מהריצה</h2>
   <ul style="list-style:none;padding:0;margin:0;">${items || '<li style="color:#777;">לא נוצרו מאמרים בריצה הזאת.</li>'}</ul>
 
-  <p style="margin-top:32px;color:#888;font-size:12px;text-align:center;">הודעה אוטומטית מהאוטופיילוט של הרוכב העצלן</p>
+  <p style="margin-top:32px;color:#888;font-size:12px;text-align:center;">הודעה אוטומטית מהאוטופיילוט של ענבר פרחי</p>
 </div>
 </body></html>`;
 }

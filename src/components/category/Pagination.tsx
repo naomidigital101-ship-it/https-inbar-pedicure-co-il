@@ -21,7 +21,7 @@ export function Pagination({
   return (
     <nav
       aria-label="ניווט עמודים"
-      className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[#d6c5ac] pt-8"
+      className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[#b8dcd4] pt-8"
     >
       <div className="text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
         עמוד {currentPage} מתוך {totalPages}
@@ -34,7 +34,7 @@ export function Pagination({
               to="/category/$slug"
               params={{ slug: categorySlug }}
               search={pageHref(prev)}
-              className="inline-flex items-center gap-2 border border-[#d6c5ac] bg-[#fefaf6] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#2a1f1a] transition-colors hover:border-[#8b3a52] hover:text-[#8b3a52]"
+              className="inline-flex items-center gap-2 border border-[#b8dcd4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#1d3a35] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
               aria-label="עמוד קודם"
             >
               <span aria-hidden="true">→</span>
@@ -43,7 +43,7 @@ export function Pagination({
           ) : (
             <span
               aria-disabled="true"
-              className="inline-flex cursor-not-allowed items-center gap-2 border border-[#ede2d4] bg-[#fefaf6] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#c9b8a3]"
+              className="inline-flex cursor-not-allowed items-center gap-2 border border-[#ede2d4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#c9b8a3]"
             >
               <span aria-hidden="true">→</span>
               הקודם
@@ -58,7 +58,7 @@ export function Pagination({
               {isActive ? (
                 <span
                   aria-current="page"
-                  className="inline-flex h-10 w-10 items-center justify-center bg-[#8b3a52] text-sm font-black text-[#fefaf6]"
+                  className="inline-flex h-10 w-10 items-center justify-center bg-[#5fa898] text-sm font-black text-[#fdfbf7]"
                 >
                   {p}
                 </span>
@@ -67,7 +67,7 @@ export function Pagination({
                   to="/category/$slug"
                   params={{ slug: categorySlug }}
                   search={pageHref(p)}
-                  className="inline-flex h-10 w-10 items-center justify-center border border-[#d6c5ac] bg-[#fefaf6] text-sm font-black text-[#5a4f48] transition-colors hover:border-[#8b3a52] hover:text-[#8b3a52]"
+                  className="inline-flex h-10 w-10 items-center justify-center border border-[#b8dcd4] bg-[#fdfbf7] text-sm font-black text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
                   aria-label={`עמוד ${p}`}
                 >
                   {p}
@@ -83,7 +83,7 @@ export function Pagination({
               to="/category/$slug"
               params={{ slug: categorySlug }}
               search={pageHref(next)}
-              className="inline-flex items-center gap-2 border border-[#d6c5ac] bg-[#fefaf6] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#2a1f1a] transition-colors hover:border-[#8b3a52] hover:text-[#8b3a52]"
+              className="inline-flex items-center gap-2 border border-[#b8dcd4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#1d3a35] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
               aria-label="עמוד הבא"
             >
               הבא
@@ -92,7 +92,7 @@ export function Pagination({
           ) : (
             <span
               aria-disabled="true"
-              className="inline-flex cursor-not-allowed items-center gap-2 border border-[#ede2d4] bg-[#fefaf6] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#c9b8a3]"
+              className="inline-flex cursor-not-allowed items-center gap-2 border border-[#ede2d4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#c9b8a3]"
             >
               הבא
               <span aria-hidden="true">←</span>

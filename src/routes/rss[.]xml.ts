@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { articles } from "@/lib/articles";
 
-const BASE_URL = "https://lazyrider.org";
-const SITE_TITLE = "הרוכב העצלן";
+const BASE_URL = "https://inbar-farchi.lovable.app";
+const SITE_TITLE = "ענבר פרחי";
 const SITE_DESC =
   "פורטל אופנועי שטח בישראל: מדריכי תחזוקה, ביקורות, מסלולים וטכניקת רכיבה.";
 
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/rss.xml")({
             `      <pubDate>${pubDate}</pubDate>`,
             `      <description>${escapeXml(a.excerpt)}</description>`,
             `      <category>${escapeXml(a.category)}</category>`,
-            `      <author>noreply@lazyrider.org (${escapeXml(a.author)})</author>`,
+            `      <author>noreply@inbar-farchi.lovable.app (${escapeXml(a.author)})</author>`,
             `    </item>`,
           ].join("\n");
         });

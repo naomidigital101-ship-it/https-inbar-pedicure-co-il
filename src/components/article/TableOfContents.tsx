@@ -30,9 +30,9 @@ export function TableOfContents({ sections }: { sections: ArticleSection[] }) {
   return (
     <nav
       aria-label="תוכן עניינים"
-      className="sticky top-8 border border-[#d6c5ac] bg-[#fefaf6] p-6"
+      className="sticky top-8 border border-[#b8dcd4] bg-[#fdfbf7] p-6"
     >
-      <h2 className="mb-4 text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
+      <h2 className="mb-4 text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
         תוכן עניינים
       </h2>
       <ol className="space-y-3">
@@ -44,13 +44,13 @@ export function TableOfContents({ sections }: { sections: ArticleSection[] }) {
                 href={`#${s.id}`}
                 className={`flex items-start gap-3 border-r-2 pr-3 text-sm font-bold leading-snug transition-colors ${
                   isActive
-                    ? "border-[#8b3a52] text-[#2a1f1a]"
-                    : "border-transparent text-[#6b5f55] hover:text-[#2a1f1a]"
+                    ? "border-[#5fa898] text-[#1d3a35]"
+                    : "border-transparent text-[#6b5f55] hover:text-[#1d3a35]"
                 }`}
               >
                 <span
                   className={`text-[10px] font-black ${
-                    isActive ? "text-[#8b3a52]" : "text-[#6b5f55]"
+                    isActive ? "text-[#5fa898]" : "text-[#6b5f55]"
                   }`}
                 >
                   {String(idx + 1).padStart(2, "0")}

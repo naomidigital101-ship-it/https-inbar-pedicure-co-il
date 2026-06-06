@@ -75,7 +75,7 @@ export function LeadMagnet() {
   return (
     <section
       id="lead-magnet"
-      className="flex flex-col items-start justify-between gap-8 border-t border-[#fefaf6] bg-[#8b3a52] p-8 md:flex-row md:items-center md:p-12"
+      className="flex flex-col items-start justify-between gap-8 border-t border-[#fdfbf7] bg-[#5fa898] p-8 md:flex-row md:items-center md:p-12"
     >
       <div>
         <h2 className="mb-2 text-3xl font-black leading-tight text-white md:text-5xl">
@@ -108,12 +108,12 @@ export function LeadMagnet() {
             aria-invalid={errorMsg ? true : undefined}
             aria-describedby={errorMsg ? "lead-magnet-error" : undefined}
             maxLength={255}
-            className="w-full border-2 border-transparent bg-[#fefaf6] px-6 py-4 font-bold text-white placeholder:text-[#6b5f55] focus:outline-none focus-visible:border-white focus-visible:ring-2 focus-visible:ring-white disabled:opacity-60 md:w-80"
+            className="w-full border-2 border-transparent bg-[#fdfbf7] px-6 py-4 font-bold text-white placeholder:text-[#6b5f55] focus:outline-none focus-visible:border-white focus-visible:ring-2 focus-visible:ring-white disabled:opacity-60 md:w-80"
           />
           <button
             type="submit"
             disabled={isLoading}
-            className="whitespace-nowrap bg-white px-8 py-4 font-black uppercase text-[#8b3a52] transition-colors hover:bg-[#2a1f1a] disabled:cursor-not-allowed disabled:opacity-60"
+            className="whitespace-nowrap bg-white px-8 py-4 font-black uppercase text-[#5fa898] transition-colors hover:bg-[#1d3a35] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isLoading ? "שולח..." : "קבל צ׳קליסט"}
           </button>

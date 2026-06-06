@@ -3,11 +3,11 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 
-const SITE = "https://lazyrider.org";
+const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/privacy`;
-const TITLE = "מדיניות פרטיות | הרוכב העצלן";
+const TITLE = "מדיניות פרטיות | ענבר פרחי";
 const DESCRIPTION =
-  "מדיניות הפרטיות של הרוכב העצלן. איזה מידע נאסף עליכם, מה אנחנו עושים איתו, ואיך אתם יכולים לבקש את הסרתו.";
+  "מדיניות הפרטיות של ענבר פרחי. איזה מידע נאסף עליכם, מה אנחנו עושים איתו, ואיך אתם יכולים לבקש את הסרתו.";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -29,7 +29,7 @@ const sections: { title: string; body: string[] }[] = [
   {
     title: "1. מבוא",
     body: [
-      "אנו באתר הרוכב העצלן מכבדים את פרטיות המשתמשים שלנו. מסמך זה מסביר איזה מידע אנו אוספים, איך אנו משתמשים בו, ואיזה זכויות יש לכם בנוגע למידע שלכם.",
+      "אנו באתר ענבר פרחי מכבדים את פרטיות המשתמשים שלנו. מסמך זה מסביר איזה מידע אנו אוספים, איך אנו משתמשים בו, ואיזה זכויות יש לכם בנוגע למידע שלכם.",
       "המדיניות נכתבה בהתאם לחוק הגנת הפרטיות, התשמא 1981 ולתקנותיו.",
     ],
   },
@@ -92,22 +92,22 @@ function PrivacyPage() {
       <SiteHeader />
       <main id="main-content" className="flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "מדיניות פרטיות" }]} />
-        <article className="border-b border-[#d6c5ac] bg-[#fefaf6]">
+        <article className="border-b border-[#b8dcd4] bg-[#fdfbf7]">
           <div className="mx-auto max-w-[760px] px-4 py-14 md:px-8 md:py-20">
             <div className="mb-8 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
                 מסמכים משפטיים
               </span>
-              <span aria-hidden="true" className="h-px w-12 bg-[#d6c5ac]" />
+              <span aria-hidden="true" className="h-px w-12 bg-[#b8dcd4]" />
             </div>
-            <h1 className="mb-6 text-4xl font-black leading-tight text-[#2a1f1a] md:text-5xl">
+            <h1 className="mb-6 text-4xl font-black leading-tight text-[#1d3a35] md:text-5xl">
               מדיניות פרטיות
             </h1>
             <p className="mb-10 text-sm text-[#888]">עודכן לאחרונה: מאי 2026</p>
-            <div className="space-y-10 text-base leading-loose text-[#3a2f28]">
+            <div className="space-y-10 text-base leading-loose text-[#2d4a44]">
               {sections.map((s) => (
                 <section key={s.title}>
-                  <h2 className="mb-4 text-xl font-bold text-[#2a1f1a]">{s.title}</h2>
+                  <h2 className="mb-4 text-xl font-bold text-[#1d3a35]">{s.title}</h2>
                   {s.body.map((p, i) => (
                     <p key={i} className="mb-3">
                       {p}

@@ -13,15 +13,15 @@ const navLinks = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-[#d6c5ac] bg-[#fefaf6]">
+    <header className="sticky top-0 z-50 border-b border-[#b8dcd4] bg-[#fdfbf7]">
       <div className="flex items-center justify-between px-6 py-4">
-        <a href="/" className="text-lg font-black text-[#2a1f1a]">
+        <a href="/" className="text-lg font-black text-[#1d3a35]">
           <span>{SITE.brand}</span>
-          <span className="mr-2 text-[11px] font-bold text-[#8b3a52]">פדיקור טיפולי</span>
+          <span className="mr-2 text-[11px] font-bold text-[#5fa898]">פדיקור טיפולי</span>
         </a>
-        <nav className="hidden items-center gap-6 text-sm font-bold text-[#3a2f28] lg:flex" aria-label="ניווט ראשי">
+        <nav className="hidden items-center gap-6 text-sm font-bold text-[#2d4a44] lg:flex" aria-label="ניווט ראשי">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-[#8b3a52]">{l.label}</a>
+            <a key={l.href} href={l.href} className="hover:text-[#5fa898]">{l.label}</a>
           ))}
         </nav>
         <div className="flex items-center gap-3">
@@ -32,9 +32,9 @@ export function SiteHeader() {
         </div>
       </div>
       {open && (
-        <nav className="border-t border-[#d6c5ac] bg-[#fefaf6] lg:hidden" aria-label="ניווט במובייל">
+        <nav className="border-t border-[#b8dcd4] bg-[#fdfbf7] lg:hidden" aria-label="ניווט במובייל">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="block border-b border-[#ede2d4] px-6 py-4 text-sm font-bold text-[#3a2f28]" onClick={() => setOpen(false)}>{l.label}</a>
+            <a key={l.href} href={l.href} className="block border-b border-[#ede2d4] px-6 py-4 text-sm font-bold text-[#2d4a44]" onClick={() => setOpen(false)}>{l.label}</a>
           ))}
           {SERVICES_NAV.map((s) => (
             <a key={s.slug} href={`/services/${s.slug}`} className="block border-b border-[#ede2d4] px-8 py-3 text-xs text-[#5a4f48]" onClick={() => setOpen(false)}>{s.label}</a>

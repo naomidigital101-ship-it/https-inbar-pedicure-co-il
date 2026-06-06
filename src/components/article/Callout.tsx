@@ -6,14 +6,14 @@ const styles: Record<
 > = {
   tip: {
     label: "טיפ",
-    border: "border-r-4 border-[#8b3a52]",
-    accent: "text-[#8b3a52]",
+    border: "border-r-4 border-[#5fa898]",
+    accent: "text-[#5fa898]",
     icon: "★",
   },
   warning: {
     label: "אזהרה",
-    border: "border-r-4 border-[#2a1f1a]",
-    accent: "text-[#2a1f1a]",
+    border: "border-r-4 border-[#1d3a35]",
+    accent: "text-[#1d3a35]",
     icon: "!",
   },
   saving: {
@@ -38,7 +38,7 @@ export function Callout({
     <aside
       role="note"
       aria-label={s.label}
-      className={`my-8 flex gap-4 bg-[#f5ede4] p-6 ${s.border}`}
+      className={`my-8 flex gap-4 bg-[#e9f4f1] p-6 ${s.border}`}
     >
       <span
         aria-hidden="true"
@@ -52,7 +52,7 @@ export function Callout({
         >
           {s.label}
         </div>
-        <h4 className="mb-2 text-base font-black text-[#2a1f1a]">{title}</h4>
+        <h4 className="mb-2 text-base font-black text-[#1d3a35]">{title}</h4>
         <p className="text-sm font-bold leading-relaxed text-[#5a4f48]">{body}</p>
       </div>
     </aside>

@@ -3,11 +3,11 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 
-const SITE = "https://lazyrider.org";
+const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/accessibility`;
-const TITLE = "הצהרת נגישות | הרוכב העצלן";
+const TITLE = "הצהרת נגישות | ענבר פרחי";
 const DESCRIPTION =
-  "הצהרת הנגישות של אתר הרוכב העצלן. אמצעי הנגישות שיושמו, רמת ההתאמה לתקן ת״י 5568, ופרטי קשר לדיווח על תקלות נגישות.";
+  "הצהרת הנגישות של אתר ענבר פרחי. אמצעי הנגישות שיושמו, רמת ההתאמה לתקן ת״י 5568, ופרטי קשר לדיווח על תקלות נגישות.";
 
 export const Route = createFileRoute("/accessibility")({
   head: () => ({
@@ -29,7 +29,7 @@ const sections: { title: string; body: string[] }[] = [
   {
     title: "1. המחויבות שלנו לנגישות",
     body: [
-      "אתר הרוכב העצלן רואה בנגישות ערך מרכזי, ומחויב להנגיש את שירותיו ותכניו לכלל המשתמשים, לרבות אנשים עם מוגבלויות.",
+      "אתר ענבר פרחי רואה בנגישות ערך מרכזי, ומחויב להנגיש את שירותיו ותכניו לכלל המשתמשים, לרבות אנשים עם מוגבלויות.",
       "האתר נבנה בהתאם לתקן הישראלי ת״י 5568 ברמת AA, המבוסס על הנחיות הנגישות הבינלאומיות WCAG 2.1.",
     ],
   },
@@ -83,22 +83,22 @@ function AccessibilityPage() {
       <SiteHeader />
       <main id="main-content" className="flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "הצהרת נגישות" }]} />
-        <article className="border-b border-[#d6c5ac] bg-[#fefaf6]">
+        <article className="border-b border-[#b8dcd4] bg-[#fdfbf7]">
           <div className="mx-auto max-w-[760px] px-4 py-14 md:px-8 md:py-20">
             <div className="mb-8 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
                 נגישות
               </span>
-              <span aria-hidden="true" className="h-px w-12 bg-[#d6c5ac]" />
+              <span aria-hidden="true" className="h-px w-12 bg-[#b8dcd4]" />
             </div>
-            <h1 className="mb-6 text-4xl font-black leading-tight text-[#2a1f1a] md:text-5xl">
+            <h1 className="mb-6 text-4xl font-black leading-tight text-[#1d3a35] md:text-5xl">
               הצהרת נגישות
             </h1>
             <p className="mb-10 text-sm text-[#888]">עודכן לאחרונה: מאי 2026</p>
-            <div className="space-y-10 text-base leading-loose text-[#3a2f28]">
+            <div className="space-y-10 text-base leading-loose text-[#2d4a44]">
               {sections.map((s) => (
                 <section key={s.title}>
-                  <h2 className="mb-4 text-xl font-bold text-[#2a1f1a]">{s.title}</h2>
+                  <h2 className="mb-4 text-xl font-bold text-[#1d3a35]">{s.title}</h2>
                   {s.body.map((p, i) => (
                     <p key={i} className="mb-3">
                       {p}
