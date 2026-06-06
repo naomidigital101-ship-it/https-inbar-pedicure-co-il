@@ -12,24 +12,31 @@ const navLinks = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const current = typeof window !== "undefined" ? window.location.pathname : "/";
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4">
-        <a href="/" className="flex items-baseline gap-2.5 transition-opacity hover:opacity-80">
-          <span className="display text-2xl text-ink">{SITE.brand}</span>
-          <span className="hidden text-[10px] font-bold uppercase tracking-[0.18em] text-copper sm:inline">פדיקור טיפולי</span>
+    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/90 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-5">
+        <a href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+          <span className="display text-2xl text-primary-deep">{SITE.brand}</span>
+          <span aria-hidden className="text-copper">🌾</span>
         </a>
-        <nav className="hidden items-center gap-8 text-sm font-medium text-ink-soft lg:flex" aria-label="ניווט ראשי">
-          {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="relative transition-colors hover:text-primary after:absolute after:bottom-[-6px] after:right-0 after:h-px after:w-0 after:bg-primary after:transition-all hover:after:w-full">{l.label}</a>
-          ))}
+        <nav className="hidden items-center gap-9 text-[0.95rem] font-normal text-ink lg:flex" aria-label="ניווט ראשי">
+          {navLinks.map((l) => {
+            const active = l.href === current || (l.href !== "/" && current.startsWith(l.href));
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className={`relative pb-1 transition-colors hover:text-primary-deep ${active ? "text-ink after:absolute after:bottom-0 after:right-0 after:h-[2px] after:w-full after:bg-copper" : ""}`}
+              >
+                {l.label}
+              </a>
+            );
+          })}
         </nav>
-        <div className="flex items-center gap-3">
-          <a href={SITE.whatsappUrl} target="_blank" rel="noopener" className="hidden rounded-full bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-[var(--shadow-soft)] transition-all hover:bg-primary-deep hover:shadow-[var(--shadow-elegant)] md:inline-block">קביעת תור</a>
-          <button type="button" className="lg:hidden p-2 text-ink" aria-label="תפריט" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
+        <button type="button" className="lg:hidden p-2 text-ink" aria-label="תפריט" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
       {open && (
         <nav className="border-t border-border bg-surface lg:hidden" aria-label="ניווט במובייל">
