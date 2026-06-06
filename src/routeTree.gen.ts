@@ -19,19 +19,11 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
-import { Route as ProductsHelmetsIndexRouteImport } from './routes/products.helmets.index'
-import { Route as ProductsBootsIndexRouteImport } from './routes/products.boots.index'
-import { Route as ProductsBodyArmorIndexRouteImport } from './routes/products.body-armor.index'
-import { Route as ProductsHelmetsSlugRouteImport } from './routes/products.helmets.$slug'
-import { Route as ProductsBootsSlugRouteImport } from './routes/products.boots.$slug'
-import { Route as ProductsBodyArmorSlugRouteImport } from './routes/products.body-armor.$slug'
 import { Route as ApiPublicIndexnowRouteImport } from './routes/api/public/indexnow'
 import { Route as AdminPreviewSlugRouteImport } from './routes/admin.preview.$slug'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -87,19 +79,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductsIndexRoute = ProductsIndexRouteImport.update({
-  id: '/products/',
-  path: '/products/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductSlugRoute = ProductSlugRouteImport.update({
-  id: '/product/$slug',
-  path: '/product/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
@@ -120,36 +102,6 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
 const AdminContentRoute = AdminContentRouteImport.update({
   id: '/admin/content',
   path: '/admin/content',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsHelmetsIndexRoute = ProductsHelmetsIndexRouteImport.update({
-  id: '/products/helmets/',
-  path: '/products/helmets/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsBootsIndexRoute = ProductsBootsIndexRouteImport.update({
-  id: '/products/boots/',
-  path: '/products/boots/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsBodyArmorIndexRoute = ProductsBodyArmorIndexRouteImport.update({
-  id: '/products/body-armor/',
-  path: '/products/body-armor/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsHelmetsSlugRoute = ProductsHelmetsSlugRouteImport.update({
-  id: '/products/helmets/$slug',
-  path: '/products/helmets/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsBootsSlugRoute = ProductsBootsSlugRouteImport.update({
-  id: '/products/boots/$slug',
-  path: '/products/boots/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsBodyArmorSlugRoute = ProductsBodyArmorSlugRouteImport.update({
-  id: '/products/body-armor/$slug',
-  path: '/products/body-armor/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicIndexnowRoute = ApiPublicIndexnowRouteImport.update({
@@ -190,17 +142,9 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
-  '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
-  '/products/': typeof ProductsIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
-  '/products/body-armor/$slug': typeof ProductsBodyArmorSlugRoute
-  '/products/boots/$slug': typeof ProductsBootsSlugRoute
-  '/products/helmets/$slug': typeof ProductsHelmetsSlugRoute
-  '/products/body-armor/': typeof ProductsBodyArmorIndexRoute
-  '/products/boots/': typeof ProductsBootsIndexRoute
-  '/products/helmets/': typeof ProductsHelmetsIndexRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -219,17 +163,9 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
-  '/product/$slug': typeof ProductSlugRoute
   '/admin': typeof AdminIndexRoute
-  '/products': typeof ProductsIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
-  '/products/body-armor/$slug': typeof ProductsBodyArmorSlugRoute
-  '/products/boots/$slug': typeof ProductsBootsSlugRoute
-  '/products/helmets/$slug': typeof ProductsHelmetsSlugRoute
-  '/products/body-armor': typeof ProductsBodyArmorIndexRoute
-  '/products/boots': typeof ProductsBootsIndexRoute
-  '/products/helmets': typeof ProductsHelmetsIndexRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -249,17 +185,9 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
-  '/product/$slug': typeof ProductSlugRoute
   '/admin/': typeof AdminIndexRoute
-  '/products/': typeof ProductsIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
-  '/products/body-armor/$slug': typeof ProductsBodyArmorSlugRoute
-  '/products/boots/$slug': typeof ProductsBootsSlugRoute
-  '/products/helmets/$slug': typeof ProductsHelmetsSlugRoute
-  '/products/body-armor/': typeof ProductsBodyArmorIndexRoute
-  '/products/boots/': typeof ProductsBootsIndexRoute
-  '/products/helmets/': typeof ProductsHelmetsIndexRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -280,17 +208,9 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/article/$slug'
     | '/category/$slug'
-    | '/product/$slug'
     | '/admin/'
-    | '/products/'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
-    | '/products/body-armor/$slug'
-    | '/products/boots/$slug'
-    | '/products/helmets/$slug'
-    | '/products/body-armor/'
-    | '/products/boots/'
-    | '/products/helmets/'
     | '/api/public/hooks/autopilot-daily'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
@@ -309,17 +229,9 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/article/$slug'
     | '/category/$slug'
-    | '/product/$slug'
     | '/admin'
-    | '/products'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
-    | '/products/body-armor/$slug'
-    | '/products/boots/$slug'
-    | '/products/helmets/$slug'
-    | '/products/body-armor'
-    | '/products/boots'
-    | '/products/helmets'
     | '/api/public/hooks/autopilot-daily'
     | '/lovable/email/queue/process'
   id:
@@ -338,17 +250,9 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/article/$slug'
     | '/category/$slug'
-    | '/product/$slug'
     | '/admin/'
-    | '/products/'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
-    | '/products/body-armor/$slug'
-    | '/products/boots/$slug'
-    | '/products/helmets/$slug'
-    | '/products/body-armor/'
-    | '/products/boots/'
-    | '/products/helmets/'
     | '/api/public/hooks/autopilot-daily'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
@@ -368,17 +272,9 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
   CategorySlugRoute: typeof CategorySlugRoute
-  ProductSlugRoute: typeof ProductSlugRoute
   AdminIndexRoute: typeof AdminIndexRoute
-  ProductsIndexRoute: typeof ProductsIndexRoute
   AdminPreviewSlugRoute: typeof AdminPreviewSlugRoute
   ApiPublicIndexnowRoute: typeof ApiPublicIndexnowRoute
-  ProductsBodyArmorSlugRoute: typeof ProductsBodyArmorSlugRoute
-  ProductsBootsSlugRoute: typeof ProductsBootsSlugRoute
-  ProductsHelmetsSlugRoute: typeof ProductsHelmetsSlugRoute
-  ProductsBodyArmorIndexRoute: typeof ProductsBodyArmorIndexRoute
-  ProductsBootsIndexRoute: typeof ProductsBootsIndexRoute
-  ProductsHelmetsIndexRoute: typeof ProductsHelmetsIndexRoute
   ApiPublicHooksAutopilotDailyRoute: typeof ApiPublicHooksAutopilotDailyRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
@@ -455,25 +351,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/products/': {
-      id: '/products/'
-      path: '/products'
-      fullPath: '/products/'
-      preLoaderRoute: typeof ProductsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/product/$slug': {
-      id: '/product/$slug'
-      path: '/product/$slug'
-      fullPath: '/product/$slug'
-      preLoaderRoute: typeof ProductSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/category/$slug': {
@@ -502,48 +384,6 @@ declare module '@tanstack/react-router' {
       path: '/admin/content'
       fullPath: '/admin/content'
       preLoaderRoute: typeof AdminContentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products/helmets/': {
-      id: '/products/helmets/'
-      path: '/products/helmets'
-      fullPath: '/products/helmets/'
-      preLoaderRoute: typeof ProductsHelmetsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products/boots/': {
-      id: '/products/boots/'
-      path: '/products/boots'
-      fullPath: '/products/boots/'
-      preLoaderRoute: typeof ProductsBootsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products/body-armor/': {
-      id: '/products/body-armor/'
-      path: '/products/body-armor'
-      fullPath: '/products/body-armor/'
-      preLoaderRoute: typeof ProductsBodyArmorIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products/helmets/$slug': {
-      id: '/products/helmets/$slug'
-      path: '/products/helmets/$slug'
-      fullPath: '/products/helmets/$slug'
-      preLoaderRoute: typeof ProductsHelmetsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products/boots/$slug': {
-      id: '/products/boots/$slug'
-      path: '/products/boots/$slug'
-      fullPath: '/products/boots/$slug'
-      preLoaderRoute: typeof ProductsBootsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/products/body-armor/$slug': {
-      id: '/products/body-armor/$slug'
-      path: '/products/body-armor/$slug'
-      fullPath: '/products/body-armor/$slug'
-      preLoaderRoute: typeof ProductsBodyArmorSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/indexnow': {
@@ -592,20 +432,22 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   ArticleSlugRoute: ArticleSlugRoute,
   CategorySlugRoute: CategorySlugRoute,
-  ProductSlugRoute: ProductSlugRoute,
   AdminIndexRoute: AdminIndexRoute,
-  ProductsIndexRoute: ProductsIndexRoute,
   AdminPreviewSlugRoute: AdminPreviewSlugRoute,
   ApiPublicIndexnowRoute: ApiPublicIndexnowRoute,
-  ProductsBodyArmorSlugRoute: ProductsBodyArmorSlugRoute,
-  ProductsBootsSlugRoute: ProductsBootsSlugRoute,
-  ProductsHelmetsSlugRoute: ProductsHelmetsSlugRoute,
-  ProductsBodyArmorIndexRoute: ProductsBodyArmorIndexRoute,
-  ProductsBootsIndexRoute: ProductsBootsIndexRoute,
-  ProductsHelmetsIndexRoute: ProductsHelmetsIndexRoute,
   ApiPublicHooksAutopilotDailyRoute: ApiPublicHooksAutopilotDailyRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
