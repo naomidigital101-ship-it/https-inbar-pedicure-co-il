@@ -1,59 +1,98 @@
+# תוכנית שדרוג לפרודקשן — ענבר פרחי
 
-# שדרוג ויזואלי פרימיום — אתר ענבר פרחי
+המטרה: להפוך את האתר הקיים למותג סמכות רפואי־טיפולי פרימיום, RTL, עם SEO/GEO מלא. שומרים על כל הראוטינג, האדמין, מחולל התוכן, הטפסים והדאטה הקיימים — מחליפים אומנות, צפיפות, היררכיה, מטא־דאטה וארכיטקטורת תוכן.
 
-מטרה: להפוך את האתר מ"נקי ותפקודי" ל"קליניקה פרטית ברמה הגבוהה בארץ" — תחושת מומחיות רפואית, אסתטיקה רגועה ויוקרתית (Editorial × Wellness), והיררכיה ויזואלית שמובילה להזמנת תור.
+## 1. דיזיין טוקנים (`src/styles.css`)
+החלפת הפלטה לטוקנים שביקשת (oklch מקבילים):
+- `--background` #FBF7F0, `--surface` #FFFFFF, `--surface-warm` #F4E9DF
+- `--primary` (sage) #2F6F5E, `--primary-soft` #DCEBE4, `--primary-deep` כהה יותר
+- `--blush` #E8C8BE, `--copper` #B87954
+- `--ink` #102321, `--ink-soft` #5F6B67, `--border` rgba(16,35,33,.12)
+- `--shadow-elegant` רך וחם, `--radius` 22px
+שמירה על Heebo + Frank Ruhl Libre. לעדכן `kicker`, `display`, `display-italic`.
 
-## 1. מערכת עיצוב (src/styles.css)
+## 2. Header (`SiteHeader.tsx`)
+- גובה 76px קומפקטי, max-width 1240, רקע `bg-surface/90` עם blur
+- CTA קטן בוואטסאפ בנאב הדסקטופ
+- מובייל: כפתור וואטסאפ דביק תחתון גלובלי (קומפוננטה חדשה `StickyWhatsApp`)
 
-טוקנים חדשים ב-oklch + מיפוי דרך `@theme inline`:
+## 3. Hero חדש (`src/routes/index.tsx`)
+Grid דו־טורי RTL, min-h 82vh, מרווחים מהודקים, בלי דד־זונים.
+- Eyebrow: "פדיקור טיפולי | בית אל"
+- H1: "ענבר פרחי — פדיקוריסטית טיפולית לכף הרגל"
+- Subcopy + משפט אמון
+- 2 CTA: וואטסאפ (sage מלא) + ניווט (outline)
+- 4 פרוף־צ'יפס (12+ שנים, סוכרת, מרצה, סטריליות)
+- תמונת ענבר עם פאנל sage-soft מוסט מאחור, radius 24, border חם, shadow רך
+- caption מתחת
+- mini-strip לוגי אמון/מקורות (משרד הבריאות, NHS, AAD, IDF) בתחתית ה־hero
 
-- **רקעים**: `--background` קרם חם (`oklch(0.985 0.008 85)`), `--surface` לבן טהור לכרטיסים, `--surface-warm` בז' רך לבלוקים אלטרנטיביים
-- **מותג**: `--primary` ירוק מרווה עמוק `oklch(0.52 0.06 175)` (CTA יותר רציני), `--primary-soft` `oklch(0.92 0.04 175)` לרקעי הילה, `--primary-deep` `oklch(0.32 0.05 175)` לכותרות
-- **אקסנט**: `--accent` נחושת/טרקוטה רך `oklch(0.72 0.09 45)` להדגשות עדינות (ציטוטים, מספרים, אייקונים)
-- **טקסט**: `--ink` כחלחל-כהה `oklch(0.22 0.02 240)`, `--ink-muted` עבור משני
-- **גבולות וצללים**: `--border` עדין מאוד, `--shadow-soft` ו-`--shadow-elegant` (צללים ארוכים עם opacity נמוכה)
-- **רדיוסים**: `--radius: 1.25rem` לכרטיסים, `--radius-pill: 999px` ל-CTA, `--radius-organic` עיגולים אסימטריים בבלוקים דקורטיביים
-- **טיפוגרפיה**: שמירה על Heebo + Frank Ruhl Libre. הוספת `--font-display-italic` ל-Frank Ruhl Italic לציטוטים אישיים של ענבר ("מהקליניקה שלי")
+## 4. Problem Navigation — "מה מטריד אותך בכף הרגל?"
+סקשן מיד אחרי ה־hero, גריד 3×2 דסקטופ / 1×6 מובייל. 6 כרטיסים קומפקטיים עם אייקון Lucide עדין, כותרת, משפט הסבר, לינק "לפרטים →". hover sage עדין.
 
-כל הצבעים בקבצים יוחלפו לטוקנים סמנטיים (כרגע יש המון `#5fa898`, `#1d3a35`, `#fdfbf7` hardcoded).
+## 5. סקשנים חדשים בעמוד הבית
+- **פרוטוקול הסטריליות של ענבר** — 4 שלבים עם אייקונים
+- **מתי לפנות לרופא לפני טיפול** — רשימת דגלים אדומים בקופסת `surface-warm`
+- **שאלות שמתביישים לשאול** — Accordion רגיש (5 שאלות שניתנו)
+- **מרכז הידע** — 6 קטגוריות עם תצוגה מקדימה של מאמרים אחרונים
+- **About teaser** + **ציטוט מטופלת** (placeholder לאישור ענבר)
+- **CTA אחרון** עם וואטסאפ/Waze/שעות
 
-## 2. עמוד הבית (src/routes/index.tsx)
+## 6. עמודי שירות (`src/routes/services.$slug.tsx` + `src/lib/services-content.ts`)
+לכל אחד מ־6 השירותים, מבנה אחיד:
+1. Direct answer summary (קופסה sage-soft בראש)
+2. מהי הבעיה
+3. איך מזהים
+4. איך ענבר מטפלת
+5. מה קורה בביקור
+6. מה לא לעשות בבית
+7. מתי לפנות לרופא
+8. FAQ (Accordion + FAQPage JSON-LD)
+9. CTA וואטסאפ
+10. לינקים פנימיים לשירותים/מאמרים קשורים
 
-מבנה חדש, היררכי יותר:
+## 7. SEO/GEO
+- `__root.tsx`: ודא `lang="he" dir="rtl"`, OG/Twitter דיפולטים, JSON-LD `MedicalBusiness` מורחב (address, geo, openingHours, areaServed, medicalSpecialty: Podiatry), `Person` לענבר
+- כל ראוט: `head()` עם title/description/canonical/og ייחודיים
+- `index.tsx`: Title "ענבר פרחי | פדיקוריסטית טיפולית בבית אל", description שניתן, JSON-LD `LocalBusiness` + `BreadcrumbList`
+- עמודי שירות: `Service` + `FAQPage` + `BreadcrumbList`
+- מאמרים: `Article` (קיים — לוודא)
+- `robots.txt` קיים — תקין
+- `sitemap.xml` קיים — מוודא שכולל את כל ה־services וה־articles
+- `alt` בעברית לכל תמונה, היררכיית כותרות נקייה (H1 יחיד לעמוד)
 
-1. **Hero חדש (split asymmetric)** — צד ימין: kicker זהב/נחושת ("פדיקור טיפולי · בית אל"), H1 דו-שכבתי גדול עם Frank Ruhl, תת-כותרת אחת חדה ("טיפול רפואי בכף הרגל לחולי סוכרת, ספורטאים ומי שכואב להם ללכת"), 2 CTA (WhatsApp ראשי + טלפון משני outline), שורת trust מתחת ("12+ שנות ניסיון · השתלמויות באיכילוב · ציוד סטרילי חד־פעמי"). צד שמאל: portrait של ענבר בתוך מסגרת אורגנית עם רקע מרובד (עיגול ענק + טקסטורת רעש עדינה + תג צף "200+ מטופלים")
-2. **Trust bar דק** — לוגוס/טקסט: איכילוב · משרד הבריאות · IDF · NHS guidelines (קונטקסט "לפי הסטנדרטים של")
-3. **בעיה → פתרון** — סקשן editorial עם 6 השירותים בגריד 3×2, אבל כרטיסים פרימיום: אייקון line-art במקום אימוג'י 🦶, כותרת, תיאור, "→ קראו עוד" שמוביל ל-`/services/{slug}`
-4. **"מהקליניקה שלי"** — pull quote גדול של ענבר ב-Frank Ruhl Italic על רקע קרם, עם חתימה + תמונה קטנה (נותן נשמה אישית)
-5. **קהלי יעד** — נשאר אך משודרג: 4 כרטיסים עם תמונה/אייקון עליון, hover state עדין
-6. **סטטיסטיקות** — לא בלוק ירוק מלא רק. גרסה editorial: 4 מספרים ענקיים ב-Frank Ruhl על רקע קרם, קו מפריד דק נחושת, label מתחת
-7. **תהליך הטיפול** — חדש: 4 שלבים (אבחון → תכנית טיפול → טיפול → ליווי) timeline אופקי
-8. **About teaser** — נשאר, משודרג טיפוגרפית
-9. **FAQ** — נשאר accordion אך עם spacing נדיב יותר ו-marker מעוצב
-10. **CTA final** — בלוק editorial רחב, רקע gradient רך primary-soft→background, headline ב-Frank Ruhl
+## 8. אדמין / מחולל תוכן
+שומרים את הקיים. מוסיפים שדות חדשים ל־`ai_articles` (או טבלת `ai_topics`):
+- `content_type` enum: service / article / glossary / sensitive_faq / case_study / video_script / prevention_guide
+- `foot_problem`, `target_audience`, `search_intent`, `medical_sensitivity_level`
+- `when_to_refer_doctor` (text), `cta`, `internal_links` (jsonb)
+- `review_status` enum: ai_draft / waiting_review / professionally_reviewed / published
+- `reviewed_by_inbar` boolean, `last_updated` timestamp
+מיגרציית Supabase + עדכון UI ב־`admin.content.tsx` (שדות + פילטרים + badge סטטוס).
 
-## 3. עמודי שירותים
+## 9. מובייל
+- Hero: H1 → subcopy → CTA → תמונה (סדר נכון)
+- Sticky WhatsApp bar תחתון
+- פונטים: H1 36–40px מובייל, 56–64 דסקטופ
+- בלי overflow, גריד 1 טור עד 768
 
-### src/routes/services.index.tsx
-שדרוג ל-gallery editorial: hero עם kicker + H1, אינטרו פסקה, ואז גריד של 7 כרטיסים גדולים עם hover elegant (תמונה/אייקון, כותרת, תקציר, רשימת תסמינים קצרה, "→").
+## 10. QA סופי
+מעבר על דסקטופ + מובייל בכל עמוד שינוי, תיקון: דד־זונים, ניגודיות, alt, hierarchy, RTL, שבירת טקסט.
 
-### src/routes/services.$slug.tsx
-מבנה article-grade:
-- **Hero**: breadcrumb + kicker + H1 ענק + TL;DR בכרטיס נחושת/קרם בולט מימין
-- **Sticky TOC** בצד שמאל (desktop) עם קישורים לכל section
-- **Quick facts strip**: 3 פריטים (משך טיפול / רמת כאב / תדירות) עם אייקונים
-- **Body sections**: כל section עם h2 בFrank Ruhl, תוכן, citations inline
-- **Tables**: עיצוב חם, header צבעוני, שורות מתחלפות
-- **"From my clinic"**: callout מובדל עם רקע primary-soft, גבול שמאלי 3px נחושת, תמונה קטנה של ענבר וציטוט italic
-- **Red flags**: callout אדום-חם (`--warning`) עם אייקון אזהרה
-- **FAQ**: accordion מעוצב
-- **Sources**: בלוק תחתון עם רקע surface-warm, רשימה עם אייקון קישור חיצוני
-- **CTA נצמד תחתון**: bar עם WhatsApp + טלפון
+---
 
-## 4. עמוד אודות (src/routes/about.tsx)
+### קבצים שיתווספו/יעודכנו
+- `src/styles.css` — טוקנים
+- `src/components/shared/SiteHeader.tsx` — קומפקטי + CTA
+- `src/components/shared/StickyWhatsApp.tsx` — חדש
+- `src/components/home/*` — Hero, ProblemNav, Sterility, RedFlags, ShameFAQ, KnowledgeTeaser, ClosingCTA
+- `src/routes/index.tsx` — הרכבה + מטא + JSON-LD
+- `src/routes/__root.tsx` — JSON-LD מורחב
+- `src/routes/services.$slug.tsx` + `src/lib/services-content.ts` — תוכן מלא ל־6 שירותים + FAQ JSON-LD
+- `src/routes/services.index.tsx` — שיפור צפיפות
+- `src/routes/admin.content.tsx` — שדות חדשים
+- מיגרציית Supabase — עמודות חדשות ל־`ai_articles`
 
-editorial portrait:
-- Hero מגזיני: תמונה גדולה משמאל, מימין kicker + H1 ענק + lead paragraph בFrank Ruhl
-- "המסע שלי" — timeline אנכי עם milestones (אילן, שיטת BIO, הוראה, ספורטאים)
-- "השיטה שלי" — 4 עמודות (סטריליות, BIO, רגישות סוכרת, הדרכה ביתית)
-- "המכשור והפרוטוקולים" — אזכור או
+### הערות
+- לא ממציאים ביקורות/תעודות/תוצאות — כל מקום שדורש ראיה יסומן כ־placeholder עם הערה "ממתין לאישור ענבר".
+- שומרים את הראוטינג, האוטופיילוט, מערכת המאמרים והאימייל הקיימים.
