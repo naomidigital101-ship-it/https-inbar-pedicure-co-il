@@ -111,7 +111,7 @@ function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="flex-1 pb-20 md:pb-0">
         {/* HERO — boutique therapeutic */}
         <section className="relative bg-background pb-10 md:pb-14">
           <div className="mx-auto max-w-[1280px] px-4 md:px-6">
