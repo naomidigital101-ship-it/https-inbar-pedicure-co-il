@@ -6,8 +6,6 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { ArticleHero } from "@/components/article/ArticleHero";
 import { TableOfContents } from "@/components/article/TableOfContents";
 import { ArticleBody } from "@/components/article/ArticleBody";
-import { ClutchInteractive } from "@/components/article/ClutchInteractive";
-import { ExhaustInteractive } from "@/components/article/ExhaustInteractive";
 import { RelatedArticles } from "@/components/article/RelatedArticles";
 import { getArticleBySlug, getRelatedArticles } from "@/lib/articles";
 import { getPublishedAiArticleBySlug } from "@/lib/ai-content.functions";
@@ -228,9 +226,6 @@ export const Route = createFileRoute("/article/$slug")({
 function ArticlePage() {
   const { article, related } = Route.useLoaderData();
 
-  const isClutchInteractive = article.slug === "clutch-explained-beginners";
-  const isExhaustInteractive = article.slug === "exhaust-explained-beginners";
-
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
@@ -245,24 +240,14 @@ function ArticlePage() {
         <ArticleHero article={article} />
 
         <div className="mx-auto max-w-[1400px] px-4 py-12 md:px-8 md:py-16">
-          {isClutchInteractive ? (
-            <div className="mx-auto">
-              <ClutchInteractive article={article} />
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[28%_72%]">
+            <aside className="order-2 lg:order-1">
+              <TableOfContents sections={article.sections} />
+            </aside>
+            <div className="order-1 lg:order-2">
+              <ArticleBody article={article} />
             </div>
-          ) : isExhaustInteractive ? (
-            <div className="mx-auto">
-              <ExhaustInteractive article={article} />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-[28%_72%]">
-              <aside className="order-2 lg:order-1">
-                <TableOfContents sections={article.sections} />
-              </aside>
-              <div className="order-1 lg:order-2">
-                <ArticleBody article={article} />
-              </div>
-            </div>
-          )}
+          </div>
         </div>
 
         <RelatedArticles articles={related} />
