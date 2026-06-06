@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, MapPin, GraduationCap, Award, AlertTriangle, BookOpen, Package, Wind } from "lucide-react";
+import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, GraduationCap, Award, AlertTriangle, BookOpen, Package, Wind } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { PartnersStrip } from "@/components/shared/PartnersStrip";
+import { FlagshipCards } from "@/components/home/FlagshipCards";
+import { TreatmentFinder } from "@/components/home/TreatmentFinder";
+import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import inbarPhoto from "@/assets/inbar-hero-clinic.png";
 
@@ -112,139 +115,90 @@ function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
+      <ConsultationTab />
       <main id="main-content" className="flex-1 pb-20 md:pb-0">
-        {/* HERO — Academic Authority */}
-        <section className="relative overflow-hidden bg-background pt-8 pb-16 md:pt-14 md:pb-24">
-          <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 px-5 md:gap-14 md:px-8 lg:grid-cols-12">
-            {/* TEXT — col-span-7, visual right in RTL */}
-            <div className="order-2 space-y-8 lg:order-1 lg:col-span-7">
-              <div className="space-y-5">
-                <div className="flex items-center gap-3">
-                  <span className="h-px w-12 bg-copper" aria-hidden />
-                  <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-copper">
-                    מאסטרקלאס · מצוינות קלינית
-                  </span>
-                </div>
+        {/* HERO — Cinematic Authority */}
+        <section className="relative isolate overflow-hidden bg-background">
+          {/* Background image — fills right side (RTL), fades to background on left */}
+          <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+            <img
+              src={inbarPhoto}
+              alt=""
+              width={1200}
+              height={1400}
+              loading="eager"
+              className="absolute inset-y-0 right-0 h-full w-full object-cover object-[70%_center] opacity-95 md:w-[62%] md:object-center"
+            />
+            {/* Cream fade overlay — left to right on desktop, full on mobile */}
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-background/30 to-background md:via-background/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent md:hidden" />
+          </div>
 
-                <h1 className="display text-[2.6rem] leading-[0.95] text-ink sm:text-[3.2rem] md:text-[4.2rem] lg:text-[5rem]">
-                  ענבר פרחי
-                  <span className="display-italic mt-2 block bg-gradient-to-l from-primary-deep to-primary bg-clip-text text-transparent">
-                    סמכות קלינית לבריאות כף הרגל
-                  </span>
-                </h1>
+          <div className="grain absolute inset-0 -z-10 opacity-30" aria-hidden />
 
-                <p className="max-w-2xl text-[1.05rem] leading-[1.75] text-ink-soft md:text-[1.18rem]">
-                  מומחית לבריאות כף הרגל, מרצה ומכשירה פדיקוריסטיות לפי הפרוטוקולים הרפואיים המתקדמים בעולם.
-                </p>
+          <div className="mx-auto flex min-h-[82vh] max-w-[1280px] flex-col justify-center px-6 py-20 md:py-28 lg:px-10">
+            <div className="max-w-2xl space-y-7">
+              <div className="flex items-center gap-3">
+                <span className="h-px w-12 bg-copper" aria-hidden />
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-copper">
+                  קליניקה לבריאות כף הרגל · בית אל
+                </span>
               </div>
 
-              {/* Stats strip */}
-              <div className="grid grid-cols-3 gap-4 border-y border-border py-6 md:gap-8 md:py-8">
-                <div>
-                  <div className="font-heading text-2xl font-bold text-primary-deep md:text-3xl">12+</div>
-                  <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-text-muted md:text-[11px]">
-                    שנות ניסיון קליני
-                  </div>
-                </div>
-                <div>
-                  <div className="font-heading text-2xl font-bold text-primary-deep md:text-3xl">IWGDF</div>
-                  <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-text-muted md:text-[11px]">
-                    פרוטוקול סוכרת
-                  </div>
-                </div>
-                <div>
-                  <div className="font-heading text-2xl font-bold text-primary-deep md:text-3xl">20+</div>
-                  <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-text-muted md:text-[11px]">
-                    בוגרות הכשרה
-                  </div>
-                </div>
-              </div>
+              <h1 className="display text-[2.8rem] leading-[0.95] text-ink sm:text-[3.6rem] md:text-[5rem] lg:text-[5.5rem]">
+                ענבר פרחי
+                <span className="display-italic mt-3 block text-primary-deep">
+                  סמכות קלינית
+                  <br />
+                  לבריאות כף הרגל
+                </span>
+              </h1>
 
-              {/* CTAs */}
-              <div className="flex flex-col gap-4 sm:flex-row">
-                <a
-                  href={`${SITE.whatsappUrl}?text=${encodeURIComponent("שלום ענבר, אני מעוניינ/ת להזמין הרצאה מקצועית.")}`}
-                  target="_blank"
-                  rel="noopener"
-                  className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full bg-primary-deep px-9 py-4 text-[0.98rem] font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <GraduationCap className="h-4 w-4" aria-hidden />
-                  <span className="relative z-10">הזמיני הרצאה מקצועית</span>
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 translate-y-full bg-white/10 transition-transform duration-500 group-hover:translate-y-0"
-                  />
-                </a>
+              <p className="max-w-xl text-[1.05rem] leading-[1.75] text-ink-soft md:text-[1.15rem]">
+                פדיקור טיפולי המבוסס על פרוטוקולים רפואיים — פטרת ציפורניים, אורטוניקסיה, סוכרת ושיקום BIO. בקליניקה אישית עם סטריליות מלאה וליווי עד החלמה.
+              </p>
+
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <a
                   href={SITE.whatsappUrl}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-border bg-surface px-8 py-4 text-[0.98rem] font-bold text-primary-deep shadow-sm transition-colors duration-300 hover:border-primary-deep/30 hover:bg-surface-warm"
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-primary-deep px-9 py-4 text-[0.98rem] font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary active:scale-[0.98]"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden />
-                  קביעת טיפול בקליניקה
+                  לתיאום טיפול בקליניקה
+                </a>
+                <a
+                  href="/masterclass"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-copper/50 bg-surface/80 px-8 py-4 text-[0.98rem] font-bold text-primary-deep backdrop-blur-sm transition-colors duration-300 hover:border-copper hover:bg-surface"
+                >
+                  <GraduationCap className="h-4 w-4 text-copper" aria-hidden />
+                  מאסטרקלאס לפדיקוריסטיות
                 </a>
               </div>
 
-              {/* Trust line — desktop only */}
-              <div className="hidden items-center gap-5 pt-2 opacity-70 md:flex">
-                <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-text-muted">
-                  בשיתוף והשתלמות:
-                </span>
-                <span className="font-heading text-sm font-bold tracking-tight text-ink-soft">
-                  השתלמויות באיכילוב
-                </span>
-                <span className="h-3 w-px bg-border" aria-hidden />
-                <span className="font-heading text-sm font-bold tracking-tight text-ink-soft">
-                  פרוטוקול IWGDF
-                </span>
-              </div>
-            </div>
-
-            {/* IMAGE — col-span-5, visual left in RTL */}
-            <div className="order-1 lg:order-2 lg:col-span-5">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Decorative halo */}
-                <div
-                  aria-hidden
-                  className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl"
-                />
-
-                <div className="relative z-10 overflow-hidden rounded-[2.25rem] border-[10px] border-surface bg-surface-warm shadow-[var(--shadow-lift)] md:border-[12px]">
-                  <img
-                    src={inbarPhoto}
-                    alt="ענבר פרחי, פדיקוריסטית טיפולית ומרצה לפדיקוריסטיות"
-                    width={600}
-                    height={750}
-                    loading="eager"
-                    className="aspect-[4/5] w-full object-cover"
-                  />
-
-                  {/* Top badge */}
-                  <div className="absolute top-5 left-5 inline-flex items-center gap-1.5 rounded-full bg-copper px-3.5 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.18em] text-white shadow-lg md:top-6 md:left-6 md:text-[11px]">
-                    <Award className="h-3 w-3" aria-hidden />
-                    מרצה ומדריכה
+              {/* Inline stats */}
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-4">
+                {[
+                  { n: "12+", l: "שנות ניסיון קליני" },
+                  { n: "IWGDF", l: "פרוטוקול סוכרת" },
+                  { n: "150+", l: "שעות השתלמות בשנה" },
+                ].map((s) => (
+                  <div key={s.l} className="flex items-baseline gap-2">
+                    <span className="font-heading text-xl font-bold text-primary-deep md:text-2xl">{s.n}</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-text-muted">{s.l}</span>
                   </div>
-
-                  {/* Bottom proof tag */}
-                  <div className="absolute bottom-6 right-6 rounded-2xl border border-white/60 bg-surface/90 p-4 shadow-xl backdrop-blur-md md:bottom-8 md:right-8 md:p-5">
-                    <p className="font-heading text-2xl font-black leading-none text-primary-deep md:text-3xl">
-                      150+
-                    </p>
-                    <p className="mt-1.5 text-[10px] font-bold leading-tight text-ink md:text-[11px]">
-                      שעות השתלמות
-                      <br />
-                      שנתיות
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* CONCERNS — מה מטריד אותך בכף הרגל */}
-        <PartnersStrip />
+        {/* FLAGSHIP CARDS — 3 ה־טיפולים הדגל */}
+        <FlagshipCards />
+
+        {/* TREATMENT FINDER — סרגל סינון צף */}
+        <TreatmentFinder />
 
         <section id="concerns" className="relative bg-background py-20 md:py-24">
           <div className="mx-auto max-w-[1240px] px-6">
@@ -599,6 +553,7 @@ function Home() {
 
         {/* CTA FINAL */}
         <section className="bg-background pb-24">
+          <PartnersStrip />
           <div className="mx-auto max-w-[1100px] px-6">
             <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary-deep via-primary to-primary-deep px-8 py-16 text-center md:px-16 md:py-20">
               <div aria-hidden className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-copper-soft/20 blur-3xl" />
