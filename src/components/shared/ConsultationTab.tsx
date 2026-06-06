@@ -1,8 +1,9 @@
+import { Calendar } from "lucide-react";
 import { SITE } from "@/lib/site-config";
 
 /**
- * לשונית CTA צפה לתיאום פגישת ייעוץ.
- * מוצגת רק במסכים גדולים, צמודה לצד שמאל למעלה.
+ * לשונית CTA צפה — תיאום פגישת ייעוץ.
+ * עיגול קבוע בצד שמאל למעלה במסכים גדולים בלבד.
  */
 export function ConsultationTab() {
   const message = encodeURIComponent("שלום ענבר, אני מעוניינ/ת לתאם פגישת ייעוץ.");
@@ -12,10 +13,10 @@ export function ConsultationTab() {
       target="_blank"
       rel="noopener"
       aria-label="לתיאום פגישת ייעוץ בוואטסאפ"
-      className="group fixed top-32 left-0 z-40 hidden items-center gap-2 rounded-l-none rounded-r-2xl bg-primary-deep px-4 py-5 text-center text-[12px] font-extrabold leading-tight tracking-wide text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 hover:bg-primary hover:px-5 lg:flex"
-      style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+      className="group fixed left-5 top-28 z-40 hidden h-20 w-20 flex-col items-center justify-center gap-1 rounded-full bg-primary-deep text-primary-foreground shadow-[var(--shadow-lift)] ring-4 ring-background transition-all duration-300 hover:scale-105 hover:bg-primary lg:flex"
     >
-      <span className="whitespace-nowrap">לתיאום פגישת ייעוץ</span>
+      <Calendar className="h-4 w-4" aria-hidden />
+      <span className="text-[10px] font-extrabold leading-tight tracking-wide">לתיאום<br />פגישת<br />ייעוץ</span>
     </a>
   );
 }
