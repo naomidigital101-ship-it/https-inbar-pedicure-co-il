@@ -60,44 +60,44 @@
 }
 
 :root {
-  --radius: 0;
-  /* Workshop palette - black + red, exact spec */
-  --background: #0a0a0a;
-  --surface: #111111;
-  --foreground: #f0f0f0;
-  --text-muted: #555555;
-  --text-dim: #333333;
-  --card: #0a0a0a;
-  --card-foreground: #f0f0f0;
-  --popover: #111111;
-  --popover-foreground: #f0f0f0;
-  --primary: #e63000;
+  --radius: 1rem;
+  /* Inbar Farchi — therapeutic pedicure palette: cream + mint green */
+  --background: #fdfbf7;
+  --surface: #ffffff;
+  --foreground: #1d3a35;
+  --text-muted: #6b7f7a;
+  --text-dim: #9aaaa6;
+  --card: #ffffff;
+  --card-foreground: #1d3a35;
+  --popover: #ffffff;
+  --popover-foreground: #1d3a35;
+  --primary: #5fa898;
   --primary-foreground: #ffffff;
-  --secondary: #111111;
-  --secondary-foreground: #f0f0f0;
-  --muted: #111111;
-  --muted-foreground: #555555;
-  --accent: #e63000;
-  --accent-hover: #cc2a00;
+  --secondary: #e9f4f1;
+  --secondary-foreground: #1d3a35;
+  --muted: #f3efe8;
+  --muted-foreground: #6b7f7a;
+  --accent: #5fa898;
+  --accent-hover: #4d9385;
   --accent-foreground: #ffffff;
-  --destructive: #e63000;
+  --destructive: #c4564f;
   --destructive-foreground: #ffffff;
-  --border: #222222;
-  --input: #1a1a1a;
-  --ring: #e63000;
+  --border: #b8dcd4;
+  --input: #ffffff;
+  --ring: #5fa898;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: #0a0a0a;
-  --sidebar-foreground: #f0f0f0;
-  --sidebar-primary: #e63000;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1d3a35;
+  --sidebar-primary: #5fa898;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #111111;
-  --sidebar-accent-foreground: #f0f0f0;
-  --sidebar-border: #222222;
-  --sidebar-ring: #e63000;
+  --sidebar-accent: #e9f4f1;
+  --sidebar-accent-foreground: #1d3a35;
+  --sidebar-border: #b8dcd4;
+  --sidebar-ring: #5fa898;
 }
 
 .dark {
@@ -138,7 +138,6 @@
 @layer base {
   * {
     border-color: var(--color-border);
-    border-radius: 0 !important;
   }
 
   body {
