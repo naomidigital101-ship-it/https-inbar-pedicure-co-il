@@ -40,17 +40,17 @@ function renderHtml(opts: {
             ? "עבר QA, ממתין לפרסום"
             : "QA נכשל";
       return `<li style="margin:12px 0;padding:12px;background:#f8f5f0;border-right:4px solid #c9a84c;border-radius:6px;">
-        <div style="font-size:16px;font-weight:600;color:#1a1a1a;">${statusEmoji} ${escapeHtml(r.topicTitle)}</div>
-        <div style="font-size:14px;color:#555;margin-top:4px;">${statusText}</div>
+        <div style="font-size:16px;font-weight:600;color:#ede2d4;">${statusEmoji} ${escapeHtml(r.topicTitle)}</div>
+        <div style="font-size:14px;color:#7a6e65;margin-top:4px;">${statusText}</div>
         ${url ? `<div style="margin-top:6px;"><a href="${url}" style="color:#c9a84c;text-decoration:none;font-weight:500;">${url}</a></div>` : ""}
       </li>`;
     })
     .join("");
 
   return `<!doctype html>
-<html dir="rtl" lang="he"><body style="margin:0;background:#ffffff;font-family:Heebo,Arial,sans-serif;color:#222;">
+<html dir="rtl" lang="he"><body style="margin:0;background:#ffffff;font-family:Heebo,Arial,sans-serif;color:#d6c5ac;">
 <div style="max-width:640px;margin:0 auto;padding:24px;">
-  <h1 style="font-family:'Frank Ruhl Libre',serif;color:#1a1a1a;font-size:28px;margin:0 0 8px;">דו"ח אוטופיילוט יומי</h1>
+  <h1 style="font-family:'Frank Ruhl Libre',serif;color:#ede2d4;font-size:28px;margin:0 0 8px;">דו"ח אוטופיילוט יומי</h1>
   <div style="color:#777;font-size:14px;margin-bottom:24px;">${escapeHtml(new Date(opts.startedAt).toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" }))}</div>
 
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">

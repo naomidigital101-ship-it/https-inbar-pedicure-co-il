@@ -83,20 +83,20 @@ function AboutPage() {
           items={[{ label: "בית", href: "/" }, { label: "אודות" }]}
         />
 
-        <article className="border-b border-[#222] bg-[#0a0a0a]">
+        <article className="border-b border-[#d6c5ac] bg-[#fefaf6]">
           <div className="mx-auto max-w-[760px] px-4 py-14 md:px-8 md:py-20">
             <div className="mb-8 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
                 אודות
               </span>
-              <span aria-hidden="true" className="h-px w-12 bg-[#222]" />
+              <span aria-hidden="true" className="h-px w-12 bg-[#d6c5ac]" />
             </div>
 
-            <h1 className="mb-10 text-4xl font-black leading-tight text-[#f0f0f0] md:text-5xl">
+            <h1 className="mb-10 text-4xl font-black leading-tight text-[#2a1f1a] md:text-5xl">
               היי, אני נעמי
             </h1>
 
-            <figure className="mb-12 overflow-hidden border border-[#222]">
+            <figure className="mb-12 overflow-hidden border border-[#d6c5ac]">
               <img
                 src={heroImage}
                 alt="נעמי על אופנוע KTM 250 EXC כתום בשטח סלעי בשעת שקיעה"
@@ -106,16 +106,16 @@ function AboutPage() {
               />
             </figure>
 
-            <div className="space-y-6 text-lg leading-loose text-[#d8d8d8]">
+            <div className="space-y-6 text-lg leading-loose text-[#3a2f28]">
               {paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
 
-            <div className="mt-12 border-t border-[#222] pt-10">
+            <div className="mt-12 border-t border-[#d6c5ac] pt-10">
               <a
                 href="mailto:hello@dirt-road-guide.lovable.app"
-                className="inline-flex items-center gap-3 border-2 border-[#e63000] bg-[#e63000] px-6 py-3 text-sm font-black uppercase tracking-widest text-[#0a0a0a] transition-colors hover:bg-transparent hover:text-[#e63000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e63000]"
+                className="inline-flex items-center gap-3 border-2 border-[#8b3a52] bg-[#8b3a52] px-6 py-3 text-sm font-black uppercase tracking-widest text-[#fefaf6] transition-colors hover:bg-transparent hover:text-[#8b3a52] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8b3a52]"
                 aria-label="שליחת מייל לנעמי"
               >
                 <Mail className="h-5 w-5" aria-hidden="true" />

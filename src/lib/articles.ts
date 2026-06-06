@@ -90,54 +90,15 @@ export type Article = {
   authorBio?: string;
 };
 
-import { twoStrokeGearboxArticle } from "./articles-content/two-stroke-gearbox";
-import { chainFailureSignsArticle } from "./articles-content/chain-failure-signs";
-import { valveClearanceCheckArticle } from "./articles-content/valve-clearance-check";
-import { airFilterCleaningArticle } from "./articles-content/air-filter-cleaning";
-import { helmetBuyersGuideArticle } from "./articles-content/helmet-buyers-guide";
-import { ktmVsHusqvarnaArticle } from "./articles-content/ktm-vs-husqvarna";
-import { standingPositionArticle } from "./articles-content/standing-position";
-import { sparkPlugReadingArticle } from "./articles-content/spark-plug-reading";
-import { brakePadReplacementArticle } from "./articles-content/brake-pad-replacement";
-import { coolantFlushArticle } from "./articles-content/coolant-flush";
-import { throttleCableAdjustArticle } from "./articles-content/throttle-cable-adjust";
-import { hondaCrf300lReviewArticle } from "./articles-content/honda-crf300l-review";
-import { betaRr3002026Article } from "./articles-content/beta-rr-300-2026";
-import { golanLoopArticle } from "./articles-content/golan-loop";
-import { judeanDesertTrailArticle } from "./articles-content/judean-desert-trail";
-import { kneeBracesVsPadsArticle } from "./articles-content/knee-braces-vs-pads";
-import { hillClimbTechniqueArticle } from "./articles-content/hill-climb-technique";
-import { clutchExplainedArticle } from "./articles-content/clutch-explained";
-import { exhaustExplainedArticle } from "./articles-content/exhaust-explained";
+/**
+ * אין יותר מאמרים סטטיים. כל המאמרים מגיעים מ-Lovable Cloud
+ * דרך getPublishedAiArticleBySlug / listPublishedAiArticleCards.
+ * הטיפוסים נשמרים כדי לשמור על תאימות עם רכיבי הצגת המאמר.
+ */
+export const articles: Article[] = [];
 
-export const articles: Article[] = [
-  twoStrokeGearboxArticle,
-  chainFailureSignsArticle,
-  ktmVsHusqvarnaArticle,
-  valveClearanceCheckArticle,
-  airFilterCleaningArticle,
-  helmetBuyersGuideArticle,
-  standingPositionArticle,
-  sparkPlugReadingArticle,
-  brakePadReplacementArticle,
-  coolantFlushArticle,
-  throttleCableAdjustArticle,
-  hondaCrf300lReviewArticle,
-  betaRr3002026Article,
-  golanLoopArticle,
-  judeanDesertTrailArticle,
-  kneeBracesVsPadsArticle,
-  hillClimbTechniqueArticle,
-  clutchExplainedArticle,
-  exhaustExplainedArticle,
-];
-
-export function getArticleBySlug(slug: string): Article | undefined {
-  const aliases: Record<string, string> = {
-    "ktm-exc-250-oil-change": "two-stroke-gearbox-oil-change",
-  };
-  const target = aliases[slug] ?? slug;
-  return articles.find((a) => a.slug === target);
+export function getArticleBySlug(_slug: string): Article | undefined {
+  return undefined;
 }
 
 export function getRelatedArticles(slugs: string[]): Article[] {

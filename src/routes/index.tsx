@@ -1,91 +1,43 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
-import { LeadMagnet } from "@/components/shared/LeadMagnet";
-import { Hero } from "@/components/home/Hero";
-import { TickerBar } from "@/components/home/TickerBar";
-import { ArticleCategoriesSection } from "@/components/home/ArticleCategoriesSection";
-import { LatestByCategorySection } from "@/components/home/LatestByCategorySection";
-import { ProductCategoriesSection } from "@/components/home/ProductCategoriesSection";
-import { FeaturedProductsSection } from "@/components/home/FeaturedProductsSection";
-import { AboutTeaser } from "@/components/home/AboutTeaser";
-import { articles as staticArticles } from "@/lib/articles";
-import {
-  mergeArticleCards,
-  staticArticleToCard,
-} from "@/lib/article-cards";
-import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
-
-const PAGE_TITLE =
-  "הרוכב העצלן | פורטל אופנועי שטח בישראל";
-const PAGE_DESCRIPTION =
-  "כל מה שרוכב שטח בישראל צריך במקום אחד: מדריכי תחזוקה, ביקורות KTM/Husqvarna/Honda, מסלולי שטח, קטלוג קסדות, מגני גוף ומגפיים, וטכניקות רכיבה.";
-
-const SITE_URL = "https://lazyrider.org";
-const PAGE_URL = `${SITE_URL}/`;
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "הרוכב העצלן",
-  url: PAGE_URL,
-  description: PAGE_DESCRIPTION,
-  inLanguage: "he-IL",
-  hasPart: [
-    { "@type": "WebPage", name: "מכניקה ותחזוקה", url: `${SITE_URL}/category/mechanic` },
-    { "@type": "WebPage", name: "אופנועים וביקורות", url: `${SITE_URL}/category/bikes` },
-    { "@type": "WebPage", name: "מסלולי שטח", url: `${SITE_URL}/category/trails` },
-    { "@type": "WebPage", name: "ציוד מגן", url: `${SITE_URL}/category/gear` },
-    { "@type": "WebPage", name: "טכניקת רכיבה", url: `${SITE_URL}/category/technique` },
-    { "@type": "WebPage", name: "קסדות שטח", url: `${SITE_URL}/products/helmets` },
-    { "@type": "WebPage", name: "מגני גוף", url: `${SITE_URL}/products/body-armor` },
-    { "@type": "WebPage", name: "מגפי שטח", url: `${SITE_URL}/products/boots` },
-  ],
-};
+import { SITE } from "@/lib/site-config";
 
 export const Route = createFileRoute("/")({
-  loader: async () => {
-    const aiCards = await listPublishedAiArticleCards();
-    const staticCards = staticArticles.map(staticArticleToCard);
-    const allCards = mergeArticleCards(staticCards, aiCards);
-    return { allCards };
-  },
   head: () => ({
     meta: [
-      { title: PAGE_TITLE },
-      { name: "description", content: PAGE_DESCRIPTION },
-      { property: "og:title", content: PAGE_TITLE },
-      { property: "og:description", content: PAGE_DESCRIPTION },
-      { property: "og:url", content: PAGE_URL },
-      { property: "og:type", content: "website" },
-      { name: "twitter:title", content: PAGE_TITLE },
-      { name: "twitter:description", content: PAGE_DESCRIPTION },
+      { title: `${SITE.brand} | ${SITE.tagline}` },
+      { name: "description", content: SITE.shortDescription },
     ],
-    links: [{ rel: "canonical", href: PAGE_URL }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(websiteSchema),
-      },
-    ],
+    links: [{ rel: "canonical", href: SITE.url + "/" }],
   }),
-  component: Index,
+  component: Home,
 });
 
-function Index() {
-  const { allCards } = Route.useLoaderData();
+function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main id="main-content" className="flex-1">
-        <Hero />
-        <TickerBar />
-        <ArticleCategoriesSection cards={allCards} />
-        <LatestByCategorySection cards={allCards} />
-        <ProductCategoriesSection />
-        <FeaturedProductsSection />
-        <AboutTeaser />
-        <LeadMagnet />
+        <section className="border-b border-[#d6c5ac] bg-[#fefaf6]">
+          <div className="mx-auto max-w-[1200px] px-6 py-20 md:py-28">
+            <p className="mb-4 text-[11px] font-bold uppercase tracking-widest text-[#8b3a52]">
+              פדיקור טיפולי | {SITE.city}
+            </p>
+            <h1 className="mb-6 text-4xl font-black leading-tight text-[#2a1f1a] md:text-6xl">
+              {SITE.brand} — {SITE.tagline}
+            </h1>
+            <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#3a2f28]">
+              {SITE.yearsExperience}+ שנות ניסיון בטיפול ביבלות, פטרת, ציפורן חודרנית, סדקים וטיפול עדין לחולי סוכרת.
+              גישה סטרילית, מקצועית, בלי שיפוטיות.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a href={SITE.whatsappUrl} target="_blank" rel="noopener" className="bg-[#25d366] px-6 py-3 font-bold text-white">וואטסאפ</a>
+              <a href={SITE.telUrl} className="bg-[#8b3a52] px-6 py-3 font-bold text-white">חיוג {SITE.phoneDisplay}</a>
+              <a href={SITE.wazeUrl} target="_blank" rel="noopener" className="border-2 border-[#8b3a52] px-6 py-3 font-bold text-[#8b3a52]">ניווט ב-Waze</a>
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

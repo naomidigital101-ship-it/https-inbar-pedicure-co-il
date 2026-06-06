@@ -7,32 +7,32 @@ export function RelatedArticles({ articles }: { articles: Article[] }) {
   return (
     <section
       aria-labelledby="related-heading"
-      className="border-t border-[#222] bg-[#0a0a0a]"
+      className="border-t border-[#d6c5ac] bg-[#fefaf6]"
     >
       <div className="mx-auto max-w-[1400px] px-4 py-16 md:px-8">
         <div className="mb-10 flex items-center gap-3">
-          <span className="text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
             [ MOD: NEXT // READ ]
           </span>
-          <span aria-hidden="true" className="h-px flex-1 bg-[#222]" />
+          <span aria-hidden="true" className="h-px flex-1 bg-[#d6c5ac]" />
         </div>
         <h2
           id="related-heading"
-          className="mb-10 text-3xl font-black text-[#f0f0f0] md:text-4xl"
+          className="mb-10 text-3xl font-black text-[#2a1f1a] md:text-4xl"
         >
           מאמרים נוספים שיעניינו אותך
         </h2>
 
-        <div className="grid grid-cols-1 gap-px bg-[#222] md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px bg-[#d6c5ac] md:grid-cols-3">
           {articles.map((a) => (
             <Link
               key={a.slug}
               to="/article/$slug"
               params={{ slug: a.slug }}
-              className="group flex flex-col bg-[#0a0a0a] transition-colors hover:bg-[#111] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e63000]"
+              className="group flex flex-col bg-[#fefaf6] transition-colors hover:bg-[#f5ede4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8b3a52]"
               aria-label={a.title}
             >
-              <div className="aspect-video overflow-hidden border-b border-[#222]">
+              <div className="aspect-video overflow-hidden border-b border-[#d6c5ac]">
                 <img
                   src={a.heroImage}
                   alt={a.heroAlt}
@@ -41,18 +41,18 @@ export function RelatedArticles({ articles }: { articles: Article[] }) {
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#e63000]">
+                <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#8b3a52]">
                   {a.category}
                 </div>
-                <h3 className="mb-3 text-xl font-black leading-tight text-[#f0f0f0] transition-colors group-hover:text-[#e63000]">
+                <h3 className="mb-3 text-xl font-black leading-tight text-[#2a1f1a] transition-colors group-hover:text-[#8b3a52]">
                   {a.title}
                 </h3>
-                <p className="mb-4 flex-1 text-sm font-bold leading-relaxed text-[#a0a0a0]">
+                <p className="mb-4 flex-1 text-sm font-bold leading-relaxed text-[#6b5f55]">
                   {a.excerpt}
                 </p>
-                <div className="flex items-center justify-between border-t border-[#222] pt-4 text-[10px] font-bold uppercase tracking-wider text-[#909090]">
+                <div className="flex items-center justify-between border-t border-[#d6c5ac] pt-4 text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
                   <span>{a.readingTime}</span>
-                  <span aria-hidden="true" className="text-[#e63000]">
+                  <span aria-hidden="true" className="text-[#8b3a52]">
                     ←
                   </span>
                 </div>
