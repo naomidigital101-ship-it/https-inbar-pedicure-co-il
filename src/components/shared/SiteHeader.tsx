@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
+import logoAsset from "@/assets/inbar-logo.png.asset.json";
 
 const navLinks = [
   { label: "בית", href: "/" },
@@ -17,12 +18,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/40 bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-5">
-        <a href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-          <div className="flex flex-col items-end leading-none">
-            <span className="display text-xl text-primary-deep md:text-2xl">{SITE.brand}</span>
-            <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-copper">קליניקה לבריאות כף הרגל</span>
-          </div>
-          <span aria-hidden className="text-copper">🌾</span>
+        <a href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80" aria-label={SITE.brand}>
+          <img
+            src={logoAsset.url}
+            alt={`${SITE.brand} — קליניקה לבריאות כף הרגל`}
+            className="h-14 w-auto md:h-16"
+            loading="eager"
+            decoding="async"
+          />
         </a>
         <nav className="hidden items-center gap-9 text-[0.95rem] font-normal text-ink lg:flex" aria-label="ניווט ראשי">
           {navLinks.map((l) => {
