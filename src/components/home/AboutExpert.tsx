@@ -66,7 +66,7 @@ export function AboutExpert() {
             className="lg:col-span-7"
           >
             <span className="text-xs font-bold uppercase tracking-[0.28em] text-teal-700">היכרות עם המומחית</span>
-            <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl md:leading-[1.05]">
+            <h2 className="mt-5 font-heading text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl md:leading-[1.05]">
               למה מטופלים נוסעים אליי
               <br />
               <span className="text-teal-700">מכל הארץ.</span>
