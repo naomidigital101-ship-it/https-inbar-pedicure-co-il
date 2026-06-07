@@ -16,18 +16,18 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const current = typeof window !== "undefined" ? window.location.pathname : "/";
   return (
-    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-5">
+    <header className="sticky top-4 z-50 px-4">
+      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 rounded-full border border-border/50 bg-background/80 px-6 py-3 shadow-[0_10px_40px_-12px_rgba(15,27,61,0.18)] backdrop-blur-2xl ring-1 ring-white/40">
         <a href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80" aria-label={SITE.brand}>
           <img
             src={logoAsset.url}
             alt={`${SITE.brand} — קליניקה לבריאות כף הרגל`}
-            className="h-14 w-auto md:h-16"
+            className="h-12 w-auto md:h-14"
             loading="eager"
             decoding="async"
           />
         </a>
-        <nav className="hidden items-center gap-9 text-[0.95rem] font-normal text-ink lg:flex" aria-label="ניווט ראשי">
+        <nav className="hidden items-center gap-8 text-[0.92rem] font-normal text-ink lg:flex" aria-label="ניווט ראשי">
           {navLinks.map((l) => {
             const active = l.href === current || (l.href !== "/" && current.startsWith(l.href));
             return (
@@ -44,7 +44,7 @@ export function SiteHeader() {
             href={SITE.whatsappUrl}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.85rem] font-bold text-primary-foreground transition-colors hover:bg-primary-deep"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.85rem] font-bold text-primary-foreground shadow-[0_8px_20px_-6px_rgba(15,27,61,0.25)] transition-all hover:bg-primary-deep hover:shadow-[0_10px_24px_-6px_rgba(15,27,61,0.35)]"
           >
             <MessageCircle className="h-4 w-4" aria-hidden />
             וואטסאפ
@@ -55,7 +55,7 @@ export function SiteHeader() {
         </button>
       </div>
       {open && (
-        <nav className="border-t border-border bg-surface lg:hidden" aria-label="ניווט במובייל">
+        <nav className="mx-auto mt-2 max-w-[1280px] overflow-hidden rounded-3xl border border-border/50 bg-background/95 shadow-[0_20px_50px_-12px_rgba(15,27,61,0.25)] backdrop-blur-xl lg:hidden" aria-label="ניווט במובייל">
           {navLinks.map((l) => (
             <a key={l.href} href={l.href} className="block border-b border-border/60 px-6 py-4 text-sm font-bold text-ink" onClick={() => setOpen(false)}>{l.label}</a>
           ))}
