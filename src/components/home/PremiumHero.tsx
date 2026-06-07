@@ -44,7 +44,7 @@ export function PremiumHero() {
 
           <motion.h1
             variants={fadeUp}
-            className="font-extrabold tracking-tight text-slate-900 text-5xl leading-[1.05] sm:text-6xl md:text-7xl"
+            className="font-heading font-extrabold tracking-tight text-slate-900 text-5xl leading-[1.05] sm:text-6xl md:text-7xl"
           >
             הסמכות המובילה
             <br />
