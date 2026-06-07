@@ -6,6 +6,8 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 import { PartnersStrip } from "@/components/shared/PartnersStrip";
 import { FlagshipCards } from "@/components/home/FlagshipCards";
 import { TreatmentFinder } from "@/components/home/TreatmentFinder";
+import { PremiumHero } from "@/components/home/PremiumHero";
+import { AboutExpert } from "@/components/home/AboutExpert";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import inbarPhoto from "@/assets/inbar-hero-editorial.jpg";
@@ -117,92 +119,8 @@ function Home() {
       <SiteHeader />
       <ConsultationTab />
       <main id="main-content" className="flex-1 pb-20 md:pb-0">
-        {/* HERO — Editorial Clinical (split layout, no text/face overlap) */}
-        <section className="relative isolate overflow-hidden bg-background">
-          <div className="grain absolute inset-0 -z-10 opacity-20" aria-hidden />
-          <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-6 py-16 md:py-24 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-28">
-            {/* Text column */}
-            <div className="order-2 space-y-7 lg:order-1 lg:col-span-7">
-              <div className="flex items-center gap-3">
-                <span className="h-px w-12 bg-copper" aria-hidden />
-                <span className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-copper">
-                  קליניקה לבריאות כף הרגל · בית אל
-                </span>
-              </div>
-
-              <h1 className="display text-[2.6rem] leading-[1.02] text-ink sm:text-[3.4rem] md:text-[4.4rem] lg:text-[5rem]">
-                ענבר פרחי
-                <span className="display-italic mt-3 block text-primary-deep">
-                  סמכות קלינית
-                  <br />
-                  לבריאות כף הרגל
-                </span>
-              </h1>
-
-              <p className="max-w-xl text-[1.05rem] leading-[1.75] text-ink-soft md:text-[1.15rem]">
-                פדיקור טיפולי המבוסס על פרוטוקולים רפואיים — פטרת ציפורניים, אורטוניקסיה, סוכרת ושיקום BIO. בקליניקה אישית עם סטריליות מלאה וליווי עד החלמה.
-              </p>
-
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <a
-                  href={SITE.whatsappUrl}
-                  target="_blank"
-                  rel="noopener"
-                  className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-primary-deep px-9 py-4 text-[0.98rem] font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary active:scale-[0.98]"
-                >
-                  <MessageCircle className="h-4 w-4" aria-hidden />
-                  לתיאום טיפול בקליניקה
-                </a>
-                <a
-                  href="/masterclass"
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full border border-copper/50 bg-surface px-8 py-4 text-[0.98rem] font-bold text-primary-deep transition-colors duration-300 hover:border-copper hover:bg-surface-warm"
-                >
-                  <GraduationCap className="h-4 w-4 text-copper" aria-hidden />
-                  מאסטרקלאס לפדיקוריסטיות
-                </a>
-              </div>
-
-              {/* Inline stats */}
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-2">
-                {[
-                  { n: "12+", l: "שנות ניסיון קליני" },
-                  { n: "IWGDF", l: "פרוטוקול סוכרת" },
-                  { n: "150+", l: "שעות השתלמות בשנה" },
-                ].map((s) => (
-                  <div key={s.l} className="flex items-baseline gap-2">
-                    <span className="font-heading text-xl font-bold text-primary-deep md:text-2xl">{s.n}</span>
-                    <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-text-muted">{s.l}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Image column — framed editorial portrait with copper accents */}
-            <div className="relative order-1 lg:order-2 lg:col-span-5">
-              {/* Copper decorative frame, offset behind */}
-              <div className="pointer-events-none absolute -top-4 -right-4 hidden h-full w-full rounded-tr-[80px] border border-copper/40 lg:block" aria-hidden />
-              <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-24 w-24 border-b border-l border-copper/60 lg:block" aria-hidden />
-
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-tr-[80px] rounded-bl-[28px] bg-surface-warm shadow-[var(--shadow-elegant)]">
-                <img
-                  src={inbarPhoto}
-                  alt="ענבר פרחי — פדיקוריסטית טיפולית בקליניקה"
-                  width={900}
-                  height={1125}
-                  loading="eager"
-                  className="h-full w-full object-cover object-[60%_top]"
-                />
-                {/* Experience badge */}
-                <div className="absolute bottom-0 right-0 flex items-end gap-3 border-t border-r border-border bg-surface/95 p-5 backdrop-blur-sm">
-                  <span className="font-heading text-3xl font-bold leading-none text-copper">12+</span>
-                  <span className="pb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-ink">
-                    שנות ניסיון<br />קליני
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PremiumHero />
+        <AboutExpert />
 
         {/* FLAGSHIP CARDS — 3 ה־טיפולים הדגל */}
         <FlagshipCards />
