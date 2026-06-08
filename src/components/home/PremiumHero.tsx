@@ -45,7 +45,7 @@ export function PremiumHero() {
           <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-3">
             <span className="h-px w-10 bg-[var(--primary)]" />
             <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--primary-deep,var(--primary))]">
-              קליניקה רפואית לבריאות כף הרגל
+              קליניקה רפואית לכף הרגל · בית אל ואזור בנימין
             </span>
           </motion.div>
 
@@ -54,18 +54,18 @@ export function PremiumHero() {
             style={{ fontFamily: "'Assistant', system-ui, sans-serif", fontWeight: 300 }}
             className="font-heading tracking-tight text-[var(--ink,#1d3a35)] leading-[1.2] text-[clamp(2.25rem,5.6vw,4.75rem)]"
           >
-            הסמכות המובילה
+            פדיקור טיפולי
             <br />
-            בישראל לטיפול
+            בבית אל ובאזור
             <br />
-            <span className="text-[var(--copper,#B8894A)] italic">בכף הרגל.</span>
+            <span className="text-[var(--copper,#B8894A)] italic">בנימין.</span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="mt-6 max-w-xl text-base leading-relaxed text-[var(--ink-soft,#4a5e5a)] md:text-lg"
           >
-            ענבר פרחי — קליניקה בוטיקית לטיפול קליני בכף הרגל. גישה רפואית מדויקת, פרוטוקולים בינלאומיים וליווי אישי שמחזיר אתכם להליכה נטולת כאב.
+            ענבר פרחי — קליניקה בוטיקית בבית אל לטיפול קליני בכף הרגל: יבלות, פטרת, ציפורן חודרנית, סדקים בעקב ופדיקור לחולי סוכרת. שירות למטופלים מכל אזור בנימין, ירושלים והיישובים הסמוכים.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
