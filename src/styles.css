@@ -4,6 +4,62 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "Frank Ruhl Libre";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/frank-ruhl-libre-hebrew-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Frank Ruhl Libre";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("/fonts/frank-ruhl-libre-hebrew-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Frank Ruhl Libre";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src: url("/fonts/frank-ruhl-libre-hebrew-900.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Heebo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/heebo-hebrew-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Heebo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("/fonts/heebo-hebrew-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Heebo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("/fonts/heebo-hebrew-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Heebo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src: url("/fonts/heebo-hebrew-900.woff2") format("woff2");
+}
+
 /*
  * ענבר פרחי - design system
  * פלטה: cream bg + dirt/mud חומים + כתום CTA + ירוק לאסף לידים.
@@ -168,10 +224,14 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
+  h1, h2, h3, h4,
+  .font-heading,
+  .display,
+  .display-italic,
+  .heading {
+    font-family: var(--font-display) !important;
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 1.05;
   }
 
@@ -189,17 +249,15 @@
   }
 
   .display {
-    font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: -0.025em;
+    letter-spacing: 0;
     line-height: 1.02;
   }
 
   .display-italic {
-    font-family: var(--font-display);
     font-style: italic;
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
   .grain {
