@@ -8,6 +8,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+import "@fontsource/frank-ruhl-libre/hebrew.css";
+import "@fontsource/heebo/hebrew.css";
 import appCss from "../styles.css?url";
 import { AccessibilityMenu } from "@/components/shared/AccessibilityMenu";
 import { CookieConsent } from "@/components/shared/CookieConsent";

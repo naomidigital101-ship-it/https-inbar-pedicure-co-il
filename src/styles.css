@@ -1,5 +1,3 @@
-@import "@fontsource/frank-ruhl-libre/hebrew.css";
-@import "@fontsource/heebo/hebrew.css";
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
