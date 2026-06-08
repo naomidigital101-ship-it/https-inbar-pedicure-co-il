@@ -18,7 +18,7 @@ const FLAGSHIPS: readonly Flagship[] = [
   {
     slug: "fungus",
     title: "פטרת ציפורניים",
-    sub: "פרוטוקול מלא — אבחנה, טיפול ושיקום BIO",
+    sub: "פרוטוקול מלא: אבחנה, טיפול ושיקום BIO",
     image: fungusImg,
     alt: "ציפורן רגל בריאה אחרי טיפול בפטרת בקליניקה של ענבר פרחי",
     band: "bg-primary-deep",
