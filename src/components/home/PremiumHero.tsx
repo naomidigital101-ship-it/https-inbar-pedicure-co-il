@@ -45,27 +45,27 @@ export function PremiumHero() {
           <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-3">
             <span className="h-px w-10 bg-[var(--primary)]" />
             <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--primary-deep,var(--primary))]">
-              קליניקה רפואית לכף הרגל · בית אל ואזור בנימין
+              קליניקה רפואית לכף הרגל בבית אל
             </span>
           </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            style={{ fontFamily: "'Assistant', system-ui, sans-serif", fontWeight: 300 }}
-            className="font-heading tracking-tight text-[var(--ink,#1d3a35)] leading-[1.2] text-[clamp(2.25rem,5.6vw,4.75rem)]"
+            style={{ fontFamily: "'Assistant', system-ui, sans-serif", fontWeight: 700 }}
+            className="font-heading tracking-tight text-[var(--ink,#1d3a35)] leading-[1.1] text-[clamp(2.25rem,5.6vw,4.75rem)]"
           >
             פדיקור טיפולי
             <br />
             בבית אל ובאזור
             <br />
-            <span className="text-[var(--copper,#B8894A)] italic">בנימין.</span>
+            <span className="text-[var(--copper,#B8894A)]">בנימין.</span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="mt-6 max-w-xl text-base leading-relaxed text-[var(--ink-soft,#4a5e5a)] md:text-lg"
           >
-            ענבר פרחי — קליניקה בוטיקית בבית אל לטיפול קליני בכף הרגל: יבלות, פטרת, ציפורן חודרנית, סדקים בעקב ופדיקור לחולי סוכרת. שירות למטופלים מכל אזור בנימין, ירושלים והיישובים הסמוכים.
+            הקליניקה של ענבר פרחי בבית אל מתמחה בטיפול קליני בכף הרגל: יבלות, פטרת, ציפורן חודרנית, סדקים בעקב ופדיקור לחולי סוכרת. שירות למטופלים מכל אזור בנימין, ירושלים והיישובים הסמוכים.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -140,7 +140,7 @@ export function PremiumHero() {
                 </span>
                 <div>
                   <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--primary-deep,var(--primary))]">סטנדרט קליני</div>
-                  <div className="text-sm font-semibold text-[var(--ink,#1d3a35)]">איכילוב · NHS · IWGDF</div>
+                  <div className="text-sm font-semibold text-[var(--ink,#1d3a35)]">איכילוב, NHS, IWGDF</div>
                 </div>
               </div>
             </motion.div>
