@@ -22,16 +22,20 @@ export function PremiumHero() {
   return (
     <section
       dir="rtl"
-      className="relative isolate overflow-hidden bg-[var(--surface,#F5F4F0)] min-h-[calc(100svh-5rem)] flex items-center"
+      className="relative isolate overflow-hidden bg-white min-h-[calc(100svh-5rem)] flex items-center"
     >
-      {/* Soft brand auras */}
+      {/* Soft brand auras — turquoise + light grey */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-32 left-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-[color-mix(in_oklab,var(--primary)_22%,transparent)] blur-3xl"
+        className="pointer-events-none absolute -top-32 left-1/4 -z-10 h-[560px] w-[560px] rounded-full bg-[color-mix(in_oklab,var(--primary)_28%,transparent)] blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-[-20%] right-[-10%] -z-10 h-[420px] w-[420px] rounded-full bg-[color-mix(in_oklab,var(--copper,#B8894A)_18%,transparent)] blur-3xl"
+        className="pointer-events-none absolute bottom-[-20%] right-[-10%] -z-10 h-[460px] w-[460px] rounded-full bg-[color-mix(in_oklab,var(--primary-deep)_14%,transparent)] blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-[var(--surface-warm)] to-transparent"
       />
 
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-6 py-10 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:py-14">
