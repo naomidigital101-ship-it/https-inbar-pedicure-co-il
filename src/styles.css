@@ -9,7 +9,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 300 900;
-  src: url("/node_modules/@fontsource/frank-ruhl-libre/files/frank-ruhl-libre-hebrew-900-normal.woff2") format("woff2");
+  src: url("../node_modules/@fontsource/frank-ruhl-libre/files/frank-ruhl-libre-hebrew-900-normal.woff2") format("woff2");
 }
 
 @font-face {
@@ -17,7 +17,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 100 900;
-  src: url("/node_modules/@fontsource/heebo/files/heebo-hebrew-400-normal.woff2") format("woff2");
+  src: url("../node_modules/@fontsource/heebo/files/heebo-hebrew-400-normal.woff2") format("woff2");
 }
 
 /*
