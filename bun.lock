@@ -7,6 +7,7 @@
       "dependencies": {
         "@ai-sdk/openai-compatible": "^2.0.48",
         "@cloudflare/vite-plugin": "^1.25.5",
+        "@fontsource/assistant": "^5.2.9",
         "@fontsource/frank-ruhl-libre": "^5.2.8",
         "@fontsource/heebo": "^5.2.8",
         "@hookform/resolvers": "^5.2.2",
@@ -248,6 +249,8 @@
     "@floating-ui/react-dom": ["@floating-ui/react-dom@2.1.8", "", { "dependencies": { "@floating-ui/dom": "^1.7.6" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-cC52bHwM/n/CxS87FH0yWdngEZrjdtLW/qVruo68qg+prK7ZQ4YGdut2GyDVpoGeAYe/h899rVeOVm6Oi40k2A=="],
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.11", "", {}, "sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg=="],
+
+    "@fontsource/assistant": ["@fontsource/assistant@5.2.9", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/assistant/-/assistant-5.2.9.tgz", {}, "sha512-hSkPT8g3sZ2j95ZVCy5EjRjqRZOWohJJNuesDkDegOL6DYuBijppA0vfY4vAplsYC/l1zoNVWWkIFhu2shOfHA=="],
 
     "@fontsource/frank-ruhl-libre": ["@fontsource/frank-ruhl-libre@5.2.8", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/frank-ruhl-libre/-/frank-ruhl-libre-5.2.8.tgz", {}, "sha512-6ISorITeqsIsJ92KUgvShp0/KyGGzex6yEGYkzfVuVLntwfj9OdxsZavsaoNwx+IyVUI5Hz8m39vktt+TjIi/w=="],
 
