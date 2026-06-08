@@ -51,8 +51,8 @@ export function PremiumHero() {
 
           <motion.h1
             variants={fadeUp}
-            style={{ fontFamily: "var(--font-heading)" }}
-            className="font-heading font-bold tracking-tight text-[var(--ink,#1d3a35)] leading-[1.05] text-[clamp(2.25rem,5.6vw,4.75rem)]"
+            style={{ fontFamily: "'Frank Ruhl Libre', 'Heebo', serif", fontWeight: 900 }}
+            className="font-heading font-black tracking-tight text-[var(--ink,#1d3a35)] leading-[1.05] text-[clamp(2.25rem,5.6vw,4.75rem)]"
           >
             הסמכות המובילה
             <br />
