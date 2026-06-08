@@ -4,61 +4,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: "Frank Ruhl Libre";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url("/fonts/frank-ruhl-libre-hebrew-400.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Frank Ruhl Libre";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 700;
-  src: url("/fonts/frank-ruhl-libre-hebrew-700.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Frank Ruhl Libre";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 900;
-  src: url("/fonts/frank-ruhl-libre-hebrew-900.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Heebo";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url("/fonts/heebo-hebrew-400.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Heebo";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 500;
-  src: url("/fonts/heebo-hebrew-500.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Heebo";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 700;
-  src: url("/fonts/heebo-hebrew-700.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Heebo";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 900;
-  src: url("/fonts/heebo-hebrew-900.woff2") format("woff2");
-}
+/* Assistant — פונט עברי ראשי לכל האתר */
+@import "@fontsource/assistant/300.css";
+@import "@fontsource/assistant/400.css";
+@import "@fontsource/assistant/500.css";
+@import "@fontsource/assistant/600.css";
+@import "@fontsource/assistant/700.css";
+@import "@fontsource/assistant/hebrew-300.css";
+@import "@fontsource/assistant/hebrew-400.css";
+@import "@fontsource/assistant/hebrew-500.css";
+@import "@fontsource/assistant/hebrew-600.css";
+@import "@fontsource/assistant/hebrew-700.css";
 
 /*
  * ענבר פרחי - design system
@@ -118,9 +74,9 @@
   --color-text-muted: var(--text-muted);
   --color-text-dim: var(--text-dim);
   --color-accent-hover: var(--accent-hover);
-  --font-heading: "Frank Ruhl Libre", "Heebo", Georgia, serif;
-  --font-body: "Heebo", system-ui, sans-serif;
-  --font-display: "Frank Ruhl Libre", "Heebo", Georgia, serif;
+  --font-heading: "Assistant", system-ui, sans-serif;
+  --font-body: "Assistant", system-ui, sans-serif;
+  --font-display: "Assistant", system-ui, sans-serif;
   --shadow-soft: 0 1px 2px rgb(29 58 53 / 0.04), 0 8px 24px -12px rgb(29 58 53 / 0.08);
   --shadow-elegant: 0 4px 12px -4px rgb(29 58 53 / 0.06), 0 24px 48px -24px rgb(29 58 53 / 0.16);
   --shadow-lift: 0 30px 60px -30px rgb(29 58 53 / 0.28);
@@ -128,9 +84,9 @@
 
 :root {
   --radius: 1.25rem;
-  --font-heading: "Frank Ruhl Libre", "Heebo", Georgia, serif;
-  --font-body: "Heebo", system-ui, sans-serif;
-  --font-display: "Frank Ruhl Libre", "Heebo", Georgia, serif;
+  --font-heading: "Assistant", system-ui, sans-serif;
+  --font-body: "Assistant", system-ui, sans-serif;
+  --font-display: "Assistant", system-ui, sans-serif;
   /* Inbar — palette aligned to brand logo: cream + sage olive + deep ink + gold */
   --background: oklch(0.955 0.014 85);
   --surface: oklch(1 0 0);
@@ -233,9 +189,9 @@
   .display-italic,
   .heading {
     font-family: var(--font-display) !important;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 0;
-    line-height: 1.05;
+    line-height: 1.2;
   }
 
   [dir="rtl"] body {
@@ -252,14 +208,14 @@
   }
 
   .display {
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 0;
-    line-height: 1.02;
+    line-height: 1.2;
   }
 
   .display-italic {
     font-style: italic;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 0;
   }
 
@@ -395,7 +351,7 @@ html.a11y-headings :is(h1, h2, h3, h4, h5, h6) {
 /* Readable font */
 html.a11y-readable,
 html.a11y-readable * {
-  font-family: "Heebo", "Arial", sans-serif !important;
+  font-family: "Assistant", "Arial", sans-serif !important;
   letter-spacing: 0.02em !important;
   word-spacing: 0.08em !important;
   line-height: 1.7 !important;
