@@ -128,6 +128,9 @@
 
 :root {
   --radius: 1.25rem;
+  --font-heading: "Frank Ruhl Libre", "Heebo", Georgia, serif;
+  --font-body: "Heebo", system-ui, sans-serif;
+  --font-display: "Frank Ruhl Libre", "Heebo", Georgia, serif;
   /* Inbar — palette aligned to brand logo: cream + sage olive + deep ink + gold */
   --background: oklch(0.955 0.014 85);
   --surface: oklch(1 0 0);
@@ -396,6 +399,12 @@ html.a11y-readable * {
   letter-spacing: 0.02em !important;
   word-spacing: 0.08em !important;
   line-height: 1.7 !important;
+}
+
+html.a11y-readable :is(h1, h2, h3, h4, h5, h6, .font-heading, .display, .display-italic, .heading),
+html.a11y-readable :is(h1, h2, h3, h4, h5, h6, .font-heading, .display, .display-italic, .heading) * {
+  font-family: var(--font-display) !important;
+  letter-spacing: 0 !important;
 }
 
 /* Pause animations */
