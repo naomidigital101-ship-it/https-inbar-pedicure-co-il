@@ -55,8 +55,8 @@ export function PremiumHero() {
 
           <motion.h1
             variants={fadeUp}
-            style={{ fontFamily: "'Assistant', system-ui, sans-serif", fontWeight: 700 }}
-            className="font-heading tracking-tight text-[var(--ink,#1d3a35)] leading-[1.05] text-[clamp(1.6rem,5.6vw,4.75rem)]"
+            style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300 }}
+            className="font-heading tracking-tight text-[var(--ink,#1d3a35)] leading-[1.05] text-[clamp(2rem,6.5vw,5.5rem)]"
           >
             פדיקור טיפולי
             <br />
