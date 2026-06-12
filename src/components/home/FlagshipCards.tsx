@@ -40,7 +40,7 @@ const FLAGSHIPS: readonly Flagship[] = [
     image: diabeticImg,
     alt: "טיפול עדין בכף רגל של מבוגר לפי פרוטוקול IWGDF",
     band: "bg-copper",
-    bandHover: "group-hover:bg-[oklch(0.52_0.1_48)]",
+    bandHover: "group-hover:bg-[var(--primary-deep)]",
   },
 ];
 
@@ -58,7 +58,12 @@ export function FlagshipCards() {
               className="group relative block overflow-hidden rounded-2xl border border-border bg-surface shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
             >
               <div className={`${f.band} ${f.bandHover} px-5 py-4 text-center transition-colors duration-500`}>
-                <h3 className="display text-xl text-white md:text-2xl">{f.title}</h3>
+                <h3
+                  className="text-white"
+                  style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: "1.35rem" }}
+                >
+                  {f.title}
+                </h3>
               </div>
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -72,7 +77,7 @@ export function FlagshipCards() {
               </div>
               <div className="flex items-center justify-between gap-3 px-5 py-5">
                 <p className="text-sm leading-relaxed text-ink-soft">{f.sub}</p>
-                <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-copper/40 text-copper transition-all group-hover:border-copper group-hover:bg-copper group-hover:text-white">
+                <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-[var(--primary)] text-[var(--primary)] transition-all group-hover:bg-[var(--primary)] group-hover:text-white group-hover:border-[var(--primary)]">
                   <ArrowLeft className="h-4 w-4" aria-hidden />
                 </span>
               </div>

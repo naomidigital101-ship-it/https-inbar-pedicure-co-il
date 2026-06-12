@@ -27,10 +27,10 @@ const PILLARS = [
 
 export function AboutExpert() {
   return (
-    <section id="about" dir="rtl" className="relative bg-slate-50 py-24 md:py-32">
+    <section id="about" dir="rtl" className="relative py-24 md:py-32" style={{ background: "var(--surface-warm)" }}>
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-12 lg:gap-20">
-          {/* Sticky portrait + caption */}
+          {/* Portrait */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -39,7 +39,14 @@ export function AboutExpert() {
             className="lg:col-span-5"
           >
             <div className="relative">
-              <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl bg-white shadow-xl shadow-slate-900/10 ring-1 ring-slate-900/5">
+              <div
+                className="aspect-[4/5] w-full overflow-hidden rounded-2xl"
+                style={{
+                  background: "var(--background)",
+                  boxShadow: "var(--shadow-elegant)",
+                  border: "1px solid var(--border)",
+                }}
+              >
                 <img
                   src={inbarPortrait}
                   alt="ענבר פרחי בקליניקה"
@@ -50,9 +57,20 @@ export function AboutExpert() {
                 />
               </div>
               <div className="mt-6 flex items-center gap-4">
-                <span className="h-px flex-1 bg-slate-300" />
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-teal-700">ענבר פרחי</span>
-                <span className="h-px flex-1 bg-slate-300" />
+                <span className="h-px flex-1" style={{ background: "var(--border)" }} />
+                <span
+                  style={{
+                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontSize: "13px",
+                    fontWeight: 400,
+                    letterSpacing: "0.28em",
+                    textTransform: "uppercase",
+                    color: "var(--primary-deep)",
+                  }}
+                >
+                  ענבר פרחי
+                </span>
+                <span className="h-px flex-1" style={{ background: "var(--border)" }} />
               </div>
             </div>
           </motion.div>
@@ -65,13 +83,21 @@ export function AboutExpert() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             className="lg:col-span-7"
           >
-            <span className="text-xs font-bold uppercase tracking-[0.28em] text-teal-700">היכרות עם המומחית</span>
-            <h2 className="mt-5 font-heading text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl md:leading-[1.05]">
+            <span className="kicker">היכרות עם המומחית</span>
+            <h2
+              className="mt-5 leading-[1.05]"
+              style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontWeight: 300,
+                fontSize: "clamp(2.4rem, 5vw, 4.5rem)",
+                color: "var(--ink)",
+              }}
+            >
               למה מטופלים מגיעים לקליניקה
               <br />
-              <span className="text-teal-700">בבית אל.</span>
+              <span style={{ color: "var(--primary)" }}>בבית אל.</span>
             </h2>
-            <div className="mt-8 space-y-5 text-lg leading-relaxed text-slate-600">
+            <div className="mt-8 space-y-5 text-lg leading-relaxed" style={{ color: "var(--ink-soft)" }}>
               <p>
                 במשך יותר מ-12 שנה אני מטפלת בכף הרגל בגישה הרפואית הקפדנית ביותר. הקליניקה שלי אינה מכון יופי, אלא סביבה קלינית סטרילית שבה כל החלטה מתבססת על ראיות, פרוטוקולים בינלאומיים והבנה עמוקה של הפיזיולוגיה של כף הרגל.
               </p>
@@ -80,7 +106,7 @@ export function AboutExpert() {
               </p>
             </div>
 
-            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
               {PILLARS.map(({ icon: Icon, title, desc }, i) => (
                 <motion.div
                   key={title}
@@ -88,13 +114,28 @@ export function AboutExpert() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.55, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5"
+                  className="rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+                  style={{
+                    background: "var(--background)",
+                    border: "1px solid var(--border)",
+                    boxShadow: "var(--shadow-soft)",
+                  }}
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-teal-50 text-teal-700">
+                  <span
+                    className="flex h-11 w-11 items-center justify-center rounded-full"
+                    style={{ background: "var(--primary-soft)", color: "var(--primary-deep)" }}
+                  >
                     <Icon className="h-5 w-5" aria-hidden strokeWidth={1.8} />
                   </span>
-                  <h3 className="mt-5 text-lg font-bold tracking-tight text-slate-900">{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
+                  <h3
+                    className="mt-5 text-lg tracking-tight"
+                    style={{ fontWeight: 500, color: "var(--ink)" }}
+                  >
+                    {title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                    {desc}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -102,7 +143,14 @@ export function AboutExpert() {
             <div className="mt-12">
               <a
                 href="/contact"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-teal-600 px-9 py-4 text-base font-bold text-white shadow-lg shadow-teal-600/20 transition-all duration-300 hover:-translate-y-1 hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/30"
+                className="group inline-flex items-center gap-2.5 rounded-full px-9 py-4 text-base font-bold transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: "var(--primary)",
+                  color: "var(--primary-foreground)",
+                  boxShadow: "0 8px 24px -8px color-mix(in oklab, var(--primary) 50%, transparent)",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = "var(--primary-deep)")}
+                onMouseLeave={e => (e.currentTarget.style.background = "var(--primary)")}
               >
                 לתיאום ייעוץ אישי
                 <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden />
