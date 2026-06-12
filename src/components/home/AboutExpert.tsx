@@ -85,12 +85,14 @@ export function AboutExpert() {
           >
             <span className="kicker">היכרות עם המומחית</span>
             <h2
-              className="mt-5 leading-[1.05]"
+              className="mt-5"
               style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontWeight: 300,
-                fontSize: "clamp(2.4rem, 5vw, 4.5rem)",
+                fontFamily: "'Assistant', system-ui, sans-serif",
+                fontWeight: 800,
+                letterSpacing: "-0.03em",
+                fontSize: "clamp(2.4rem, 5vw, 4rem)",
                 color: "var(--ink)",
+                lineHeight: 1.0,
               }}
             >
               למה מטופלים מגיעים לקליניקה
