@@ -10,7 +10,7 @@ const STATS = [
 
 export function PremiumHero() {
   return (
-    <section dir="rtl" className="relative overflow-hidden bg-white" style={{ height: "calc(100svh - 5rem)", minHeight: 600 }}>
+    <section dir="rtl" className="relative overflow-hidden bg-white lg:h-[calc(100svh-5rem)] lg:min-h-[600px]">
 
       {/* Desktop: split layout */}
       <div className="hidden lg:grid lg:grid-cols-2 h-full">
