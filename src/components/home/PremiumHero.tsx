@@ -17,7 +17,7 @@ export function PremiumHero() {
 
         {/* LEFT PANEL — dark ink */}
         <motion.div
-          initial={{ opacity: 0, x: -16 }}
+          initial={{ opacity: 1, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col justify-between px-12 py-14"
@@ -31,7 +31,7 @@ export function PremiumHero() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 1, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -92,7 +92,7 @@ export function PremiumHero() {
 
         {/* RIGHT PANEL — white with portrait */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.05 }}
           className="relative hidden lg:block overflow-hidden bg-white"
@@ -120,7 +120,7 @@ export function PremiumHero() {
           />
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 1, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
             style={{ position: "absolute", bottom: 32, right: 28, zIndex: 20, background: "white", border: "1px solid var(--border)", borderRadius: "var(--radius-md)", padding: "12px 14px", boxShadow: "var(--shadow-elegant)" }}
