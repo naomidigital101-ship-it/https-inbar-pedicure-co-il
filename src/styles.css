@@ -15,6 +15,7 @@
 @import "@fontsource/assistant/hebrew-500.css";
 @import "@fontsource/assistant/hebrew-600.css";
 @import "@fontsource/assistant/hebrew-700.css";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
 /*
  * ענבר פרחי - design system
@@ -76,63 +77,61 @@
   --color-accent-hover: var(--accent-hover);
   --font-heading: "Assistant", system-ui, sans-serif;
   --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Assistant", system-ui, sans-serif;
-  --shadow-soft: 0 1px 2px rgb(29 58 53 / 0.04), 0 8px 24px -12px rgb(29 58 53 / 0.08);
-  --shadow-elegant: 0 4px 12px -4px rgb(29 58 53 / 0.06), 0 24px 48px -24px rgb(29 58 53 / 0.16);
-  --shadow-lift: 0 30px 60px -30px rgb(29 58 53 / 0.28);
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --shadow-soft: 0 1px 2px rgb(15 43 46 / 0.05), 0 8px 24px -12px rgb(15 43 46 / 0.1);
+  --shadow-elegant: 0 4px 12px -4px rgb(15 43 46 / 0.08), 0 24px 48px -24px rgb(15 43 46 / 0.18);
+  --shadow-lift: 0 30px 60px -30px rgb(15 43 46 / 0.3);
 }
 
 :root {
   --radius: 1.25rem;
   --font-heading: "Assistant", system-ui, sans-serif;
   --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Assistant", system-ui, sans-serif;
-  /* Inbar — palette: pure white, light grey, strong memorable turquoise */
-  --background: oklch(1 0 0);
-  --surface: oklch(1 0 0);
-  --surface-warm: oklch(0.965 0.004 220);
-  --foreground: oklch(0.2 0.018 230);
-  --ink: oklch(0.18 0.02 225);
-  --ink-soft: oklch(0.38 0.018 225);
-  --text-muted: oklch(0.5 0.014 225);
-  --text-dim: oklch(0.62 0.012 225);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.018 230);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.018 230);
-  /* Turquoise — strong, slightly dark, memorable */
-  --primary: oklch(0.58 0.13 195);
-  --primary-soft: oklch(0.94 0.04 195);
-  --primary-deep: oklch(0.45 0.12 198);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.96 0.008 220);
-  --secondary-foreground: oklch(0.2 0.018 230);
-  --muted: oklch(0.965 0.004 220);
-  --muted-foreground: oklch(0.5 0.014 225);
-  --accent: oklch(0.58 0.13 195);
-  --accent-hover: oklch(0.45 0.12 198);
-  --accent-foreground: oklch(1 0 0);
-  /* Kept "copper" token name for backwards compat — now turquoise highlight */
-  --copper: oklch(0.55 0.135 196);
-  --copper-soft: oklch(0.94 0.04 195);
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  /* Teal Clinic — deep teal-black ink + rich teal primary + teal-tinted white */
+  --background: oklch(0.988 0.003 180);
+  --surface: oklch(0.988 0.003 180);
+  --surface-warm: oklch(0.955 0.025 182);
+  --foreground: oklch(0.18 0.04 192);
+  --ink: oklch(0.17 0.04 192);
+  --ink-soft: oklch(0.32 0.04 190);
+  --text-muted: oklch(0.48 0.03 188);
+  --text-dim: oklch(0.60 0.025 185);
+  --card: oklch(0.988 0.003 180);
+  --card-foreground: oklch(0.18 0.04 192);
+  --popover: oklch(0.988 0.003 180);
+  --popover-foreground: oklch(0.18 0.04 192);
+  --primary: oklch(0.60 0.11 185);
+  --primary-soft: oklch(0.94 0.04 182);
+  --primary-deep: oklch(0.45 0.115 188);
+  --primary-foreground: oklch(0.98 0.003 182);
+  --secondary: oklch(0.955 0.025 182);
+  --secondary-foreground: oklch(0.18 0.04 192);
+  --muted: oklch(0.955 0.025 182);
+  --muted-foreground: oklch(0.48 0.03 188);
+  --accent: oklch(0.60 0.11 185);
+  --accent-hover: oklch(0.45 0.115 188);
+  --accent-foreground: oklch(0.98 0.003 182);
+  --copper: oklch(0.55 0.10 185);
+  --copper-soft: oklch(0.93 0.04 182);
   --destructive: oklch(0.55 0.18 28);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.005 220);
-  --input: oklch(1 0 0);
-  --ring: oklch(0.58 0.13 195);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.2 0.018 230);
-  --sidebar-primary: oklch(0.58 0.13 195);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.96 0.008 220);
-  --sidebar-accent-foreground: oklch(0.2 0.018 230);
-  --sidebar-border: oklch(0.92 0.005 220);
-  --sidebar-ring: oklch(0.58 0.13 195);
+  --border: oklch(0.90 0.012 185);
+  --input: oklch(0.988 0.003 180);
+  --ring: oklch(0.60 0.11 185);
+  --chart-1: oklch(0.60 0.11 185);
+  --chart-2: oklch(0.45 0.115 188);
+  --chart-3: oklch(0.94 0.04 182);
+  --chart-4: oklch(0.17 0.04 192);
+  --chart-5: oklch(0.32 0.04 190);
+  --sidebar: oklch(0.988 0.003 180);
+  --sidebar-foreground: oklch(0.18 0.04 192);
+  --sidebar-primary: oklch(0.60 0.11 185);
+  --sidebar-primary-foreground: oklch(0.98 0.003 182);
+  --sidebar-accent: oklch(0.955 0.025 182);
+  --sidebar-accent-foreground: oklch(0.18 0.04 192);
+  --sidebar-border: oklch(0.90 0.012 185);
+  --sidebar-ring: oklch(0.60 0.11 185);
 }
 
 .dark {
