@@ -30,10 +30,13 @@ export function SiteHeader() {
             aria-hidden
             style={{
               fontFamily: "'Cormorant Garamond', Georgia, serif",
-              letterSpacing: "0.2em",
-              fontSize: "18px",
+              letterSpacing: "0.22em",
+              fontSize: "17px",
               fontWeight: 300,
               color: "var(--primary-deep)",
+              borderRight: "1px solid var(--border)",
+              paddingRight: "12px",
+              marginRight: "4px",
             }}
           >
             INBAR
