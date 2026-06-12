@@ -29,14 +29,14 @@ export function SiteHeader() {
           <span
             aria-hidden
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              letterSpacing: "0.22em",
-              fontSize: "17px",
-              fontWeight: 300,
-              color: "var(--primary-deep)",
-              borderRight: "1px solid var(--border)",
-              paddingRight: "12px",
-              marginRight: "4px",
+              fontFamily: "'Assistant', system-ui, sans-serif",
+              letterSpacing: "0.1em",
+              fontSize: "16px",
+              fontWeight: 800,
+              color: "var(--ink)",
+              borderRight: "2px solid var(--primary)",
+              paddingRight: "10px",
+              marginRight: "2px",
             }}
           >
             INBAR
