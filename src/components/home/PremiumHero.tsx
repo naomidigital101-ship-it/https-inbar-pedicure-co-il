@@ -141,6 +141,9 @@ export function PremiumHero() {
 
       {/* MOBILE hero */}
       <div className="lg:hidden">
+        <div style={{ background: "white", display: "flex", justifyContent: "center", padding: "0 20px" }}>
+          <img src={inbarPortrait} alt="ענבר פרחי" width={480} height={600} loading="eager" style={{ maxHeight: 340, width: "auto", objectFit: "contain", filter: "drop-shadow(0 16px 32px rgba(15,43,46,0.12))" }} />
+        </div>
         <div style={{ background: "var(--ink)", padding: "48px 20px 36px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
             <span style={{ width: 20, height: 2, background: "var(--primary)", display: "inline-block" }} />
@@ -160,9 +163,6 @@ export function PremiumHero() {
             <CalendarCheck size={15} aria-hidden />
             קביעת תור
           </a>
-        </div>
-        <div style={{ background: "white", display: "flex", justifyContent: "center", padding: "0 20px" }}>
-          <img src={inbarPortrait} alt="ענבר פרחי" width={480} height={600} loading="eager" style={{ maxHeight: 340, width: "auto", objectFit: "contain", filter: "drop-shadow(0 16px 32px rgba(15,43,46,0.12))" }} />
         </div>
       </div>
 
