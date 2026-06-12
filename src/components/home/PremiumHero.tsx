@@ -97,8 +97,7 @@ export function PremiumHero() {
           transition={{ duration: 0.9, delay: 0.05 }}
           className="relative hidden lg:block overflow-hidden bg-white"
         >
-          <div aria-hidden style={{ position: "absolute", bottom: "0", left: "-8%", width: 400, height: 400, borderRadius: "50%", background: "color-mix(in oklab, var(--primary) 10%, transparent)", zIndex: 0 }} />
-          <div aria-hidden style={{ position: "absolute", top: "8%", right: "6%", width: 100, height: 100, borderRadius: "50%", border: "1.5px solid color-mix(in oklab, var(--primary) 30%, transparent)", zIndex: 0 }} />
+          <div aria-hidden style={{ position: "absolute", bottom: "-15%", right: "-10%", width: 400, height: 400, borderRadius: "50%", background: "color-mix(in oklab, var(--primary) 10%, transparent)", zIndex: 0 }} />
 
           <img
             src={inbarPortrait}
