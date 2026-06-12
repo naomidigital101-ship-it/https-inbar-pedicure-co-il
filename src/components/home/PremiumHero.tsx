@@ -10,10 +10,10 @@ const STATS = [
 
 export function PremiumHero() {
   return (
-    <section dir="rtl" className="relative overflow-hidden bg-white" style={{ minHeight: "calc(100svh - 5rem)" }}>
+    <section dir="rtl" className="relative overflow-hidden bg-white" style={{ height: "calc(100svh - 5rem)", minHeight: 600 }}>
 
       {/* Desktop: split layout */}
-      <div className="hidden lg:grid lg:grid-cols-2" style={{ minHeight: "calc(100svh - 5rem)" }}>
+      <div className="hidden lg:grid lg:grid-cols-2 h-full">
 
         {/* LEFT PANEL — dark ink */}
         <motion.div
@@ -21,7 +21,7 @@ export function PremiumHero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col justify-between px-12 py-14"
-          style={{ background: "var(--ink)" }}
+          style={{ background: "oklch(0.12 0.03 192)" }}
         >
           <div className="flex items-center gap-3">
             <span style={{ width: 28, height: 2, background: "var(--primary)", display: "inline-block", flexShrink: 0 }} />
@@ -35,7 +35,7 @@ export function PremiumHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h1 style={{ fontWeight: 800, fontSize: "clamp(3.2rem, 5.2vw, 5rem)", lineHeight: 0.95, letterSpacing: "-0.035em", color: "white" }}>
+            <h1 style={{ fontWeight: 800, fontSize: "clamp(3.2rem, 5.2vw, 5rem)", lineHeight: 0.95, letterSpacing: "-0.035em", color: "#ffffff", opacity: 1 }}>
               פדיקור<br />
               טיפולי<br />
               <span style={{ color: "var(--primary)" }}>ברמה</span><br />
@@ -95,10 +95,10 @@ export function PremiumHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.05 }}
-          className="relative flex items-end justify-center overflow-hidden bg-white"
+          className="relative hidden lg:block overflow-hidden bg-white"
         >
-          <div aria-hidden style={{ position: "absolute", bottom: "-8%", left: "-12%", width: 380, height: 380, borderRadius: "50%", background: "color-mix(in oklab, var(--primary) 12%, transparent)", zIndex: 0 }} />
-          <div aria-hidden style={{ position: "absolute", top: "10%", right: "8%", width: 120, height: 120, borderRadius: "50%", border: "1.5px solid color-mix(in oklab, var(--primary) 25%, transparent)", zIndex: 0 }} />
+          <div aria-hidden style={{ position: "absolute", bottom: "0", left: "-8%", width: 400, height: 400, borderRadius: "50%", background: "color-mix(in oklab, var(--primary) 10%, transparent)", zIndex: 0 }} />
+          <div aria-hidden style={{ position: "absolute", top: "8%", right: "6%", width: 100, height: 100, borderRadius: "50%", border: "1.5px solid color-mix(in oklab, var(--primary) 30%, transparent)", zIndex: 0 }} />
 
           <img
             src={inbarPortrait}
@@ -106,7 +106,18 @@ export function PremiumHero() {
             width={896}
             height={1120}
             loading="eager"
-            style={{ position: "relative", zIndex: 10, height: "90%", maxHeight: 660, width: "auto", objectFit: "contain", filter: "drop-shadow(0 24px 48px rgba(15,43,46,0.14))" }}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 10,
+              height: "100%",
+              width: "auto",
+              objectFit: "contain",
+              objectPosition: "bottom center",
+              filter: "drop-shadow(0 24px 48px rgba(15,43,46,0.14))",
+            }}
           />
 
           <motion.div
