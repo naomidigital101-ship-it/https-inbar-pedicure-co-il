@@ -26,6 +26,18 @@ export function SiteHeader() {
             loading="eager"
             decoding="async"
           />
+          <span
+            aria-hidden
+            style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              letterSpacing: "0.2em",
+              fontSize: "18px",
+              fontWeight: 300,
+              color: "var(--primary-deep)",
+            }}
+          >
+            INBAR
+          </span>
         </a>
         <nav className="hidden items-center gap-8 text-[0.92rem] font-normal text-ink lg:flex" aria-label="ניווט ראשי">
           {navLinks.map((l) => {
