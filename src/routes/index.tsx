@@ -409,20 +409,51 @@ function Home() {
         </section>
 
         {/* PULL QUOTE */}
-        <section className="bg-surface-warm py-24">
+        <section dir="rtl" className="py-24" style={{ background: "var(--ink)" }}>
           <div className="mx-auto max-w-[1000px] px-6">
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
-                <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-surface shadow-[var(--shadow-elegant)] md:h-40 md:w-40">
+                <div
+                  className="relative h-32 w-32 overflow-hidden rounded-full md:h-40 md:w-40"
+                  style={{ border: "2px solid var(--primary)", boxShadow: "0 0 0 6px oklch(0.28 0.04 192)" }}
+                >
                   <img src={inbarPhoto} alt="ענבר פרחי" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
                 </div>
               </div>
               <div>
-                <span aria-hidden className="display-italic text-7xl leading-none text-copper">״</span>
-                <blockquote className="display-italic mt-2 text-2xl leading-snug text-ink md:text-3xl">
+                <span
+                  aria-hidden
+                  style={{
+                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontSize: "6rem",
+                    lineHeight: 0.8,
+                    display: "block",
+                    color: "var(--primary)",
+                    opacity: 0.7,
+                  }}
+                >
+                  ״
+                </span>
+                <blockquote
+                  className="mt-3 text-2xl leading-snug md:text-[2rem]"
+                  style={{
+                    fontFamily: "'Cormorant Garamond', Georgia, serif",
+                    fontWeight: 300,
+                    fontStyle: "italic",
+                    color: "oklch(0.94 0.012 185)",
+                  }}
+                >
                   אני לא מטפלת רק בסימפטום אלא במקור הבעיה. כל רגל מספרת סיפור אחר, והשליחות שלי היא להבין אותו ולהחזיר לך הליכה שקטה.
                 </blockquote>
-                <p className="mt-6 text-sm font-bold uppercase tracking-widest text-copper">ענבר פרחי · פדיקוריסטית טיפולית</p>
+                <div className="mt-8 flex items-center gap-4">
+                  <span className="h-px w-10" style={{ background: "var(--primary)" }} />
+                  <p
+                    className="text-[11px] font-bold uppercase tracking-[0.25em]"
+                    style={{ color: "var(--primary)" }}
+                  >
+                    ענבר פרחי · פדיקוריסטית טיפולית
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -498,14 +529,36 @@ function Home() {
           </div>
         </section>
 
-        {/* STATS — editorial */}
-        <section className="bg-surface-warm py-20">
+        {/* STATS */}
+        <section dir="rtl" className="py-20" style={{ background: "var(--ink)" }}>
           <div className="mx-auto max-w-[1280px] px-6">
-            <div className="grid gap-8 border-y border-border py-12 md:grid-cols-4">
+            <div
+              className="grid gap-0 border-y py-14 md:grid-cols-4"
+              style={{ borderColor: "oklch(0.28 0.04 192)" }}
+            >
               {STATS.map((s) => (
-                <div key={s.label} className="text-center md:border-l md:border-border md:first:border-l-0">
-                  <div className="display text-6xl text-primary-deep md:text-7xl">{s.num}</div>
-                  <div className="mt-3 text-xs font-bold uppercase tracking-widest text-copper">{s.label}</div>
+                <div
+                  key={s.label}
+                  className="flex flex-col items-center py-6 text-center md:border-l md:py-0 md:first:border-l-0"
+                  style={{ borderColor: "oklch(0.28 0.04 192)" }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "'Cormorant Garamond', Georgia, serif",
+                      fontWeight: 300,
+                      fontSize: "clamp(4rem, 7vw, 6rem)",
+                      lineHeight: 1,
+                      color: "var(--primary-soft)",
+                    }}
+                  >
+                    {s.num}
+                  </div>
+                  <div
+                    className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em]"
+                    style={{ color: "oklch(0.60 0.07 185)" }}
+                  >
+                    {s.label}
+                  </div>
                 </div>
               ))}
             </div>
