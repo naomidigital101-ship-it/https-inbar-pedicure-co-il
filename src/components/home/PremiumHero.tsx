@@ -175,15 +175,15 @@ export function PremiumHero() {
       </div>
 
       {/* ============ MOBILE ============ */}
-      <div className="lg:hidden px-6 pt-10 pb-12">
-        {/* Visual */}
-        <div className="relative aspect-square w-full max-w-[360px] mx-auto mb-8">
+      <div className="lg:hidden px-5 pt-4 pb-6">
+        {/* Visual — compact, fits ATF */}
+        <div className="relative aspect-square w-full max-w-[200px] mx-auto mb-4">
           <div
             aria-hidden
             style={{
               position: "absolute",
               inset: 0,
-              transform: "translate(-12px, 12px)",
+              transform: "translate(-8px, 8px)",
               background: `${TEAL}26`,
               borderRadius: BLOB_RADIUS,
             }}
@@ -209,10 +209,10 @@ export function PremiumHero() {
           <div
             style={{
               position: "absolute",
-              top: -14,
-              right: -10,
-              width: 92,
-              height: 92,
+              top: -10,
+              right: -8,
+              width: 70,
+              height: 70,
               borderRadius: 999,
               background: STAMP,
               color: "#FFF8F4",
@@ -220,12 +220,12 @@ export function PremiumHero() {
               alignItems: "center",
               justifyContent: "center",
               textAlign: "center",
-              fontSize: 11,
+              fontSize: 10,
               fontWeight: 800,
-              lineHeight: 1.3,
+              lineHeight: 1.25,
               transform: "rotate(8deg)",
-              border: "4px solid white",
-              boxShadow: "0 10px 22px rgba(0,0,0,0.12)",
+              border: "3px solid white",
+              boxShadow: "0 8px 16px rgba(0,0,0,0.12)",
             }}
           >
             5★<br />200+<br />מטופלות
@@ -233,10 +233,10 @@ export function PremiumHero() {
         </div>
 
         <div
-          className="inline-flex items-center px-4 py-1.5 rounded-full mb-6"
+          className="inline-flex items-center px-3 py-1 rounded-full mb-3"
           style={{ background: `${TEAL}14` }}
         >
-          <span style={{ color: TEAL, fontSize: 12, fontWeight: 600 }}>
+          <span style={{ color: TEAL, fontSize: 11, fontWeight: 600 }}>
             קליניקה טיפולית בבית אל
           </span>
         </div>
@@ -244,11 +244,11 @@ export function PremiumHero() {
         <h1
           style={{
             fontWeight: 800,
-            fontSize: "clamp(2.6rem, 11vw, 3.4rem)",
+            fontSize: "clamp(2rem, 8.5vw, 2.5rem)",
             lineHeight: 0.95,
             letterSpacing: "-0.02em",
             color: INK,
-            marginBottom: 16,
+            marginBottom: 10,
           }}
         >
           פדיקור טיפולי<br />
@@ -256,28 +256,29 @@ export function PremiumHero() {
             ברמה
             <span
               aria-hidden
-              style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 6, background: `${TEAL}33`, borderRadius: 999 }}
+              style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 5, background: `${TEAL}33`, borderRadius: 999 }}
             />
           </span>{" "}
           אחרת
         </h1>
 
-        <p style={{ color: WARM, fontSize: 16, lineHeight: 1.6, marginBottom: 24 }}>
-          טיפול קליני מקצועי לכפות הרגליים באווירה נינוחה ואישית, המשלב בריאות עם אסתטיקה גבוהה.
+        <p style={{ color: WARM, fontSize: 14, lineHeight: 1.5, marginBottom: 14 }}>
+          טיפול קליני מקצועי לכפות הרגליים — בריאות ואסתטיקה תחת קורת גג אחת.
         </p>
 
-        <div className="flex flex-col gap-3 mb-10">
+        <div className="flex gap-2 mb-4">
           <a
             href="/contact"
             style={{
+              flex: 1,
               background: TEAL,
               color: "white",
               fontWeight: 600,
-              fontSize: 16,
-              padding: "14px 24px",
+              fontSize: 14,
+              padding: "11px 16px",
               borderRadius: 999,
               textAlign: "center",
-              boxShadow: `0 10px 24px ${TEAL}33`,
+              boxShadow: `0 8px 18px ${TEAL}33`,
             }}
           >
             קביעת תור
@@ -285,11 +286,12 @@ export function PremiumHero() {
           <a
             href="#treatments"
             style={{
-              border: `2px solid ${TEAL}`,
+              flex: 1,
+              border: `1.5px solid ${TEAL}`,
               color: TEAL,
               fontWeight: 600,
-              fontSize: 16,
-              padding: "12px 24px",
+              fontSize: 14,
+              padding: "9.5px 16px",
               borderRadius: 999,
               textAlign: "center",
             }}
@@ -298,7 +300,7 @@ export function PremiumHero() {
           </a>
         </div>
 
-        <div className="flex items-center justify-center gap-3" style={{ fontSize: 11, color: `${WARM}99`, fontWeight: 500 }}>
+        <div className="flex items-center justify-center gap-2.5" style={{ fontSize: 10, color: `${WARM}99`, fontWeight: 500 }}>
           <span>איכילוב</span>
           <span style={{ width: 3, height: 3, borderRadius: 999, background: `${WARM}40` }} />
           <span>NHS</span>
