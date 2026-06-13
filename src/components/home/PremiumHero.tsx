@@ -244,7 +244,7 @@ export function PremiumHero() {
         <h1
           style={{
             fontWeight: 800,
-            fontSize: "clamp(1.85rem, 8vw, 2.3rem)",
+            fontSize: "clamp(2.2rem, 9.5vw, 2.75rem)",
             lineHeight: 0.95,
             letterSpacing: "-0.02em",
             color: INK,
@@ -256,7 +256,7 @@ export function PremiumHero() {
             ברמה
             <span
               aria-hidden
-              style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 5, background: `${TEAL}33`, borderRadius: 999 }}
+              style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 6, background: `${TEAL}33`, borderRadius: 999 }}
             />
           </span>{" "}
           אחרת

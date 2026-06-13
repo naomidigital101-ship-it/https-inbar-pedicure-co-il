@@ -60,7 +60,7 @@ export function FlagshipCards() {
               <div className={`${f.band} ${f.bandHover} px-5 py-4 text-center transition-colors duration-500`}>
                 <h3
                   className="text-white"
-                  style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: "1.35rem" }}
+                  style={{ fontFamily: "'Assistant', system-ui, sans-serif", fontWeight: 600, fontSize: "1.15rem", letterSpacing: "-0.01em" }}
                 >
                   {f.title}
                 </h3>
