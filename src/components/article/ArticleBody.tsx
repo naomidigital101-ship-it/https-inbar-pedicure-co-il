@@ -25,7 +25,7 @@ const DOFOLLOW_HOSTS = new Set<string>([
   "gov.il", "parks.org.il", "npa.org.il", "kkl.org.il",
   // יצרני נוספים
   "ngkntk.com",
-  // מחקר רפואי
+  // מחקר קליני
   "pubmed.ncbi.nlm.nih.gov", "nih.gov", "bmj.com", "nejm.org",
 ]);
 

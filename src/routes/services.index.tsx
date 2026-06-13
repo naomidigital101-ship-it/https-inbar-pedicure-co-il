@@ -8,7 +8,7 @@ import { SERVICES } from "@/lib/services-content";
 const PAGE_URL = `${SITE.url}/services`;
 const TITLE = `שירותי פדיקור טיפולי | ${SITE.brand}`;
 const DESCRIPTION =
-  "כל שירותי הפדיקור הטיפולי של ענבר פרחי — יבלות, פטרת, ציפורן חודרנית, אוניכוליזיס, סדקים, סוכרת וספורטאים. תוכן מבוסס מקורות רפואיים סמכותיים.";
+  "כל שירותי הפדיקור הטיפולי של ענבר פרחי — יבלות, פטרת, ציפורן חודרנית, אוניכוליזיס, סדקים, סוכרת וספורטאים. תוכן מבוסס מקורות קליניים סמכותיים.";
 
 export const Route = createFileRoute("/services/")({
   head: () => ({
@@ -37,7 +37,7 @@ function ServicesIndex() {
               שירותים <span className="display-italic text-primary-deep">לכל כף רגל</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
-              לכל טיפול יש עמוד ייעודי עם רקע רפואי, פרוטוקול הטיפול בקליניקה, המלצות מניעה ומקורות חיצוניים סמכותיים — משרד הבריאות, NHS, CDC, Mayo Clinic, AAD, IDF ו-APMA.
+              לכל טיפול יש עמוד ייעודי עם רקע קליני, פרוטוקול הטיפול בקליניקה, המלצות מניעה ומקורות חיצוניים סמכותיים — משרד הבריאות, NHS, CDC, Mayo Clinic, AAD, IDF ו-APMA.
             </p>
           </div>
         </section>

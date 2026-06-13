@@ -30,7 +30,7 @@ export const Route = createFileRoute("/services/$slug")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "MedicalWebPage",
+            "@type": "WebPage",
             inLanguage: "he-IL",
             url,
             name: s.title,
@@ -243,7 +243,7 @@ function ServicePage() {
               ))}
             </ol>
             <p className="mt-4 text-xs text-[#6b5f55]">
-              התוכן בעמוד זה מבוסס על מקורות רפואיים מוכרים (NHS, CDC, Mayo Clinic, AAD, IDF, APMA, IWGDF). הוא אינו תחליף לייעוץ רפואי אישי.
+              התוכן בעמוד זה מבוסס על מקורות קליניים מוכרים (NHS, CDC, Mayo Clinic, AAD, IDF, APMA, IWGDF). הוא אינו תחליף לייעוץ מקצועי אישי.
             </p>
           </div>
         </section>

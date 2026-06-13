@@ -116,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": ["MedicalBusiness", "HealthAndBeautyBusiness", "LocalBusiness"],
+          "@type": ["LocalBusiness", "HealthAndBeautyBusiness", "LocalBusiness"],
           "@id": SITE.url + "/#business",
           name: SITE.brand,
           url: SITE.url,
@@ -138,7 +138,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             { "@type": "City", name: "רמאללה" },
           ],
           openingHoursSpecification: SITE.hoursOpeningSpec,
-          medicalSpecialty: "Podiatry",
           knowsAbout: [
             "פדיקור טיפולי",
             "טיפול ביבלות",

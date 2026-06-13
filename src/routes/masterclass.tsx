@@ -101,10 +101,10 @@ const MODULES = [
   {
     n: "05",
     icon: ShieldCheck,
-    title: "סטריליות וניהול קליניקה רפואית",
+    title: "סטריליות וניהול קליניקה טיפולית",
     bullets: [
       "פרוטוקול ניקוי, חיטוי ועיקור באוטוקלאב",
-      "ניהול ציוד חד־פעמי ותיעוד רפואי",
+      "ניהול ציוד חד־פעמי ותיעוד קליני",
       "מה לעשות כשמטופל מגיע עם פצע פתוח",
     ],
   },
@@ -113,7 +113,7 @@ const MODULES = [
     icon: BookOpen,
     title: "מיתוג מקצועי וקליניקת אוטוריטה",
     bullets: [
-      "איך לבנות נוכחות דיגיטלית רפואית-יוקרתית",
+      "איך לבנות נוכחות דיגיטלית מקצועית-יוקרתית",
       "תמחור נכון: למה את שווה יותר ממה שאת לוקחת",
       "סינון לקוחות, הפניות מרופאים ושיתופי פעולה",
     ],
@@ -558,7 +558,7 @@ function MasterclassPage() {
                 מה שנלמד בעשור של עבודה ולמסור אותו בצורה מסודרת.
               </p>
               <div className="flex flex-wrap gap-3 pt-2">
-                {["IWGDF", "אורטוניקסיה", "שיקום BIO", "סטריליות רפואית"].map((tag) => (
+                {["IWGDF", "אורטוניקסיה", "שיקום BIO", "סטריליות קלינית"].map((tag) => (
                   <span
                     key={tag}
                     className="inline-flex items-center rounded-full border border-border bg-surface-warm px-4 py-1.5 text-xs font-bold text-primary-deep"
