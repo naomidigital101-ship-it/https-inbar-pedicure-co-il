@@ -1,5 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Droplets, Scissors, HeartPulse, type LucideIcon } from "lucide-react";
+import treatmentFungus from "@/assets/treatment-fungus.jpg";
+import treatmentIngrown from "@/assets/treatment-ingrown.jpg";
+import treatmentDiabetic from "@/assets/treatment-diabetic.jpg";
 
 const TEAL = "#0F6B6E";
 const STAMP = "#E89C82";
@@ -12,6 +15,8 @@ type Flagship = {
   icon: LucideIcon;
   tag: string;
   accent: string;
+  image: string;
+  alt: string;
 };
 
 const FLAGSHIPS: readonly Flagship[] = [
@@ -22,6 +27,8 @@ const FLAGSHIPS: readonly Flagship[] = [
     icon: Droplets,
     tag: "פטרת",
     accent: TEAL,
+    image: treatmentFungus,
+    alt: "ערכת טיפול בפטרת ציפורניים בקליניקה של ענבר פרחי",
   },
   {
     slug: "ingrown-nails",
@@ -30,6 +37,8 @@ const FLAGSHIPS: readonly Flagship[] = [
     icon: Scissors,
     tag: "אורטוניקסיה",
     accent: TEAL,
+    image: treatmentIngrown,
+    alt: "טיפול אורטוניקסיה לציפורן חודרנית בכף הרגל",
   },
   {
     slug: "diabetic-feet",
@@ -38,6 +47,8 @@ const FLAGSHIPS: readonly Flagship[] = [
     icon: HeartPulse,
     tag: "סוכרת",
     accent: STAMP,
+    image: treatmentDiabetic,
+    alt: "מגש כלים סטריליים חד־פעמיים לטיפול בכף הרגל הסוכרתית",
   },
 ];
 
@@ -84,36 +95,32 @@ export function FlagshipCards() {
               key={f.slug}
               to="/services/$slug"
               params={{ slug: f.slug }}
-              className="group relative block overflow-hidden rounded-2xl border border-border bg-white p-7 shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+              className="group relative block overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
             >
-              <div className="relative mb-6 h-32 flex items-center justify-center">
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    inset: "10% 18%",
-                    background: `${f.accent}1F`,
-                    borderRadius: BLOB_RADIUS,
-                  }}
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
+                <img
+                  src={f.image}
+                  alt={f.alt}
+                  width={1024}
+                  height={768}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div
                   aria-hidden
-                  style={{
-                    position: "absolute",
-                    inset: "18% 26%",
-                    background: `${f.accent}33`,
-                    borderRadius: BLOB_RADIUS,
-                    transform: "translate(8px, -6px)",
-                  }}
+                  className="absolute inset-0"
+                  style={{ background: `linear-gradient(180deg, transparent 55%, color-mix(in oklab, ${f.accent} 25%, transparent) 100%)` }}
                 />
-                <Icon
-                  className="relative"
-                  style={{ color: f.accent, width: 44, height: 44 }}
-                  strokeWidth={1.6}
+                <span
                   aria-hidden
-                />
+                  className="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 backdrop-blur-sm shadow-[var(--shadow-soft)]"
+                  style={{ color: f.accent }}
+                >
+                  <Icon className="h-5 w-5" strokeWidth={1.8} />
+                </span>
               </div>
 
+              <div className="p-7">
               <span
                 style={{
                   display: "inline-block",
@@ -159,6 +166,7 @@ export function FlagshipCards() {
                 >
                   <ArrowLeft className="h-4 w-4" aria-hidden />
                 </span>
+              </div>
               </div>
             </Link>
             );
