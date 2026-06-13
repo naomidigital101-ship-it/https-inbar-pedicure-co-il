@@ -548,9 +548,10 @@ function Home() {
                 >
                   <div
                     style={{
-                      fontFamily: "'Cormorant Garamond', Georgia, serif",
-                      fontWeight: 300,
-                      fontSize: "clamp(4rem, 7vw, 6rem)",
+                      fontFamily: "'Assistant', system-ui, sans-serif",
+                      fontWeight: 800,
+                      letterSpacing: "-0.03em",
+                      fontSize: "clamp(3rem, 6vw, 4.5rem)",
                       lineHeight: 1,
                       color: "var(--primary-soft)",
                     }}
