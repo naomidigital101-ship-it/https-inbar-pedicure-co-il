@@ -175,15 +175,15 @@ export function PremiumHero() {
       </div>
 
       {/* ============ MOBILE ============ */}
-      <div className="lg:hidden px-5 pt-4 pb-6">
-        {/* Visual — compact, fits ATF */}
-        <div className="relative aspect-square w-full max-w-[200px] mx-auto mb-4">
+      <div className="lg:hidden px-5 pt-3 pb-5">
+        {/* Visual — large, fills ATF */}
+        <div className="relative aspect-square w-full max-w-[280px] mx-auto mb-4">
           <div
             aria-hidden
             style={{
               position: "absolute",
               inset: 0,
-              transform: "translate(-8px, 8px)",
+              transform: "translate(-10px, 10px)",
               background: `${TEAL}26`,
               borderRadius: BLOB_RADIUS,
             }}
@@ -209,10 +209,10 @@ export function PremiumHero() {
           <div
             style={{
               position: "absolute",
-              top: -10,
-              right: -8,
-              width: 70,
-              height: 70,
+              top: -12,
+              right: -10,
+              width: 86,
+              height: 86,
               borderRadius: 999,
               background: STAMP,
               color: "#FFF8F4",
@@ -228,7 +228,7 @@ export function PremiumHero() {
               boxShadow: "0 8px 16px rgba(0,0,0,0.12)",
             }}
           >
-            5★<br />200+<br />מטופלות
+            20+<br />פדיקוריסטיות<br />הוכשרו
           </div>
         </div>
 
@@ -237,18 +237,18 @@ export function PremiumHero() {
           style={{ background: `${TEAL}14` }}
         >
           <span style={{ color: TEAL, fontSize: 11, fontWeight: 600 }}>
-            קליניקה טיפולית בבית אל
+            מרצה ארצית · פדיקור טיפולי
           </span>
         </div>
 
         <h1
           style={{
             fontWeight: 800,
-            fontSize: "clamp(2rem, 8.5vw, 2.5rem)",
+            fontSize: "clamp(1.85rem, 8vw, 2.3rem)",
             lineHeight: 0.95,
             letterSpacing: "-0.02em",
             color: INK,
-            marginBottom: 10,
+            marginBottom: 8,
           }}
         >
           פדיקור טיפולי<br />
@@ -262,13 +262,13 @@ export function PremiumHero() {
           אחרת
         </h1>
 
-        <p style={{ color: WARM, fontSize: 14, lineHeight: 1.5, marginBottom: 14 }}>
-          טיפול קליני מקצועי לכפות הרגליים — בריאות ואסתטיקה תחת קורת גג אחת.
+        <p style={{ color: WARM, fontSize: 13.5, lineHeight: 1.5, marginBottom: 12 }}>
+          מרצה ארצית ומנחה השתלמויות לפדיקוריסטיות טיפוליות.
         </p>
 
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-3">
           <a
-            href="/contact"
+            href="/masterclass"
             style={{
               flex: 1,
               background: TEAL,
@@ -281,10 +281,10 @@ export function PremiumHero() {
               boxShadow: `0 8px 18px ${TEAL}33`,
             }}
           >
-            קביעת תור
+            הזמנת הרצאה
           </a>
           <a
-            href="#treatments"
+            href="/contact"
             style={{
               flex: 1,
               border: `1.5px solid ${TEAL}`,
@@ -296,7 +296,7 @@ export function PremiumHero() {
               textAlign: "center",
             }}
           >
-            צפי בטיפולים
+            קביעת תור
           </a>
         </div>
 
