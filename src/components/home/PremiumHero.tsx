@@ -176,6 +176,62 @@ export function PremiumHero() {
 
       {/* ============ MOBILE ============ */}
       <div className="lg:hidden px-6 pt-10 pb-12">
+        {/* Visual */}
+        <div className="relative aspect-square w-full max-w-[360px] mx-auto mb-8">
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              transform: "translate(-12px, 12px)",
+              background: `${TEAL}26`,
+              borderRadius: BLOB_RADIUS,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              borderRadius: BLOB_RADIUS,
+              overflow: "hidden",
+              background: "#F4EFE7",
+            }}
+          >
+            <img
+              src={inbarPortrait}
+              alt="ענבר פרחי, פדיקוריסטית טיפולית"
+              width={720}
+              height={720}
+              loading="eager"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+            />
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              top: -14,
+              right: -10,
+              width: 92,
+              height: 92,
+              borderRadius: 999,
+              background: STAMP,
+              color: "#FFF8F4",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              fontSize: 11,
+              fontWeight: 800,
+              lineHeight: 1.3,
+              transform: "rotate(8deg)",
+              border: "4px solid white",
+              boxShadow: "0 10px 22px rgba(0,0,0,0.12)",
+            }}
+          >
+            5★<br />200+<br />מטופלות
+          </div>
+        </div>
+
         <div
           className="inline-flex items-center px-4 py-1.5 rounded-full mb-6"
           style={{ background: `${TEAL}14` }}
@@ -240,62 +296,6 @@ export function PremiumHero() {
           >
             צפי בטיפולים
           </a>
-        </div>
-
-        {/* Visual */}
-        <div className="relative aspect-square w-full max-w-[360px] mx-auto mb-6">
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: 0,
-              transform: "translate(-12px, 12px)",
-              background: `${TEAL}26`,
-              borderRadius: BLOB_RADIUS,
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: BLOB_RADIUS,
-              overflow: "hidden",
-              background: "#F4EFE7",
-            }}
-          >
-            <img
-              src={inbarPortrait}
-              alt="ענבר פרחי, פדיקוריסטית טיפולית"
-              width={720}
-              height={720}
-              loading="eager"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
-            />
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              top: -14,
-              right: -10,
-              width: 92,
-              height: 92,
-              borderRadius: 999,
-              background: STAMP,
-              color: "#FFF8F4",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              fontSize: 11,
-              fontWeight: 800,
-              lineHeight: 1.3,
-              transform: "rotate(8deg)",
-              border: "4px solid white",
-              boxShadow: "0 10px 22px rgba(0,0,0,0.12)",
-            }}
-          >
-            5★<br />200+<br />מטופלות
-          </div>
         </div>
 
         <div className="flex items-center justify-center gap-3" style={{ fontSize: 11, color: `${WARM}99`, fontWeight: 500 }}>
