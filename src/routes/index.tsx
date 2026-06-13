@@ -463,21 +463,6 @@ function Home() {
           </div>
         </section>
 
-        {/* STATS — moved+restyled below */}
-        {/* (block kept for diff continuity) */}
-        {false && (
-          <div>
-            <p
-                    style={{ color: "var(--primary)" }}
-                  >
-                    ענבר פרחי · פדיקוריסטית טיפולית
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* AUDIENCES */}
         <section className="bg-background py-24">
           <div className="mx-auto max-w-[1280px] px-6">
