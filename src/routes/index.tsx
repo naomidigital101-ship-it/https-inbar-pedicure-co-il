@@ -408,13 +408,17 @@ function Home() {
         </section>
 
         {/* PULL QUOTE */}
-        <section dir="rtl" className="py-24" style={{ background: "var(--ink)" }}>
+        <section dir="rtl" className="py-24" style={{ background: "var(--ink)", fontFamily: "'Assistant', system-ui, sans-serif" }}>
           <div className="mx-auto max-w-[1000px] px-6">
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
                 <div
-                  className="relative h-32 w-32 overflow-hidden rounded-full md:h-40 md:w-40"
-                  style={{ border: "2px solid var(--primary)", boxShadow: "0 0 0 6px oklch(0.28 0.04 192)" }}
+                  className="relative h-32 w-32 overflow-hidden md:h-40 md:w-40"
+                  style={{
+                    borderRadius: "60% 40% 50% 50% / 55% 45% 55% 45%",
+                    border: "3px solid var(--primary)",
+                    boxShadow: "0 12px 32px rgb(15 107 110 / 0.35)",
+                  }}
                 >
                   <img src={inbarPhoto} alt="ענבר פרחי" width={160} height={160} loading="lazy" className="h-full w-full object-cover" />
                 </div>
@@ -423,12 +427,13 @@ function Home() {
                 <span
                   aria-hidden
                   style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
-                    fontSize: "6rem",
-                    lineHeight: 0.8,
+                    fontFamily: "'Assistant', system-ui, sans-serif",
+                    fontWeight: 800,
+                    fontSize: "5rem",
+                    lineHeight: 0.7,
                     display: "block",
                     color: "var(--primary)",
-                    opacity: 0.7,
+                    opacity: 0.85,
                   }}
                 >
                   ״
@@ -436,9 +441,9 @@ function Home() {
                 <blockquote
                   className="mt-3 text-2xl leading-snug md:text-[2rem]"
                   style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
-                    fontWeight: 300,
-                    fontStyle: "italic",
+                    fontFamily: "'Assistant', system-ui, sans-serif",
+                    fontWeight: 500,
+                    letterSpacing: "-0.015em",
                     color: "oklch(0.94 0.012 185)",
                   }}
                 >
@@ -447,8 +452,8 @@ function Home() {
                 <div className="mt-8 flex items-center gap-4">
                   <span className="h-px w-10" style={{ background: "var(--primary)" }} />
                   <p
-                    className="text-[11px] font-bold uppercase tracking-[0.25em]"
-                    style={{ color: "var(--primary)" }}
+                    className="text-[11px] uppercase tracking-[0.25em]"
+                    style={{ color: "var(--primary)", fontWeight: 700 }}
                   >
                     ענבר פרחי · פדיקוריסטית טיפולית
                   </p>
@@ -543,9 +548,10 @@ function Home() {
                 >
                   <div
                     style={{
-                      fontFamily: "'Cormorant Garamond', Georgia, serif",
-                      fontWeight: 300,
-                      fontSize: "clamp(4rem, 7vw, 6rem)",
+                      fontFamily: "'Assistant', system-ui, sans-serif",
+                      fontWeight: 800,
+                      letterSpacing: "-0.03em",
+                      fontSize: "clamp(3rem, 6vw, 4.5rem)",
                       lineHeight: 1,
                       color: "var(--primary-soft)",
                     }}
