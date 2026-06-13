@@ -60,12 +60,12 @@ export function AboutExpert() {
                 <span className="h-px flex-1" style={{ background: "var(--border)" }} />
                 <span
                   style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
-                    fontSize: "13px",
-                    fontWeight: 400,
-                    letterSpacing: "0.28em",
+                    fontFamily: "'Assistant', system-ui, sans-serif",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    letterSpacing: "0.32em",
                     textTransform: "uppercase",
-                    color: "var(--primary-deep)",
+                    color: "var(--primary)",
                   }}
                 >
                   ענבר פרחי
