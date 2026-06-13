@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Stethoscope, ShieldCheck, GraduationCap, HeartPulse, ArrowLeft } from "lucide-react";
-import inbarPortrait from "@/assets/inbar-premium-portrait.jpg";
+import inbarPortraitAsset from "@/assets/inbar-farchi.jpg.asset.json";
+const inbarPortrait = inbarPortraitAsset.url;
 
 const PILLARS = [
   {
