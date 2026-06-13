@@ -6,7 +6,6 @@ import treatmentDiabetic from "@/assets/treatment-diabetic.jpg";
 
 const TEAL = "#0F6B6E";
 const STAMP = "#E89C82";
-const BLOB_RADIUS = "60% 40% 50% 50% / 55% 45% 55% 45%";
 
 type Flagship = {
   slug: "fungus" | "ingrown-nails" | "diabetic-feet";
