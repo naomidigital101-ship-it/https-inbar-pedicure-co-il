@@ -27,7 +27,7 @@ export function PremiumHero() {
             style={{ background: `${TEAL}14` }}
           >
             <span style={{ color: TEAL, fontSize: 13, fontWeight: 600, letterSpacing: "0.01em" }}>
-              קליניקה טיפולית בבית אל
+              מרצה ארצית · פדיקור טיפולי
             </span>
           </div>
 
@@ -60,13 +60,13 @@ export function PremiumHero() {
             אחרת
           </h1>
 
-          <p style={{ color: WARM, fontSize: 18, lineHeight: 1.65, maxWidth: 460, marginBottom: 36 }}>
-            טיפול קליני מקצועי לכפות הרגליים באווירה נינוחה ואישית, המשלב בריאות עם אסתטיקה גבוהה.
+          <p style={{ color: WARM, fontSize: 18, lineHeight: 1.65, maxWidth: 480, marginBottom: 36 }}>
+            ענבר פרחי — מרצה ארצית ומנחה השתלמויות לפדיקוריסטיות טיפוליות, עם 12+ שנות ניסיון קליני בכף הרגל הסוכרתית, אורטוניקסיה ושיקום ציפורן.
           </p>
 
           <div className="flex items-center gap-3 mb-12">
             <a
-              href="/contact"
+              href="/masterclass"
               style={{
                 background: TEAL,
                 color: "white",
@@ -80,10 +80,10 @@ export function PremiumHero() {
               onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}
             >
-              קביעת תור
+              הזמנת הרצאה
             </a>
             <a
-              href="#treatments"
+              href="/contact"
               style={{
                 border: `2px solid ${TEAL}`,
                 color: TEAL,
@@ -96,7 +96,7 @@ export function PremiumHero() {
               onMouseEnter={e => { e.currentTarget.style.background = TEAL; e.currentTarget.style.color = "white"; }}
               onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = TEAL; }}
             >
-              צפי בטיפולים
+              קביעת תור בקליניקה
             </a>
           </div>
 
@@ -146,7 +146,7 @@ export function PremiumHero() {
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
             />
           </div>
-          {/* Trust sticker */}
+          {/* Authority sticker */}
           <div
             style={{
               position: "absolute",
@@ -169,7 +169,7 @@ export function PremiumHero() {
               boxShadow: "0 12px 28px rgba(0,0,0,0.12)",
             }}
           >
-            5★<br />200+<br />מטופלות
+            20+<br />פדיקוריסטיות<br />הוכשרו
           </div>
         </motion.div>
       </div>
