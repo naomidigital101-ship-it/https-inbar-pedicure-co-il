@@ -33,7 +33,7 @@ export function SiteFooter() {
             </div>
             <p className="kicker">פדיקור טיפולי · {SITE.city}</p>
             <p className="max-w-md text-sm leading-relaxed text-text-muted">
-              קליניקה לפדיקור טיפולי המתמחה בטיפול ביבלות, פטרת, ציפורן חודרנית ובכף הרגל של חולי סוכרת. סטריליות מלאה, פרוטוקולים רפואיים וליווי אישי עד החלמה.
+              קליניקה לפדיקור טיפולי המתמחה בטיפול ביבלות, פטרת, ציפורן חודרנית ובכף הרגל של חולי סוכרת. סטריליות מלאה, פרוטוקולים קליניים וליווי אישי עד החלמה.
             </p>
             <div className="flex flex-col gap-2 text-sm">
               <a href={SITE.telUrl} className="inline-flex items-center gap-2 text-ink transition-colors hover:text-primary">
@@ -83,7 +83,7 @@ export function SiteFooter() {
               </a>
             ))}
           </nav>
-          <div className="text-copper">המידע באתר אינו תחליף לייעוץ רפואי</div>
+          <div className="text-copper">המידע באתר אינו תחליף לייעוץ מקצועי</div>
         </div>
       </div>
     </footer>

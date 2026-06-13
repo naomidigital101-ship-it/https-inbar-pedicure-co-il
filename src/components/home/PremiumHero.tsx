@@ -27,7 +27,7 @@ export function PremiumHero() {
             style={{ background: `${TEAL}14` }}
           >
             <span style={{ color: TEAL, fontSize: 13, fontWeight: 600, letterSpacing: "0.01em" }}>
-              קליניקה רפואית בבית אל
+              קליניקה טיפולית בבית אל
             </span>
           </div>
 
@@ -61,7 +61,7 @@ export function PremiumHero() {
           </h1>
 
           <p style={{ color: WARM, fontSize: 18, lineHeight: 1.65, maxWidth: 460, marginBottom: 36 }}>
-            טיפול רפואי מקצועי לכפות הרגליים באווירה נינוחה ואישית, המשלב בריאות עם אסתטיקה גבוהה.
+            טיפול קליני מקצועי לכפות הרגליים באווירה נינוחה ואישית, המשלב בריאות עם אסתטיקה גבוהה.
           </p>
 
           <div className="flex items-center gap-3 mb-12">
@@ -237,7 +237,7 @@ export function PremiumHero() {
           style={{ background: `${TEAL}14` }}
         >
           <span style={{ color: TEAL, fontSize: 12, fontWeight: 600 }}>
-            קליניקה רפואית בבית אל
+            קליניקה טיפולית בבית אל
           </span>
         </div>
 
@@ -263,7 +263,7 @@ export function PremiumHero() {
         </h1>
 
         <p style={{ color: WARM, fontSize: 16, lineHeight: 1.6, marginBottom: 24 }}>
-          טיפול רפואי מקצועי לכפות הרגליים באווירה נינוחה ואישית, המשלב בריאות עם אסתטיקה גבוהה.
+          טיפול קליני מקצועי לכפות הרגליים באווירה נינוחה ואישית, המשלב בריאות עם אסתטיקה גבוהה.
         </p>
 
         <div className="flex flex-col gap-3 mb-10">
