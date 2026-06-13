@@ -26,21 +26,6 @@ export function SiteHeader() {
             loading="eager"
             decoding="async"
           />
-          <span
-            aria-hidden
-            style={{
-              fontFamily: "'Assistant', system-ui, sans-serif",
-              letterSpacing: "0.1em",
-              fontSize: "16px",
-              fontWeight: 800,
-              color: "var(--ink)",
-              borderRight: "2px solid var(--primary)",
-              paddingRight: "10px",
-              marginRight: "2px",
-            }}
-          >
-            INBAR
-          </span>
         </a>
         <nav className="hidden items-center gap-8 text-[0.92rem] font-normal text-ink lg:flex" aria-label="ניווט ראשי">
           {navLinks.map((l) => {
