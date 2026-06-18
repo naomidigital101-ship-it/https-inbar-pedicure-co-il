@@ -5,7 +5,6 @@ import inbarPortrait from "@/assets/inbar-portrait-cutout.png";
 const TEAL = "#0F6B6E";
 const INK = "#1A2A2C";
 const WARM = "#5C4A3A";
-const TEAL_DEEP = "#0A4E50";
 const TEAL_SOFT = "#E5F0F0";
 const BLOB_RADIUS = "60% 40% 50% 50% / 55% 45% 55% 45%";
 
