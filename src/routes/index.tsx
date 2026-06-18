@@ -7,6 +7,7 @@ import { PartnersStrip } from "@/components/shared/PartnersStrip";
 import { FlagshipCards } from "@/components/home/FlagshipCards";
 import { TreatmentFinder } from "@/components/home/TreatmentFinder";
 import { PremiumHero } from "@/components/home/PremiumHero";
+import { TrustBand } from "@/components/home/TrustBand";
 import { AboutExpert } from "@/components/home/AboutExpert";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
@@ -175,6 +176,7 @@ function Home() {
       <ConsultationTab />
       <main id="main-content" className="flex-1 pb-20 md:pb-0">
         <PremiumHero />
+        <TrustBand />
         <AboutExpert />
 
         {/* FLAGSHIP CARDS — 3 ה־טיפולים הדגל */}

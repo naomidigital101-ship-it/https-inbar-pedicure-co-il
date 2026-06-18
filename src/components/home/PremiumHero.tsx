@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ShieldCheck, GraduationCap, Award } from "lucide-react";
 import inbarPortrait from "@/assets/inbar-portrait-cutout.png";
 
 const TEAL = "#0F6B6E";
@@ -15,7 +16,7 @@ export function PremiumHero() {
       style={{ fontFamily: "'Assistant', system-ui, sans-serif" }}
     >
       {/* ============ DESKTOP ============ */}
-      <div className="hidden lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center max-w-7xl mx-auto px-12 py-20">
+      <div className="hidden lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center max-w-7xl mx-auto px-12 py-28">
         {/* Content */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -64,7 +65,7 @@ export function PremiumHero() {
             ענבר פרחי — מרצה ארצית ומנחה השתלמויות לפדיקוריסטיות טיפוליות, עם 12+ שנות ניסיון קליני בכף הרגל הסוכרתית, אורטוניקסיה ושיקום ציפורן.
           </p>
 
-          <div className="flex items-center gap-3 mb-12">
+          <div className="flex items-center gap-3 mb-14">
             <a
               href="/masterclass"
               style={{
@@ -100,13 +101,36 @@ export function PremiumHero() {
             </a>
           </div>
 
-          <div className="flex items-center gap-3" style={{ fontSize: 12, color: `${WARM}99`, fontWeight: 500 }}>
-            <span>איכילוב</span>
-            <span style={{ width: 4, height: 4, borderRadius: 999, background: `${WARM}40` }} />
-            <span>NHS</span>
-            <span style={{ width: 4, height: 4, borderRadius: 999, background: `${WARM}40` }} />
-            <span>IWGDF</span>
-          </div>
+          {/* Authority badges — visible, not buried */}
+          <ul
+            className="grid grid-cols-3 gap-3"
+            style={{ maxWidth: 520 }}
+            aria-label="אישורים והכשרות מקצועיות"
+          >
+            {[
+              { icon: Award, label: "12+ שנות", sub: "ניסיון קליני" },
+              { icon: GraduationCap, label: "מרצה", sub: "ארצית" },
+              { icon: ShieldCheck, label: "תקני", sub: "IWGDF · NHS" },
+            ].map(({ icon: Icon, label, sub }) => (
+              <li
+                key={label}
+                className="flex items-center gap-3 rounded-2xl border bg-white px-4 py-3"
+                style={{ borderColor: "var(--border)", boxShadow: "var(--shadow-ring)" }}
+              >
+                <span
+                  aria-hidden
+                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
+                  style={{ background: "var(--primary-soft)", color: TEAL }}
+                >
+                  <Icon className="h-4.5 w-4.5" strokeWidth={1.8} />
+                </span>
+                <div className="leading-tight">
+                  <div style={{ fontSize: 13, fontWeight: 700, color: INK }}>{label}</div>
+                  <div style={{ fontSize: 11, color: WARM, fontWeight: 500 }}>{sub}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
         {/* Visual */}
@@ -300,13 +324,25 @@ export function PremiumHero() {
           </a>
         </div>
 
-        <div className="flex items-center justify-center gap-2.5" style={{ fontSize: 10, color: `${WARM}99`, fontWeight: 500 }}>
-          <span>איכילוב</span>
-          <span style={{ width: 3, height: 3, borderRadius: 999, background: `${WARM}40` }} />
-          <span>NHS</span>
-          <span style={{ width: 3, height: 3, borderRadius: 999, background: `${WARM}40` }} />
-          <span>IWGDF</span>
-        </div>
+        {/* Authority badges — mobile */}
+        <ul className="mt-4 grid grid-cols-3 gap-2" aria-label="אישורים והכשרות מקצועיות">
+          {[
+            { icon: Award, label: "12+ שנות" },
+            { icon: GraduationCap, label: "מרצה ארצית" },
+            { icon: ShieldCheck, label: "IWGDF · NHS" },
+          ].map(({ icon: Icon, label }) => (
+            <li
+              key={label}
+              className="flex flex-col items-center gap-1.5 rounded-xl border bg-white px-2 py-2.5 text-center"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <Icon aria-hidden className="h-4 w-4" strokeWidth={1.8} style={{ color: TEAL }} />
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: INK, lineHeight: 1.15 }}>
+                {label}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
