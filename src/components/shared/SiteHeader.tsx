@@ -9,6 +9,7 @@ const navLinks = [
   { label: "מאסטרקלאס", href: "/masterclass" },
   { label: "מרכז הידע", href: "/knowledge" },
   { label: "אודות ענבר", href: "/about" },
+  { label: "מיתוג", href: "/branding" },
   { label: "צור קשר", href: "/contact" },
 ];
 

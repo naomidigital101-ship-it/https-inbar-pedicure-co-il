@@ -17,6 +17,7 @@ import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MasterclassRouteImport } from './routes/masterclass'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BrandingRouteImport } from './routes/branding'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -70,6 +71,11 @@ const MasterclassRoute = MasterclassRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandingRoute = BrandingRouteImport.update({
+  id: '/branding',
+  path: '/branding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
+  '/branding': typeof BrandingRoute
   '/contact': typeof ContactRoute
   '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
+  '/branding': typeof BrandingRoute
   '/contact': typeof ContactRoute
   '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
+  '/branding': typeof BrandingRoute
   '/contact': typeof ContactRoute
   '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
@@ -224,6 +233,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
+    | '/branding'
     | '/contact'
     | '/masterclass'
     | '/privacy'
@@ -248,6 +258,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
+    | '/branding'
     | '/contact'
     | '/masterclass'
     | '/privacy'
@@ -272,6 +283,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
+    | '/branding'
     | '/contact'
     | '/masterclass'
     | '/privacy'
@@ -297,6 +309,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
+  BrandingRoute: typeof BrandingRoute
   ContactRoute: typeof ContactRoute
   MasterclassRoute: typeof MasterclassRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -374,6 +387,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/branding': {
+      id: '/branding'
+      path: '/branding'
+      fullPath: '/branding'
+      preLoaderRoute: typeof BrandingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/accessibility': {
@@ -481,6 +501,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
+  BrandingRoute: BrandingRoute,
   ContactRoute: ContactRoute,
   MasterclassRoute: MasterclassRoute,
   PrivacyRoute: PrivacyRoute,
