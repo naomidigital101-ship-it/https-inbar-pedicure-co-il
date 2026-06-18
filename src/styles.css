@@ -393,7 +393,7 @@ html.a11y-headings :is(h1, h2, h3, h4, h5, h6) {
 /* Readable font */
 html.a11y-readable,
 html.a11y-readable * {
-  font-family: "Assistant", "Arial", sans-serif !important;
+  font-family: "Rubik Variable", "Rubik", "Arial", sans-serif !important;
   letter-spacing: 0.02em !important;
   word-spacing: 0.08em !important;
   line-height: 1.7 !important;
