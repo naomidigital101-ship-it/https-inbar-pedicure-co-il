@@ -4,17 +4,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Assistant — פונט עברי ראשי לכל האתר */
-@import "@fontsource/assistant/300.css";
-@import "@fontsource/assistant/400.css";
-@import "@fontsource/assistant/500.css";
-@import "@fontsource/assistant/600.css";
-@import "@fontsource/assistant/700.css";
-@import "@fontsource/assistant/hebrew-300.css";
-@import "@fontsource/assistant/hebrew-400.css";
-@import "@fontsource/assistant/hebrew-500.css";
-@import "@fontsource/assistant/hebrew-600.css";
-@import "@fontsource/assistant/hebrew-700.css";
+/* Rubik Variable — פונט גאומטרי מודרני, תומך עברית מלא */
+@import "@fontsource-variable/rubik";
+@import "@fontsource-variable/rubik/wght-italic.css";
 
 /*
  * ענבר פרחי - design system
@@ -76,15 +68,15 @@
   --color-text-muted: var(--text-muted);
   --color-text-dim: var(--text-dim);
   --color-accent-hover: var(--accent-hover);
-  --font-heading: "Assistant", system-ui, sans-serif;
-  --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Assistant", system-ui, sans-serif;
-  /* Sage-tinted brand shadows — derived from --primary #8FB89A */
-  --shadow-soft: 0 1px 2px rgb(62 84 71 / 0.05), 0 8px 20px -10px rgb(62 84 71 / 0.12);
-  --shadow-elegant: 0 8px 18px -6px rgb(62 84 71 / 0.16), 0 24px 48px -20px rgb(62 84 71 / 0.16);
-  --shadow-lift: 0 24px 48px -16px rgb(62 84 71 / 0.22);
-  --shadow-clinical: 0 1px 0 rgb(62 84 71 / 0.04), 0 1px 2px rgb(62 84 71 / 0.04), 0 12px 32px -16px rgb(62 84 71 / 0.14);
-  --shadow-ring: 0 0 0 1px rgb(62 84 71 / 0.06), 0 1px 2px rgb(62 84 71 / 0.04);
+  --font-heading: "Rubik Variable", "Rubik", system-ui, sans-serif;
+  --font-body: "Rubik Variable", "Rubik", system-ui, sans-serif;
+  --font-display: "Rubik Variable", "Rubik", system-ui, sans-serif;
+  /* Mint clinical brand shadows — derived from --primary #7BC4A8 */
+  --shadow-soft: 0 1px 2px rgb(35 66 58 / 0.05), 0 8px 20px -10px rgb(35 66 58 / 0.12);
+  --shadow-elegant: 0 8px 18px -6px rgb(35 66 58 / 0.16), 0 24px 48px -20px rgb(35 66 58 / 0.16);
+  --shadow-lift: 0 24px 48px -16px rgb(35 66 58 / 0.22);
+  --shadow-clinical: 0 1px 0 rgb(35 66 58 / 0.04), 0 1px 2px rgb(35 66 58 / 0.04), 0 12px 32px -16px rgb(35 66 58 / 0.14);
+  --shadow-ring: 0 0 0 1px rgb(35 66 58 / 0.06), 0 1px 2px rgb(35 66 58 / 0.04);
 }
 
 :root {
@@ -101,60 +93,60 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
-  --font-heading: "Assistant", system-ui, sans-serif;
-  --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Assistant", system-ui, sans-serif;
+  --font-heading: "Rubik Variable", "Rubik", system-ui, sans-serif;
+  --font-body: "Rubik Variable", "Rubik", system-ui, sans-serif;
+  --font-display: "Rubik Variable", "Rubik", system-ui, sans-serif;
   /*
-   * Inbar Farchi — brand tokens (Sage / Clinical Trust)
-   * Primary sage #8FB89A · Ink #3E5447 · Soft #EAF2EC
-   * Surface-soft #F2F7F3 · Border #D5E3D8 · White bg
+   * Inbar Farchi — brand tokens (Fresh Mint / Clinical Trust)
+   * Primary mint #7BC4A8 · Ink #23423A · Soft #E6F5EF
+   * Surface-soft #F1F9F5 · Border #CDE8DD · White bg
    */
   --background: #FFFFFF;
   --surface: #FFFFFF;
-  --surface-soft: #F2F7F3;
-  --surface-warm: #F2F7F3; /* legacy alias → sage soft surface */
-  --foreground: #3E5447;
-  --ink: #3E5447;
-  --ink-soft: #4F6357;
-  --text-muted: #6E7E73;
-  --text-dim: #93A398;
+  --surface-soft: #F1F9F5;
+  --surface-warm: #F1F9F5; /* legacy alias → mint soft surface */
+  --foreground: #23423A;
+  --ink: #23423A;
+  --ink-soft: #3A584F;
+  --text-muted: #5E7A70;
+  --text-dim: #8AA59B;
   --card: #FFFFFF;
-  --card-foreground: #3E5447;
+  --card-foreground: #23423A;
   --popover: #FFFFFF;
-  --popover-foreground: #3E5447;
-  --primary: #8FB89A;
-  --primary-hover: #7CA888;
-  --primary-soft: #EAF2EC;
-  --primary-deep: #5E8A6B;
+  --popover-foreground: #23423A;
+  --primary: #7BC4A8;
+  --primary-hover: #5FAE8E;
+  --primary-soft: #E6F5EF;
+  --primary-deep: #3E9B7E;
   --primary-foreground: #FFFFFF;
-  --secondary: #F2F7F3;
-  --secondary-foreground: #3E5447;
-  --muted: #F2F7F3;
-  --muted-foreground: #6E7E73;
-  --accent: #8FB89A;
-  --accent-hover: #7CA888;
+  --secondary: #F1F9F5;
+  --secondary-foreground: #23423A;
+  --muted: #F1F9F5;
+  --muted-foreground: #5E7A70;
+  --accent: #7BC4A8;
+  --accent-hover: #5FAE8E;
   --accent-foreground: #FFFFFF;
-  /* Legacy "copper" tokens — remapped to sage so old usages stay on-brand */
-  --copper: #7CA888;
-  --copper-soft: #EAF2EC;
+  /* Legacy "copper" tokens — remapped to mint so old usages stay on-brand */
+  --copper: #5FAE8E;
+  --copper-soft: #E6F5EF;
   --destructive: oklch(0.55 0.18 28);
   --destructive-foreground: oklch(1 0 0);
-  --border: #D5E3D8;
+  --border: #CDE8DD;
   --input: #FFFFFF;
-  --ring: #8FB89A;
-  --chart-1: #8FB89A;
-  --chart-2: #5E8A6B;
-  --chart-3: #B8D4BE;
-  --chart-4: #3E5447;
-  --chart-5: #6E7E73;
+  --ring: #7BC4A8;
+  --chart-1: #7BC4A8;
+  --chart-2: #3E9B7E;
+  --chart-3: #B8E0CD;
+  --chart-4: #23423A;
+  --chart-5: #5E7A70;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #3E5447;
-  --sidebar-primary: #8FB89A;
+  --sidebar-foreground: #23423A;
+  --sidebar-primary: #7BC4A8;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F2F7F3;
-  --sidebar-accent-foreground: #3E5447;
-  --sidebar-border: #D5E3D8;
-  --sidebar-ring: #8FB89A;
+  --sidebar-accent: #F1F9F5;
+  --sidebar-accent-foreground: #23423A;
+  --sidebar-border: #CDE8DD;
+  --sidebar-ring: #7BC4A8;
 }
 
 .dark {
