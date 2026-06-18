@@ -16,7 +16,7 @@ export function TrustBand() {
       dir="rtl"
       aria-label="אותות אמון, סמכות מקצועית ותקנים"
       className="relative bg-background pb-16 pt-4 md:pb-24 md:pt-8"
-      style={{ fontFamily: "'Assistant', system-ui, sans-serif" }}
+      style={{ fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif" }}
     >
       <div className="mx-auto max-w-[1240px] px-6">
         {/* Stats grid — clinical, white surface with subtle ring */}

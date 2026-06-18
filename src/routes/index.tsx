@@ -410,7 +410,7 @@ function Home() {
         </section>
 
         {/* PULL QUOTE */}
-        <section dir="rtl" className="py-24" style={{ background: "var(--ink)", fontFamily: "'Assistant', system-ui, sans-serif" }}>
+        <section dir="rtl" className="py-24" style={{ background: "var(--ink)", fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif" }}>
           <div className="mx-auto max-w-[1000px] px-6">
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
@@ -429,7 +429,7 @@ function Home() {
                 <span
                   aria-hidden
                   style={{
-                    fontFamily: "'Assistant', system-ui, sans-serif",
+                    fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif",
                     fontWeight: 800,
                     fontSize: "5rem",
                     lineHeight: 0.7,
@@ -443,7 +443,7 @@ function Home() {
                 <blockquote
                   className="mt-3 text-2xl leading-snug md:text-[2rem]"
                   style={{
-                    fontFamily: "'Assistant', system-ui, sans-serif",
+                    fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif",
                     fontWeight: 500,
                     letterSpacing: "-0.015em",
                     color: "oklch(0.94 0.012 185)",
@@ -550,7 +550,7 @@ function Home() {
                 >
                   <div
                     style={{
-                      fontFamily: "'Assistant', system-ui, sans-serif",
+                      fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif",
                       fontWeight: 800,
                       letterSpacing: "-0.03em",
                       fontSize: "clamp(3rem, 6vw, 4.5rem)",
