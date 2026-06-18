@@ -324,13 +324,25 @@ export function PremiumHero() {
           </a>
         </div>
 
-        <div className="flex items-center justify-center gap-2.5" style={{ fontSize: 10, color: `${WARM}99`, fontWeight: 500 }}>
-          <span>איכילוב</span>
-          <span style={{ width: 3, height: 3, borderRadius: 999, background: `${WARM}40` }} />
-          <span>NHS</span>
-          <span style={{ width: 3, height: 3, borderRadius: 999, background: `${WARM}40` }} />
-          <span>IWGDF</span>
-        </div>
+        {/* Authority badges — mobile */}
+        <ul className="mt-4 grid grid-cols-3 gap-2" aria-label="אישורים והכשרות מקצועיות">
+          {[
+            { icon: Award, label: "12+ שנות" },
+            { icon: GraduationCap, label: "מרצה ארצית" },
+            { icon: ShieldCheck, label: "IWGDF · NHS" },
+          ].map(({ icon: Icon, label }) => (
+            <li
+              key={label}
+              className="flex flex-col items-center gap-1.5 rounded-xl border bg-white px-2 py-2.5 text-center"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <Icon aria-hidden className="h-4 w-4" strokeWidth={1.8} style={{ color: TEAL }} />
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: INK, lineHeight: 1.15 }}>
+                {label}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
