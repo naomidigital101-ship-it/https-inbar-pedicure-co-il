@@ -77,68 +77,82 @@
   --font-heading: "Assistant", system-ui, sans-serif;
   --font-body: "Assistant", system-ui, sans-serif;
   --font-display: "Assistant", system-ui, sans-serif;
-  /* Teal-tinted brand shadows — derived from --primary #0F6B6E */
-  --shadow-soft: 0 1px 2px rgb(15 107 110 / 0.05), 0 8px 20px -10px rgb(15 107 110 / 0.12);
-  --shadow-elegant: 0 8px 18px -6px rgb(15 107 110 / 0.18), 0 24px 48px -20px rgb(15 107 110 / 0.18);
-  --shadow-lift: 0 24px 48px -16px rgb(15 107 110 / 0.28);
-  /* Clinical, refined — used for medical-trust surfaces */
-  --shadow-clinical: 0 1px 0 rgb(15 107 110 / 0.04), 0 1px 2px rgb(26 42 44 / 0.04), 0 12px 32px -16px rgb(15 107 110 / 0.16);
-  --shadow-ring: 0 0 0 1px rgb(15 107 110 / 0.06), 0 1px 2px rgb(26 42 44 / 0.04);
+  /* Sage-tinted brand shadows — derived from --primary #8FB89A */
+  --shadow-soft: 0 1px 2px rgb(62 84 71 / 0.05), 0 8px 20px -10px rgb(62 84 71 / 0.12);
+  --shadow-elegant: 0 8px 18px -6px rgb(62 84 71 / 0.16), 0 24px 48px -20px rgb(62 84 71 / 0.16);
+  --shadow-lift: 0 24px 48px -16px rgb(62 84 71 / 0.22);
+  --shadow-clinical: 0 1px 0 rgb(62 84 71 / 0.04), 0 1px 2px rgb(62 84 71 / 0.04), 0 12px 32px -16px rgb(62 84 71 / 0.14);
+  --shadow-ring: 0 0 0 1px rgb(62 84 71 / 0.06), 0 1px 2px rgb(62 84 71 / 0.04);
 }
 
 :root {
   --radius: 1rem;
+  /* Radius scale — generous, friendly */
+  --radius-pill: 999px;
+  /* Spacing scale (4/8/12/16/24/32/48/64/96) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
   --font-heading: "Assistant", system-ui, sans-serif;
   --font-body: "Assistant", system-ui, sans-serif;
   --font-display: "Assistant", system-ui, sans-serif;
   /*
-   * Inbar Farchi — brand tokens (Tia-style)
-   * Primary teal #0F6B6E · Ink #1A2A2C · Warm brown #5C4A3A
-   * Coral stamp #E89C82 · Cream surface #F4EFE7 · White bg
+   * Inbar Farchi — brand tokens (Sage / Clinical Trust)
+   * Primary sage #8FB89A · Ink #3E5447 · Soft #EAF2EC
+   * Surface-soft #F2F7F3 · Border #D5E3D8 · White bg
    */
   --background: #FFFFFF;
   --surface: #FFFFFF;
-  --surface-warm: #F4EFE7;
-  --foreground: #1A2A2C;
-  --ink: #1A2A2C;
-  --ink-soft: #5C4A3A;
-  --text-muted: #7A6B5A;
-  --text-dim: #9A8C7C;
+  --surface-soft: #F2F7F3;
+  --surface-warm: #F2F7F3; /* legacy alias → sage soft surface */
+  --foreground: #3E5447;
+  --ink: #3E5447;
+  --ink-soft: #4F6357;
+  --text-muted: #6E7E73;
+  --text-dim: #93A398;
   --card: #FFFFFF;
-  --card-foreground: #1A2A2C;
+  --card-foreground: #3E5447;
   --popover: #FFFFFF;
-  --popover-foreground: #1A2A2C;
-  --primary: #0F6B6E;
-  --primary-soft: #E5F0F0;
-  --primary-deep: #0A4E50;
+  --popover-foreground: #3E5447;
+  --primary: #8FB89A;
+  --primary-hover: #7CA888;
+  --primary-soft: #EAF2EC;
+  --primary-deep: #5E8A6B;
   --primary-foreground: #FFFFFF;
-  --secondary: #F4EFE7;
-  --secondary-foreground: #1A2A2C;
-  --muted: #F4EFE7;
-  --muted-foreground: #7A6B5A;
-  --accent: #0F6B6E;
-  --accent-hover: #0A4E50;
+  --secondary: #F2F7F3;
+  --secondary-foreground: #3E5447;
+  --muted: #F2F7F3;
+  --muted-foreground: #6E7E73;
+  --accent: #8FB89A;
+  --accent-hover: #7CA888;
   --accent-foreground: #FFFFFF;
-  --copper: #E89C82;
-  --copper-soft: #FBE9E0;
+  /* Legacy "copper" tokens — remapped to sage so old usages stay on-brand */
+  --copper: #7CA888;
+  --copper-soft: #EAF2EC;
   --destructive: oklch(0.55 0.18 28);
   --destructive-foreground: oklch(1 0 0);
-  --border: #EAE4DA;
+  --border: #D5E3D8;
   --input: #FFFFFF;
-  --ring: #0F6B6E;
-  --chart-1: #0F6B6E;
-  --chart-2: #0A4E50;
-  --chart-3: #E89C82;
-  --chart-4: #1A2A2C;
-  --chart-5: #5C4A3A;
+  --ring: #8FB89A;
+  --chart-1: #8FB89A;
+  --chart-2: #5E8A6B;
+  --chart-3: #B8D4BE;
+  --chart-4: #3E5447;
+  --chart-5: #6E7E73;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #1A2A2C;
-  --sidebar-primary: #0F6B6E;
+  --sidebar-foreground: #3E5447;
+  --sidebar-primary: #8FB89A;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F4EFE7;
-  --sidebar-accent-foreground: #1A2A2C;
-  --sidebar-border: #EAE4DA;
-  --sidebar-ring: #0F6B6E;
+  --sidebar-accent: #F2F7F3;
+  --sidebar-accent-foreground: #3E5447;
+  --sidebar-border: #D5E3D8;
+  --sidebar-ring: #8FB89A;
 }
 
 .dark {
