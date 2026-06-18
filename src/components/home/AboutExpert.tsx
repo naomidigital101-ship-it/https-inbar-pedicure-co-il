@@ -61,7 +61,7 @@ export function AboutExpert() {
                 <span className="h-px flex-1" style={{ background: "var(--border)" }} />
                 <span
                   style={{
-                    fontFamily: "'Assistant', system-ui, sans-serif",
+                    fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif",
                     fontSize: "12px",
                     fontWeight: 600,
                     letterSpacing: "0.32em",
@@ -88,7 +88,7 @@ export function AboutExpert() {
             <h2
               className="mt-5"
               style={{
-                fontFamily: "'Assistant', system-ui, sans-serif",
+                fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif",
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 fontSize: "clamp(2.4rem, 5vw, 4rem)",
