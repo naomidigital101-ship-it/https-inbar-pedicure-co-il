@@ -123,7 +123,9 @@ export function PremiumHero() {
 
   const underlineInitial = reduced ? { scaleX: 1 } : { scaleX: 0 };
   const underlineAnimate = { scaleX: 1 };
-  const underlineTransition = reduced ? { duration: 0.3 } : { duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] };
+  const underlineTransition = reduced
+    ? { duration: 0.3 }
+    : { duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <section
