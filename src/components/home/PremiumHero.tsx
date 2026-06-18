@@ -5,7 +5,7 @@ import inbarPortrait from "@/assets/inbar-portrait-cutout.png";
 const TEAL = "#0F6B6E";
 const INK = "#1A2A2C";
 const WARM = "#5C4A3A";
-const STAMP = "#E89C82";
+const TEAL_SOFT = "#E5F0F0";
 const BLOB_RADIUS = "60% 40% 50% 50% / 55% 45% 55% 45%";
 
 export function PremiumHero() {
@@ -147,7 +147,7 @@ export function PremiumHero() {
               position: "absolute",
               inset: 0,
               transform: "translate(-16px, 16px)",
-              background: `${TEAL}26`,
+              background: `${TEAL}1F`,
               borderRadius: BLOB_RADIUS,
             }}
           />
@@ -158,7 +158,7 @@ export function PremiumHero() {
               inset: 0,
               borderRadius: BLOB_RADIUS,
               overflow: "hidden",
-              background: "#F4EFE7",
+              background: TEAL_SOFT,
             }}
           >
             <img
@@ -167,7 +167,7 @@ export function PremiumHero() {
               width={896}
               height={1120}
               loading="eager"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+              style={{ width: "108%", height: "108%", marginRight: "-4%", marginTop: "-4%", objectFit: "cover", objectPosition: "50% 28%" }}
             />
           </div>
           {/* Authority sticker */}
@@ -179,8 +179,8 @@ export function PremiumHero() {
               width: 112,
               height: 112,
               borderRadius: 999,
-              background: STAMP,
-              color: "#FFF8F4",
+              background: TEAL,
+              color: "#FFFFFF",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -190,7 +190,7 @@ export function PremiumHero() {
               lineHeight: 1.3,
               transform: "rotate(8deg)",
               border: "4px solid white",
-              boxShadow: "0 12px 28px rgba(0,0,0,0.12)",
+              boxShadow: `0 12px 28px ${TEAL}40`,
             }}
           >
             20+<br />פדיקוריסטיות<br />הוכשרו
@@ -208,7 +208,7 @@ export function PremiumHero() {
               position: "absolute",
               inset: 0,
               transform: "translate(-10px, 10px)",
-              background: `${TEAL}26`,
+              background: `${TEAL}1F`,
               borderRadius: BLOB_RADIUS,
             }}
           />
@@ -218,7 +218,7 @@ export function PremiumHero() {
               inset: 0,
               borderRadius: BLOB_RADIUS,
               overflow: "hidden",
-              background: "#F4EFE7",
+              background: TEAL_SOFT,
             }}
           >
             <img
@@ -227,7 +227,7 @@ export function PremiumHero() {
               width={720}
               height={720}
               loading="eager"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+              style={{ width: "108%", height: "108%", marginRight: "-4%", marginTop: "-4%", objectFit: "cover", objectPosition: "50% 28%" }}
             />
           </div>
           <div
@@ -238,8 +238,8 @@ export function PremiumHero() {
               width: 86,
               height: 86,
               borderRadius: 999,
-              background: STAMP,
-              color: "#FFF8F4",
+              background: TEAL,
+              color: "#FFFFFF",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -249,7 +249,7 @@ export function PremiumHero() {
               lineHeight: 1.25,
               transform: "rotate(8deg)",
               border: "3px solid white",
-              boxShadow: "0 8px 16px rgba(0,0,0,0.12)",
+              boxShadow: `0 8px 16px ${TEAL}40`,
             }}
           >
             20+<br />פדיקוריסטיות<br />הוכשרו
