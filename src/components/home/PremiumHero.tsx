@@ -1,8 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles, MessageCircle, Phone } from "lucide-react";
 import { SITE } from "@/lib/site-config";
-import inbarHero from "@/assets/inbar-cutout.png.asset.json";
-import heroBgPattern from "@/assets/hero-bg-pattern.jpg";
+import inbarHero from "@/assets/inbar-foot-model.png.asset.json";
 
 const SPECIALTIES = [
   { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
@@ -36,26 +35,52 @@ export function PremiumHero() {
       dir="rtl"
       className="relative"
       aria-labelledby="hero-heading"
-      style={{ background: "#F0E6DD" }}
+      style={{ background: "#F7F5F2" }}
     >
-      {/* Decorative background pattern */}
-      <div
+      {/* Clinical line background — vertical hairlines + arc */}
+      <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: `url(${heroBgPattern})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          opacity: 0.55,
-          mixBlendMode: "multiply",
-        }}
-      />
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        preserveAspectRatio="xMidYMid slice"
+        viewBox="0 0 1440 900"
+      >
+        <defs>
+          <linearGradient id="heroFade" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0" stopColor="#2F6657" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#2F6657" stopOpacity="0.18" />
+            <stop offset="1" stopColor="#2F6657" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {/* fine vertical grid */}
+        {Array.from({ length: 36 }).map((_, i) => (
+          <line
+            key={i}
+            x1={i * 40}
+            x2={i * 40}
+            y1="0"
+            y2="900"
+            stroke="#2F6657"
+            strokeOpacity={i % 6 === 0 ? 0.09 : 0.045}
+            strokeWidth="1"
+          />
+        ))}
+        {/* horizontal hairline */}
+        <line x1="0" y1="720" x2="1440" y2="720" stroke="url(#heroFade)" strokeWidth="1" />
+        {/* large arc on the right */}
+        <circle cx="1180" cy="450" r="520" fill="none" stroke="#2F6657" strokeOpacity="0.16" strokeWidth="1" />
+        <circle cx="1180" cy="450" r="380" fill="none" stroke="#2F6657" strokeOpacity="0.1" strokeWidth="1" />
+        {/* tick markers */}
+        <g fill="#2F6657" fillOpacity="0.35">
+          <circle cx="120" cy="180" r="2.5" />
+          <circle cx="120" cy="720" r="2.5" />
+          <circle cx="1320" cy="180" r="2.5" />
+        </g>
+      </svg>
       <div className="relative">
-      <div className="mx-auto max-w-[1240px] px-6 md:px-10 pt-12 pb-20 md:pt-24 md:pb-[128px]">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-center">
+      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-12 pb-20 md:pt-24 md:pb-[128px]">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-12 md:items-center">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
-          <motion.div {...fadeProps} className="md:col-span-7 md:order-2">
+          <motion.div {...fadeProps} className="md:col-span-6 md:order-2">
             <h1
               id="hero-heading"
               className="display"
@@ -142,7 +167,7 @@ export function PremiumHero() {
                 <div
                   key={s.label}
                   className="flex flex-col gap-1 px-4 py-5"
-                  style={{ background: "#F0E6DD" }}
+                  style={{ background: "#F7F5F2" }}
                 >
                   <dt
                     style={{
@@ -174,25 +199,33 @@ export function PremiumHero() {
           <motion.aside
             {...fadeProps}
             transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
-            className="md:col-span-5 md:order-1"
+            className="md:col-span-6 md:order-1"
             aria-label="דיוקן ענבר פרחי"
           >
             <figure className="relative" style={{ margin: 0 }}>
+              {/* soft clinical halo behind subject */}
+              <div
+                aria-hidden
+                className="absolute inset-0 -z-0"
+                style={{
+                  background:
+                    "radial-gradient(60% 55% at 50% 55%, rgba(47,102,87,0.10) 0%, rgba(47,102,87,0.04) 45%, transparent 75%)",
+                }}
+              />
               <img
                 src={inbarHero.url}
-                alt="ענבר פרחי, פדיקוריסטית טיפולית"
+                alt="ענבר פרחי מחזיקה מודל אנטומי של כף רגל"
                 width={1240}
-                height={1860}
+                height={1700}
                 loading="eager"
+                className="relative"
                 style={{
                   display: "block",
                   width: "100%",
                   height: "auto",
-                  maxHeight: "780px",
+                  maxHeight: "880px",
                   objectFit: "contain",
-                  objectPosition: "center",
-                  transform: "scale(1.15)",
-                  transformOrigin: "center bottom",
+                  objectPosition: "center bottom",
                 }}
               />
             </figure>
