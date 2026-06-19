@@ -33,9 +33,9 @@ export function PremiumHero() {
   return (
     <section
       dir="rtl"
-      className="relative"
+      className="relative flex flex-col"
       aria-labelledby="hero-heading"
-      style={{ background: "#FFFFFF" }}
+      style={{ background: "#FFFFFF", minHeight: "calc(100svh - 72px)" }}
     >
       {/* Clean white canvas with organic accents */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -122,13 +122,13 @@ export function PremiumHero() {
           <rect width="260" height="260" fill="url(#dots)" mask="url(#dotsMask)" />
         </svg>
       </div>
-      <div className="relative">
-      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-6 pb-6 md:pt-10 md:pb-8">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8 md:items-center">
+      <div className="relative flex-1 flex flex-col">
+      <div className="mx-auto w-full max-w-[1320px] px-6 md:px-10 pt-3 pb-0 md:pt-6 md:pb-0 flex-1 flex flex-col">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-12 md:gap-8 md:items-end flex-1">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
-          <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-6">
+          <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-6 md:self-center md:pb-8">
             <span
-              className="inline-block mb-4 text-[12px] tracking-[0.18em]"
+              className="inline-block mb-2 text-[11px] tracking-[0.18em] md:mb-3"
               style={{ color: "var(--green-700, #234C42)", fontWeight: 600 }}
             >
               נעים להכיר, אני ענבר · פדיקוריסטית קלינית
@@ -138,7 +138,7 @@ export function PremiumHero() {
               className="display"
               style={{
                 fontWeight: 800,
-                fontSize: "clamp(2.6rem, 6.4vw, 4.8rem)",
+                fontSize: "clamp(2rem, 5vw, 3.8rem)",
                 lineHeight: 1.0,
                 letterSpacing: "-0.03em",
                 color: "var(--green-700, #234C42)",
@@ -147,7 +147,7 @@ export function PremiumHero() {
               ענבר פרחי
             </h1>
 
-            <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 md:mt-7 md:gap-y-3" aria-label="תחומי התמחות">
+            <ul className="mt-3 grid gap-x-6 gap-y-1.5 sm:grid-cols-2 md:mt-4 md:gap-y-2" aria-label="תחומי התמחות">
               {SPECIALTIES.map(({ icon: Icon, label }, idx) => (
                 <li
                   key={label}
@@ -155,12 +155,12 @@ export function PremiumHero() {
                 >
                   <span
                     aria-hidden
-                    className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center"
+                    className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center"
                     style={{ color: "var(--green-600)" }}
                   >
-                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} />
+                    <Icon className="h-[16px] w-[16px]" strokeWidth={1.5} />
                   </span>
-                  <span style={{ fontSize: "0.95rem", lineHeight: 1.55, color: "var(--ink-900)" }}>
+                  <span style={{ fontSize: "0.88rem", lineHeight: 1.45, color: "var(--ink-900)" }}>
                     {label}
                   </span>
                 </li>
@@ -168,13 +168,13 @@ export function PremiumHero() {
             </ul>
 
             {/* CTAs */}
-            <div className="mt-7 flex flex-wrap items-center gap-3 md:mt-8">
+            <div className="mt-4 flex flex-wrap items-center gap-3 md:mt-5">
               <a
                 href={HERO_WA_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="פתחו שיחת ווצאפ עם ענבר"
-                className="inline-flex h-12 items-center gap-2.5 px-7 text-[15px] transition-colors"
+                className="inline-flex h-11 items-center gap-2.5 px-6 text-[14px] transition-colors"
                 style={{
                   background: "var(--green-600)",
                   color: "var(--paper)",
@@ -191,7 +191,7 @@ export function PremiumHero() {
               <a
                 href={SITE.telUrl}
                 aria-label={`התקשרו לקליניקה ${SITE.phoneDisplay}`}
-                className="inline-flex h-12 items-center gap-2.5 px-6 text-[15px] transition-colors"
+                className="inline-flex h-11 items-center gap-2.5 px-5 text-[14px] transition-colors"
                 style={{
                   background: "transparent",
                   color: "var(--green-700, #234C42)",
@@ -207,21 +207,21 @@ export function PremiumHero() {
 
             {/* Trust strip */}
             <dl
-              className="mt-8 grid grid-cols-3 gap-px md:mt-10"
+              className="mt-5 grid grid-cols-3 gap-px md:mt-6"
               style={{ background: "rgba(141, 194, 179, 0.45)" }}
               aria-label="נתוני הקליניקה"
             >
               {TRUST_STATS.map((s) => (
                 <div
                   key={s.label}
-                  className="flex flex-col gap-1 px-4 py-4 md:py-5"
+                  className="flex flex-col gap-0.5 px-3 py-3 md:py-3.5"
                   style={{ background: "#FFFFFF" }}
                 >
                   <dt
                     style={{
                       fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
                       fontWeight: 700,
-                      fontSize: "1.7rem",
+                      fontSize: "1.45rem",
                       lineHeight: 1,
                       color: "var(--ink-900)",
                       letterSpacing: "-0.01em",
@@ -231,7 +231,7 @@ export function PremiumHero() {
                   </dt>
                   <dd
                     style={{
-                      fontSize: 12,
+                      fontSize: 11,
                       letterSpacing: "0.06em",
                       color: "var(--ink-600)",
                       lineHeight: 1.5,
@@ -249,10 +249,10 @@ export function PremiumHero() {
           <motion.aside
             {...fadeProps}
             transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
-            className="order-1 md:order-1 md:col-span-6 md:self-end relative"
+            className="order-1 md:order-1 md:col-span-6 md:self-end relative flex items-end justify-center"
             aria-label="דיוקן ענבר פרחי"
           >
-            <figure className="relative mx-auto" style={{ margin: 0, maxWidth: "640px" }}>
+            <figure className="relative mx-auto flex items-end justify-center" style={{ margin: 0, maxWidth: "560px" }}>
               <img
                 src={inbarHero.url}
                 alt="ענבר פרחי מחזיקה מודל אנטומי של כף רגל"
@@ -262,11 +262,12 @@ export function PremiumHero() {
                 className="relative mx-auto"
                 style={{
                   display: "block",
-                  width: "92%",
+                  width: "82%",
                   height: "auto",
                   objectFit: "contain",
                   objectPosition: "center bottom",
-                  maxWidth: "640px",
+                  maxWidth: "520px",
+                  maxHeight: "calc(100svh - 140px)",
                 }}
               />
             </figure>
