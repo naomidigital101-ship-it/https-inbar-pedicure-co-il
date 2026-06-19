@@ -112,29 +112,125 @@ export function PremiumHero() {
             className="md:col-span-5 md:order-1 grid gap-8"
             aria-labelledby="hero-form-title"
           >
-            <div
-              className="overflow-hidden"
-              style={{
-                borderRadius: "8px",
-                border: "1px solid var(--stone-100)",
-                background: "var(--stone-50)",
-              }}
-            >
+            <figure className="relative" style={{ margin: 0, paddingTop: "28px", paddingInlineStart: "40px" }}>
+              {/* Editorial catalogue number */}
+              <span
+                aria-hidden
+                className="absolute"
+                style={{
+                  top: 0,
+                  insetInlineStart: 0,
+                  fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
+                  fontWeight: 400,
+                  fontSize: "44px",
+                  lineHeight: 1,
+                  color: "var(--green-600)",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                01
+              </span>
+
+              {/* Vertical rail with rotated label */}
+              <span
+                aria-hidden
+                className="absolute"
+                style={{
+                  top: "60px",
+                  bottom: "60px",
+                  insetInlineStart: "16px",
+                  width: "1px",
+                  background: "var(--stone-200, #E7E5E0)",
+                }}
+              />
+              <span
+                aria-hidden
+                className="absolute"
+                style={{
+                  insetInlineStart: "8px",
+                  bottom: "72px",
+                  transform: "rotate(-90deg)",
+                  transformOrigin: "left bottom",
+                  fontFamily: "var(--font-display, 'Heebo', sans-serif)",
+                  fontWeight: 300,
+                  fontSize: "10px",
+                  letterSpacing: "0.4em",
+                  color: "var(--green-600)",
+                  textTransform: "uppercase",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                INBAR FARCHI · EST. 2013
+              </span>
+
+              {/* Hairline horizontal rules that extend past the image edges */}
+              <span
+                aria-hidden
+                className="absolute"
+                style={{
+                  insetInlineStart: 0,
+                  insetInlineEnd: "-24px",
+                  top: "calc(28px + 33%)",
+                  height: "1px",
+                  background: "var(--stone-200, #E7E5E0)",
+                }}
+              />
+              <span
+                aria-hidden
+                className="absolute"
+                style={{
+                  insetInlineStart: "-12px",
+                  insetInlineEnd: "32px",
+                  top: "calc(28px + 66%)",
+                  height: "1px",
+                  background: "var(--stone-200, #E7E5E0)",
+                }}
+              />
+
               <img
                 src={inbarPortrait}
-                alt="ענבר פרחי, פדיקוריסטית טיפולית, בקליניקה בבית אל"
-                width={900}
-                height={1100}
+                alt="ענבר פרחי אוחזת מודל אנטומי של כף הרגל בקליניקה הטיפולית בבית אל"
+                width={1024}
+                height={1536}
                 loading="eager"
+                className="relative"
                 style={{
                   display: "block",
                   width: "100%",
-                  height: "440px",
-                  objectFit: "cover",
-                  objectPosition: "50% 28%",
+                  height: "auto",
+                  maxHeight: "520px",
+                  objectFit: "contain",
+                  objectPosition: "center",
                 }}
               />
-            </div>
+
+              <figcaption
+                className="relative mt-5 flex items-center gap-3"
+                style={{ paddingInlineStart: "0" }}
+              >
+                <span
+                  aria-hidden
+                  style={{
+                    width: "32px",
+                    height: "1px",
+                    background: "var(--green-600)",
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "var(--font-display, 'Heebo', sans-serif)",
+                    fontWeight: 400,
+                    fontSize: "12px",
+                    letterSpacing: "0.08em",
+                    color: "var(--ink-600)",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  מודל אנטומי · הדגמה לטיפול בכף רגל סוכרתית
+                </span>
+              </figcaption>
+            </figure>
             <div
               className="p-7 md:p-9"
               style={{
