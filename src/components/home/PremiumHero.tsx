@@ -77,10 +77,10 @@ export function PremiumHero() {
         </g>
       </svg>
       <div className="relative">
-      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-12 pb-20 md:pt-24 md:pb-[128px]">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-12 md:items-center">
+      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-10 pb-0 md:pt-24 md:pb-0">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12 md:items-end">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
-          <motion.div {...fadeProps} className="md:col-span-6 md:order-2">
+          <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-6 md:pb-24">
             <h1
               id="hero-heading"
               className="display"
@@ -96,15 +96,23 @@ export function PremiumHero() {
             </h1>
 
             <p
-              className="mt-8 max-w-[54ch]"
-              style={{ fontSize: "1.125rem", lineHeight: 1.75, color: "var(--ink-600)" }}
+              className="mt-6 max-w-[54ch] md:mt-8"
+              style={{ fontSize: "clamp(1rem, 2.5vw, 1.125rem)", lineHeight: 1.7, color: "var(--ink-600)" }}
             >
-              קליניקה שקטה ומדויקת בבית אל. שתים-עשרה שנות ניסיון בטיפול בכף הרגל הסוכרתית, אורתוניקסיה, פטרת ושיקום ציפורן — לפי פרוטוקולים של איכילוב, IWGDF ו-NHS.
+              <span className="md:hidden">
+                קליניקה שקטה ומדויקת בבית אל. 12 שנות ניסיון בטיפול קליני בכף הרגל.
+              </span>
+              <span className="hidden md:inline">
+                קליניקה שקטה ומדויקת בבית אל. שתים-עשרה שנות ניסיון בטיפול בכף הרגל הסוכרתית, אורתוניקסיה, פטרת ושיקום ציפורן — לפי פרוטוקולים של איכילוב, IWGDF ו-NHS.
+              </span>
             </p>
 
-            <ul className="mt-9 grid gap-x-6 gap-y-3.5 sm:grid-cols-2" aria-label="תחומי התמחות">
-              {SPECIALTIES.map(({ icon: Icon, label }) => (
-                <li key={label} className="flex items-start gap-3">
+            <ul className="mt-7 grid gap-x-6 gap-y-3 sm:grid-cols-2 md:mt-9 md:gap-y-3.5" aria-label="תחומי התמחות">
+              {SPECIALTIES.map(({ icon: Icon, label }, idx) => (
+                <li
+                  key={label}
+                  className={`flex items-start gap-3 ${idx >= 3 ? "hidden md:flex" : ""}`}
+                >
                   <span
                     aria-hidden
                     className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center"
@@ -120,7 +128,7 @@ export function PremiumHero() {
             </ul>
 
             {/* CTAs */}
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10">
               <a
                 href={HERO_WA_HREF}
                 target="_blank"
@@ -159,7 +167,7 @@ export function PremiumHero() {
 
             {/* Trust strip */}
             <dl
-              className="mt-12 grid grid-cols-3 gap-px"
+              className="mt-10 grid grid-cols-3 gap-px md:mt-12"
               style={{ background: "rgba(47, 102, 87, 0.18)" }}
               aria-label="נתוני הקליניקה"
             >
@@ -199,17 +207,18 @@ export function PremiumHero() {
           <motion.aside
             {...fadeProps}
             transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
-            className="md:col-span-6 md:order-1"
+            className="order-1 md:order-1 md:col-span-6 md:self-end"
             aria-label="דיוקן ענבר פרחי"
           >
-            <figure className="relative" style={{ margin: 0 }}>
+            <figure className="relative mx-auto" style={{ margin: 0, maxWidth: "440px" }}>
               {/* soft clinical halo behind subject */}
               <div
                 aria-hidden
-                className="absolute inset-0 -z-0"
+                className="pointer-events-none absolute inset-x-0 bottom-0 -z-0"
                 style={{
+                  height: "85%",
                   background:
-                    "radial-gradient(60% 55% at 50% 55%, rgba(47,102,87,0.10) 0%, rgba(47,102,87,0.04) 45%, transparent 75%)",
+                    "radial-gradient(60% 55% at 50% 70%, rgba(47,102,87,0.12) 0%, rgba(47,102,87,0.04) 45%, transparent 75%)",
                 }}
               />
               <img
@@ -218,12 +227,11 @@ export function PremiumHero() {
                 width={1240}
                 height={1700}
                 loading="eager"
-                className="relative"
+                className="relative mx-auto"
                 style={{
                   display: "block",
                   width: "100%",
                   height: "auto",
-                  maxHeight: "880px",
                   objectFit: "contain",
                   objectPosition: "center bottom",
                 }}
@@ -233,8 +241,45 @@ export function PremiumHero() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1240px] px-6 md:px-10">
-        <hr style={{ border: 0, borderTop: "1px solid var(--stone-100)" }} />
+      {/* Baseline rail — image and text both sit on this hairline */}
+      <div className="relative">
+        <div
+          aria-hidden
+          className="mx-auto max-w-[1320px] px-6 md:px-10"
+        >
+          <div
+            style={{
+              height: 1,
+              background:
+                "linear-gradient(90deg, transparent 0%, rgba(47,102,87,0.35) 12%, rgba(47,102,87,0.35) 88%, transparent 100%)",
+            }}
+          />
+        </div>
+        {/* tiny end caps to make the rail feel intentional */}
+        <span
+          aria-hidden
+          className="absolute right-6 md:right-10"
+          style={{
+            top: -3,
+            width: 6,
+            height: 6,
+            borderRadius: 999,
+            background: "var(--green-600, #2F6657)",
+            opacity: 0.6,
+          }}
+        />
+        <span
+          aria-hidden
+          className="absolute left-6 md:left-10"
+          style={{
+            top: -3,
+            width: 6,
+            height: 6,
+            borderRadius: 999,
+            background: "var(--green-600, #2F6657)",
+            opacity: 0.6,
+          }}
+        />
       </div>
       </div>
     </section>
