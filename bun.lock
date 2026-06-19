@@ -10,7 +10,6 @@
         "@fontsource/assistant": "^5.2.9",
         "@fontsource/frank-ruhl-libre": "^5.2.8",
         "@fontsource/heebo": "^5.2.8",
-        "@fontsource/secular-one": "^5.2.8",
         "@hookform/resolvers": "^5.2.2",
         "@lovable.dev/email-js": "^0.0.4",
         "@lovable.dev/webhooks-js": "^0.0.1",
@@ -256,8 +255,6 @@
     "@fontsource/frank-ruhl-libre": ["@fontsource/frank-ruhl-libre@5.2.8", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/frank-ruhl-libre/-/frank-ruhl-libre-5.2.8.tgz", {}, "sha512-6ISorITeqsIsJ92KUgvShp0/KyGGzex6yEGYkzfVuVLntwfj9OdxsZavsaoNwx+IyVUI5Hz8m39vktt+TjIi/w=="],
 
     "@fontsource/heebo": ["@fontsource/heebo@5.2.8", "https://europe-west1-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/heebo/-/heebo-5.2.8.tgz", {}, "sha512-K5aMLH2Yy/CmmjuM9lpToyIEwSdPKwW6KzZOGCFnj7XFrgatIpnesu6FDgmQl3bkyP/YCT62rzLRqRM9s/OzLw=="],
-
-    "@fontsource/secular-one": ["@fontsource/secular-one@5.2.8", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@fontsource/secular-one/-/secular-one-5.2.8.tgz", {}, "sha512-ye9/+mpO2o/44fxSyJmU6UUZMIGdNVtI8VlzCBgFgdfchGawQJQfUZQ2maKMQ60D/Y+Nfb/Jhni21+dALoVX+g=="],
 
     "@hookform/resolvers": ["@hookform/resolvers@5.2.2", "", { "dependencies": { "@standard-schema/utils": "^0.3.0" }, "peerDependencies": { "react-hook-form": "^7.55.0" } }, "sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA=="],
 
