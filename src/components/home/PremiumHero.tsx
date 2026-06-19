@@ -39,9 +39,9 @@ export function PremiumHero() {
     >
       {/* Clean white canvas with organic accents */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Organic arc — spans top-right to bottom-left of the entire hero */}
+        {/* Organic arc — confined to the image side (right half in RTL) */}
         <svg
-          className="absolute inset-0 h-full w-full"
+          className="absolute inset-y-0 right-0 h-full w-1/2"
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
           fill="none"
@@ -52,9 +52,8 @@ export function PremiumHero() {
             d="M100 0 A 130 130 0 0 0 0 100"
             stroke="#8DC2B3"
             strokeOpacity="0.9"
-            strokeWidth="2"
             vectorEffect="non-scaling-stroke"
-            style={{ strokeWidth: "1.6px" }}
+            style={{ strokeWidth: "1.4px" }}
             fill="none"
           />
         </svg>
