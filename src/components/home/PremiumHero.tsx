@@ -185,14 +185,14 @@ export function PremiumHero() {
             {/* Trust strip */}
             <dl
               className="mt-8 grid grid-cols-3 gap-px md:mt-10"
-              style={{ background: "rgba(47, 102, 87, 0.18)" }}
+              style={{ background: "rgba(141, 194, 179, 0.45)" }}
               aria-label="נתוני הקליניקה"
             >
               {TRUST_STATS.map((s) => (
                 <div
                   key={s.label}
                   className="flex flex-col gap-1 px-4 py-4 md:py-5"
-                  style={{ background: "#F7F5F2" }}
+                  style={{ background: "#FFFFFF" }}
                 >
                   <dt
                     style={{
