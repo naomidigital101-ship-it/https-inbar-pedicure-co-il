@@ -16,6 +16,7 @@ import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MasterclassRouteImport } from './routes/masterclass'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BrandingRouteImport } from './routes/branding'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
@@ -66,6 +67,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const MasterclassRoute = MasterclassRouteImport.update({
   id: '/masterclass',
   path: '/masterclass',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/accessibility': typeof AccessibilityRoute
   '/branding': typeof BrandingRoute
   '/contact': typeof ContactRoute
+  '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/accessibility': typeof AccessibilityRoute
   '/branding': typeof BrandingRoute
   '/contact': typeof ContactRoute
+  '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -208,6 +216,7 @@ export interface FileRoutesById {
   '/accessibility': typeof AccessibilityRoute
   '/branding': typeof BrandingRoute
   '/contact': typeof ContactRoute
+  '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
   '/privacy': typeof PrivacyRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/branding'
     | '/contact'
+    | '/knowledge'
     | '/masterclass'
     | '/privacy'
     | '/rss.xml'
@@ -260,6 +270,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/branding'
     | '/contact'
+    | '/knowledge'
     | '/masterclass'
     | '/privacy'
     | '/rss.xml'
@@ -285,6 +296,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/branding'
     | '/contact'
+    | '/knowledge'
     | '/masterclass'
     | '/privacy'
     | '/rss.xml'
@@ -311,6 +323,7 @@ export interface RootRouteChildren {
   AccessibilityRoute: typeof AccessibilityRoute
   BrandingRoute: typeof BrandingRoute
   ContactRoute: typeof ContactRoute
+  KnowledgeRoute: typeof KnowledgeRoute
   MasterclassRoute: typeof MasterclassRoute
   PrivacyRoute: typeof PrivacyRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
@@ -380,6 +393,13 @@ declare module '@tanstack/react-router' {
       path: '/masterclass'
       fullPath: '/masterclass'
       preLoaderRoute: typeof MasterclassRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -503,6 +523,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccessibilityRoute: AccessibilityRoute,
   BrandingRoute: BrandingRoute,
   ContactRoute: ContactRoute,
+  KnowledgeRoute: KnowledgeRoute,
   MasterclassRoute: MasterclassRoute,
   PrivacyRoute: PrivacyRoute,
   RssDotxmlRoute: RssDotxmlRoute,
