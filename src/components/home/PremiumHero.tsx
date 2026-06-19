@@ -192,124 +192,23 @@ export function PremiumHero() {
             className="md:col-span-5 md:order-1"
             aria-label="דיוקן ענבר פרחי"
           >
-            <figure className="relative" style={{ margin: 0, paddingTop: "28px", paddingInlineStart: "40px" }}>
-              {/* Editorial catalogue number */}
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  top: 0,
-                  insetInlineStart: 0,
-                  fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
-                  fontWeight: 400,
-                  fontSize: "52px",
-                  lineHeight: 1,
-                  color: "var(--green-600)",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                01
-              </span>
-
-              {/* Vertical rail with rotated label */}
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  top: "70px",
-                  bottom: "70px",
-                  insetInlineStart: "16px",
-                  width: "1px",
-                  background: "var(--stone-200, #E7E5E0)",
-                }}
-              />
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  insetInlineStart: "8px",
-                  bottom: "72px",
-                  transform: "rotate(-90deg)",
-                  transformOrigin: "left bottom",
-                  fontFamily: "var(--font-display, 'Heebo', sans-serif)",
-                  fontWeight: 300,
-                  fontSize: "10px",
-                  letterSpacing: "0.4em",
-                  color: "var(--green-600)",
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                INBAR FARCHI · EST. 2013
-              </span>
-
-              {/* Hairline horizontal rules that extend past the image edges */}
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  insetInlineStart: 0,
-                  insetInlineEnd: "-24px",
-                  top: "calc(28px + 28%)",
-                  height: "1px",
-                  background: "var(--stone-200, #E7E5E0)",
-                }}
-              />
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  insetInlineStart: "-12px",
-                  insetInlineEnd: "32px",
-                  top: "calc(28px + 70%)",
-                  height: "1px",
-                  background: "var(--stone-200, #E7E5E0)",
-                }}
-              />
-
+            <figure className="relative" style={{ margin: 0 }}>
               <img
-                src={inbarPortrait}
-                alt="ענבר פרחי אוחזת מודל אנטומי של כף הרגל בקליניקה הטיפולית בבית אל"
-                width={1024}
-                height={1536}
+                src={inbarHero.url}
+                alt="ענבר פרחי, פדיקוריסטית טיפולית, אוחזת מודל אנטומי של כף הרגל"
+                width={1240}
+                height={1240}
                 loading="eager"
-                className="relative"
                 style={{
                   display: "block",
                   width: "100%",
                   height: "auto",
-                  maxHeight: "640px",
+                  maxHeight: "680px",
                   objectFit: "contain",
                   objectPosition: "center",
+                  mixBlendMode: "multiply",
                 }}
               />
-
-              <figcaption
-                className="relative mt-5 flex items-center gap-3"
-                style={{ paddingInlineStart: "0" }}
-              >
-                <span
-                  aria-hidden
-                  style={{
-                    width: "32px",
-                    height: "1px",
-                    background: "var(--green-600)",
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-display, 'Heebo', sans-serif)",
-                    fontWeight: 400,
-                    fontSize: "12px",
-                    letterSpacing: "0.08em",
-                    color: "var(--ink-600)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  מודל אנטומי · הדגמה לטיפול בכף רגל סוכרתית
-                </span>
-              </figcaption>
             </figure>
           </motion.aside>
         </div>
