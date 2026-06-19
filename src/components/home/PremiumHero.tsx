@@ -1,7 +1,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles, MessageCircle, Phone } from "lucide-react";
 import { SITE } from "@/lib/site-config";
-import inbarHero from "@/assets/inbar-hero.png.asset.json";
+import inbarHero from "@/assets/inbar-cutout.png.asset.json";
+import heroBgPattern from "@/assets/hero-bg-pattern.jpg";
 
 const SPECIALTIES = [
   { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
@@ -37,29 +38,27 @@ export function PremiumHero() {
       aria-labelledby="hero-heading"
       style={{ background: "#F0E6DD" }}
     >
+      {/* Decorative background pattern */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: `url(${heroBgPattern})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.55,
+          mixBlendMode: "multiply",
+        }}
+      />
+      <div className="relative">
       <div className="mx-auto max-w-[1240px] px-6 md:px-10 pt-12 pb-20 md:pt-24 md:pb-[128px]">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-center">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
           <motion.div {...fadeProps} className="md:col-span-7 md:order-2">
-            <div className="flex items-center gap-3" aria-hidden>
-              <span style={{ width: 28, height: 1, background: "var(--green-700, #2F6657)" }} />
-              <span
-                style={{
-                  fontFamily: "var(--font-display, 'Heebo', sans-serif)",
-                  fontWeight: 500,
-                  fontSize: 11,
-                  letterSpacing: "0.32em",
-                  textTransform: "uppercase",
-                  color: "var(--green-700, #2F6657)",
-                }}
-              >
-                Clinique Podologique · Beit El
-              </span>
-            </div>
-
             <h1
               id="hero-heading"
-              className="display mt-6"
+              className="display"
               style={{
                 fontWeight: 300,
                 fontSize: "clamp(2.8rem, 6vw, 4.4rem)",
@@ -69,20 +68,6 @@ export function PremiumHero() {
               }}
             >
               ענבר פרחי
-              <span
-                style={{
-                  display: "block",
-                  fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
-                  fontStyle: "italic",
-                  fontWeight: 400,
-                  fontSize: "clamp(1.5rem, 3vw, 2.1rem)",
-                  color: "var(--green-700, #2F6657)",
-                  marginTop: 6,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                רפואה של כף הרגל, בידיים מדויקות.
-              </span>
             </h1>
 
             <p
@@ -195,18 +180,19 @@ export function PremiumHero() {
             <figure className="relative" style={{ margin: 0 }}>
               <img
                 src={inbarHero.url}
-                alt="ענבר פרחי, פדיקוריסטית טיפולית, אוחזת מודל אנטומי של כף הרגל"
+                alt="ענבר פרחי, פדיקוריסטית טיפולית"
                 width={1240}
-                height={1240}
+                height={1860}
                 loading="eager"
                 style={{
                   display: "block",
                   width: "100%",
                   height: "auto",
-                  maxHeight: "680px",
+                  maxHeight: "780px",
                   objectFit: "contain",
                   objectPosition: "center",
-                  mixBlendMode: "multiply",
+                  transform: "scale(1.15)",
+                  transformOrigin: "center bottom",
                 }}
               />
             </figure>
@@ -216,6 +202,7 @@ export function PremiumHero() {
 
       <div className="mx-auto max-w-[1240px] px-6 md:px-10">
         <hr style={{ border: 0, borderTop: "1px solid var(--stone-100)" }} />
+      </div>
       </div>
     </section>
   );
