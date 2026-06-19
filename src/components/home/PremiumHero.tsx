@@ -86,17 +86,6 @@ export function PremiumHero() {
         >
           INBAR · 01
         </span>
-        {/* tiny cross mark */}
-        <svg
-          aria-hidden
-          className="absolute hidden md:block"
-          style={{ top: "22%", left: "44%" }}
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-        >
-          <path d="M7 0 V14 M0 7 H14" stroke="rgba(30,36,34,0.18)" strokeWidth="1" />
-        </svg>
         {/* hairline rule across image side bottom */}
         <span
           aria-hidden
