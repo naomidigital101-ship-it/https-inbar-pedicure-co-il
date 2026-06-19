@@ -707,22 +707,33 @@ export async function runArticleQA(opts: {
     }
   }
 
-  // External link safety + relevance whitelist (topic = dirt bikes / motorcycles)
+  // External link safety + relevance whitelist (topic = podiatry / foot health)
   const SAFE_EXTERNAL_HOSTS = new Set<string>([
-    "ktm.com", "husqvarna-motorcycles.com", "betamotor.com", "sherco.com", "gasgas.com",
-    "honda.co.il", "powersports.honda.com", "yamaha-motor.eu", "yamaha-motor.com",
-    "kawasaki.eu", "suzuki.com", "suzukimotorcycle.co.in",
-    "mipsprotection.com", "unece.org", "nhtsa.gov", "snell.org", "fim-moto.com", "smf.org",
-    "motul.com", "ngk.com", "ngkntk.com", "brembo.com",
-    "dunlop.eu", "michelin.com", "pirelli.com", "metzeler.com",
-    "didchain.com", "rkexcelamerica.com", "motionpro.com",
+    // Israeli health authorities & HMOs
+    "health.gov.il", "gov.il", "clalit.co.il", "maccabi4u.co.il", "leumit.co.il",
+    "meuhedet.co.il", "hadassah.org.il", "sheba.co.il", "rambam.org.il",
+    "tasmc.org.il", "telavivsourasky.org.il", "assuta.co.il",
+    // International health authorities
+    "who.int", "cdc.gov", "nih.gov", "nhs.uk", "fda.gov", "europa.eu",
+    "ema.europa.eu",
+    // Medical research databases
+    "pubmed.ncbi.nlm.nih.gov", "ncbi.nlm.nih.gov", "cochranelibrary.com",
+    "cochrane.org", "uptodate.com", "medscape.com",
+    // Top medical journals
+    "bmj.com", "nejm.org", "jamanetwork.com", "thelancet.com", "nature.com",
+    "sciencedirect.com", "springer.com", "wiley.com", "bjsm.bmj.com",
+    // Clinical guidelines
+    "nice.org.uk", "aaos.org", "apma.org", "iwgdfguidelines.org", "iwgdf.org",
+    "diabetes.org", "diabetes.org.uk", "idf.org",
+    // Renowned clinics & medical references
+    "mayoclinic.org", "clevelandclinic.org", "hopkinsmedicine.org",
+    "health.harvard.edu", "medlineplus.gov", "merckmanuals.com",
+    "msdmanuals.com", "kp.org",
+    // Sports medicine
+    "acsm.org", "sportsmedicineaustralia.com.au",
+    // General reference
     "en.wikipedia.org", "he.wikipedia.org",
-    "gov.il", "parks.org.il", "npa.org.il", "kkl.org.il",
-    "pubmed.ncbi.nlm.nih.gov", "nih.gov", "bmj.com", "nejm.org",
     "youtube.com", "youtu.be", "youtube-nocookie.com",
-    "cycleworld.com", "dirtrider.com", "revzilla.com", "motocrossactionmag.com",
-    "rockymountainatvmc.com", "fox-racing.com", "alpinestars.com", "leatt.com",
-    "thor-mx.com", "oneal.com",
   ]);
   const isSafeHost = (host: string) =>
     SAFE_EXTERNAL_HOSTS.has(host) ||
