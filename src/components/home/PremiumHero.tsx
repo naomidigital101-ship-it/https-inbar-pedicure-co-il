@@ -1,14 +1,321 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ShieldCheck, GraduationCap, Award } from "lucide-react";
-import { useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { SITE } from "@/lib/site-config";
 import inbarPortrait from "@/assets/inbar-portrait-cutout.png";
 
-const TEAL = "#0F6B6E";
-const TEAL_DEEP = "#073E40";
-const INK = "#1A2A2C";
-const WARM = "#5C4A3A";
-const TEAL_SOFT = "#E5F0F0";
-const BLOB_RADIUS = "60% 40% 50% 50% / 55% 45% 55% 45%";
+const SPECIALTIES = [
+  { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
+  { icon: HeartPulse, label: "כף רגל סוכרתית, פרוטוקול IWGDF" },
+  { icon: ScissorsLineDashed, label: "ציפורן חודרנית ואורתוניקסיה" },
+  { icon: Sparkles, label: "טיפול בפטרת ושיקום ציפורן BIO" },
+  { icon: ShieldCheck, label: "סטריליות מלאה, כלים חד-פעמיים" },
+] as const;
+
+function buildWhatsAppHref(name: string, phone: string, message: string): string {
+  const lines = [
+    "שלום ענבר, הגעתי דרך האתר.",
+    name && `שם: ${name}`,
+    phone && `טלפון: ${phone}`,
+    message && `הודעה: ${message}`,
+  ].filter(Boolean);
+  const text = encodeURIComponent(lines.join("\n"));
+  return `${SITE.whatsappUrl}?text=${text}`;
+}
+
+export function PremiumHero() {
+  const reduced = useReducedMotion() ?? false;
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const href = buildWhatsAppHref(name.trim(), phone.trim(), message.trim());
+    window.open(href, "_blank", "noopener,noreferrer");
+  };
+
+  const fade = reduced
+    ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
+    : {
+        initial: { opacity: 0, y: 12 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+      };
+
+  return (
+    <section
+      dir="rtl"
+      className="relative bg-paper"
+      aria-labelledby="hero-heading"
+      style={{ background: "var(--paper, #FAFAF8)" }}
+    >
+      <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-10 pb-16 md:pt-20 md:pb-[120px]">
+        {/* Catalogue ribbon */}
+        <div className="mb-10 flex items-center gap-4 md:mb-14">
+          <span
+            className="text-[12px] font-medium uppercase"
+            style={{ letterSpacing: "0.32em", color: "var(--green-500)" }}
+          >
+            Inbar — מומחית בטיפול בכף הרגל
+          </span>
+          <span aria-hidden className="h-px flex-1" style={{ background: "var(--stone-100)" }} />
+          <span
+            className="hidden md:inline serif-accent text-[14px]"
+            style={{ color: "var(--ink-600)" }}
+          >
+            ‎01 — קליניקה בבית אל
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-start">
+          {/* RIGHT (RTL first column): copy + bullets */}
+          <motion.div {...fade} className="md:col-span-7">
+            <h1
+              id="hero-heading"
+              className="display"
+              style={{
+                fontWeight: 300,
+                fontSize: "clamp(2.6rem, 5.2vw, 3.5rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.02em",
+                color: "var(--ink-900)",
+              }}
+            >
+              ענבר פרחי
+            </h1>
+            <h2
+              className="mt-3"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "clamp(1.2rem, 2.4vw, 1.6rem)",
+                lineHeight: 1.35,
+                letterSpacing: "-0.01em",
+                color: "var(--ink-600)",
+              }}
+            >
+              פדיקוריסטית טיפולית למחלות כף הרגל ויבלות
+            </h2>
+
+            <p
+              className="mt-8 max-w-[52ch]"
+              style={{
+                fontSize: "1.125rem",
+                lineHeight: 1.7,
+                color: "var(--ink-600)",
+              }}
+            >
+              קליניקה קלינית ושקטה בבית אל, עם 12 שנות ניסיון בטיפול בכף הרגל הסוכרתית, אורתוניקסיה, פטרת ושיקום ציפורן. כל טיפול מבוסס על פרוטוקולים של איכילוב, IWGDF ו-NHS.
+            </p>
+
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2" aria-label="תחומי התמחות">
+              {SPECIALTIES.map(({ icon: Icon, label }) => (
+                <li key={label} className="flex items-start gap-3">
+                  <span
+                    aria-hidden
+                    className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center"
+                    style={{ color: "var(--green-600)" }}
+                  >
+                    <Icon className="h-4 w-4" strokeWidth={1.5} />
+                  </span>
+                  <span style={{ fontSize: "0.95rem", lineHeight: 1.55, color: "var(--ink-900)" }}>
+                    {label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Soft clinical image */}
+            <div
+              className="mt-12 hidden overflow-hidden md:block"
+              style={{
+                borderRadius: "8px",
+                border: "1px solid var(--stone-100)",
+                background: "var(--stone-50)",
+              }}
+            >
+              <img
+                src={inbarPortrait}
+                alt="ענבר פרחי, פדיקוריסטית טיפולית, בקליניקה בבית אל"
+                width={1200}
+                height={520}
+                loading="eager"
+                style={{
+                  display: "block",
+                  width: "100%",
+                  height: "260px",
+                  objectFit: "cover",
+                  objectPosition: "50% 32%",
+                }}
+              />
+            </div>
+          </motion.div>
+
+          {/* LEFT (RTL second column): WhatsApp form card */}
+          <motion.aside
+            {...fade}
+            transition={{ ...(fade.transition ?? {}), delay: reduced ? 0 : 0.12 }}
+            className="md:col-span-5"
+            aria-labelledby="hero-form-title"
+          >
+            <div
+              className="p-7 md:p-9"
+              style={{
+                background: "var(--paper)",
+                border: "1px solid var(--stone-100)",
+                borderRadius: "8px",
+              }}
+            >
+              <p
+                className="text-[12px] font-medium uppercase"
+                style={{ letterSpacing: "0.24em", color: "var(--green-500)" }}
+              >
+                ‎02 — תיאום ייעוץ
+              </p>
+              <h3
+                id="hero-form-title"
+                className="mt-4"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 300,
+                  fontSize: "1.6rem",
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.01em",
+                  color: "var(--ink-900)",
+                }}
+              >
+                מלאי את הפרטים — אחזור אלייך בשעה הקרובה.
+              </h3>
+              <p
+                className="mt-3"
+                style={{ fontSize: "0.95rem", lineHeight: 1.65, color: "var(--ink-600)" }}
+              >
+                שליחת הטופס תעביר את הפרטים ישירות לוואטסאפ של הקליניקה. בלי ספאם, בלי טלמרקטינג.
+              </p>
+
+              <form onSubmit={onSubmit} className="mt-7 grid gap-4">
+                <label className="grid gap-2">
+                  <span
+                    className="text-[12px] font-medium"
+                    style={{ letterSpacing: "0.08em", color: "var(--ink-600)" }}
+                  >
+                    שם מלא
+                  </span>
+                  <input
+                    type="text"
+                    autoComplete="name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="ישראלה ישראלי"
+                    className="h-11 px-4 text-[15px]"
+                    style={{
+                      background: "var(--stone-50)",
+                      border: "1px solid var(--stone-100)",
+                      borderRadius: "4px",
+                      color: "var(--ink-900)",
+                      outline: "none",
+                    }}
+                  />
+                </label>
+                <label className="grid gap-2">
+                  <span
+                    className="text-[12px] font-medium"
+                    style={{ letterSpacing: "0.08em", color: "var(--ink-600)" }}
+                  >
+                    טלפון
+                  </span>
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    autoComplete="tel"
+                    required
+                    pattern="[0-9\-\+\s]{7,}"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="050-0000000"
+                    dir="ltr"
+                    className="h-11 px-4 text-[15px] text-right"
+                    style={{
+                      background: "var(--stone-50)",
+                      border: "1px solid var(--stone-100)",
+                      borderRadius: "4px",
+                      color: "var(--ink-900)",
+                      outline: "none",
+                    }}
+                  />
+                </label>
+                <label className="grid gap-2">
+                  <span
+                    className="text-[12px] font-medium"
+                    style={{ letterSpacing: "0.08em", color: "var(--ink-600)" }}
+                  >
+                    מה הסיבה לפנייה? (לא חובה)
+                  </span>
+                  <textarea
+                    rows={3}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="לדוגמה: סובלת מציפורן חודרנית ברגל ימין"
+                    className="px-4 py-3 text-[15px]"
+                    style={{
+                      background: "var(--stone-50)",
+                      border: "1px solid var(--stone-100)",
+                      borderRadius: "4px",
+                      color: "var(--ink-900)",
+                      outline: "none",
+                      resize: "vertical",
+                      fontFamily: "var(--font-body)",
+                    }}
+                  />
+                </label>
+
+                <button
+                  type="submit"
+                  className="mt-2 inline-flex h-12 items-center justify-center px-7 text-[15px] font-medium transition-colors"
+                  style={{
+                    background: "var(--green-500)",
+                    color: "var(--paper)",
+                    borderRadius: "8px",
+                    letterSpacing: "0.02em",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--green-600)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--green-500)")}
+                >
+                  קבעו תור עכשיו
+                </button>
+
+                <p
+                  className="text-[12px]"
+                  style={{ color: "var(--ink-600)", lineHeight: 1.6 }}
+                >
+                  מעדיפה דיבור ישיר?{" "}
+                  <a
+                    href={SITE.telUrl}
+                    style={{ color: "var(--green-700)", textDecoration: "underline", textUnderlineOffset: 3 }}
+                  >
+                    {SITE.phoneDisplay}
+                  </a>
+                </p>
+              </form>
+            </div>
+          </motion.aside>
+        </div>
+      </div>
+
+      {/* Hairline between hero and next section */}
+      <div className="mx-auto max-w-[1200px] px-6 md:px-8">
+        <hr style={{ border: 0, borderTop: "1px solid var(--stone-100)" }} />
+      </div>
+    </section>
+  );
+}
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+function _LegacyHeroPlaceholder() {
+  return null;
+}
 
 function MagneticCTA({ href, children, reduced }: { href: string; children: React.ReactNode; reduced: boolean }) {
   const ref = useRef<HTMLAnchorElement>(null);
