@@ -252,7 +252,7 @@ export function PremiumHero() {
             className="order-1 md:order-1 md:col-span-6 md:self-end relative flex items-end justify-center"
             aria-label="דיוקן ענבר פרחי"
           >
-            <figure className="relative mx-auto flex items-end justify-center" style={{ margin: 0, maxWidth: "560px" }}>
+            <figure className="relative mx-auto flex items-end justify-center" style={{ margin: 0, maxWidth: "760px" }}>
               <img
                 src={inbarHero.url}
                 alt="ענבר פרחי מחזיקה מודל אנטומי של כף רגל"
@@ -262,12 +262,12 @@ export function PremiumHero() {
                 className="relative mx-auto"
                 style={{
                   display: "block",
-                  width: "82%",
+                  width: "100%",
                   height: "auto",
                   objectFit: "contain",
                   objectPosition: "center bottom",
-                  maxWidth: "520px",
-                  maxHeight: "calc(100svh - 140px)",
+                  maxWidth: "720px",
+                  maxHeight: "calc(100svh - 96px)",
                 }}
               />
             </figure>
