@@ -1,7 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { adminExists, bootstrapAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
@@ -18,6 +20,26 @@ function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [needsBootstrap, setNeedsBootstrap] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  const adminExistsFn = useServerFn(adminExists);
+  const bootstrapFn = useServerFn(bootstrapAdmin);
+
+  useEffect(() => {
+    let cancelled = false;
+    adminExistsFn()
+      .then((res) => {
+        if (!cancelled) setNeedsBootstrap(!res.exists);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setChecking(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [adminExistsFn]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,6 +48,17 @@ function AdminLogin() {
       return;
     }
     setLoading(true);
+
+    if (needsBootstrap) {
+      try {
+        await bootstrapFn({ data: { email: email.trim().toLowerCase(), password } });
+      } catch (err) {
+        setLoading(false);
+        toast.error(err instanceof Error ? err.message : "שגיאה ביצירת המנהל");
+        return;
+      }
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
       email: email.trim().toLowerCase(),
       password,
@@ -35,6 +68,7 @@ function AdminLogin() {
       toast.error("פרטי התחברות שגויים");
       return;
     }
+    toast.success(needsBootstrap ? "המנהל נוצר והתחברת בהצלחה" : "התחברת בהצלחה");
     navigate({ to: "/admin" });
   }
 
@@ -48,8 +82,13 @@ function AdminLogin() {
           [ SYS // ADMIN ]
         </div>
         <h1 className="mb-6 text-3xl font-black text-[#1d3a35]">
-          כניסת מנהל
+          {needsBootstrap ? "יצירת מנהל ראשון" : "כניסת מנהל"}
         </h1>
+        {needsBootstrap && !checking && (
+          <p className="mb-4 text-sm text-[#5a4f48]">
+            עדיין אין מנהל במערכת. בחר אימייל וסיסמה (לפחות 8 תווים) — המשתמש הראשון שירשם יהפוך אוטומטית למנהל.
+          </p>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           <div>
             <label
@@ -89,10 +128,10 @@ function AdminLogin() {
           </div>
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || checking}
             className="w-full bg-[#5fa898] px-6 py-3 text-sm font-black uppercase tracking-wider text-[#fdfbf7] transition-colors hover:bg-[#ff3a00] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? "מתחבר..." : "התחבר"}
+            {loading ? "מתחבר..." : needsBootstrap ? "צור מנהל והתחבר" : "התחבר"}
           </button>
         </form>
       </div>
