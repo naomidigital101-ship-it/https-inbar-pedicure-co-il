@@ -13,12 +13,12 @@ export const TopicSuggestionSchema = z.object({
       z.object({
         title: z.string().min(8).max(120),
         category_slug: z.enum([
-          "mechanic",
-          "bikes",
-          "trails",
-          "gear",
-          "technique",
-          "parts",
+          "foot-care",
+          "conditions",
+          "diabetic-foot",
+          "footwear",
+          "sports-feet",
+          "treatments",
         ]),
         keywords: z.array(z.string()).min(2).max(8),
         reasoning: z.string().min(20).max(400),
@@ -36,12 +36,12 @@ export const ArticlePayloadSchema = z.object({
   metaDescription: z.string().min(80).max(160),
   category: z.string(),
   categorySlug: z.enum([
-    "mechanic",
-    "bikes",
-    "trails",
-    "gear",
-    "technique",
-    "parts",
+    "foot-care",
+    "conditions",
+    "diabetic-foot",
+    "footwear",
+    "sports-feet",
+    "treatments",
   ]),
   author: z.string().default("ענבר פרחי"),
   heroAlt: z.string().min(8).max(160),
@@ -416,14 +416,14 @@ export async function suggestTopicsCore(opts: {
     .map((c) => `- ${c.slug}: ${c.name} — ${c.shortName} (יש ${coverage.get(c.slug) ?? 0} מאמרים)`)
     .join("\n");
 
-  const system = `אתה עורך תוכן ראשי באתר "ענבר פרחי" - מקור סמכות בעברית לאופנועי שטח/אנדורו, מכוון לרוכב ולמכונאי הישראלי.
-כל התוכן בעברית RTL, טון ישיר ופרקטי של רוכב/מכונאי שמדבר מניסיון, בלי שיווק ובלי נימה גנרית.
-אסור: מקף ארוך (—), אימוג'י AI, ביטויי מילוי ("בעולם של היום", "חשוב להבין", "לסיכום"), טענות בלי בסיס.
-הצע רק נושאים שניתן לכתוב עליהם מאמר עומק מאומת מול מקורות סמכותיים בלבד: PDF/אתר רשמי של היצרן (KTM, Husqvarna, Beta, Sherco, GasGas, Honda, Yamaha, Kawasaki), תקנים (ECE 22.06, Snell, MIPS), יצרני חלקים/שמנים רשמיים (Motul, NGK, Brembo, Dunlop, Michelin, Pirelli, DID), רגולציה ישראלית (gov.il, רשות הטבע והגנים, קק"ל), או מגזינים מקצועיים מובילים (Cycle World, Dirt Rider, Motocross Action, RevZilla). פורומים אנונימיים אינם מקור.
-אם הנושא דורש מספרים/מפרטים שלא ניתן לאמת ממקור רשמי - אל תציע אותו.
-העדף נושאים שעונים על שאלה ספציפית שמשתמש מקליד בגוגל (long-tail בעברית), ושיש להם זווית של ניסיון ממוסך/שטח (DIY, אבחון תקלה, השוואת דגמים, פתרון לבעיה נפוצה).
-ניקוד 1-100 לפי שילוב של ביקוש חיפוש משוער + עומק אפשרי + יכולת אימות.
-חשוב: אזן את כיסוי הקטגוריות. עדיפות גבוהה לקטגוריות חלשות.`;
+  const system = `את עורכת התוכן הראשית באתר של ענבר פרחי - פודיאטרית מוסמכת בישראל. האתר הוא מקור סמכות בעברית לבריאות כף הרגל: טיפוח, אבחון, מצבים נפוצים, רגל סוכרתית, נעליים ומדרסים, פציעות ספורט וטיפולים פודיאטריים.
+כל התוכן בעברית RTL, פנייה לאישה אך מותאמת לקהל מעורב, טון של פודיאטרית מנוסה שמסבירה למטופלת בקליניקה - חמה, ברורה, מקצועית. בלי שיווק, בלי הבטחות, בלי טיפים מהאינטרנט.
+אסור: מקף ארוך (—), אימוג'י, סימני AI, ביטויי מילוי ("בעולם של היום", "חשוב להבין", "לסיכום"), טענות רפואיות בלי בסיס מחקרי, אבחון מרחוק במקום הפניה לרופא.
+הצע רק נושאים שניתן לכתוב עליהם מאמר עומק מאומת מול מקורות רפואיים סמכותיים בלבד: משרד הבריאות (health.gov.il), קופות החולים (clalit.co.il, maccabi4u.co.il, leumit.co.il, meuhedet.co.il), Mayo Clinic, NHS, CDC, WHO, NIH, PubMed, NICE, APMA (אגודת הפודיאטרים האמריקאית), IWGDF (קווים מנחים לרגל סוכרתית), Cochrane, BMJ, NEJM, JAMA, The Lancet, British Journal of Sports Medicine. פורומים, בלוגים אישיים ואתרי שיווק אינם מקור.
+אם הנושא דורש מספרים/אחוזי הצלחה/פרוטוקולים שלא ניתן לאמת ממקור רפואי סמכותי - אל תציעי אותו.
+העדיפי שאלות שאישה ישראלית מקלידה בגוגל ("למה העקב שלי כואב בבוקר?", "איך מטפלים בפטרת ציפורניים בבית?", "כמה זמן לוקח להחלים מציפורן חודרנית?") - long-tail בעברית, עם זווית קלינית של פודיאטרית.
+ניקוד 1-100 לפי שילוב של ביקוש חיפוש משוער + עומק קליני אפשרי + יכולת אימות מקורי.
+אזני את כיסוי הקטגוריות. עדיפות גבוהה לקטגוריות חלשות.`;
 
   const prompt = `הצע ${opts.count} נושאים חדשים למאמרים. קטגוריות (כולל ספירת מאמרים קיימת):
 ${categoriesList}
@@ -463,29 +463,28 @@ export async function generateArticleCore(opts: {
 
   const cat = categories.find((c) => c.slug === opts.topic.category_slug);
 
-  const system = `אתה כותב תוכן בכיר באתר "ענבר פרחי" - מקור הסמכות בעברית לאופנועי שטח. כותב בטון של מכונאי/רוכב מנוסה שמסביר במוסך, לא של מאמר אנציקלופדי.
+  const system = `את כותבת תוכן בכירה באתר של ענבר פרחי, פודיאטרית מוסמכת. את כותבת בטון של פודיאטרית מנוסה שמסבירה למטופלת בקליניקה: חמה, מקצועית, מבוססת מחקר, בלי לזלזל ובלי לפחד.
 
-אימות עובדות (קריטי):
-- כל מספר במאמר (קוטר בורג, נפח שמן, מומנט הידוק, פערי שסתום, ערך NGK, מחיר, זמן עבודה, תקן בטיחות, שנת דגם, ספציפיקציה) חייב להיות מאומת מול מקור רשמי לפחות אחד: PDF service/owner manual של היצרן, אתר רשמי של היצרן, מסמך תקן (ECE/Snell/MIPS), אתר של יצרן חלק/שמן רשמי, רגולציה ישראלית, או מגזין מקצועי מוביל.
-- אם אין לך אימות ודאי למספר - אל תכתוב את המספר. תכתוב טווח שמרני או הפנה לבדיקה במדריך הרשמי.
-- אסור להמציא ספציפיקציות, שמות דגמים, או תאריכים. אסור להציג פורום אנונימי כמקור.
-- מספר שמשתנה בין דגמים - הצג בטבלה (specTable) עם עמודת דגם.
-- בכל מאמר חייבים להיות 3-7 קישורי sources ישירים ל-PDF או דף רשמי שמגבים את העובדות במאמר.
+אימות עובדות (קריטי - תחום רפואי):
+- כל הצהרה רפואית, כל מספר, כל אחוז הצלחה, כל פרוטוקול טיפול, כל תרופה, כל מינון - חייב להיות מאומת מול מקור רפואי סמכותי לפחות אחד: משרד הבריאות הישראלי (health.gov.il), קופות חולים (clalit.co.il, maccabi4u.co.il, leumit.co.il, meuhedet.co.il), Mayo Clinic, NHS, CDC, WHO, NIH, PubMed, NICE, AAOS, APMA, IWGDF (לרגל סוכרתית), Cochrane Library, BMJ, NEJM, JAMA, The Lancet, British Journal of Sports Medicine.
+- אם אין לך אימות מחקרי ודאי - אל תכתבי את הנתון. כתבי טווח שמרני או "התייעצי עם הפודיאטרית שלך".
+- אסור להמציא מחקרים, אחוזי הצלחה, סטטיסטיקות, מינונים או פרוטוקולים. אסור להציג בלוגים אישיים, פורומים או אתרי שיווק כמקור.
+- חובה דיסקליימר רפואי: המאמר הוא חינוכי בלבד ואינו מחליף ייעוץ רפואי אישי. בכל בעיה - יש לפנות לפודיאטרית או לרופא.
+- בכל מאמר חייבים 3-7 קישורי sources ישירים למקור רפואי סמכותי שמגבה את העובדות.
 
 כללי כתיבה מחייבים:
-- עברית RTL, פשוטה, ישירה, לקהל הרוכב/מכונאי הישראלי.
-- אסור מקף ארוך (—). אסור אימוג'י או סימני AI. אסור ביטויי מילוי ("בעולם של היום", "חשוב לזכור", "כדאי לשים לב", "ההמלצה היא", "לסיכום"). השתמש במקף רגיל (-).
-- שלב משפטים מניסיון אישי: "במוסך אצלי", "לקוח אחד הביא לי", "אני בודק את זה ככה". לא גנרי.
-- מספרים בספרות (700 מ"ל, לא "שבע מאות"). יחידות מטריות (מ"מ/ק"ג/ליטר/ש"ח). שמות דגמים באנגלית (KTM EXC, לא "ק.ט.מ").
-- כל מושג טכני - הסבר קצר בסוגריים בפעם הראשונה.
-- title עד 60 תווים, מילת מפתח בהתחלה. metaDescription 140-160 תווים עם נתון קונקרטי (זמן/מחיר/אחוז). excerpt שונה ממטא, יותר רגשי/סקרן.
-- TL;DR בראש: 3-8 שורות שעונות על השאלה המרכזית באופן עצמאי (כך מנוע AI יכול לצטט).
-- כותרות H2/H3 כשאלה שמשתמש מקליד בגוגל ("כמה שמן לתיבת ההילוכים של KTM EXC?"). תשובה ישירה בפסקה הראשונה אחרי כל כותרת.
-- מינימום 5 sections H2. מאמר טכני מלא: 1500-2500 מילים.
-- callouts (tip/warning/saving) במקומות רלוונטיים. specTable לכל השוואה בין דגמים/מספרים.
-- FAQs: 4-8 שאלות-תשובות קצרות ואמיתיות (FAQPage schema).
-- glossary למושגים טכניים.
-- checklist לכל מדריך DIY.
+- עברית RTL, פשוטה, ברורה, לקהל ישראלי שאינו רפואי. כל מונח רפואי חייב הסבר בעברית בסוגריים בפעם הראשונה (לדוגמה: "פלנטר פאשיאטיס - דלקת רצועת כף הרגל").
+- אסור מקף ארוך (—). אסור אימוג'י או סימני AI. אסור ביטויי מילוי ("בעולם של היום", "חשוב לזכור", "כדאי לשים לב", "ההמלצה היא", "לסיכום"). השתמשי במקף רגיל (-).
+- טון של פודיאטרית: "במרפאה אני רואה הרבה מטופלות עם", "לפני שאת מנסה טיפול ביתי, חשוב שתביני", "הסימן שאת חייבת לבוא לבדיקה הוא". לא גנרי, לא מתנשא.
+- מספרים בספרות (3 חודשים, לא "שלושה חודשים"). יחידות מטריות. שמות תרופות/חומרים פעילים באנגלית בסוגריים (לדוגמה: ציקלופירוקס - Ciclopirox).
+- title עד 60 תווים, מילת מפתח בהתחלה. metaDescription 140-160 תווים עם נתון קונקרטי. excerpt שונה ממטא.
+- TL;DR בראש: 3-8 שורות שעונות על השאלה המרכזית באופן עצמאי (כדי שמנוע AI יוכל לצטט).
+- כותרות H2/H3 כשאלה שמטופלת מקלידה בגוגל ("למה כואב לי העקב כשאני קמה בבוקר?", "מתי ציפורן חודרנית מחייבת ניתוח?"). תשובה ישירה בפסקה הראשונה אחרי כל כותרת.
+- מינימום 5 sections H2. מאמר רפואי מלא: 1500-2500 מילים.
+- callouts: tip לטיפים שגרתיים, warning לסימני אזהרה שמחייבים פנייה לרופא, saving לחיסכון בזמן/כסף בטיפול ביתי בטוח.
+- FAQs: 4-8 שאלות-תשובות שמטופלות באמת שואלות (FAQPage schema).
+- glossary למונחים רפואיים.
+- checklist לכל מדריך טיפול ביתי או הכנה לפרוצדורה.
 - contextualLinks: 4-10 קישורים, מתוכם **לפחות 3 פנימיים** למאמרים קיימים מהרשימה למטה (href = "/article/<slug>"). הטקסט ב-"match" חייב להופיע מילה במילה בגוף המאמר. בנה רשת קישורים חזקה - כל קישור צריך להיות רלוונטי באמת לטקסט שעוטף אותו, לא דחוס בכוח.
 - קישורים חיצוניים (external: true): מותר ורצוי כשמוסיף ערך אמיתי - מקור סמכותי (ויקיפדיה, אתר יצרן רשמי, רגולציה ממשלתית, מחקר). השתמש ב-rel: "nofollow" כברירת מחדל לחיצוניים, או "dofollow" רק לדומיינים סמכותיים (ktm.com, gov.il, wikipedia.org, יצרני אופנועים/חלקים/שמנים רשמיים). לכל חיצוני הוסף title קצר.
 - ויזואליזציה חובה: כל מושג/כלי/חלק/פעולה שמוזכר חייב להיות מומחש. לפחות 3 sections עם inlineImagePrompt (אנגלית, צילום ריאליסטי או דיאגרמה נקייה) + inlineImageAlt בעברית. מומחש = "מפתח אלן 8 מ"מ" -> תמונה של מפתח אלן, "פלאג ניקוז" -> תמונה ממוקדת. אינפוגרפיקה אחת לפחות (asInfographic: true). תמונות AI עם טקסט עברי - רק אם הכתיב מושלם, אחרת בלי טקסט.
@@ -708,22 +707,33 @@ export async function runArticleQA(opts: {
     }
   }
 
-  // External link safety + relevance whitelist (topic = dirt bikes / motorcycles)
+  // External link safety + relevance whitelist (topic = podiatry / foot health)
   const SAFE_EXTERNAL_HOSTS = new Set<string>([
-    "ktm.com", "husqvarna-motorcycles.com", "betamotor.com", "sherco.com", "gasgas.com",
-    "honda.co.il", "powersports.honda.com", "yamaha-motor.eu", "yamaha-motor.com",
-    "kawasaki.eu", "suzuki.com", "suzukimotorcycle.co.in",
-    "mipsprotection.com", "unece.org", "nhtsa.gov", "snell.org", "fim-moto.com", "smf.org",
-    "motul.com", "ngk.com", "ngkntk.com", "brembo.com",
-    "dunlop.eu", "michelin.com", "pirelli.com", "metzeler.com",
-    "didchain.com", "rkexcelamerica.com", "motionpro.com",
+    // Israeli health authorities & HMOs
+    "health.gov.il", "gov.il", "clalit.co.il", "maccabi4u.co.il", "leumit.co.il",
+    "meuhedet.co.il", "hadassah.org.il", "sheba.co.il", "rambam.org.il",
+    "tasmc.org.il", "telavivsourasky.org.il", "assuta.co.il",
+    // International health authorities
+    "who.int", "cdc.gov", "nih.gov", "nhs.uk", "fda.gov", "europa.eu",
+    "ema.europa.eu",
+    // Medical research databases
+    "pubmed.ncbi.nlm.nih.gov", "ncbi.nlm.nih.gov", "cochranelibrary.com",
+    "cochrane.org", "uptodate.com", "medscape.com",
+    // Top medical journals
+    "bmj.com", "nejm.org", "jamanetwork.com", "thelancet.com", "nature.com",
+    "sciencedirect.com", "springer.com", "wiley.com", "bjsm.bmj.com",
+    // Clinical guidelines
+    "nice.org.uk", "aaos.org", "apma.org", "iwgdfguidelines.org", "iwgdf.org",
+    "diabetes.org", "diabetes.org.uk", "idf.org",
+    // Renowned clinics & medical references
+    "mayoclinic.org", "clevelandclinic.org", "hopkinsmedicine.org",
+    "health.harvard.edu", "medlineplus.gov", "merckmanuals.com",
+    "msdmanuals.com", "kp.org",
+    // Sports medicine
+    "acsm.org", "sportsmedicineaustralia.com.au",
+    // General reference
     "en.wikipedia.org", "he.wikipedia.org",
-    "gov.il", "parks.org.il", "npa.org.il", "kkl.org.il",
-    "pubmed.ncbi.nlm.nih.gov", "nih.gov", "bmj.com", "nejm.org",
     "youtube.com", "youtu.be", "youtube-nocookie.com",
-    "cycleworld.com", "dirtrider.com", "revzilla.com", "motocrossactionmag.com",
-    "rockymountainatvmc.com", "fox-racing.com", "alpinestars.com", "leatt.com",
-    "thor-mx.com", "oneal.com",
   ]);
   const isSafeHost = (host: string) =>
     SAFE_EXTERNAL_HOSTS.has(host) ||
@@ -1103,7 +1113,7 @@ export async function repairArticleIssues(opts: {
         .map((s) => `- id="${s.id}" | ${s.heading}\n  ${(s.paragraphs?.join(" ") ?? "").slice(0, 300)}`)
         .join("\n");
 
-      const repairSystem = `אתה עורך תוכן בכיר באתר אופנועי שטח בעברית. אסור מקף ארוך, אסור ביטויי מילוי שיווקיים, אסור סימני AI. כתיבה ישירה, פרקטית, מגיעה לעניין במשפט הראשון. כל פסקה — עובדה אחת או פעולה אחת. אסור "בעולם של היום", "חשוב להבין ש", "כידוע לכולנו".`;
+      const repairSystem = `את עורכת תוכן בכירה באתר פודיאטריה רפואי בעברית. אסור מקף ארוך, אסור ביטויי מילוי שיווקיים, אסור סימני AI. כתיבה ישירה, חמה, מקצועית, מגיעה לעניין במשפט הראשון. כל פסקה - עובדה רפואית אחת או פעולה אחת. אסור "בעולם של היום", "חשוב להבין ש", "כידוע לכולנו". טון של פודיאטרית מנוסה שמסבירה למטופלת בקליניקה.`;
 
       const repairPrompt = `בעיות שזוהו במאמר:
 ${issueMessages.join("\n")}
@@ -1321,12 +1331,15 @@ export type FactCheckResult = {
 };
 
 const AUTHORITATIVE_SOURCES = [
-  "יצרני אופנועים רשמיים: ktm.com, husqvarna-motorcycles.com, betamotor.com, honda.co.il, powersports.honda.com, yamaha-motor.eu, sherco.com, gasgas.com, kawasaki.eu",
-  "תקני בטיחות: mipsprotection.com, unece.org (ECE 22.06), snell.org, fim-moto.com, smf.org",
-  "יצרני חלקים/שמנים: motul.com, ngk.com, brembo.com, dunlop.eu, michelin.com, pirelli.com, didchain.com, motionpro.com",
-  "רגולציה ישראלית: gov.il, parks.org.il, npa.org.il, kkl.org.il",
-  "ידע מוסמך: en.wikipedia.org, he.wikipedia.org",
-  "מחקר: pubmed.ncbi.nlm.nih.gov, nih.gov",
+  "רשויות בריאות ישראל: health.gov.il, clalit.co.il, maccabi4u.co.il, leumit.co.il, meuhedet.co.il, hadassah.org.il, sheba.co.il, rambam.org.il",
+  "רשויות בריאות בינלאומיות: who.int, cdc.gov, nih.gov, nhs.uk, fda.gov, ema.europa.eu",
+  "מאגרי מחקר רפואי: pubmed.ncbi.nlm.nih.gov, cochranelibrary.com, uptodate.com, medlineplus.gov",
+  "כתבי עת רפואיים מובילים: bmj.com, nejm.org, jamanetwork.com, thelancet.com, bjsm.bmj.com",
+  "קווים מנחים קליניים: nice.org.uk, aaos.org, apma.org (American Podiatric Medical Association), iwgdfguidelines.org (International Working Group on the Diabetic Foot), idf.org",
+  "מרפאות וייעוץ רפואי מוסמכים: mayoclinic.org, clevelandclinic.org, hopkinsmedicine.org, health.harvard.edu, merckmanuals.com",
+  "סוכרת: diabetes.org, diabetes.org.uk",
+  "רפואת ספורט: acsm.org, sportsmedicineaustralia.com.au",
+  "ידע כללי לאימות הצלבה: en.wikipedia.org, he.wikipedia.org",
 ];
 
 function collectArticleTexts(p: GeneratedArticlePayload): string[] {
@@ -1387,20 +1400,20 @@ export async function factCheckPublishedArticle(opts: {
   const texts = collectArticleTexts(p);
   const corpus = texts.join("\n").slice(0, 12000);
 
-  const system = `אתה בודק עובדות מקצועי לאתר אופנועי שטח בעברית. אתה מאמת כל הצהרה עובדתית רק מול מקורות סמכותיים. אם אתה לא בטוח במאה אחוז שמקור סמכותי תומך בהצהרה, אל תציע תיקון. אסור להמציא מקורות. אסור מקף ארוך. אם הטקסט המקורי נכון, אל תכלול אותו ברשימת התיקונים.`;
+  const system = `את בודקת עובדות מקצועית לאתר פודיאטריה רפואי בעברית. את מאמתת כל הצהרה רפואית, מספר, אחוז הצלחה, מינון, פרוטוקול ופרוטוקול טיפול רק מול מקורות רפואיים סמכותיים (משרד הבריאות, קופות חולים, Mayo Clinic, NHS, CDC, NIH, PubMed, Cochrane, NICE, APMA, IWGDF, BMJ, NEJM, JAMA, The Lancet). אם את לא בטוחה במאה אחוז שמקור רפואי סמכותי תומך בהצהרה - אל תציעי תיקון. אסור להמציא מחקרים, מקורות או סטטיסטיקות. אסור מקף ארוך. אם הטקסט המקורי נכון - אל תכללי אותו ברשימת התיקונים.`;
 
-  const prompt = `מקורות סמכותיים מותרים בלבד:
+  const prompt = `מקורות רפואיים סמכותיים מותרים בלבד:
 ${AUTHORITATIVE_SOURCES.map((s) => "- " + s).join("\n")}
 
 המאמר (בלוקים מופרדים בשורות):
 ${corpus}
 
 משימה:
-1. עבור על כל הצהרה עובדתית במאמר (מספרים, מפרטים טכניים, תאריכים, שמות דגמים, נהלים, חוקים, מחירים, מידות, מומנטי הידוק, פערי שסתומים, נפחי שמן, ערכי NGK, תקני ECE/Snell וכדומה).
-2. עבור כל הצהרה — בדוק אותה מול הידע שלך שמבוסס על המקורות הסמכותיים בלבד.
-3. אם מצאת שגיאה ויש לך מקור סמכותי שתומך בתיקון — הוסף ל-corrections. ה-"original" חייב להיות מחרוזת שמופיעה ממש בטקסט המקורי (העתק מדויק, כולל ניקוד). ה-"corrected" חייב להיות תיקון מדויק וקצר באותה שפה.
-4. אם אינך בטוח — אל תכלול. עדיף לפספס תיקון מאשר להזיק.
-5. ב-verifiedNotes ציין עד 5 עובדות מרכזיות שבדקת ונמצאו נכונות (לתיעוד בלבד).
+1. עברי על כל הצהרה רפואית במאמר (אבחנות, סימפטומים, גורמים, פרוטוקולי טיפול, אחוזי הצלחה, זמני החלמה, מינונים, התוויות נגד, סיכוני סיבוכים, מיון לפי IWGDF/NICE, וכדומה).
+2. עבור כל הצהרה - בדקי אותה מול הידע שלך שמבוסס על המקורות הרפואיים הסמכותיים בלבד.
+3. אם מצאת שגיאה ויש לך מקור רפואי סמכותי שתומך בתיקון - הוסיפי ל-corrections. ה-"original" חייב להיות מחרוזת שמופיעה ממש בטקסט המקורי (העתק מדויק). ה-"corrected" חייב להיות תיקון מדויק וקצר באותה שפה.
+4. אם אינך בטוחה - אל תכללי. בתחום רפואי עדיף לפספס תיקון מאשר להזיק.
+5. ב-verifiedNotes ציני עד 5 עובדות רפואיות מרכזיות שבדקת ונמצאו נכונות (לתיעוד בלבד).
 
 החזר JSON: { "corrections": [...], "verifiedNotes": [...] }`;
 
