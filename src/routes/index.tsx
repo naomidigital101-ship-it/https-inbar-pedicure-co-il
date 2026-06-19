@@ -409,8 +409,8 @@ function Home() {
           </div>
         </section>
 
-        {/* PULL QUOTE */}
-        <section dir="rtl" className="py-24" style={{ background: "var(--ink)", fontFamily: "var(--font-body)" }}>
+        {/* PULL QUOTE / CTA BAND */}
+        <section dir="rtl" className="py-24 md:py-[120px]" style={{ background: "var(--green-950)", fontFamily: "var(--font-body)" }}>
           <div className="mx-auto max-w-[1000px] px-6">
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
@@ -443,19 +443,20 @@ function Home() {
                 <blockquote
                   className="mt-3 text-2xl leading-snug md:text-[2rem]"
                   style={{
-                    fontFamily: "var(--font-body)",
-                    fontWeight: 500,
-                    letterSpacing: "-0.015em",
-                    color: "oklch(0.94 0.012 185)",
+                    fontFamily: "var(--font-serif)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.005em",
+                    lineHeight: 1.45,
+                    color: "#FAFAF8",
                   }}
                 >
                   אני לא מטפלת רק בסימפטום אלא במקור הבעיה. כל רגל מספרת סיפור אחר, והשליחות שלי היא להבין אותו ולהחזיר לך הליכה שקטה.
                 </blockquote>
                 <div className="mt-8 flex items-center gap-4">
-                  <span className="h-px w-10" style={{ background: "var(--primary)" }} />
+                  <span className="h-px w-10" style={{ background: "var(--green-300)" }} />
                   <p
-                    className="text-[11px] uppercase tracking-[0.25em]"
-                    style={{ color: "var(--primary)", fontWeight: 700 }}
+                    className="text-[12px] uppercase"
+                    style={{ color: "var(--green-300)", fontWeight: 500, letterSpacing: "0.24em" }}
                   >
                     ענבר פרחי · פדיקוריסטית טיפולית
                   </p>
