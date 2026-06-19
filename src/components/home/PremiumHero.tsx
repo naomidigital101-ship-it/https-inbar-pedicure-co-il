@@ -41,18 +41,21 @@ export function PremiumHero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Organic arc — top right (RTL: behind image side) */}
         <svg
-          className="absolute -top-24 -right-24 md:-top-32 md:-right-28"
-          width="520"
-          height="520"
-          viewBox="0 0 520 520"
+          className="absolute -top-40 -right-40 md:-top-56 md:-right-52"
+          width="900"
+          height="900"
+          viewBox="0 0 900 900"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden
+          preserveAspectRatio="xMaxYMin meet"
         >
           <path
-            d="M520 0 A520 520 0 0 0 0 520 L120 520 A400 400 0 0 1 520 120 Z"
-            fill="#8DC2B3"
-            fillOpacity="0.85"
+            d="M900 0 A900 900 0 0 0 0 900"
+            stroke="#8DC2B3"
+            strokeOpacity="0.9"
+            strokeWidth="44"
+            fill="none"
           />
         </svg>
         {/* Halftone dots — bottom left */}
