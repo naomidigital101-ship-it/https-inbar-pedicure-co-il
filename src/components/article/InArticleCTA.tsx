@@ -1,22 +1,39 @@
+import { BrandEyebrow } from "@/components/brand/BrandPrimitives";
+
 export function InArticleCTA() {
   return (
-    <aside className="my-12 border border-[#b8dcd4] bg-[#fdfbf7] p-8 md:p-10">
-      <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-        [ MOD: PRO // GARAGE ]
-      </div>
-      <h3 className="mb-3 text-2xl font-black leading-tight text-[#1d3a35] md:text-3xl">
-        קבל את ארגז הכלים הדיגיטלי - בחינם
+    <aside
+      className="my-12 p-8 md:p-10"
+      style={{
+        background: "var(--green-50)",
+        border: "1px solid var(--green-100)",
+        borderRadius: 20,
+      }}
+    >
+      <BrandEyebrow>שווה לדעת</BrandEyebrow>
+      <h3
+        className="mt-3 mb-3"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 300,
+          fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)",
+          color: "var(--green-700)",
+          letterSpacing: "-0.02em",
+          lineHeight: 1.15,
+        }}
+      >
+        תיאום תור בקליניקה — חזרה תוך 24 שעות
       </h3>
-      <p className="mb-6 max-w-2xl text-sm font-bold leading-relaxed text-[#5a4f48] md:text-base">
-        רשימת תחזוקה שבועית, טבלת ספציפיקציות לכל דגם, ולוח זמנים לתחזוקה מונעת.
-        הכל בעברית, הכל מהשטח.
+      <p className="mb-6 max-w-2xl" style={{ color: "var(--ink-600)", fontSize: 15, lineHeight: 1.7 }}>
+        אבחון מדויק של הבעיה, תוכנית טיפול אישית ופרוטוקול חזרה ביתי. סטריליות מלאה, כלים חד-פעמיים וליווי בוואטסאפ עד החלמה.
       </p>
       <a
         href="#lead-magnet"
-        className="inline-flex items-center gap-3 bg-[#5fa898] px-6 py-3 text-sm font-black uppercase tracking-wider text-[#fdfbf7] transition-colors hover:bg-[#ff3a00]"
+        className="inline-flex h-12 items-center gap-2 px-7"
+        style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
       >
-        הורד עכשיו
-        <span aria-hidden="true">←</span>
+        קביעת תור
+        <span aria-hidden>←</span>
       </a>
     </aside>
   );

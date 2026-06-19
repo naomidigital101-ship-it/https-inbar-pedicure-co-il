@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { Article } from "@/lib/articles";
+import { BrandEyebrow } from "@/components/brand/BrandPrimitives";
 
 export function RelatedArticles({ articles }: { articles: Article[] }) {
   if (articles.length === 0) return null;
@@ -7,54 +8,73 @@ export function RelatedArticles({ articles }: { articles: Article[] }) {
   return (
     <section
       aria-labelledby="related-heading"
-      className="border-t border-[#b8dcd4] bg-[#fdfbf7]"
+      style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}
     >
-      <div className="mx-auto max-w-[1400px] px-4 py-16 md:px-8">
-        <div className="mb-10 flex items-center gap-3">
-          <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-            [ MOD: NEXT // READ ]
-          </span>
-          <span aria-hidden="true" className="h-px flex-1 bg-[#b8dcd4]" />
+      <div className="mx-auto max-w-[1320px] px-6 py-16 md:px-10 md:py-20">
+        <div className="mb-8 flex items-center gap-3">
+          <BrandEyebrow>READ NEXT</BrandEyebrow>
+          <span aria-hidden className="h-px flex-1" style={{ background: "var(--stone-100)" }} />
         </div>
         <h2
           id="related-heading"
-          className="mb-10 text-3xl font-black text-[#1d3a35] md:text-4xl"
+          className="mb-10"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 300,
+            fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)",
+            letterSpacing: "-0.02em",
+            color: "var(--ink-900)",
+            lineHeight: 1.1,
+          }}
         >
           מאמרים נוספים שיעניינו אותך
         </h2>
 
-        <div className="grid grid-cols-1 gap-px bg-[#b8dcd4] md:grid-cols-3">
+        <div
+          className="grid grid-cols-1 gap-px overflow-hidden md:grid-cols-3"
+          style={{ background: "var(--stone-100)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+        >
           {articles.map((a) => (
             <Link
               key={a.slug}
               to="/article/$slug"
               params={{ slug: a.slug }}
-              className="group flex flex-col bg-[#fdfbf7] transition-colors hover:bg-[#e9f4f1] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5fa898]"
+              className="group flex flex-col transition-colors"
+              style={{ background: "var(--paper)" }}
               aria-label={a.title}
             >
-              <div className="aspect-video overflow-hidden border-b border-[#b8dcd4]">
+              <div className="aspect-video overflow-hidden" style={{ borderBottom: "1px solid var(--stone-100)" }}>
                 <img
                   src={a.heroImage}
                   alt={a.heroAlt}
                   loading="lazy"
-                  className="block h-full w-full object-cover brightness-75 transition-transform duration-500 group-hover:scale-105"
+                  className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-                  {a.category}
-                </div>
-                <h3 className="mb-3 text-xl font-black leading-tight text-[#1d3a35] transition-colors group-hover:text-[#5fa898]">
+                <BrandEyebrow style={{ fontSize: 11 }}>{a.category}</BrandEyebrow>
+                <h3
+                  className="mt-3 mb-3"
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 300,
+                    fontSize: "1.2rem",
+                    color: "var(--ink-900)",
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.25,
+                  }}
+                >
                   {a.title}
                 </h3>
-                <p className="mb-4 flex-1 text-sm font-bold leading-relaxed text-[#6b5f55]">
+                <p className="mb-4 flex-1" style={{ color: "var(--ink-600)", fontSize: 14, lineHeight: 1.65 }}>
                   {a.excerpt}
                 </p>
-                <div className="flex items-center justify-between border-t border-[#b8dcd4] pt-4 text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
+                <div
+                  className="flex items-center justify-between pt-4"
+                  style={{ borderTop: "1px solid var(--stone-100)", fontSize: 11, color: "var(--ink-600)", letterSpacing: "0.06em" }}
+                >
                   <span>{a.readingTime}</span>
-                  <span aria-hidden="true" className="text-[#5fa898]">
-                    ←
-                  </span>
+                  <span aria-hidden style={{ color: "var(--green-700)" }}>←</span>
                 </div>
               </div>
             </Link>

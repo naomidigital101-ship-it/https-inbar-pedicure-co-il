@@ -18,12 +18,15 @@ export function Pagination({
   const pageHref = (p: number) =>
     p === 1 ? undefined : { page: p };
 
+  const navStyle = { background: "var(--paper)", border: "1px solid var(--stone-100)", color: "var(--ink-900)", borderRadius: 999 } as const;
+  const navDisabled = { background: "var(--paper)", border: "1px solid var(--stone-100)", color: "var(--stone-300)", borderRadius: 999 } as const;
   return (
     <nav
       aria-label="ניווט עמודים"
-      className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[#b8dcd4] pt-8"
+      className="mt-12 flex flex-wrap items-center justify-between gap-4 pt-8"
+      style={{ borderTop: "1px solid var(--stone-100)" }}
     >
-      <div className="text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
+      <div style={{ fontSize: 11, color: "var(--ink-600)", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600 }}>
         עמוד {currentPage} מתוך {totalPages}
       </div>
 
@@ -34,18 +37,20 @@ export function Pagination({
               to="/category/$slug"
               params={{ slug: categorySlug }}
               search={pageHref(prev)}
-              className="inline-flex items-center gap-2 border border-[#b8dcd4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#1d3a35] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
+              className="inline-flex items-center gap-2 px-4 py-2"
+              style={{ ...navStyle, fontSize: 12, fontWeight: 600 }}
               aria-label="עמוד קודם"
             >
-              <span aria-hidden="true">→</span>
+              <span aria-hidden>→</span>
               הקודם
             </Link>
           ) : (
             <span
-              aria-disabled="true"
-              className="inline-flex cursor-not-allowed items-center gap-2 border border-[#ede2d4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#c9b8a3]"
+              aria-disabled
+              className="inline-flex cursor-not-allowed items-center gap-2 px-4 py-2"
+              style={{ ...navDisabled, fontSize: 12, fontWeight: 600 }}
             >
-              <span aria-hidden="true">→</span>
+              <span aria-hidden>→</span>
               הקודם
             </span>
           )}
@@ -58,7 +63,8 @@ export function Pagination({
               {isActive ? (
                 <span
                   aria-current="page"
-                  className="inline-flex h-10 w-10 items-center justify-center bg-[#5fa898] text-sm font-black text-[#fdfbf7]"
+                  className="inline-flex h-10 w-10 items-center justify-center"
+                  style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 14 }}
                 >
                   {p}
                 </span>
@@ -67,7 +73,8 @@ export function Pagination({
                   to="/category/$slug"
                   params={{ slug: categorySlug }}
                   search={pageHref(p)}
-                  className="inline-flex h-10 w-10 items-center justify-center border border-[#b8dcd4] bg-[#fdfbf7] text-sm font-black text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
+                  className="inline-flex h-10 w-10 items-center justify-center"
+                  style={{ ...navStyle, fontSize: 14, fontWeight: 600 }}
                   aria-label={`עמוד ${p}`}
                 >
                   {p}
@@ -83,19 +90,21 @@ export function Pagination({
               to="/category/$slug"
               params={{ slug: categorySlug }}
               search={pageHref(next)}
-              className="inline-flex items-center gap-2 border border-[#b8dcd4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#1d3a35] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
+              className="inline-flex items-center gap-2 px-4 py-2"
+              style={{ ...navStyle, fontSize: 12, fontWeight: 600 }}
               aria-label="עמוד הבא"
             >
               הבא
-              <span aria-hidden="true">←</span>
+              <span aria-hidden>←</span>
             </Link>
           ) : (
             <span
-              aria-disabled="true"
-              className="inline-flex cursor-not-allowed items-center gap-2 border border-[#ede2d4] bg-[#fdfbf7] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#c9b8a3]"
+              aria-disabled
+              className="inline-flex cursor-not-allowed items-center gap-2 px-4 py-2"
+              style={{ ...navDisabled, fontSize: 12, fontWeight: 600 }}
             >
               הבא
-              <span aria-hidden="true">←</span>
+              <span aria-hidden>←</span>
             </span>
           )}
         </li>

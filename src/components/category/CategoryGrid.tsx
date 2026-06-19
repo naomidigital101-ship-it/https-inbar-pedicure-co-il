@@ -1,66 +1,84 @@
 import { Link } from "@tanstack/react-router";
 import type { ArticleCard } from "@/lib/article-cards";
+import { BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
 
 export function CategoryGrid({ articles }: { articles: ArticleCard[] }) {
   if (articles.length === 0) {
     return (
-      <div className="border border-[#b8dcd4] bg-[#fdfbf7] p-12 text-center">
-        <p className="text-base font-bold text-[#5a4f48]">
-          עדיין אין מאמרים בקטגוריה הזו. בקרוב.
-        </p>
+      <div
+        className="p-12 text-center"
+        style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+      >
+        <p style={{ color: "var(--ink-600)", fontSize: 15 }}>עדיין אין מאמרים בקטגוריה הזו. בקרוב.</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-px bg-[#b8dcd4] sm:grid-cols-2 lg:grid-cols-3">
+    <div
+      className="grid grid-cols-1 gap-px overflow-hidden sm:grid-cols-2 lg:grid-cols-3"
+      style={{ background: "var(--stone-100)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+    >
       {articles.map((a, idx) => (
         <Link
           key={a.slug}
           to="/article/$slug"
           params={{ slug: a.slug }}
           aria-label={a.title}
-          className="group flex flex-col bg-[#fdfbf7] transition-colors hover:bg-[#e9f4f1] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5fa898]"
+          className="group flex flex-col transition-colors"
+          style={{ background: "var(--paper)" }}
         >
-          <div className="relative aspect-video overflow-hidden border-b border-[#b8dcd4]">
-            <div className="absolute left-4 top-4 z-10 text-[10px] font-bold tracking-tighter text-[#6b5f55]">
-              [ MOD: {String(idx + 1).padStart(2, "0")} ]
-            </div>
+          <div className="relative aspect-video overflow-hidden" style={{ borderBottom: "1px solid var(--stone-100)" }}>
+            <SerifNumber
+              className="absolute left-4 top-4 z-10"
+              style={{ fontSize: "1.4rem", color: "var(--paper)", textShadow: "0 1px 2px rgba(0,0,0,.4)" }}
+            >
+              {String(idx + 1).padStart(2, "0")}
+            </SerifNumber>
             <img
               src={a.heroImage}
               alt={a.heroAlt}
               loading="lazy"
-              className="block h-full w-full object-cover brightness-75 transition-transform duration-500 group-hover:scale-105"
+              className="block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
 
           <div className="flex flex-1 flex-col p-6">
             <div className="mb-3 flex items-center gap-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-                {a.category}
-              </span>
-              <span aria-hidden="true" className="h-px w-8 bg-[#b8dcd4]" />
+              <BrandEyebrow style={{ fontSize: 11 }}>{a.category}</BrandEyebrow>
+              <span aria-hidden className="h-px w-8" style={{ background: "var(--green-400)" }} />
               <time
                 dateTime={a.date}
-                className="text-[10px] font-bold uppercase text-[#6b5f55]"
+                style={{ fontSize: 11, color: "var(--ink-600)", letterSpacing: "0.06em" }}
               >
                 {a.dateLabel}
               </time>
             </div>
 
-            <h2 className="mb-3 text-xl font-black leading-tight text-[#1d3a35] transition-colors group-hover:text-[#5fa898]">
+            <h2
+              className="mb-3 transition-colors"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "1.25rem",
+                color: "var(--ink-900)",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.25,
+              }}
+            >
               {a.title}
             </h2>
 
-            <p className="mb-5 flex-1 text-sm font-bold leading-relaxed text-[#6b5f55]">
+            <p className="mb-5 flex-1" style={{ color: "var(--ink-600)", fontSize: 14, lineHeight: 1.65 }}>
               {a.excerpt}
             </p>
 
-            <div className="flex items-center justify-between border-t border-[#b8dcd4] pt-4 text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
+            <div
+              className="flex items-center justify-between pt-4"
+              style={{ borderTop: "1px solid var(--stone-100)", fontSize: 11, color: "var(--ink-600)", letterSpacing: "0.06em" }}
+            >
               <span>{a.readingTime}</span>
-              <span aria-hidden="true" className="text-xl text-[#5fa898]">
-                ←
-              </span>
+              <span aria-hidden style={{ color: "var(--green-700)", fontSize: 18 }}>←</span>
             </div>
           </div>
         </Link>
