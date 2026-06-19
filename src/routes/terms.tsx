@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
+import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 
 const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/terms`;
@@ -81,24 +82,49 @@ function TermsPage() {
       <SiteHeader />
       <main id="main-content" className="flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "תנאי שימוש" }]} />
-        <article className="border-b border-[#b8dcd4] bg-[#fdfbf7]">
-          <div className="mx-auto max-w-[760px] px-4 py-14 md:px-8 md:py-20">
-            <div className="mb-8 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-                מסמכים משפטיים
-              </span>
-              <span aria-hidden="true" className="h-px w-12 bg-[#b8dcd4]" />
+        <article
+          className="relative overflow-hidden"
+          style={{ background: "var(--paper)" }}
+        >
+          <BrandHeroBackdrop label="LEGAL · 00" showHalftone={false} />
+          <div className="relative mx-auto max-w-[820px] px-6 py-14 md:px-10 md:py-20">
+            <div className="mb-6 flex items-center gap-3">
+              <BrandEyebrow>מסמכים משפטיים</BrandEyebrow>
+              <span aria-hidden className="h-px w-12" style={{ background: "var(--green-400)" }} />
             </div>
-            <h1 className="mb-6 text-4xl font-black leading-tight text-[#1d3a35] md:text-5xl">
+            <h1
+              className="mb-6"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "clamp(2.2rem, 4.5vw, 3.4rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                color: "var(--green-700)",
+              }}
+            >
               תנאי שימוש
             </h1>
-            <p className="mb-10 text-sm text-[#888]">עודכן לאחרונה: מאי 2026</p>
-            <div className="space-y-10 text-base leading-loose text-[#2d4a44]">
+            <p className="mb-10" style={{ color: "var(--ink-600)", fontSize: 13 }}>
+              עודכן לאחרונה: מאי 2026
+            </p>
+            <div className="space-y-10" style={{ color: "var(--ink-900)", fontSize: "1rem", lineHeight: 1.85 }}>
               {sections.map((s) => (
                 <section key={s.title}>
-                  <h2 className="mb-4 text-xl font-bold text-[#1d3a35]">{s.title}</h2>
+                  <h2
+                    className="mb-4"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 600,
+                      fontSize: "1.25rem",
+                      color: "var(--ink-900)",
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {s.title}
+                  </h2>
                   {s.body.map((p, i) => (
-                    <p key={i} className="mb-3">
+                    <p key={i} className="mb-3" style={{ color: "var(--ink-600)" }}>
                       {p}
                     </p>
                   ))}

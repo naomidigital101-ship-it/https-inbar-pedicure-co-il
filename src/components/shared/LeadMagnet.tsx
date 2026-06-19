@@ -75,13 +75,30 @@ export function LeadMagnet() {
   return (
     <section
       id="lead-magnet"
-      className="flex flex-col items-start justify-between gap-8 border-t border-[#fdfbf7] bg-[#5fa898] p-8 md:flex-row md:items-center md:p-12"
+      className="flex flex-col items-start justify-between gap-8 p-8 md:flex-row md:items-center md:p-12"
+      style={{ background: "var(--green-700)", color: "var(--paper)" }}
     >
       <div>
-        <h2 className="mb-2 text-3xl font-black leading-tight text-white md:text-5xl">
+        <span
+          className="block mb-3"
+          style={{ fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--green-200)", fontWeight: 600 }}
+        >
+          הצ׳קליסט החינמי
+        </span>
+        <h2
+          className="mb-2"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 300,
+            fontSize: "clamp(1.8rem, 4vw, 3rem)",
+            color: "var(--paper)",
+            letterSpacing: "-0.02em",
+            lineHeight: 1.1,
+          }}
+        >
           47 בדיקות לפני יציאה לשטח
         </h2>
-        <p className="text-base font-bold text-white/80 md:text-lg">
+        <p style={{ color: "color-mix(in oklab, var(--paper) 80%, transparent)", fontSize: 15.5, lineHeight: 1.65 }}>
           הצ׳קליסט שכל מכונאי שומר לעצמו. חינם במייל.
         </p>
       </div>
@@ -92,7 +109,7 @@ export function LeadMagnet() {
         aria-label="הרשמה לקבלת הצ׳קליסט"
         noValidate
       >
-        <div className="flex w-full">
+        <div className="flex w-full overflow-hidden" style={{ borderRadius: 999 }}>
           <input
             type="email"
             required
@@ -108,21 +125,23 @@ export function LeadMagnet() {
             aria-invalid={errorMsg ? true : undefined}
             aria-describedby={errorMsg ? "lead-magnet-error" : undefined}
             maxLength={255}
-            className="w-full border-2 border-transparent bg-[#fdfbf7] px-6 py-4 font-bold text-white placeholder:text-[#6b5f55] focus:outline-none focus-visible:border-white focus-visible:ring-2 focus-visible:ring-white disabled:opacity-60 md:w-80"
+            className="w-full px-6 py-4 focus:outline-none disabled:opacity-60 md:w-80"
+            style={{ background: "var(--paper)", color: "var(--ink-900)", fontSize: 15 }}
           />
           <button
             type="submit"
             disabled={isLoading}
-            className="whitespace-nowrap bg-white px-8 py-4 font-black uppercase text-[#5fa898] transition-colors hover:bg-[#1d3a35] disabled:cursor-not-allowed disabled:opacity-60"
+            className="whitespace-nowrap px-8 py-4 disabled:cursor-not-allowed disabled:opacity-60"
+            style={{ background: "var(--ink-900)", color: "var(--paper)", fontWeight: 700, fontSize: 14 }}
           >
-            {isLoading ? "שולח..." : "קבל צ׳קליסט"}
+            {isLoading ? "שולח..." : "קבלת הצ׳קליסט"}
           </button>
         </div>
         {errorMsg && (
           <p
             id="lead-magnet-error"
             role="alert"
-            className="text-xs font-bold text-white"
+            style={{ fontSize: 12, color: "var(--paper)", fontWeight: 600 }}
           >
             {errorMsg}
           </p>

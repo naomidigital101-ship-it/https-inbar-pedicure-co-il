@@ -30,9 +30,23 @@ export function TableOfContents({ sections }: { sections: ArticleSection[] }) {
   return (
     <nav
       aria-label="תוכן עניינים"
-      className="sticky top-8 border border-[#b8dcd4] bg-[#fdfbf7] p-6"
+      className="sticky top-8 p-6"
+      style={{
+        background: "var(--paper)",
+        border: "1px solid var(--stone-100)",
+        borderRadius: 16,
+      }}
     >
-      <h2 className="mb-4 text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
+      <h2
+        className="mb-4"
+        style={{
+          fontSize: 11,
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          color: "var(--green-700)",
+          fontWeight: 600,
+        }}
+      >
         תוכן עניינים
       </h2>
       <ol className="space-y-3">
@@ -42,16 +56,22 @@ export function TableOfContents({ sections }: { sections: ArticleSection[] }) {
             <li key={s.id}>
               <a
                 href={`#${s.id}`}
-                className={`flex items-start gap-3 border-r-2 pr-3 text-sm font-bold leading-snug transition-colors ${
-                  isActive
-                    ? "border-[#5fa898] text-[#1d3a35]"
-                    : "border-transparent text-[#6b5f55] hover:text-[#1d3a35]"
-                }`}
+                className="flex items-start gap-3 pr-3 transition-colors"
+                style={{
+                  borderInlineEnd: `2px solid ${isActive ? "var(--green-600)" : "transparent"}`,
+                  color: isActive ? "var(--ink-900)" : "var(--ink-600)",
+                  fontSize: 14,
+                  fontWeight: isActive ? 600 : 400,
+                  lineHeight: 1.4,
+                }}
               >
                 <span
-                  className={`text-[10px] font-black ${
-                    isActive ? "text-[#5fa898]" : "text-[#6b5f55]"
-                  }`}
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontWeight: 700,
+                    fontSize: 12,
+                    color: isActive ? "var(--green-700)" : "var(--ink-600)",
+                  }}
                 >
                   {String(idx + 1).padStart(2, "0")}
                 </span>
