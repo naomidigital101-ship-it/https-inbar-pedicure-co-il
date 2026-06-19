@@ -37,68 +37,61 @@ export function PremiumHero() {
       aria-labelledby="hero-heading"
       style={{ background: "#F7F5F2" }}
     >
-      {/* Clinical line background — vertical hairlines + arc */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 1440 900"
-      >
-        <defs>
-          <linearGradient id="heroFade" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" stopColor="#2F6657" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#2F6657" stopOpacity="0.18" />
-            <stop offset="1" stopColor="#2F6657" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {/* fine vertical grid */}
-        {Array.from({ length: 36 }).map((_, i) => (
-          <line
-            key={i}
-            x1={i * 40}
-            x2={i * 40}
-            y1="0"
-            y2="900"
-            stroke="#2F6657"
-            strokeOpacity={i % 6 === 0 ? 0.09 : 0.045}
-            strokeWidth="1"
-          />
-        ))}
-        {/* horizontal hairline */}
-        <line x1="0" y1="720" x2="1440" y2="720" stroke="url(#heroFade)" strokeWidth="1" />
-        {/* large arc on the right */}
-        <circle cx="1180" cy="450" r="520" fill="none" stroke="#2F6657" strokeOpacity="0.16" strokeWidth="1" />
-        <circle cx="1180" cy="450" r="380" fill="none" stroke="#2F6657" strokeOpacity="0.1" strokeWidth="1" />
-        {/* tick markers */}
-        <g fill="#2F6657" fillOpacity="0.35">
-          <circle cx="120" cy="180" r="2.5" />
-          <circle cx="120" cy="720" r="2.5" />
-          <circle cx="1320" cy="180" r="2.5" />
-        </g>
-      </svg>
+      {/* Geometric Elegance — thick vertical stripes */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute inset-y-0 left-0 right-0 flex justify-between px-[8%]">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span
+              key={i}
+              className="block h-full"
+              style={{ width: 2, background: "rgba(47,102,87,0.08)" }}
+            />
+          ))}
+        </div>
+        {/* soft accent block behind image side (left in RTL viewport) */}
+        <div
+          className="absolute top-[12%] bottom-[18%] left-0 w-[42%] hidden md:block"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(47,102,87,0.06) 0%, rgba(47,102,87,0.02) 60%, transparent 100%)",
+          }}
+        />
+      </div>
       <div className="relative">
-      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-10 pb-0 md:pt-24 md:pb-0">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12 md:items-end">
+      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-8 pb-6 md:pt-16 md:pb-10">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-10 md:items-center">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
-          <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-6 md:pb-24">
+          <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-7">
+            <span
+              className="inline-block mb-4 text-[12px] tracking-[0.18em]"
+              style={{ color: "var(--green-700, #234C42)", fontWeight: 600 }}
+            >
+              קליניקה מוסמכת · בית אל
+            </span>
             <h1
               id="hero-heading"
               className="display"
               style={{
-                fontWeight: 300,
-                fontSize: "clamp(2.8rem, 6vw, 4.4rem)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.025em",
-                color: "var(--ink-900)",
+                fontWeight: 800,
+                fontSize: "clamp(2.6rem, 6.4vw, 4.8rem)",
+                lineHeight: 1.0,
+                letterSpacing: "-0.03em",
+                color: "var(--green-700, #234C42)",
               }}
             >
               ענבר פרחי
             </h1>
 
             <p
-              className="mt-6 max-w-[54ch] md:mt-8"
+              className="mt-5 max-w-[54ch] md:mt-6"
               data-speakable
-              style={{ fontSize: "clamp(1rem, 2.5vw, 1.125rem)", lineHeight: 1.7, color: "var(--ink-600)" }}
+              style={{
+                fontSize: "clamp(1rem, 2.4vw, 1.125rem)",
+                lineHeight: 1.7,
+                color: "var(--ink-600)",
+                fontWeight: 500,
+                opacity: 0.9,
+              }}
             >
               <span className="md:hidden">
                 קליניקה שקטה ומדויקת בבית אל. 12 שנות ניסיון בטיפול קליני בכף הרגל.
@@ -108,7 +101,7 @@ export function PremiumHero() {
               </span>
             </p>
 
-            <ul className="mt-7 grid gap-x-6 gap-y-3 sm:grid-cols-2 md:mt-9 md:gap-y-3.5" aria-label="תחומי התמחות">
+            <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 md:mt-7 md:gap-y-3" aria-label="תחומי התמחות">
               {SPECIALTIES.map(({ icon: Icon, label }, idx) => (
                 <li
                   key={label}
@@ -129,37 +122,37 @@ export function PremiumHero() {
             </ul>
 
             {/* CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10">
+            <div className="mt-7 flex flex-wrap items-center gap-3 md:mt-8">
               <a
                 href={HERO_WA_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="פתחו שיחת ווצאפ עם ענבר"
-                className="inline-flex h-12 items-center gap-2.5 px-7 text-[15px] font-medium transition-colors"
+                className="inline-flex h-12 items-center gap-2.5 px-7 text-[15px] transition-colors"
                 style={{
                   background: "var(--green-600)",
                   color: "var(--paper)",
                   borderRadius: 999,
                   letterSpacing: "0.02em",
+                  fontWeight: 700,
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--green-700, #2F6657)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "var(--green-600)")}
               >
                 <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
-                תיאום ייעוץ בוואטסאפ
+                תיאום תור בוואטסאפ
               </a>
               <a
                 href={SITE.telUrl}
                 aria-label={`התקשרו לקליניקה ${SITE.phoneDisplay}`}
-                className="inline-flex h-12 items-center gap-2.5 px-6 text-[15px] font-medium transition-colors"
+                className="inline-flex h-12 items-center gap-2.5 px-6 text-[15px] transition-colors"
                 style={{
                   background: "transparent",
-                  color: "var(--ink-900)",
-                  border: "1px solid var(--stone-200, #E7E5E0)",
+                  color: "var(--green-700, #234C42)",
+                  border: "1.5px solid var(--green-600, #2F6657)",
                   borderRadius: 999,
+                  fontWeight: 600,
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--green-600)")}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--stone-200, #E7E5E0)")}
               >
                 <Phone className="h-[16px] w-[16px]" strokeWidth={1.5} />
                 <span dir="ltr">{SITE.phoneDisplay}</span>
@@ -168,19 +161,20 @@ export function PremiumHero() {
 
             {/* Trust strip */}
             <dl
-              className="mt-10 grid grid-cols-3 gap-px md:mt-12"
+              className="mt-8 grid grid-cols-3 gap-px md:mt-10"
               style={{ background: "rgba(47, 102, 87, 0.18)" }}
               aria-label="נתוני הקליניקה"
             >
               {TRUST_STATS.map((s) => (
                 <div
                   key={s.label}
-                  className="flex flex-col gap-1 px-4 py-5"
+                  className="flex flex-col gap-1 px-4 py-4 md:py-5"
                   style={{ background: "#F7F5F2" }}
                 >
                   <dt
                     style={{
                       fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
+                      fontWeight: 700,
                       fontSize: "1.7rem",
                       lineHeight: 1,
                       color: "var(--ink-900)",
@@ -195,6 +189,7 @@ export function PremiumHero() {
                       letterSpacing: "0.06em",
                       color: "var(--ink-600)",
                       lineHeight: 1.5,
+                      fontWeight: 500,
                     }}
                   >
                     {s.label}
@@ -208,10 +203,22 @@ export function PremiumHero() {
           <motion.aside
             {...fadeProps}
             transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
-            className="order-1 md:order-1 md:col-span-6 md:self-end"
+            className="order-1 md:order-1 md:col-span-5 md:self-end relative"
             aria-label="דיוקן ענבר פרחי"
           >
-            <figure className="relative mx-auto" style={{ margin: 0, maxWidth: "440px" }}>
+            {/* decorative corner accent — desktop only */}
+            <span
+              aria-hidden
+              className="hidden md:block absolute -top-3 -right-3 z-0"
+              style={{
+                width: 72,
+                height: 72,
+                background: "var(--green-600, #2F6657)",
+                opacity: 0.12,
+                borderRadius: 2,
+              }}
+            />
+            <figure className="relative mx-auto" style={{ margin: 0, maxWidth: "420px" }}>
               {/* soft clinical halo behind subject */}
               <div
                 aria-hidden
@@ -231,10 +238,11 @@ export function PremiumHero() {
                 className="relative mx-auto"
                 style={{
                   display: "block",
-                  width: "100%",
+                  width: "78%",
                   height: "auto",
                   objectFit: "contain",
                   objectPosition: "center bottom",
+                  maxWidth: "420px",
                 }}
               />
             </figure>
@@ -242,45 +250,27 @@ export function PremiumHero() {
         </div>
       </div>
 
-      {/* Baseline rail — image and text both sit on this hairline */}
-      <div className="relative">
+      {/* Progress baseline rail */}
+      <div className="relative mx-auto max-w-[1320px] px-6 md:px-10">
         <div
           aria-hidden
-          className="mx-auto max-w-[1320px] px-6 md:px-10"
+          style={{
+            height: 2,
+            background: "rgba(47,102,87,0.14)",
+            position: "relative",
+            overflow: "hidden",
+          }}
         >
-          <div
+          <span
             style={{
-              height: 1,
-              background:
-                "linear-gradient(90deg, transparent 0%, rgba(47,102,87,0.35) 12%, rgba(47,102,87,0.35) 88%, transparent 100%)",
+              position: "absolute",
+              inset: 0,
+              width: "33%",
+              background: "var(--green-600, #2F6657)",
+              opacity: 0.85,
             }}
           />
         </div>
-        {/* tiny end caps to make the rail feel intentional */}
-        <span
-          aria-hidden
-          className="absolute right-6 md:right-10"
-          style={{
-            top: -3,
-            width: 6,
-            height: 6,
-            borderRadius: 999,
-            background: "var(--green-600, #2F6657)",
-            opacity: 0.6,
-          }}
-        />
-        <span
-          aria-hidden
-          className="absolute left-6 md:left-10"
-          style={{
-            top: -3,
-            width: 6,
-            height: 6,
-            borderRadius: 999,
-            background: "var(--green-600, #2F6657)",
-            opacity: 0.6,
-          }}
-        />
       </div>
       </div>
     </section>
