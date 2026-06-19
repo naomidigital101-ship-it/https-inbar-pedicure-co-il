@@ -51,24 +51,8 @@ export function PremiumHero() {
       style={{ background: "var(--paper, #FAFAF8)" }}
     >
       <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-10 pb-16 md:pt-20 md:pb-[120px]">
-        <div className="mb-10 flex items-center gap-4 md:mb-14">
-          <span
-            className="text-[12px] font-medium uppercase"
-            style={{ letterSpacing: "0.32em", color: "var(--green-500)" }}
-          >
-            Inbar — מומחית בטיפול בכף הרגל
-          </span>
-          <span aria-hidden className="h-px flex-1" style={{ background: "var(--stone-100)" }} />
-          <span
-            className="hidden md:inline serif-accent text-[14px]"
-            style={{ color: "var(--ink-600)" }}
-          >
-            01 — קליניקה בבית אל
-          </span>
-        </div>
-
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-start">
-          <motion.div {...fadeProps} className="md:col-span-7">
+          <motion.div {...fadeProps} className="md:col-span-7 md:order-2">
             <h1
               id="hero-heading"
               className="display"
