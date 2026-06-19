@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles, MessageCircle, Phone } from "lucide-react";
 import { SITE } from "@/lib/site-config";
 import inbarPortrait from "@/assets/inbar-portrait-cutout.png";
 
@@ -12,28 +11,16 @@ const SPECIALTIES = [
   { icon: ShieldCheck, label: "סטריליות מלאה, כלים חד-פעמיים" },
 ] as const;
 
-function buildWhatsAppHref(name: string, phone: string, message: string): string {
-  const lines = [
-    "שלום ענבר, הגעתי דרך האתר.",
-    name && `שם: ${name}`,
-    phone && `טלפון: ${phone}`,
-    message && `הודעה: ${message}`,
-  ].filter(Boolean);
-  const text = encodeURIComponent(lines.join("\n"));
-  return `${SITE.whatsappUrl}?text=${text}`;
-}
+const TRUST_STATS = [
+  { value: "12", label: "שנות ניסיון קליני" },
+  { value: "IWGDF", label: "פרוטוקול בינלאומי" },
+  { value: "1:1", label: "טיפול אישי בלבד" },
+] as const;
+
+const HERO_WA_HREF = `${SITE.whatsappUrl}?text=${encodeURIComponent("שלום ענבר, הגעתי דרך האתר ואשמח לתאם ייעוץ.")}`;
 
 export function PremiumHero() {
   const reduced = useReducedMotion() ?? false;
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const href = buildWhatsAppHref(name.trim(), phone.trim(), message.trim());
-    window.open(href, "_blank", "noopener,noreferrer");
-  };
 
   const fadeProps = reduced
     ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
@@ -50,52 +37,70 @@ export function PremiumHero() {
       aria-labelledby="hero-heading"
       style={{ background: "var(--paper, #FAFAF8)" }}
     >
-      <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-10 pb-16 md:pt-20 md:pb-[120px]">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-start">
+      <div className="mx-auto max-w-[1240px] px-6 md:px-10 pt-12 pb-20 md:pt-24 md:pb-[128px]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-center">
+          {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
           <motion.div {...fadeProps} className="md:col-span-7 md:order-2">
+            <div className="flex items-center gap-3" aria-hidden>
+              <span style={{ width: 28, height: 1, background: "var(--green-600)" }} />
+              <span
+                style={{
+                  fontFamily: "var(--font-display, 'Heebo', sans-serif)",
+                  fontWeight: 500,
+                  fontSize: 11,
+                  letterSpacing: "0.32em",
+                  textTransform: "uppercase",
+                  color: "var(--green-600)",
+                }}
+              >
+                Clinique Podologique · Beit El
+              </span>
+            </div>
+
             <h1
               id="hero-heading"
-              className="display"
+              className="display mt-6"
               style={{
                 fontWeight: 300,
-                fontSize: "clamp(2.6rem, 5.2vw, 3.5rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.02em",
+                fontSize: "clamp(2.8rem, 6vw, 4.4rem)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.025em",
                 color: "var(--ink-900)",
               }}
             >
               ענבר פרחי
+              <span
+                style={{
+                  display: "block",
+                  fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  fontSize: "clamp(1.5rem, 3vw, 2.1rem)",
+                  color: "var(--green-700, #2F6657)",
+                  marginTop: 6,
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                רפואה של כף הרגל, בידיים מדויקות.
+              </span>
             </h1>
-            <h2
-              className="mt-3"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 300,
-                fontSize: "clamp(1.2rem, 2.4vw, 1.6rem)",
-                lineHeight: 1.35,
-                letterSpacing: "-0.01em",
-                color: "var(--ink-600)",
-              }}
-            >
-              פדיקוריסטית טיפולית למחלות כף הרגל ויבלות
-            </h2>
 
             <p
-              className="mt-8 max-w-[52ch]"
-              style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "var(--ink-600)" }}
+              className="mt-8 max-w-[54ch]"
+              style={{ fontSize: "1.125rem", lineHeight: 1.75, color: "var(--ink-600)" }}
             >
-              קליניקה קלינית ושקטה בבית אל, עם 12 שנות ניסיון בטיפול בכף הרגל הסוכרתית, אורתוניקסיה, פטרת ושיקום ציפורן. כל טיפול מבוסס על פרוטוקולים של איכילוב, IWGDF ו-NHS.
+              קליניקה שקטה ומדויקת בבית אל. שתים-עשרה שנות ניסיון בטיפול בכף הרגל הסוכרתית, אורתוניקסיה, פטרת ושיקום ציפורן — לפי פרוטוקולים של איכילוב, IWGDF ו-NHS.
             </p>
 
-            <ul className="mt-10 grid gap-4 sm:grid-cols-2" aria-label="תחומי התמחות">
+            <ul className="mt-9 grid gap-x-6 gap-y-3.5 sm:grid-cols-2" aria-label="תחומי התמחות">
               {SPECIALTIES.map(({ icon: Icon, label }) => (
                 <li key={label} className="flex items-start gap-3">
                   <span
                     aria-hidden
-                    className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center"
+                    className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center"
                     style={{ color: "var(--green-600)" }}
                   >
-                    <Icon className="h-4 w-4" strokeWidth={1.5} />
+                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} />
                   </span>
                   <span style={{ fontSize: "0.95rem", lineHeight: 1.55, color: "var(--ink-900)" }}>
                     {label}
@@ -104,13 +109,88 @@ export function PremiumHero() {
               ))}
             </ul>
 
+            {/* CTAs */}
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <a
+                href={HERO_WA_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="פתחו שיחת ווצאפ עם ענבר"
+                className="inline-flex h-12 items-center gap-2.5 px-7 text-[15px] font-medium transition-colors"
+                style={{
+                  background: "var(--green-600)",
+                  color: "var(--paper)",
+                  borderRadius: 999,
+                  letterSpacing: "0.02em",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--green-700, #2F6657)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "var(--green-600)")}
+              >
+                <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
+                תיאום ייעוץ בוואטסאפ
+              </a>
+              <a
+                href={SITE.telUrl}
+                aria-label={`התקשרו לקליניקה ${SITE.phoneDisplay}`}
+                className="inline-flex h-12 items-center gap-2.5 px-6 text-[15px] font-medium transition-colors"
+                style={{
+                  background: "transparent",
+                  color: "var(--ink-900)",
+                  border: "1px solid var(--stone-200, #E7E5E0)",
+                  borderRadius: 999,
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--green-600)")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--stone-200, #E7E5E0)")}
+              >
+                <Phone className="h-[16px] w-[16px]" strokeWidth={1.5} />
+                <span dir="ltr">{SITE.phoneDisplay}</span>
+              </a>
+            </div>
+
+            {/* Trust strip */}
+            <dl
+              className="mt-12 grid grid-cols-3 gap-px"
+              style={{ background: "var(--stone-200, #E7E5E0)" }}
+              aria-label="נתוני הקליניקה"
+            >
+              {TRUST_STATS.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex flex-col gap-1 px-4 py-5"
+                  style={{ background: "var(--paper)" }}
+                >
+                  <dt
+                    style={{
+                      fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
+                      fontSize: "1.7rem",
+                      lineHeight: 1,
+                      color: "var(--ink-900)",
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {s.value}
+                  </dt>
+                  <dd
+                    style={{
+                      fontSize: 12,
+                      letterSpacing: "0.06em",
+                      color: "var(--ink-600)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {s.label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </motion.div>
 
+          {/* IMAGE — right column on desktop (RTL: order-1 lands right) */}
           <motion.aside
             {...fadeProps}
             transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
-            className="md:col-span-5 md:order-1 grid gap-8"
-            aria-labelledby="hero-form-title"
+            className="md:col-span-5 md:order-1"
+            aria-label="דיוקן ענבר פרחי"
           >
             <figure className="relative" style={{ margin: 0, paddingTop: "28px", paddingInlineStart: "40px" }}>
               {/* Editorial catalogue number */}
@@ -122,7 +202,7 @@ export function PremiumHero() {
                   insetInlineStart: 0,
                   fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
                   fontWeight: 400,
-                  fontSize: "44px",
+                  fontSize: "52px",
                   lineHeight: 1,
                   color: "var(--green-600)",
                   letterSpacing: "-0.02em",
@@ -136,8 +216,8 @@ export function PremiumHero() {
                 aria-hidden
                 className="absolute"
                 style={{
-                  top: "60px",
-                  bottom: "60px",
+                  top: "70px",
+                  bottom: "70px",
                   insetInlineStart: "16px",
                   width: "1px",
                   background: "var(--stone-200, #E7E5E0)",
@@ -170,7 +250,7 @@ export function PremiumHero() {
                 style={{
                   insetInlineStart: 0,
                   insetInlineEnd: "-24px",
-                  top: "calc(28px + 33%)",
+                  top: "calc(28px + 28%)",
                   height: "1px",
                   background: "var(--stone-200, #E7E5E0)",
                 }}
@@ -181,7 +261,7 @@ export function PremiumHero() {
                 style={{
                   insetInlineStart: "-12px",
                   insetInlineEnd: "32px",
-                  top: "calc(28px + 66%)",
+                  top: "calc(28px + 70%)",
                   height: "1px",
                   background: "var(--stone-200, #E7E5E0)",
                 }}
@@ -198,7 +278,7 @@ export function PremiumHero() {
                   display: "block",
                   width: "100%",
                   height: "auto",
-                  maxHeight: "520px",
+                  maxHeight: "640px",
                   objectFit: "contain",
                   objectPosition: "center",
                 }}
@@ -231,148 +311,11 @@ export function PremiumHero() {
                 </span>
               </figcaption>
             </figure>
-            <div
-              className="p-7 md:p-9"
-              style={{
-                background: "var(--paper)",
-                border: "1px solid var(--stone-100)",
-                borderRadius: "8px",
-              }}
-            >
-              <p
-                className="text-[12px] font-medium uppercase"
-                style={{ letterSpacing: "0.24em", color: "var(--green-500)" }}
-              >
-                02 — תיאום ייעוץ
-              </p>
-              <h3
-                id="hero-form-title"
-                className="mt-4"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 300,
-                  fontSize: "1.6rem",
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.01em",
-                  color: "var(--ink-900)",
-                }}
-              >
-                מלאי את הפרטים — אחזור אלייך בשעה הקרובה.
-              </h3>
-              <p
-                className="mt-3"
-                style={{ fontSize: "0.95rem", lineHeight: 1.65, color: "var(--ink-600)" }}
-              >
-                שליחת הטופס תעביר את הפרטים ישירות לוואטסאפ של הקליניקה. בלי ספאם, בלי טלמרקטינג.
-              </p>
-
-              <form onSubmit={onSubmit} className="mt-7 grid gap-4">
-                <label className="grid gap-2">
-                  <span
-                    className="text-[12px] font-medium"
-                    style={{ letterSpacing: "0.08em", color: "var(--ink-600)" }}
-                  >
-                    שם מלא
-                  </span>
-                  <input
-                    type="text"
-                    autoComplete="name"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="ישראלה ישראלי"
-                    className="h-11 px-4 text-[15px]"
-                    style={{
-                      background: "var(--stone-50)",
-                      border: "1px solid var(--stone-100)",
-                      borderRadius: "4px",
-                      color: "var(--ink-900)",
-                      outline: "none",
-                    }}
-                  />
-                </label>
-                <label className="grid gap-2">
-                  <span
-                    className="text-[12px] font-medium"
-                    style={{ letterSpacing: "0.08em", color: "var(--ink-600)" }}
-                  >
-                    טלפון
-                  </span>
-                  <input
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel"
-                    required
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="050-0000000"
-                    dir="ltr"
-                    className="h-11 px-4 text-[15px] text-right"
-                    style={{
-                      background: "var(--stone-50)",
-                      border: "1px solid var(--stone-100)",
-                      borderRadius: "4px",
-                      color: "var(--ink-900)",
-                      outline: "none",
-                    }}
-                  />
-                </label>
-                <label className="grid gap-2">
-                  <span
-                    className="text-[12px] font-medium"
-                    style={{ letterSpacing: "0.08em", color: "var(--ink-600)" }}
-                  >
-                    מה הסיבה לפנייה? (לא חובה)
-                  </span>
-                  <textarea
-                    rows={3}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="לדוגמה: סובלת מציפורן חודרנית ברגל ימין"
-                    className="px-4 py-3 text-[15px]"
-                    style={{
-                      background: "var(--stone-50)",
-                      border: "1px solid var(--stone-100)",
-                      borderRadius: "4px",
-                      color: "var(--ink-900)",
-                      outline: "none",
-                      resize: "vertical",
-                      fontFamily: "var(--font-body)",
-                    }}
-                  />
-                </label>
-
-                <button
-                  type="submit"
-                  className="mt-2 inline-flex h-12 items-center justify-center px-7 text-[15px] font-medium transition-colors"
-                  style={{
-                    background: "var(--green-500)",
-                    color: "var(--paper)",
-                    borderRadius: "8px",
-                    letterSpacing: "0.02em",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--green-600)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--green-500)")}
-                >
-                  קבעו תור עכשיו
-                </button>
-
-                <p className="text-[12px]" style={{ color: "var(--ink-600)", lineHeight: 1.6 }}>
-                  מעדיפה דיבור ישיר?{" "}
-                  <a
-                    href={SITE.telUrl}
-                    style={{ color: "var(--green-700)", textDecoration: "underline", textUnderlineOffset: 3 }}
-                  >
-                    {SITE.phoneDisplay}
-                  </a>
-                </p>
-              </form>
-            </div>
           </motion.aside>
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1200px] px-6 md:px-8">
+      <div className="mx-auto max-w-[1240px] px-6 md:px-10">
         <hr style={{ border: 0, borderTop: "1px solid var(--stone-100)" }} />
       </div>
     </section>
