@@ -92,7 +92,7 @@ export function PremiumHero() {
               className="inline-block mb-4 text-[12px] tracking-[0.18em]"
               style={{ color: "var(--green-700, #234C42)", fontWeight: 600 }}
             >
-              קליניקה מוסמכת · בית אל
+              נעים להכיר, אני ענבר · פדיקוריסטית קלינית
             </span>
             <h1
               id="hero-heading"
