@@ -1,10 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { MessageCircle, Phone, ShieldCheck, Stethoscope, HeartPulse, ScissorsLineDashed, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -19,11 +17,11 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 export const Route = createFileRoute("/branding")({
   head: () => ({
     meta: [
-      { title: "מיתוג — מערכת העיצוב | ענבר פרחי" },
+      { title: "מערכת המיתוג · ענבר פרחי" },
       {
         name: "description",
         content:
-          "Living Style Guide — צבעים, טיפוגרפיה, מרווחים, רדיוסים, כפתורים, טפסים וכרטיסים של מערכת המיתוג.",
+          "שפת המיתוג של הקליניקה — פלטה, טיפוגרפיה Ellinia CLM ו-Heebo, מרווחים, אלמנטים גרפיים וקומפוננטות.",
       },
       { name: "robots", content: "noindex,follow" },
     ],
@@ -31,65 +29,487 @@ export const Route = createFileRoute("/branding")({
   component: BrandingPage,
 });
 
-const COLORS: Array<{ name: string; var: string; hex: string; note?: string }> = [
-  { name: "Primary (Sage)", var: "--primary", hex: "#8FB89A", note: "כפתורים ראשיים, אקסנטים" },
-  { name: "Primary Hover", var: "--primary-hover", hex: "#7CA888" },
-  { name: "Primary Deep", var: "--primary-deep", hex: "#5E8A6B" },
-  { name: "Primary Soft", var: "--primary-soft", hex: "#EAF2EC", note: "רקעי badge ואזורים רכים" },
-  { name: "Ink", var: "--ink", hex: "#3E5447", note: "כותרות וטקסט כהה" },
-  { name: "Text Muted", var: "--text-muted", hex: "#6E7E73" },
-  { name: "Background", var: "--background", hex: "#FFFFFF" },
-  { name: "Surface Soft", var: "--surface-soft", hex: "#F2F7F3", note: "רקע לסקשנים מתחלפים" },
-  { name: "Border", var: "--border", hex: "#D5E3D8" },
+const PALETTE: Array<{ name: string; varName: string; hex: string; note?: string; dark?: boolean }> = [
+  { name: "Paper", varName: "--paper", hex: "#FAFAF8", note: "רקע ראשי, כמעט-לבן חם" },
+  { name: "Stone 50", varName: "--stone-50", hex: "#F5F4F1", note: "רקעי משנה" },
+  { name: "Green 50", varName: "--green-50", hex: "#F4F9F7", note: "רקעי סקשן מנטה" },
+  { name: "Green 400", varName: "--green-400", hex: "#8DC2B3", note: "קווי קשת, גוונים רכים", dark: false },
+  { name: "Green 600", varName: "--green-600", hex: "#6FAE9C", note: "כפתורים ראשיים", dark: true },
+  { name: "Green 700", varName: "--green-700", hex: "#4F8C7B", note: "כותרות, hover", dark: true },
+  { name: "Ink 900", varName: "--ink-900", hex: "#1E2422", note: "טקסט כהה", dark: true },
+  { name: "Ink 600", varName: "--ink-600", hex: "#5B5F5C", note: "טקסט משני" },
+  { name: "Gold", varName: "--accent-gold", hex: "#C9A24B", note: "אקסנט בלבד", dark: true },
 ];
+
+const SPECIALTIES = [
+  { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
+  { icon: HeartPulse, label: "כף רגל סוכרתית · פרוטוקול IWGDF" },
+  { icon: ScissorsLineDashed, label: "ציפורן חודרנית ואורתוניקסיה" },
+  { icon: Sparkles, label: "טיפול בפטרת ושיקום ציפורן BIO" },
+  { icon: ShieldCheck, label: "סטריליות מלאה, כלים חד-פעמיים" },
+] as const;
+
+const NAV_ITEMS: Array<[string, string]> = [
+  ["#palette", "פלטה"],
+  ["#type", "טיפוגרפיה"],
+  ["#spacing", "מרווחים"],
+  ["#radii", "רדיוסים וצללים"],
+  ["#graphics", "אלמנטים גרפיים"],
+  ["#buttons", "כפתורים"],
+  ["#forms", "טפסים"],
+  ["#components", "קומפוננטות"],
+];
+
+function BrandingPage() {
+  return (
+    <div dir="rtl" lang="he" className="min-h-screen" style={{ background: "var(--paper)" }}>
+      <SiteHeader />
+      <main id="main-content">
+        <BrandingHero />
+        <PaletteSection />
+        <TypographySection />
+        <SpacingSection />
+        <RadiiSection />
+        <GraphicsSection />
+        <ButtonsSection />
+        <FormsSection />
+        <ComponentsSection />
+
+        <div className="mx-auto max-w-[1320px] px-6 md:px-10 py-12">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-[13px] tracking-[0.06em]"
+            style={{ color: "var(--green-700)", fontWeight: 600 }}
+          >
+            ← חזרה לעמוד הבית
+          </Link>
+        </div>
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+/* ───────────────────────── HERO ───────────────────────── */
+
+function BrandingHero() {
+  return (
+    <section
+      dir="rtl"
+      className="relative"
+      aria-labelledby="branding-hero"
+      style={{ background: "var(--paper)" }}
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <svg
+          className="absolute inset-y-0 right-0 h-full w-1/2"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M100 0 A 130 130 0 0 0 0 100"
+            stroke="var(--green-400)"
+            strokeOpacity="0.9"
+            vectorEffect="non-scaling-stroke"
+            style={{ strokeWidth: "1.4px" }}
+            fill="none"
+          />
+        </svg>
+        <span
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{ top: "14%", right: "6%", width: 1, height: 56, background: "rgba(30,36,34,0.12)" }}
+        />
+        <span
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{
+            top: "12%",
+            right: "5.2%",
+            fontFamily: "var(--font-serif)",
+            fontSize: 11,
+            letterSpacing: "0.22em",
+            color: "rgba(30,36,34,0.32)",
+            writingMode: "vertical-rl",
+            transform: "rotate(180deg)",
+          }}
+        >
+          BRAND · 00
+        </span>
+        <span
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{ bottom: "10%", left: "8%", width: 110, height: 1, background: "rgba(30,36,34,0.10)" }}
+        />
+        <Halftone className="absolute -bottom-10 -left-10 hidden sm:block" />
+      </div>
+
+      <div className="relative mx-auto max-w-[1320px] px-6 md:px-10 pt-10 pb-14 md:pt-14 md:pb-20">
+        <span
+          className="inline-block mb-4 text-[12px] tracking-[0.18em]"
+          style={{ color: "var(--green-700)", fontWeight: 600 }}
+        >
+          מערכת מיתוג · Living Style Guide
+        </span>
+        <h1
+          id="branding-hero"
+          className="display"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(2.4rem, 5.6vw, 4.4rem)",
+            lineHeight: 1.02,
+            letterSpacing: "-0.03em",
+            color: "var(--green-700)",
+            maxWidth: 880,
+          }}
+        >
+          השפה הוויזואלית של הקליניקה
+        </h1>
+        <p
+          className="mt-5 max-w-[640px]"
+          style={{ color: "var(--ink-600)", fontSize: "1.02rem", lineHeight: 1.65 }}
+        >
+          פלטת מנטה רגועה, טיפוגרפיה עברית מודרנית ופרטים שקטים שיוצרים תחושה של קליניקה מדויקת.
+          כל קומפוננטה באתר נשענת על אותם טוקנים — שינוי כאן משתקף בכל מקום.
+        </p>
+
+        <nav
+          aria-label="קיצורים בעמוד"
+          className="mt-8 flex flex-wrap gap-2"
+        >
+          {NAV_ITEMS.map(([href, label]) => (
+            <a
+              key={href}
+              href={href}
+              className="inline-flex h-9 items-center px-4 text-[13px] transition-colors"
+              style={{
+                background: "var(--paper)",
+                color: "var(--ink-900)",
+                border: "1px solid var(--stone-100)",
+                borderRadius: 999,
+                fontWeight: 500,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "var(--green-600)";
+                e.currentTarget.style.background = "var(--green-50)";
+                e.currentTarget.style.color = "var(--green-700)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--stone-100)";
+                e.currentTarget.style.background = "var(--paper)";
+                e.currentTarget.style.color = "var(--ink-900)";
+              }}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── SECTION SHELL ───────────────────────── */
 
 function Section({
   id,
+  number,
   eyebrow,
   title,
+  description,
   children,
 }: {
   id: string;
+  number: string;
   eyebrow: string;
   title: string;
+  description?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="border-b border-border/60 py-16 md:py-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-10">
-          <div className="kicker mb-3">{eyebrow}</div>
-          <h2 className="text-3xl md:text-4xl font-bold text-ink">{title}</h2>
-        </div>
+    <section
+      id={id}
+      className="py-16 md:py-24"
+      style={{ borderTop: "1px solid var(--stone-100)" }}
+    >
+      <div className="mx-auto max-w-[1320px] px-6 md:px-10">
+        <header className="mb-10 grid gap-3 md:grid-cols-[140px_1fr] md:items-end md:gap-10">
+          <div
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontWeight: 700,
+              fontSize: "2.2rem",
+              color: "var(--green-700)",
+              lineHeight: 1,
+            }}
+          >
+            {number}
+          </div>
+          <div>
+            <span
+              className="block mb-2 text-[11px] tracking-[0.22em] uppercase"
+              style={{ color: "var(--green-700)", fontWeight: 600 }}
+            >
+              {eyebrow}
+            </span>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                color: "var(--ink-900)",
+              }}
+            >
+              {title}
+            </h2>
+            {description ? (
+              <p
+                className="mt-3 max-w-[640px]"
+                style={{ color: "var(--ink-600)", fontSize: "0.98rem", lineHeight: 1.65 }}
+              >
+                {description}
+              </p>
+            ) : null}
+          </div>
+        </header>
         {children}
       </div>
     </section>
   );
 }
 
-function Swatch({ name, hex, varName, note }: { name: string; hex: string; varName: string; note?: string }) {
-  const isLight = hex.toLowerCase() === "#ffffff" || hex.toLowerCase() === "#f2f7f3" || hex.toLowerCase() === "#eaf2ec" || hex.toLowerCase() === "#d5e3d8";
+/* ───────────────────────── PALETTE ───────────────────────── */
+
+function PaletteSection() {
   return (
-    <Card className="overflow-hidden rounded-[22px] border-border/60 p-0 shadow-[var(--shadow-soft)]">
-      <div
-        className="h-28 w-full"
-        style={{ background: hex, borderBottom: isLight ? "1px solid var(--border)" : "none" }}
-        aria-hidden
-      />
-      <div className="space-y-1 p-5">
-        <div className="text-sm font-bold text-ink">{name}</div>
-        <div className="flex items-center gap-2 font-mono text-xs text-text-muted">
-          <span>{hex}</span>
-          <span aria-hidden>·</span>
-          <span>{varName}</span>
-        </div>
-        {note ? <div className="pt-1 text-xs text-text-muted">{note}</div> : null}
+    <Section
+      id="palette"
+      number="01"
+      eyebrow="Palette"
+      title="פלטה"
+      description="מנטה רגועה על נייר חם. ירוקים עמוקים לכותרות וכפתורים, אפורים-דיו לטקסט, וזהב עדין בתפקיד אקסנט בלבד."
+    >
+      <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "var(--stone-100)" }}>
+        {PALETTE.map((c) => (
+          <article
+            key={c.varName}
+            className="flex flex-col"
+            style={{ background: "var(--paper)" }}
+          >
+            <div
+              className="h-32"
+              style={{
+                background: c.hex,
+                borderBottom: c.hex.toLowerCase() === "#fafaf8" ? "1px solid var(--stone-100)" : "none",
+              }}
+              aria-hidden
+            />
+            <div className="p-5">
+              <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.95rem" }}>{c.name}</div>
+              <div
+                className="mt-1 flex items-center gap-2"
+                style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}
+              >
+                <span>{c.hex.toUpperCase()}</span>
+                <span aria-hidden>·</span>
+                <span>{c.varName}</span>
+              </div>
+              {c.note ? (
+                <p className="mt-2" style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--ink-600)" }}>
+                  {c.note}
+                </p>
+              ) : null}
+            </div>
+          </article>
+        ))}
       </div>
-    </Card>
+    </Section>
   );
 }
 
-function BrandingPage() {
+/* ───────────────────────── TYPOGRAPHY ───────────────────────── */
+
+function TypographySection() {
+  return (
+    <Section
+      id="type"
+      number="02"
+      eyebrow="Typography"
+      title="טיפוגרפיה"
+      description="Ellinia CLM לכותרות תצוגה, Heebo לטקסט רץ. ספרות והדגשות עדינות ב-Frank Ruhl Libre."
+    >
+      <div className="grid gap-px" style={{ background: "var(--stone-100)" }}>
+        <FontFamilyRow
+          label="Display · Ellinia CLM"
+          meta="600–800 · letter-spacing -0.03em"
+          family="var(--font-display)"
+        />
+        <FontFamilyRow
+          label="Body · Heebo"
+          meta="400 · line-height 1.65"
+          family='"Heebo Variable", "Heebo", system-ui, sans-serif'
+        />
+        <FontFamilyRow
+          label="Serif accent · Frank Ruhl"
+          meta="700 · ספרות וציטוטים בלבד"
+          family="var(--font-serif)"
+        />
+      </div>
+
+      <div className="mt-10 grid gap-px" style={{ background: "var(--stone-100)" }}>
+        <TypeScaleRow
+          label="Display H1"
+          meta="clamp(2.4rem · 4.4rem) · 800"
+          element={
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "clamp(2.4rem, 5vw, 3.6rem)",
+                lineHeight: 1.0,
+                letterSpacing: "-0.03em",
+                color: "var(--green-700)",
+              }}
+            >
+              ענבר פרחי
+            </h1>
+          }
+        />
+        <TypeScaleRow
+          label="H2"
+          meta="2rem · 800"
+          element={
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: "2rem",
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+                color: "var(--ink-900)",
+              }}
+            >
+              מומחית בכף הרגל הסוכרתית
+            </h2>
+          }
+        />
+        <TypeScaleRow
+          label="H3"
+          meta="1.5rem · 700"
+          element={
+            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--ink-900)" }}>
+              תקני IWGDF ו-NHS
+            </h3>
+          }
+        />
+        <TypeScaleRow
+          label="Kicker"
+          meta="12px · 600 · tracking 0.18em"
+          element={
+            <span
+              style={{
+                fontSize: 12,
+                letterSpacing: "0.18em",
+                color: "var(--green-700)",
+                fontWeight: 600,
+              }}
+            >
+              נעים להכיר, אני ענבר · פדיקוריסטית קלינית
+            </span>
+          }
+        />
+        <TypeScaleRow
+          label="Body"
+          meta="1rem · 400 · line-height 1.65"
+          element={
+            <p style={{ maxWidth: 640, fontSize: "1rem", lineHeight: 1.65, color: "var(--ink-900)" }}>
+              קליניקה שקטה ומדויקת בבית אל. שתים-עשרה שנות ניסיון בטיפול קליני בכף הרגל,
+              עבודה לפי פרוטוקולים בינלאומיים והקפדה על סטריליות מלאה.
+            </p>
+          }
+        />
+        <TypeScaleRow
+          label="Numeric · Serif"
+          meta="Frank Ruhl · 700"
+          element={
+            <span
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontWeight: 700,
+                fontSize: "2.4rem",
+                color: "var(--ink-900)",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              12
+            </span>
+          }
+        />
+        <TypeScaleRow
+          label="Caption"
+          meta="12px · 500 · tracking 0.06em"
+          element={
+            <span style={{ fontSize: 12, letterSpacing: "0.06em", color: "var(--ink-600)", fontWeight: 500 }}>
+              שנות ניסיון קליני
+            </span>
+          }
+        />
+      </div>
+    </Section>
+  );
+}
+
+function FontFamilyRow({ label, meta, family }: { label: string; meta: string; family: string }) {
+  return (
+    <div
+      className="grid gap-4 p-6 md:grid-cols-[260px_1fr] md:items-center md:gap-10"
+      style={{ background: "var(--paper)" }}
+    >
+      <div>
+        <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.95rem" }}>{label}</div>
+        <div style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}>
+          {meta}
+        </div>
+      </div>
+      <div
+        style={{
+          fontFamily: family,
+          fontSize: "1.6rem",
+          lineHeight: 1.3,
+          color: "var(--ink-900)",
+        }}
+      >
+        אבגד הוזח טיכל מנסעפ צקרש ת · 0123
+      </div>
+    </div>
+  );
+}
+
+function TypeScaleRow({ label, meta, element }: { label: string; meta: string; element: React.ReactNode }) {
+  return (
+    <div
+      className="grid gap-4 p-6 md:grid-cols-[200px_1fr] md:items-center md:gap-10"
+      style={{ background: "var(--paper)" }}
+    >
+      <div>
+        <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.9rem" }}>{label}</div>
+        <div style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}>
+          {meta}
+        </div>
+      </div>
+      <div>{element}</div>
+    </div>
+  );
+}
+
+/* ───────────────────────── SPACING ───────────────────────── */
+
+function SpacingSection() {
   const spacings = [
     { token: "1", px: 4 },
     { token: "2", px: 8 },
@@ -101,346 +521,534 @@ function BrandingPage() {
     { token: "16", px: 64 },
     { token: "24", px: 96 },
   ];
+  return (
+    <Section
+      id="spacing"
+      number="03"
+      eyebrow="Spacing"
+      title="סקאלת מרווחים"
+      description="סקאלה של 4px. רווחים נדיבים בין סקשנים, רווחים שקטים בתוך קומפוננטות."
+    >
+      <div className="space-y-3">
+        {spacings.map((s) => (
+          <div key={s.token} className="flex items-center gap-4">
+            <div
+              className="w-20"
+              style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}
+            >
+              space-{s.token}
+            </div>
+            <div
+              className="h-2.5"
+              style={{ width: `${s.px}px`, background: "var(--green-600)", borderRadius: 999 }}
+              aria-hidden
+            />
+            <div style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-900)" }}>
+              {s.px}px
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ───────────────────────── RADII & SHADOWS ───────────────────────── */
+
+function RadiiSection() {
   const radii = [
-    { name: "sm", value: "8px" },
-    { name: "md", value: "14px" },
-    { name: "lg", value: "22px" },
+    { name: "sm", value: "6px" },
+    { name: "md", value: "12px" },
+    { name: "lg", value: "20px" },
     { name: "pill", value: "999px" },
   ];
-
   return (
-    <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <main id="main-content">
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-surface-soft py-20 md:py-28">
-          <Swoosh className="pointer-events-none absolute -top-10 -left-10 h-72 w-72 text-primary/30" />
-          <Dots className="pointer-events-none absolute bottom-6 right-10 h-24 w-40 text-primary/40" />
-          <div className="relative mx-auto max-w-6xl px-6">
-            <div className="kicker mb-4">מיתוג · Living Style Guide</div>
-            <h1 className="text-4xl md:text-6xl font-bold leading-[1.05] text-ink">
-              מערכת המיתוג של <span className="text-primary-deep">ענבר פרחי</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-muted">
-              שפה ויזואלית ירוק-מנטה רכה ונקייה, בנויה על טוקנים מרכזיים. כל הקומפוננטות
-              באתר יונקות מאותם משתנים — שינוי במקור משתקף אוטומטית בכל מקום.
-            </p>
-            <nav aria-label="קיצורים בעמוד" className="mt-8 flex flex-wrap gap-2">
-              {[
-                ["#colors", "צבעים"],
-                ["#type", "טיפוגרפיה"],
-                ["#spacing", "מרווחים"],
-                ["#radii", "רדיוסים וצללים"],
-                ["#buttons", "כפתורים"],
-                ["#forms", "טפסים"],
-                ["#cards", "כרטיסים"],
-                ["#decor", "אלמנטים דקורטיביים"],
-              ].map(([href, label]) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-primary hover:bg-primary-soft"
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
-          </div>
-        </section>
-
-        {/* Colors */}
-        <Section id="colors" eyebrow="01 · Palette" title="צבעים">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {COLORS.map((c) => (
-              <Swatch key={c.var} name={c.name} hex={c.hex} varName={c.var} note={c.note} />
-            ))}
-          </div>
-        </Section>
-
-        {/* Typography */}
-        <Section id="type" eyebrow="02 · Typography" title="טיפוגרפיה">
-          <div className="space-y-8">
-            <TypeRow label="Eyebrow / Kicker" meta="11px · Bold · tracking-wide">
-              <span className="kicker">קליניקה רפואית · 12+ שנות ניסיון</span>
-            </TypeRow>
-            <TypeRow label="H1 — Display" meta="clamp(2.5rem · 4rem) · 800">
-              <h1 className="text-5xl md:text-6xl font-bold text-ink">בריאות כף הרגל ברמה אחרת</h1>
-            </TypeRow>
-            <TypeRow label="H2" meta="2.25rem · 800">
-              <h2 className="text-4xl font-bold text-ink">מומחית בכף הרגל הסוכרתית</h2>
-            </TypeRow>
-            <TypeRow label="H3" meta="1.5rem · 700">
-              <h3 className="text-2xl font-bold text-ink">תקני IWGDF / NHS</h3>
-            </TypeRow>
-            <TypeRow label="Body" meta="1rem–1.125rem · 400 · line-height 1.65">
-              <p className="max-w-2xl text-base md:text-lg leading-[1.65] text-ink-soft">
-                טקסט רץ קריא, מעוצב לקריאה ארוכה של תוכן רפואי. שמירה על ניגודיות AA ועל
-                ריווח שורות נדיב כדי להפחית עומס קוגניטיבי.
-              </p>
-            </TypeRow>
-            <TypeRow label="Small / Caption" meta="0.875rem · 500">
-              <span className="text-sm font-medium text-text-muted">הערות, מטא-מידע ופרטים משניים.</span>
-            </TypeRow>
-          </div>
-        </Section>
-
-        {/* Spacing */}
-        <Section id="spacing" eyebrow="03 · Spacing" title="סקאלת מרווחים">
-          <div className="space-y-3">
-            {spacings.map((s) => (
-              <div key={s.token} className="flex items-center gap-4">
-                <div className="w-16 font-mono text-sm text-text-muted">space-{s.token}</div>
-                <div
-                  className="h-3 rounded-full bg-primary"
-                  style={{ width: `${s.px}px` }}
-                  aria-hidden
-                />
-                <div className="font-mono text-sm text-ink">{s.px}px</div>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        {/* Radii & Shadows */}
-        <Section id="radii" eyebrow="04 · Surfaces" title="רדיוסים וצללים">
-          <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
-            {radii.map((r) => (
-              <div key={r.name} className="space-y-3">
-                <div
-                  className="flex h-28 items-center justify-center bg-primary-soft text-sm font-bold text-primary-deep"
-                  style={{ borderRadius: r.value }}
-                >
-                  {r.name}
-                </div>
-                <div className="text-center font-mono text-xs text-text-muted">{r.value}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              { name: "shadow-soft", style: "var(--shadow-soft)" },
-              { name: "shadow-elegant", style: "var(--shadow-elegant)" },
-              { name: "shadow-clinical", style: "var(--shadow-clinical)" },
-            ].map((s) => (
-              <div
-                key={s.name}
-                className="flex h-32 items-center justify-center rounded-[22px] bg-background text-sm font-bold text-ink"
-                style={{ boxShadow: s.style }}
-              >
-                {s.name}
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        {/* Buttons */}
-        <Section id="buttons" eyebrow="05 · Buttons" title="כפתורים">
-          <div className="space-y-10">
-            <ButtonRow label="Primary">
-              <Button className="rounded-full px-7 py-6 text-base">קביעת תור</Button>
-              <Button className="rounded-full px-7 py-6 text-base hover:bg-primary-hover">Hover</Button>
-              <Button className="rounded-full px-7 py-6 text-base" disabled>
-                Disabled
-              </Button>
-            </ButtonRow>
-            <ButtonRow label="Outline">
-              <Button variant="outline" className="rounded-full border-primary px-7 py-6 text-base text-primary-deep hover:bg-primary-soft">
-                לפרטים נוספים
-              </Button>
-              <Button variant="outline" className="rounded-full border-primary bg-primary-soft px-7 py-6 text-base text-primary-deep">
-                Hover
-              </Button>
-              <Button variant="outline" className="rounded-full px-7 py-6 text-base" disabled>
-                Disabled
-              </Button>
-            </ButtonRow>
-            <ButtonRow label="Ghost">
-              <Button variant="ghost" className="rounded-full px-6 text-base text-ink hover:bg-primary-soft hover:text-primary-deep">
-                Ghost
-              </Button>
-              <Button variant="ghost" className="rounded-full bg-primary-soft px-6 text-base text-primary-deep">
-                Hover
-              </Button>
-              <Button variant="ghost" className="rounded-full px-6 text-base" disabled>
-                Disabled
-              </Button>
-            </ButtonRow>
-            <ButtonRow label="Sizes">
-              <Button className="rounded-full" size="sm">Small</Button>
-              <Button className="rounded-full">Default</Button>
-              <Button className="rounded-full px-8 py-6 text-base">Large</Button>
-            </ButtonRow>
-          </div>
-        </Section>
-
-        {/* Forms */}
-        <Section id="forms" eyebrow="06 · Forms" title="טפסים">
-          <Card className="mx-auto max-w-xl rounded-[22px] border-border/60 bg-card p-8 shadow-[var(--shadow-elegant)]">
-            <div className="mb-6 text-center">
-              <h3 className="text-2xl font-bold text-ink">קביעת תור</h3>
-              <p className="mt-2 text-sm text-text-muted">נחזור אליך תוך 24 שעות</p>
+    <Section
+      id="radii"
+      number="04"
+      eyebrow="Surfaces"
+      title="רדיוסים וצללים"
+      description="קצוות עדינים, צללים שקטים. הכפתורים והתגיות תמיד pill מלא."
+    >
+      <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
+        {radii.map((r) => (
+          <div key={r.name} className="space-y-3">
+            <div
+              className="flex h-28 items-center justify-center text-sm"
+              style={{
+                background: "var(--green-50)",
+                color: "var(--green-700)",
+                borderRadius: r.value,
+                fontWeight: 700,
+                border: "1px solid var(--green-100)",
+              }}
+            >
+              {r.name}
             </div>
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <Label htmlFor="bg-name" className="mb-2 block text-sm font-medium text-ink">
-                  שם מלא
-                </Label>
-                <Input
-                  id="bg-name"
-                  placeholder="ישראלה ישראלי"
-                  className="h-12 rounded-2xl border-border bg-background px-4 text-base"
-                />
-              </div>
-              <div>
-                <Label htmlFor="bg-service" className="mb-2 block text-sm font-medium text-ink">
-                  סוג טיפול
-                </Label>
-                <Select>
-                  <SelectTrigger id="bg-service" className="h-12 rounded-2xl border-border bg-background px-4 text-base">
-                    <SelectValue placeholder="בחרי טיפול" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="diabetic">פדיקור סוכרתי</SelectItem>
-                    <SelectItem value="ingrown">ציפורן חודרנית</SelectItem>
-                    <SelectItem value="callus">יבלות וסדקים</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="bg-msg" className="mb-2 block text-sm font-medium text-ink">
-                  הודעה
-                </Label>
-                <Textarea
-                  id="bg-msg"
-                  rows={4}
-                  placeholder="ספרי לנו על הצורך שלך…"
-                  className="rounded-2xl border-border bg-background px-4 py-3 text-base"
-                />
-              </div>
-              <label className="flex items-center gap-3 text-sm text-ink">
-                <Checkbox className="h-5 w-5 rounded-md border-border data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" />
-                אני מאשרת קבלת תזכורת בוואטסאפ
-              </label>
-              <Button
-                type="submit"
-                className="h-14 w-full rounded-full bg-primary text-base font-bold text-primary-foreground shadow-[var(--shadow-elegant)] hover:bg-primary-hover"
-              >
-                שליחת בקשה
-              </Button>
-            </form>
-          </Card>
-        </Section>
-
-        {/* Cards & Badges */}
-        <Section id="cards" eyebrow="07 · Cards & Badges" title="כרטיסים ותגיות">
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="rounded-[22px] border-border/60 bg-card p-7 shadow-[var(--shadow-soft)]">
-              <Badge className="rounded-full bg-primary-soft px-3 py-1 text-primary-deep hover:bg-primary-soft">
-                חדש
-              </Badge>
-              <h4 className="mt-4 text-xl font-bold text-ink">פדיקור סוכרתי</h4>
-              <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                טיפול קליני לרגל סוכרתית לפי תקני IWGDF, מבוסס פרוטוקול NHS.
-              </p>
-            </Card>
-            <Card className="rounded-[22px] border-primary/40 bg-primary-soft p-7 shadow-[var(--shadow-soft)]">
-              <Badge className="rounded-full bg-background px-3 py-1 text-primary-deep hover:bg-background">
-                מומלץ
-              </Badge>
-              <h4 className="mt-4 text-xl font-bold text-ink">ציפורן חודרנית</h4>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                פתרון עדין ומדויק להחזרת ציפורן לכיוון הצמיחה הנכון.
-              </p>
-            </Card>
-            <Card className="rounded-[22px] border-border/60 bg-card p-7 shadow-[var(--shadow-clinical)]">
-              <Badge variant="outline" className="rounded-full border-primary px-3 py-1 text-primary-deep">
-                Trust
-              </Badge>
-              <h4 className="mt-4 text-xl font-bold text-ink">מרצה ארצית</h4>
-              <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                מרצה למאות פדיקוריסטיות בישראל, בכירה בתחום הקליני.
-              </p>
-            </Card>
-          </div>
-        </Section>
-
-        {/* Decorative */}
-        <Section id="decor" eyebrow="08 · Decorative" title="אלמנטים דקורטיביים">
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="relative h-56 overflow-hidden rounded-[22px] bg-surface-soft">
-              <Swoosh className="absolute -bottom-4 -right-4 h-48 w-72 text-primary/40" />
-              <div className="relative p-6 text-sm font-medium text-ink">Swoosh</div>
-            </div>
-            <div className="relative h-56 overflow-hidden rounded-[22px] bg-surface-soft">
-              <Dots className="absolute bottom-6 left-8 h-24 w-44 text-primary/50" />
-              <div className="relative p-6 text-sm font-medium text-ink">Dots</div>
+            <div
+              className="text-center"
+              style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}
+            >
+              {r.value}
             </div>
           </div>
-        </Section>
+        ))}
+      </div>
 
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <Link to="/" className="text-sm font-medium text-primary-deep underline-offset-4 hover:underline">
-            ← חזרה לעמוד הבית
-          </Link>
-        </div>
-      </main>
-      <SiteFooter />
+      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+        {[
+          { name: "shadow / quiet", style: "0 1px 2px rgba(30,36,34,0.04), 0 8px 24px -16px rgba(30,36,34,0.10)" },
+          { name: "shadow / soft", style: "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)" },
+          { name: "shadow / clinical", style: "0 4px 12px rgba(79,140,123,0.10), 0 28px 60px -30px rgba(79,140,123,0.25)" },
+        ].map((s) => (
+          <div
+            key={s.name}
+            className="flex h-32 items-center justify-center text-sm"
+            style={{
+              background: "var(--paper)",
+              color: "var(--ink-900)",
+              borderRadius: 20,
+              fontWeight: 600,
+              boxShadow: s.style,
+            }}
+          >
+            {s.name}
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ───────────────────────── GRAPHICS ───────────────────────── */
+
+function GraphicsSection() {
+  return (
+    <Section
+      id="graphics"
+      number="05"
+      eyebrow="Graphic Language"
+      title="אלמנטים גרפיים"
+      description="קשת אורגנית, מסך חצי-טון, קווי שיער וטיפוגרפיה אנכית עדינה — שכבות שקטות שיוצרות עומק."
+    >
+      <div className="grid gap-6 md:grid-cols-2">
+        <DemoTile label="Organic arc">
+          <svg
+            className="absolute inset-0 h-full w-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M100 0 A 130 130 0 0 0 0 100"
+              stroke="var(--green-400)"
+              vectorEffect="non-scaling-stroke"
+              style={{ strokeWidth: "1.6px" }}
+              fill="none"
+            />
+          </svg>
+        </DemoTile>
+
+        <DemoTile label="Halftone fade">
+          <Halftone className="absolute -bottom-10 -left-10" />
+        </DemoTile>
+
+        <DemoTile label="Hairline rules">
+          <span
+            className="absolute"
+            style={{ top: "20%", right: "12%", width: 1, height: 64, background: "rgba(30,36,34,0.18)" }}
+          />
+          <span
+            className="absolute"
+            style={{ bottom: "20%", left: "12%", width: 140, height: 1, background: "rgba(30,36,34,0.18)" }}
+          />
+        </DemoTile>
+
+        <DemoTile label="Vertical serif label">
+          <span
+            className="absolute"
+            style={{
+              top: "20%",
+              right: "12%",
+              fontFamily: "var(--font-serif)",
+              fontSize: 12,
+              letterSpacing: "0.22em",
+              color: "rgba(30,36,34,0.45)",
+              writingMode: "vertical-rl",
+              transform: "rotate(180deg)",
+            }}
+          >
+            INBAR · 01
+          </span>
+        </DemoTile>
+      </div>
+    </Section>
+  );
+}
+
+function DemoTile({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div
+      className="relative h-56 overflow-hidden"
+      style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+    >
+      {children}
+      <div
+        className="relative p-5"
+        style={{ fontSize: 12, letterSpacing: "0.18em", color: "var(--ink-600)", fontWeight: 600, textTransform: "uppercase" }}
+      >
+        {label}
+      </div>
     </div>
   );
 }
 
-function TypeRow({
-  label,
-  meta,
-  children,
-}: {
-  label: string;
-  meta: string;
-  children: React.ReactNode;
-}) {
+function Halftone({ className }: { className?: string }) {
   return (
-    <div className="grid gap-2 border-b border-border/50 pb-6 md:grid-cols-[200px_1fr] md:gap-8">
-      <div>
-        <div className="text-sm font-bold text-ink">{label}</div>
-        <div className="font-mono text-xs text-text-muted">{meta}</div>
+    <svg
+      className={className}
+      width="260"
+      height="260"
+      viewBox="0 0 260 260"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <defs>
+        <radialGradient id="brandHalftoneFade" cx="30%" cy="70%" r="70%">
+          <stop offset="0%" stopColor="#1E2422" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#1E2422" stopOpacity="0" />
+        </radialGradient>
+        <pattern id="brandDots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1.6" fill="#1E2422" />
+        </pattern>
+        <mask id="brandDotsMask">
+          <rect width="260" height="260" fill="url(#brandHalftoneFade)" />
+        </mask>
+      </defs>
+      <rect width="260" height="260" fill="url(#brandDots)" mask="url(#brandDotsMask)" />
+    </svg>
+  );
+}
+
+/* ───────────────────────── BUTTONS ───────────────────────── */
+
+function ButtonsSection() {
+  return (
+    <Section
+      id="buttons"
+      number="06"
+      eyebrow="Buttons"
+      title="כפתורים"
+      description="Pill מלא. ראשי בירוק עמוק, משני עם מתאר ירוק על נייר, שלישי שקוף — כולם בגובה 44–48px."
+    >
+      <div className="space-y-10">
+        <ButtonRow label="Primary">
+          <PrimaryButton />
+          <PrimaryButton hover />
+          <PrimaryButton disabled />
+        </ButtonRow>
+        <ButtonRow label="Outline">
+          <OutlineButton />
+          <OutlineButton hover />
+          <OutlineButton disabled />
+        </ButtonRow>
+        <ButtonRow label="Ghost">
+          <GhostButton />
+          <GhostButton hover />
+          <GhostButton disabled />
+        </ButtonRow>
       </div>
-      <div>{children}</div>
-    </div>
+    </Section>
+  );
+}
+
+function PrimaryButton({ hover, disabled }: { hover?: boolean; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      className="inline-flex h-12 items-center gap-2.5 px-7 text-[15px]"
+      style={{
+        background: hover ? "var(--green-700)" : "var(--green-600)",
+        color: "var(--paper)",
+        borderRadius: 999,
+        fontWeight: 700,
+        letterSpacing: "0.02em",
+        opacity: disabled ? 0.45 : 1,
+        cursor: disabled ? "not-allowed" : "pointer",
+      }}
+    >
+      <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
+      תיאום תור בוואטסאפ
+    </button>
+  );
+}
+
+function OutlineButton({ hover, disabled }: { hover?: boolean; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      className="inline-flex h-12 items-center gap-2.5 px-6 text-[15px]"
+      style={{
+        background: hover ? "var(--green-50)" : "transparent",
+        color: "var(--green-700)",
+        border: "1.5px solid var(--green-600)",
+        borderRadius: 999,
+        fontWeight: 600,
+        opacity: disabled ? 0.45 : 1,
+        cursor: disabled ? "not-allowed" : "pointer",
+      }}
+    >
+      <Phone className="h-[16px] w-[16px]" strokeWidth={1.5} />
+      התקשרו אלינו
+    </button>
+  );
+}
+
+function GhostButton({ hover, disabled }: { hover?: boolean; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      className="inline-flex h-11 items-center gap-2 px-5 text-[14px]"
+      style={{
+        background: hover ? "var(--green-50)" : "transparent",
+        color: hover ? "var(--green-700)" : "var(--ink-900)",
+        borderRadius: 999,
+        fontWeight: 600,
+        opacity: disabled ? 0.45 : 1,
+        cursor: disabled ? "not-allowed" : "pointer",
+      }}
+    >
+      קרא עוד
+    </button>
   );
 }
 
 function ButtonRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-3 md:grid-cols-[140px_1fr] md:items-center md:gap-6">
-      <div className="text-sm font-bold text-ink">{label}</div>
+    <div className="grid gap-3 md:grid-cols-[140px_1fr] md:items-center md:gap-8">
+      <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.9rem" }}>{label}</div>
       <div className="flex flex-wrap items-center gap-3">{children}</div>
     </div>
   );
 }
 
-function Swoosh({ className }: { className?: string }) {
+/* ───────────────────────── FORMS ───────────────────────── */
+
+function FormsSection() {
   return (
-    <svg viewBox="0 0 400 200" className={className} fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-      <path
-        d="M10 150 C 80 40, 220 40, 390 150"
-        stroke="currentColor"
-        strokeWidth="32"
-        strokeLinecap="round"
-      />
-    </svg>
+    <Section
+      id="forms"
+      number="07"
+      eyebrow="Forms"
+      title="טפסים"
+      description="שדות גבוהים ונקיים על נייר, קצוות עדינים וטקסט קריא. תוויות מעל השדה תמיד."
+    >
+      <div
+        className="mx-auto max-w-xl p-8"
+        style={{
+          background: "var(--paper)",
+          border: "1px solid var(--stone-100)",
+          borderRadius: 20,
+          boxShadow: "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)",
+        }}
+      >
+        <div className="mb-6 text-center">
+          <span
+            className="block mb-2 text-[11px] tracking-[0.22em] uppercase"
+            style={{ color: "var(--green-700)", fontWeight: 600 }}
+          >
+            תיאום תור
+          </span>
+          <h3
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "1.75rem",
+              color: "var(--ink-900)",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            נחזור אליך תוך 24 שעות
+          </h3>
+        </div>
+        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <div>
+            <Label htmlFor="bg-name" className="mb-2 block text-sm" style={{ color: "var(--ink-900)", fontWeight: 600 }}>
+              שם מלא
+            </Label>
+            <Input
+              id="bg-name"
+              placeholder="ישראלה ישראלי"
+              className="h-12 px-4 text-base"
+              style={{ borderRadius: 14, background: "var(--paper)", border: "1px solid var(--stone-100)" }}
+            />
+          </div>
+          <div>
+            <Label htmlFor="bg-service" className="mb-2 block text-sm" style={{ color: "var(--ink-900)", fontWeight: 600 }}>
+              סוג טיפול
+            </Label>
+            <Select>
+              <SelectTrigger
+                id="bg-service"
+                className="h-12 px-4 text-base"
+                style={{ borderRadius: 14, background: "var(--paper)", border: "1px solid var(--stone-100)" }}
+              >
+                <SelectValue placeholder="בחרי טיפול" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="diabetic">פדיקור סוכרתי</SelectItem>
+                <SelectItem value="ingrown">ציפורן חודרנית</SelectItem>
+                <SelectItem value="orthonyxia">אורתוניקסיה</SelectItem>
+                <SelectItem value="fungus">טיפול בפטרת</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label htmlFor="bg-msg" className="mb-2 block text-sm" style={{ color: "var(--ink-900)", fontWeight: 600 }}>
+              הודעה
+            </Label>
+            <Textarea
+              id="bg-msg"
+              rows={4}
+              placeholder="ספרי לנו על הצורך שלך…"
+              className="px-4 py-3 text-base"
+              style={{ borderRadius: 14, background: "var(--paper)", border: "1px solid var(--stone-100)" }}
+            />
+          </div>
+          <label className="flex items-center gap-3 text-sm" style={{ color: "var(--ink-900)" }}>
+            <Checkbox className="h-5 w-5 data-[state=checked]:bg-[var(--green-600)] data-[state=checked]:text-white" />
+            אני מאשרת קבלת תזכורת בוואטסאפ
+          </label>
+          <button
+            type="submit"
+            className="inline-flex h-12 w-full items-center justify-center gap-2 text-[15px]"
+            style={{
+              background: "var(--green-600)",
+              color: "var(--paper)",
+              borderRadius: 999,
+              fontWeight: 700,
+              letterSpacing: "0.02em",
+            }}
+          >
+            <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
+            שליחת בקשה
+          </button>
+        </form>
+      </div>
+    </Section>
   );
 }
 
-function Dots({ className }: { className?: string }) {
-  const cells = Array.from({ length: 6 * 3 });
+/* ───────────────────────── COMPONENTS ───────────────────────── */
+
+function ComponentsSection() {
   return (
-    <svg viewBox="0 0 240 120" className={className} fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-      {cells.map((_, i) => {
-        const x = (i % 6) * 40 + 16;
-        const y = Math.floor(i / 6) * 40 + 16;
-        return <circle key={i} cx={x} cy={y} r={5} fill="currentColor" />;
-      })}
-    </svg>
+    <Section
+      id="components"
+      number="08"
+      eyebrow="Components"
+      title="קומפוננטות"
+      description="לבני בניין החוזרות בקליניקה: רשימת התמחויות, רצועת מספרים, ותגיות אמון."
+    >
+      <div className="grid gap-8 md:grid-cols-2">
+        <article
+          className="p-8"
+          style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+        >
+          <span
+            className="block mb-4 text-[11px] tracking-[0.22em] uppercase"
+            style={{ color: "var(--green-700)", fontWeight: 600 }}
+          >
+            Specialties list
+          </span>
+          <ul className="grid gap-x-6 gap-y-2 sm:grid-cols-2" aria-label="תחומי התמחות">
+            {SPECIALTIES.map(({ icon: Icon, label }) => (
+              <li key={label} className="flex items-start gap-3">
+                <span
+                  aria-hidden
+                  className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center"
+                  style={{ color: "var(--green-600)" }}
+                >
+                  <Icon className="h-[16px] w-[16px]" strokeWidth={1.5} />
+                </span>
+                <span style={{ fontSize: "0.9rem", lineHeight: 1.5, color: "var(--ink-900)" }}>{label}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+
+        <article
+          className="p-8"
+          style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+        >
+          <span
+            className="block mb-4 text-[11px] tracking-[0.22em] uppercase"
+            style={{ color: "var(--green-700)", fontWeight: 600 }}
+          >
+            Trust strip
+          </span>
+          <dl className="grid grid-cols-3 gap-px" style={{ background: "rgba(141, 194, 179, 0.45)" }}>
+            {[
+              { value: "12", label: "שנות ניסיון קליני" },
+              { value: "IWGDF", label: "פרוטוקול בינלאומי" },
+              { value: "1:1", label: "טיפול אישי בלבד" },
+            ].map((s) => (
+              <div key={s.label} className="flex flex-col gap-0.5 px-3 py-4" style={{ background: "var(--paper)" }}>
+                <dt
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontWeight: 700,
+                    fontSize: "1.5rem",
+                    lineHeight: 1,
+                    color: "var(--ink-900)",
+                    letterSpacing: "-0.01em",
+                  }}
+                >
+                  {s.value}
+                </dt>
+                <dd style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--ink-600)", lineHeight: 1.5, fontWeight: 500 }}>
+                  {s.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </article>
+
+        <article
+          className="p-8 md:col-span-2"
+          style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+        >
+          <span
+            className="block mb-4 text-[11px] tracking-[0.22em] uppercase"
+            style={{ color: "var(--green-700)", fontWeight: 600 }}
+          >
+            Trust pills
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {["IWGDF", "NHS", "איכילוב", "סטריליות מלאה", "כלים חד-פעמיים", "1:1"].map((t) => (
+              <span
+                key={t}
+                className="inline-flex h-8 items-center px-3 text-[12px]"
+                style={{
+                  background: "var(--green-50)",
+                  color: "var(--green-700)",
+                  border: "1px solid var(--green-100)",
+                  borderRadius: 999,
+                  fontWeight: 600,
+                  letterSpacing: "0.04em",
+                }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </article>
+      </div>
+    </Section>
   );
 }
