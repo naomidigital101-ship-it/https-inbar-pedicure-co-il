@@ -88,6 +88,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: SITE.shortDescription },
       { property: "og:description", content: SITE.shortDescription },
       { name: "twitter:description", content: SITE.shortDescription },
+      { title: "Lovable App" },
+      { property: "og:title", content: "Lovable App" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "description", content: "ענבר פדיקור היא קליניקה מקצועית המציעה טיפולי פדיקור מתקדמים." },
+      { property: "og:description", content: "ענבר פדיקור היא קליניקה מקצועית המציעה טיפולי פדיקור מתקדמים." },
+      { name: "twitter:description", content: "ענבר פדיקור היא קליניקה מקצועית המציעה טיפולי פדיקור מתקדמים." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/aae3a7de-d973-4930-b52d-0379f70db9ac/id-preview-51f41651--44f03f9f-543f-4ee7-a088-faeb76d97532.lovable.app-1781902758090.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/aae3a7de-d973-4930-b52d-0379f70db9ac/id-preview-51f41651--44f03f9f-543f-4ee7-a088-faeb76d97532.lovable.app-1781902758090.png" },
     ],
     links: [
       {
