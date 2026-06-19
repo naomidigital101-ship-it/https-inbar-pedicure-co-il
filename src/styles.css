@@ -119,10 +119,10 @@
   --color-accent-hover: var(--accent-hover);
   --color-footer: var(--footer-bg);
   --color-accent-gold: var(--accent-gold);
-  --font-heading: "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-serif: "Frank Ruhl Libre", "Heebo Variable", serif;
+  --font-heading: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-body: "Ellinia CLM", "Assistant", system-ui, sans-serif;
+  --font-display: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-serif: "Ellinia CLM", "Frank Ruhl Libre", "Heebo Variable", serif;
   /* Restrained clinical shadows — derived from --primary #468677 */
   --shadow-soft: 0 1px 2px rgb(30 36 34 / 0.04), 0 4px 10px -6px rgb(30 36 34 / 0.06);
   --shadow-elegant: 0 1px 2px rgb(30 36 34 / 0.04), 0 8px 18px -10px rgb(30 36 34 / 0.08);
@@ -145,10 +145,10 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
-  --font-heading: "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-serif: "Frank Ruhl Libre", "Heebo Variable", serif;
+  --font-heading: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-body: "Ellinia CLM", "Assistant", system-ui, sans-serif;
+  --font-display: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-serif: "Ellinia CLM", "Frank Ruhl Libre", "Heebo Variable", serif;
   /*
    * Inbar Farchi — French Pharmacy palette
    * Shadow Green primary #468677 · Paper #FAFAF8 · Ink #1E2422
