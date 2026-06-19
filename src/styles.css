@@ -6,16 +6,17 @@
 
 /* Secular One — כותרות (משקל יחיד 400, עברית). Assistant — גוף הטקסט. */
 @import "@fontsource/secular-one/400.css";
-@import "@fontsource/secular-one/400-hebrew.css";
+@import "@fontsource/secular-one/hebrew-400.css";
 @import "@fontsource/assistant/300.css";
 @import "@fontsource/assistant/400.css";
 @import "@fontsource/assistant/500.css";
 @import "@fontsource/assistant/600.css";
 @import "@fontsource/assistant/700.css";
-@import "@fontsource/assistant/400-hebrew.css";
-@import "@fontsource/assistant/500-hebrew.css";
-@import "@fontsource/assistant/600-hebrew.css";
-@import "@fontsource/assistant/700-hebrew.css";
+@import "@fontsource/assistant/hebrew-300.css";
+@import "@fontsource/assistant/hebrew-400.css";
+@import "@fontsource/assistant/hebrew-500.css";
+@import "@fontsource/assistant/hebrew-600.css";
+@import "@fontsource/assistant/hebrew-700.css";
 
 /*
  * ענבר פרחי - design system
@@ -77,9 +78,9 @@
   --color-text-muted: var(--text-muted);
   --color-text-dim: var(--text-dim);
   --color-accent-hover: var(--accent-hover);
-  --font-heading: "Rubik Variable", "Rubik", system-ui, sans-serif;
-  --font-body: "Rubik Variable", "Rubik", system-ui, sans-serif;
-  --font-display: "Rubik Variable", "Rubik", system-ui, sans-serif;
+  --font-heading: "Secular One", system-ui, sans-serif;
+  --font-body: "Assistant", system-ui, sans-serif;
+  --font-display: "Secular One", system-ui, sans-serif;
   /* Mint clinical brand shadows — derived from --primary #7BC4A8 */
   --shadow-soft: 0 1px 2px rgb(35 66 58 / 0.05), 0 8px 20px -10px rgb(35 66 58 / 0.12);
   --shadow-elegant: 0 8px 18px -6px rgb(35 66 58 / 0.16), 0 24px 48px -20px rgb(35 66 58 / 0.16);
