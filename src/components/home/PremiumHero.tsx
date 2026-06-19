@@ -159,25 +159,6 @@ export function PremiumHero() {
               ענבר פרחי
             </h1>
 
-            <p
-              className="mt-5 max-w-[54ch] md:mt-6"
-              data-speakable
-              style={{
-                fontSize: "clamp(1rem, 2.4vw, 1.125rem)",
-                lineHeight: 1.7,
-                color: "var(--ink-600)",
-                fontWeight: 500,
-                opacity: 0.9,
-              }}
-            >
-              <span className="md:hidden">
-                קליניקה שקטה ומדויקת בבית אל. 12 שנות ניסיון בטיפול קליני בכף הרגל.
-              </span>
-              <span className="hidden md:inline">
-                קליניקה שקטה ומדויקת בבית אל. שתים-עשרה שנות ניסיון בטיפול בכף הרגל הסוכרתית, אורתוניקסיה, פטרת ושיקום ציפורן — לפי פרוטוקולים של איכילוב, IWGDF ו-NHS.
-              </span>
-            </p>
-
             <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2 md:mt-7 md:gap-y-3" aria-label="תחומי התמחות">
               {SPECIALTIES.map(({ icon: Icon, label }, idx) => (
                 <li
