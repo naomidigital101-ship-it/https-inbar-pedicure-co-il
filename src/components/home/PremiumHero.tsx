@@ -131,7 +131,7 @@ export function PremiumHero() {
     <section
       dir="rtl"
       className="relative overflow-hidden"
-      style={{ fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif", background: "#FFFFFF" }}
+      style={{ fontFamily: "var(--font-body)", background: "#FFFFFF" }}
     >
       <MeshBackground />
       {/* ============ DESKTOP ============ */}

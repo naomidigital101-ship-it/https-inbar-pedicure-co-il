@@ -57,7 +57,7 @@ export function FlagshipCards() {
       dir="rtl"
       className="relative bg-background pb-20 pt-10 md:pb-28 md:pt-16"
       aria-labelledby="flagship-heading"
-      style={{ fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif" }}
+      style={{ fontFamily: "var(--font-body)" }}
     >
       <div className="mx-auto max-w-[1280px] px-6">
         <div className="mb-10 md:mb-14 max-w-2xl">
@@ -135,7 +135,7 @@ export function FlagshipCards() {
               </span>
               <h3
                 style={{
-                  fontFamily: "'Rubik Variable', 'Rubik', system-ui, sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontWeight: 800,
                   fontSize: "1.35rem",
                   letterSpacing: "-0.02em",
