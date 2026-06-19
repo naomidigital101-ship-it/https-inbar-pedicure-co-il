@@ -28,7 +28,20 @@ export const Route = createFileRoute("/contact")({
       { property: "og:url", content: PAGE_URL },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(contactSchema) }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(contactSchema) },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "בית", item: SITE.url + "/" },
+            { "@type": "ListItem", position: 2, name: "צור קשר", item: PAGE_URL },
+          ],
+        }),
+      },
+    ],
   }),
   component: ContactPage,
 });

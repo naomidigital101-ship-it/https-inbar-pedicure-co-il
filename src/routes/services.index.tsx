@@ -20,6 +20,33 @@ export const Route = createFileRoute("/services/")({
       { property: "og:url", content: PAGE_URL },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "בית", item: SITE.url + "/" },
+            { "@type": "ListItem", position: 2, name: "שירותים", item: PAGE_URL },
+          ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "שירותי פדיקור טיפולי",
+          itemListElement: SERVICES.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            url: `${SITE.url}/services/${s.slug}`,
+            name: s.title,
+          })),
+        }),
+      },
+    ],
   }),
   component: ServicesIndex,
 });

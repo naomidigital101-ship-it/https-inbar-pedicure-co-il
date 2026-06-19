@@ -41,7 +41,20 @@ export const Route = createFileRoute("/about")({
       { name: "twitter:image", content: HERO_ABS },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(personSchema) }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(personSchema) },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "בית", item: SITE.url + "/" },
+            { "@type": "ListItem", position: 2, name: "אודות", item: PAGE_URL },
+          ],
+        }),
+      },
+    ],
   }),
   component: AboutPage,
 });
