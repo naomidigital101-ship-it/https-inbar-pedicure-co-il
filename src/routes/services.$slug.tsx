@@ -46,6 +46,42 @@ export const Route = createFileRoute("/services/$slug")({
             },
           }),
         },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalProcedure",
+            name: s.title,
+            description: s.metaDescription,
+            url,
+            inLanguage: "he-IL",
+            bodyLocation: "כף רגל",
+            performer: {
+              "@type": "MedicalBusiness",
+              name: SITE.brand,
+              url: SITE.url,
+              telephone: SITE.phoneIntl,
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: SITE.city,
+                addressRegion: SITE.region,
+                addressCountry: "IL",
+              },
+            },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "בית", item: SITE.url + "/" },
+              { "@type": "ListItem", position: 2, name: "שירותים", item: SITE.url + "/services" },
+              { "@type": "ListItem", position: 3, name: s.title, item: url },
+            ],
+          }),
+        },
       ],
     };
   },

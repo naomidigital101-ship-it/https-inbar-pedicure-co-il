@@ -97,6 +97,7 @@ export function PremiumHero() {
 
             <p
               className="mt-6 max-w-[54ch] md:mt-8"
+              data-speakable
               style={{ fontSize: "clamp(1rem, 2.5vw, 1.125rem)", lineHeight: 1.7, color: "var(--ink-600)" }}
             >
               <span className="md:hidden">

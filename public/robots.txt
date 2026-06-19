@@ -1,9 +1,14 @@
-User-agent: *
+# Classic search engines
+User-agent: Googlebot
 Allow: /
-Disallow: /admin
-Disallow: /thank-you
 
-# AI crawlers - explicitly allowed
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# AI / answer engines (GEO)
 User-agent: GPTBot
 Allow: /
 
@@ -25,4 +30,15 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://lazyrider.org/sitemap.xml
+User-agent: Applebot-Extended
+Allow: /
+
+# Default
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /thank-you
+Disallow: /branding
+
+Sitemap: https://inbar-farchi.lovable.app/sitemap.xml
