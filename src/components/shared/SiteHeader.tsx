@@ -17,8 +17,11 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const current = typeof window !== "undefined" ? window.location.pathname : "/";
   return (
-    <header className="sticky top-4 z-50 px-4">
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 rounded-full border border-border/50 bg-background/80 px-6 py-3 shadow-[0_10px_40px_-12px_rgba(15,27,61,0.18)] backdrop-blur-2xl ring-1 ring-white/40">
+    <header
+      className="sticky top-0 z-50"
+      style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
+    >
+      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-4">
         <a href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80" aria-label={SITE.brand}>
           <img
             src={logoAsset.url}
@@ -28,14 +31,23 @@ export function SiteHeader() {
             decoding="async"
           />
         </a>
-        <nav className="hidden items-center gap-8 text-[0.92rem] font-normal text-ink lg:flex" aria-label="ניווט ראשי">
+        <nav
+          className="hidden items-center gap-7 text-[0.92rem] lg:flex"
+          aria-label="ניווט ראשי"
+          style={{ color: "var(--ink-900)" }}
+        >
           {navLinks.map((l) => {
             const active = l.href === current || (l.href !== "/" && current.startsWith(l.href));
             return (
               <a
                 key={l.href}
                 href={l.href}
-                className={`relative pb-1 transition-colors hover:text-primary-deep ${active ? "text-ink after:absolute after:bottom-0 after:right-0 after:h-[2px] after:w-full after:bg-copper" : ""}`}
+                className="relative pb-1 transition-colors"
+                style={{
+                  color: active ? "var(--green-700)" : "var(--ink-900)",
+                  fontWeight: active ? 500 : 400,
+                  borderBottom: active ? "1px solid var(--green-500)" : "1px solid transparent",
+                }}
               >
                 {l.label}
               </a>
@@ -45,24 +57,31 @@ export function SiteHeader() {
             href={SITE.whatsappUrl}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[0.85rem] font-bold text-primary-foreground shadow-[0_8px_20px_-6px_rgba(15,27,61,0.25)] transition-all hover:bg-primary-deep hover:shadow-[0_10px_24px_-6px_rgba(15,27,61,0.35)]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-[0.85rem] font-medium transition-colors"
+            style={{ background: "var(--green-500)", color: "var(--paper)", borderRadius: 8 }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--green-600)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--green-500)")}
           >
             <MessageCircle className="h-4 w-4" aria-hidden />
-            וואטסאפ
+            קבעו תור עכשיו
           </a>
         </nav>
-        <button type="button" className="lg:hidden p-2 text-ink" aria-label="תפריט" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+        <button type="button" className="lg:hidden p-2" aria-label="תפריט" aria-expanded={open} onClick={() => setOpen((v) => !v)} style={{ color: "var(--ink-900)" }}>
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
       {open && (
-        <nav className="mx-auto mt-2 max-w-[1280px] overflow-hidden rounded-3xl border border-border/50 bg-background/95 shadow-[0_20px_50px_-12px_rgba(15,27,61,0.25)] backdrop-blur-xl lg:hidden" aria-label="ניווט במובייל">
+        <nav
+          className="lg:hidden"
+          aria-label="ניווט במובייל"
+          style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}
+        >
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="block border-b border-border/60 px-6 py-4 text-sm font-bold text-ink" onClick={() => setOpen(false)}>{l.label}</a>
+            <a key={l.href} href={l.href} className="block px-6 py-4 text-sm" style={{ color: "var(--ink-900)", borderBottom: "1px solid var(--stone-100)" }} onClick={() => setOpen(false)}>{l.label}</a>
           ))}
-          <div className="bg-surface-warm px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-copper">שירותים</div>
+          <div className="px-6 py-3 text-[11px] font-medium uppercase" style={{ background: "var(--stone-50)", color: "var(--green-700)", letterSpacing: "0.22em" }}>שירותים</div>
           {SERVICES_NAV.map((s) => (
-            <a key={s.slug} href={`/services/${s.slug}`} className="block border-b border-border/40 px-8 py-3 text-xs text-ink-soft" onClick={() => setOpen(false)}>{s.label}</a>
+            <a key={s.slug} href={`/services/${s.slug}`} className="block px-8 py-3 text-xs" style={{ color: "var(--ink-600)", borderBottom: "1px solid var(--stone-100)" }} onClick={() => setOpen(false)}>{s.label}</a>
           ))}
         </nav>
       )}
