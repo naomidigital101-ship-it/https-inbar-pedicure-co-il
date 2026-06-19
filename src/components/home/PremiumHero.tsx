@@ -51,24 +51,8 @@ export function PremiumHero() {
       style={{ background: "var(--paper, #FAFAF8)" }}
     >
       <div className="mx-auto max-w-[1200px] px-6 md:px-8 pt-10 pb-16 md:pt-20 md:pb-[120px]">
-        <div className="mb-10 flex items-center gap-4 md:mb-14">
-          <span
-            className="text-[12px] font-medium uppercase"
-            style={{ letterSpacing: "0.32em", color: "var(--green-500)" }}
-          >
-            Inbar — מומחית בטיפול בכף הרגל
-          </span>
-          <span aria-hidden className="h-px flex-1" style={{ background: "var(--stone-100)" }} />
-          <span
-            className="hidden md:inline serif-accent text-[14px]"
-            style={{ color: "var(--ink-600)" }}
-          >
-            01 — קליניקה בבית אל
-          </span>
-        </div>
-
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-start">
-          <motion.div {...fadeProps} className="md:col-span-7">
+          <motion.div {...fadeProps} className="md:col-span-7 md:order-2">
             <h1
               id="hero-heading"
               className="display"
@@ -120,8 +104,16 @@ export function PremiumHero() {
               ))}
             </ul>
 
+          </motion.div>
+
+          <motion.aside
+            {...fadeProps}
+            transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
+            className="md:col-span-5 md:order-1 grid gap-8"
+            aria-labelledby="hero-form-title"
+          >
             <div
-              className="mt-12 hidden overflow-hidden md:block"
+              className="overflow-hidden"
               style={{
                 borderRadius: "8px",
                 border: "1px solid var(--stone-100)",
@@ -131,26 +123,18 @@ export function PremiumHero() {
               <img
                 src={inbarPortrait}
                 alt="ענבר פרחי, פדיקוריסטית טיפולית, בקליניקה בבית אל"
-                width={1200}
-                height={520}
+                width={900}
+                height={1100}
                 loading="eager"
                 style={{
                   display: "block",
                   width: "100%",
-                  height: "260px",
+                  height: "440px",
                   objectFit: "cover",
-                  objectPosition: "50% 32%",
+                  objectPosition: "50% 28%",
                 }}
               />
             </div>
-          </motion.div>
-
-          <motion.aside
-            {...fadeProps}
-            transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
-            className="md:col-span-5"
-            aria-labelledby="hero-form-title"
-          >
             <div
               className="p-7 md:p-9"
               style={{
