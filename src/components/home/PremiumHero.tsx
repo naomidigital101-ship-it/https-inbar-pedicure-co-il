@@ -167,7 +167,7 @@ export function PremiumHero() {
                 <div
                   key={s.label}
                   className="flex flex-col gap-1 px-4 py-5"
-                  style={{ background: "#F0E6DD" }}
+                  style={{ background: "#F7F5F2" }}
                 >
                   <dt
                     style={{
