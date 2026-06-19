@@ -35,33 +35,56 @@ export function PremiumHero() {
       dir="rtl"
       className="relative"
       aria-labelledby="hero-heading"
-      style={{ background: "#F7F5F2" }}
+      style={{ background: "#FFFFFF" }}
     >
-      {/* Geometric Elegance — thick vertical stripes */}
+      {/* Clean white canvas with organic accents */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute inset-y-0 left-0 right-0 flex justify-between px-[8%]">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <span
-              key={i}
-              className="block h-full"
-              style={{ width: 2, background: "rgba(47,102,87,0.08)" }}
-            />
-          ))}
-        </div>
-        {/* soft accent block behind image side (left in RTL viewport) */}
-        <div
-          className="absolute top-[12%] bottom-[18%] left-0 w-[42%] hidden md:block"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(47,102,87,0.06) 0%, rgba(47,102,87,0.02) 60%, transparent 100%)",
-          }}
-        />
+        {/* Organic arc — top right (RTL: behind image side) */}
+        <svg
+          className="absolute -top-24 -right-24 md:-top-32 md:-right-28"
+          width="520"
+          height="520"
+          viewBox="0 0 520 520"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden
+        >
+          <path
+            d="M520 0 A520 520 0 0 0 0 520 L120 520 A400 400 0 0 1 520 120 Z"
+            fill="#8DC2B3"
+            fillOpacity="0.85"
+          />
+        </svg>
+        {/* Halftone dots — bottom left */}
+        <svg
+          className="absolute -bottom-10 -left-10 hidden sm:block"
+          width="260"
+          height="260"
+          viewBox="0 0 260 260"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden
+        >
+          <defs>
+            <radialGradient id="halftoneFade" cx="30%" cy="70%" r="70%">
+              <stop offset="0%" stopColor="#1E2422" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#1E2422" stopOpacity="0" />
+            </radialGradient>
+            <pattern id="dots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.6" fill="#1E2422" />
+            </pattern>
+            <mask id="dotsMask">
+              <rect width="260" height="260" fill="url(#halftoneFade)" />
+            </mask>
+          </defs>
+          <rect width="260" height="260" fill="url(#dots)" mask="url(#dotsMask)" />
+        </svg>
       </div>
       <div className="relative">
-      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-8 pb-6 md:pt-16 md:pb-10">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-10 md:items-center">
+      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-8 pb-6 md:pt-14 md:pb-10">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8 md:items-center">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
-          <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-7">
+          <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-6">
             <span
               className="inline-block mb-4 text-[12px] tracking-[0.18em]"
               style={{ color: "var(--green-700, #234C42)", fontWeight: 600 }}
@@ -203,32 +226,10 @@ export function PremiumHero() {
           <motion.aside
             {...fadeProps}
             transition={{ ...(fadeProps.transition ?? {}), delay: reduced ? 0 : 0.12 }}
-            className="order-1 md:order-1 md:col-span-5 md:self-end relative"
+            className="order-1 md:order-1 md:col-span-6 md:self-end relative"
             aria-label="דיוקן ענבר פרחי"
           >
-            {/* decorative corner accent — desktop only */}
-            <span
-              aria-hidden
-              className="hidden md:block absolute -top-3 -right-3 z-0"
-              style={{
-                width: 72,
-                height: 72,
-                background: "var(--green-600, #2F6657)",
-                opacity: 0.12,
-                borderRadius: 2,
-              }}
-            />
-            <figure className="relative mx-auto" style={{ margin: 0, maxWidth: "420px" }}>
-              {/* soft clinical halo behind subject */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 -z-0"
-                style={{
-                  height: "85%",
-                  background:
-                    "radial-gradient(60% 55% at 50% 70%, rgba(47,102,87,0.12) 0%, rgba(47,102,87,0.04) 45%, transparent 75%)",
-                }}
-              />
+            <figure className="relative mx-auto" style={{ margin: 0, maxWidth: "640px" }}>
               <img
                 src={inbarHero.url}
                 alt="ענבר פרחי מחזיקה מודל אנטומי של כף רגל"
@@ -238,11 +239,11 @@ export function PremiumHero() {
                 className="relative mx-auto"
                 style={{
                   display: "block",
-                  width: "78%",
+                  width: "92%",
                   height: "auto",
                   objectFit: "contain",
                   objectPosition: "center bottom",
-                  maxWidth: "420px",
+                  maxWidth: "640px",
                 }}
               />
             </figure>
@@ -250,28 +251,6 @@ export function PremiumHero() {
         </div>
       </div>
 
-      {/* Progress baseline rail */}
-      <div className="relative mx-auto max-w-[1320px] px-6 md:px-10">
-        <div
-          aria-hidden
-          style={{
-            height: 2,
-            background: "rgba(47,102,87,0.14)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <span
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "33%",
-              background: "var(--green-600, #2F6657)",
-              opacity: 0.85,
-            }}
-          />
-        </div>
-      </div>
       </div>
     </section>
   );
