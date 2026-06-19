@@ -4,9 +4,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Rubik Variable — פונט גאומטרי מודרני, תומך עברית מלא */
-@import "@fontsource-variable/rubik";
-@import "@fontsource-variable/rubik/wght-italic.css";
+/* Secular One — כותרות (משקל יחיד 400, עברית). Assistant — גוף הטקסט. */
+@import "@fontsource/secular-one/400.css";
+@import "@fontsource/secular-one/400-hebrew.css";
+@import "@fontsource/assistant/300.css";
+@import "@fontsource/assistant/400.css";
+@import "@fontsource/assistant/500.css";
+@import "@fontsource/assistant/600.css";
+@import "@fontsource/assistant/700.css";
+@import "@fontsource/assistant/400-hebrew.css";
+@import "@fontsource/assistant/500-hebrew.css";
+@import "@fontsource/assistant/600-hebrew.css";
+@import "@fontsource/assistant/700-hebrew.css";
 
 /*
  * ענבר פרחי - design system
