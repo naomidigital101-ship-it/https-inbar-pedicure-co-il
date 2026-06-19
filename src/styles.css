@@ -27,6 +27,36 @@
 @import "@fontsource/frank-ruhl-libre/hebrew-500.css";
 @import "@fontsource/frank-ruhl-libre/hebrew-700.css";
 
+/* Ellinia CLM — primary brand font (Hebrew + Latin) */
+@font-face {
+  font-family: "Ellinia CLM";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/__l5e/assets-v1/7d67b737-2d66-4ea6-8172-57fba4cd10f7/elliniaclm-light-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Ellinia CLM";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/__l5e/assets-v1/700f5f92-d513-4dce-85e9-7b83233dfe9f/elliniaclm-lightitalic-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Ellinia CLM";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/__l5e/assets-v1/ef126f08-a083-4e22-b4f6-bfcec4fd79a4/elliniaclm-bold-webfont.woff") format("woff");
+}
+@font-face {
+  font-family: "Ellinia CLM";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/__l5e/assets-v1/14d2af62-aade-4c3f-b949-743889978943/elliniaclm-bolditalic-webfont.woff") format("woff");
+}
+
 /*
  * ענבר פרחי - design system
  * פלטה: cream bg + dirt/mud חומים + כתום CTA + ירוק לאסף לידים.
