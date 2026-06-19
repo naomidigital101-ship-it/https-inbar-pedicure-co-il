@@ -1331,12 +1331,15 @@ export type FactCheckResult = {
 };
 
 const AUTHORITATIVE_SOURCES = [
-  "יצרני אופנועים רשמיים: ktm.com, husqvarna-motorcycles.com, betamotor.com, honda.co.il, powersports.honda.com, yamaha-motor.eu, sherco.com, gasgas.com, kawasaki.eu",
-  "תקני בטיחות: mipsprotection.com, unece.org (ECE 22.06), snell.org, fim-moto.com, smf.org",
-  "יצרני חלקים/שמנים: motul.com, ngk.com, brembo.com, dunlop.eu, michelin.com, pirelli.com, didchain.com, motionpro.com",
-  "רגולציה ישראלית: gov.il, parks.org.il, npa.org.il, kkl.org.il",
-  "ידע מוסמך: en.wikipedia.org, he.wikipedia.org",
-  "מחקר: pubmed.ncbi.nlm.nih.gov, nih.gov",
+  "רשויות בריאות ישראל: health.gov.il, clalit.co.il, maccabi4u.co.il, leumit.co.il, meuhedet.co.il, hadassah.org.il, sheba.co.il, rambam.org.il",
+  "רשויות בריאות בינלאומיות: who.int, cdc.gov, nih.gov, nhs.uk, fda.gov, ema.europa.eu",
+  "מאגרי מחקר רפואי: pubmed.ncbi.nlm.nih.gov, cochranelibrary.com, uptodate.com, medlineplus.gov",
+  "כתבי עת רפואיים מובילים: bmj.com, nejm.org, jamanetwork.com, thelancet.com, bjsm.bmj.com",
+  "קווים מנחים קליניים: nice.org.uk, aaos.org, apma.org (American Podiatric Medical Association), iwgdfguidelines.org (International Working Group on the Diabetic Foot), idf.org",
+  "מרפאות וייעוץ רפואי מוסמכים: mayoclinic.org, clevelandclinic.org, hopkinsmedicine.org, health.harvard.edu, merckmanuals.com",
+  "סוכרת: diabetes.org, diabetes.org.uk",
+  "רפואת ספורט: acsm.org, sportsmedicineaustralia.com.au",
+  "ידע כללי לאימות הצלבה: en.wikipedia.org, he.wikipedia.org",
 ];
 
 function collectArticleTexts(p: GeneratedArticlePayload): string[] {
