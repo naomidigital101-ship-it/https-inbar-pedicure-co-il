@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
+import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
 import { SERVICES } from "@/lib/services-content";
 
@@ -56,48 +57,112 @@ function ServicesIndex() {
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main id="main-content" className="flex-1">
-        <section className="bg-background pb-8 pt-4">
-          <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "שירותים" }]} />
-          <div className="mx-auto max-w-[1180px] px-6 py-16">
-            <p className="kicker mb-4">קליניקה לפדיקור טיפולי</p>
-            <h1 className="display max-w-3xl text-5xl text-ink md:text-6xl lg:text-7xl">
-              שירותים <span className="display-italic text-primary-deep">לכל כף רגל</span>
+        <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "שירותים" }]} />
+        <section
+          className="relative overflow-hidden"
+          style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
+        >
+          <BrandHeroBackdrop label="SERVICES · 00" />
+          <div className="relative mx-auto max-w-[1320px] px-6 py-16 md:px-10 md:py-20">
+            <BrandEyebrow withRule>קליניקה לפדיקור טיפולי</BrandEyebrow>
+            <h1
+              className="mt-5 max-w-3xl"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "clamp(2.4rem, 5.6vw, 4.4rem)",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
+                color: "var(--green-700)",
+              }}
+            >
+              שירותים לכל כף רגל
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+            <p className="mt-6 max-w-2xl" style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}>
               לכל טיפול יש עמוד ייעודי עם רקע קליני, פרוטוקול הטיפול בקליניקה, המלצות מניעה ומקורות חיצוניים סמכותיים — משרד הבריאות, NHS, CDC, Mayo Clinic, AAD, IDF ו-APMA.
             </p>
           </div>
         </section>
-        <section className="bg-background pb-24">
-          <div className="mx-auto grid max-w-[1180px] gap-px overflow-hidden rounded-3xl border border-border bg-border px-0 md:grid-cols-2">
+        <section className="pb-24 pt-16" style={{ background: "var(--paper)" }}>
+          <div
+            className="mx-auto grid max-w-[1320px] gap-px overflow-hidden md:grid-cols-2"
+            style={{ background: "var(--stone-100)", border: "1px solid var(--stone-100)", borderRadius: 20, marginInline: "1.5rem" }}
+          >
             {SERVICES.map((s, i) => (
               <Link
                 key={s.slug}
                 to="/services/$slug"
                 params={{ slug: s.slug }}
-                className="group relative flex flex-col gap-4 bg-surface p-10 transition-colors hover:bg-surface-warm"
+                className="group relative flex flex-col gap-4 p-10 transition-colors"
+                style={{ background: "var(--paper)" }}
               >
                 <div className="flex items-center justify-between">
-                  <span className="display text-5xl text-copper">0{i + 1}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-text-muted">טיפול</span>
+                  <span style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontSize: "2.4rem", color: "var(--green-700)", lineHeight: 1 }}>
+                    0{i + 1}
+                  </span>
+                  <BrandEyebrow style={{ fontSize: 11 }}>טיפול</BrandEyebrow>
                 </div>
-                <h2 className="display text-3xl text-ink">{s.title}</h2>
-                <p className="text-base leading-relaxed text-ink-soft">{s.subtitle}</p>
-                <span className="mt-2 inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:text-primary-deep">קראו עוד ←</span>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 300,
+                    fontSize: "1.6rem",
+                    letterSpacing: "-0.01em",
+                    color: "var(--ink-900)",
+                  }}
+                >
+                  {s.title}
+                </h2>
+                <p style={{ color: "var(--ink-600)", fontSize: "0.98rem", lineHeight: 1.65 }}>{s.subtitle}</p>
+                <span className="mt-2 inline-flex items-center gap-2" style={{ color: "var(--green-700)", fontSize: 13, fontWeight: 600 }}>
+                  קראו עוד ←
+                </span>
               </Link>
             ))}
           </div>
         </section>
-        <section className="bg-surface-warm py-20">
+        <section className="py-20" style={{ background: "var(--green-50)", borderTop: "1px solid var(--green-100)" }}>
           <div className="mx-auto max-w-[900px] px-6 text-center">
-            <p className="kicker mb-4">לא בטוחים?</p>
-            <h2 className="display text-4xl text-ink md:text-5xl">
-              נשמע יחד מה <span className="display-italic text-primary-deep">הכי מתאים לכם</span>
+            <BrandEyebrow>לא בטוחים?</BrandEyebrow>
+            <h2
+              className="mt-3"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
+                letterSpacing: "-0.02em",
+                color: "var(--ink-900)",
+              }}
+            >
+              נשמע יחד מה הכי מתאים לכם
             </h2>
-            <p className="mx-auto mt-5 max-w-lg text-base text-ink-soft">תתקשרו או תשלחו וואטסאפ — אבחן את המצב ואסביר את האפשרויות.</p>
+            <p className="mx-auto mt-5 max-w-lg" style={{ color: "var(--ink-600)", lineHeight: 1.7 }}>
+              תתקשרו או תשלחו וואטסאפ — אבחן את המצב ואסביר את האפשרויות.
+            </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <a href={SITE.whatsappUrl} target="_blank" rel="noopener" className="rounded-full bg-primary px-7 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elegant)] hover:bg-primary-deep">וואטסאפ</a>
-              <a href={SITE.telUrl} className="rounded-full border border-ink/15 bg-surface px-7 py-4 text-sm font-bold text-ink hover:border-primary hover:text-primary">{SITE.phoneDisplay}</a>
+              <a
+                href={SITE.whatsappUrl}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex h-12 items-center px-7"
+                style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
+              >
+                וואטסאפ
+              </a>
+              <a
+                href={SITE.telUrl}
+                className="inline-flex h-12 items-center px-6"
+                style={{
+                  background: "transparent",
+                  color: "var(--green-700)",
+                  border: "1.5px solid var(--green-600)",
+                  borderRadius: 999,
+                  fontWeight: 600,
+                  fontSize: 15,
+                }}
+              >
+                {SITE.phoneDisplay}
+              </a>
             </div>
           </div>
         </section>

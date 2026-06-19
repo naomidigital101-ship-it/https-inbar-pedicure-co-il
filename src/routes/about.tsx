@@ -3,6 +3,11 @@ import { Mail, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
+import {
+  BrandHeroBackdrop,
+  BrandEyebrow,
+  SerifNumber,
+} from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
 import heroAsset from "@/assets/inbar-farchi.jpg.asset.json";
 
@@ -84,72 +89,128 @@ function AboutPage() {
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "אודות" }]} />
 
         <article className="bg-background">
-          <div className="mx-auto grid max-w-[1180px] gap-14 px-6 py-20 md:grid-cols-[1fr_1.1fr] md:items-center md:py-28">
-            <div className="relative order-2 md:order-1">
-              <div aria-hidden className="absolute -inset-5 rounded-[2.5rem] bg-copper-soft opacity-50" />
-              <img
-                src={heroAsset.url}
-                alt={`${SITE.brand} – פדיקוריסטית טיפולית בקליניקה`}
-                width={720}
-                height={900}
-                className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[var(--shadow-elegant)]"
-              />
-            </div>
-            <div className="order-1 md:order-2">
-              <div className="mb-6 flex items-center gap-3">
-                <span aria-hidden className="h-px w-10 bg-copper" />
-                <span className="kicker">אודות</span>
+          <section
+            className="relative overflow-hidden"
+            style={{ background: "var(--paper)" }}
+          >
+            <BrandHeroBackdrop label="ABOUT · 00" />
+            <div className="relative mx-auto grid max-w-[1320px] gap-14 px-6 py-20 md:grid-cols-[1fr_1.1fr] md:items-center md:px-10 md:py-24">
+              <div className="order-2 md:order-1">
+                <img
+                  src={heroAsset.url}
+                  alt={`${SITE.brand} – פדיקוריסטית טיפולית בקליניקה`}
+                  width={720}
+                  height={900}
+                  className="relative aspect-[4/5] w-full object-cover"
+                  style={{
+                    borderRadius: 20,
+                    border: "1px solid var(--stone-100)",
+                    boxShadow: "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)",
+                  }}
+                />
               </div>
-              <h1 className="display mb-6 text-5xl text-ink md:text-6xl">
-                היי, אני <span className="display-italic text-primary-deep">ענבר</span>
-              </h1>
-              <p className="text-xl leading-relaxed text-ink-soft">
-                {paragraphs[0]}
-              </p>
+              <div className="order-1 md:order-2">
+                <BrandEyebrow withRule>אודות</BrandEyebrow>
+                <h1
+                  className="mt-5 mb-6"
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 300,
+                    fontSize: "clamp(2.4rem, 5.6vw, 4.4rem)",
+                    lineHeight: 1.05,
+                    letterSpacing: "-0.03em",
+                    color: "var(--green-700)",
+                  }}
+                >
+                  היי, אני ענבר
+                </h1>
+                <p style={{ color: "var(--ink-600)", fontSize: "1.15rem", lineHeight: 1.7 }}>
+                  {paragraphs[0]}
+                </p>
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div className="bg-surface-warm py-20">
-            <div className="mx-auto max-w-[760px] space-y-7 px-6 text-lg leading-loose text-ink-soft">
+          <section style={{ background: "var(--stone-50)", borderTop: "1px solid var(--stone-100)" }} className="py-20">
+            <div className="mx-auto max-w-[760px] space-y-6 px-6" style={{ color: "var(--ink-900)", fontSize: "1.05rem", lineHeight: 1.85 }}>
               {paragraphs.slice(1).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
-          </div>
+          </section>
 
-          <section className="bg-background py-20">
-            <div className="mx-auto max-w-[1180px] px-6">
-              <div className="mb-12 flex items-end justify-between gap-6">
+          <section className="py-20" style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}>
+            <div className="mx-auto max-w-[1320px] px-6 md:px-10">
+              <header className="mb-12 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
+                <SerifNumber>01</SerifNumber>
                 <div>
-                  <p className="kicker mb-3">הכשרה וניסיון</p>
-                  <h2 className="display text-4xl text-ink md:text-5xl">
-                    הרקע <span className="display-italic text-primary-deep">המקצועי</span>
+                  <BrandEyebrow className="mb-3 block">הכשרה וניסיון</BrandEyebrow>
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 300,
+                      fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.02em",
+                      color: "var(--ink-900)",
+                    }}
+                  >
+                    הרקע המקצועי
                   </h2>
                 </div>
-              </div>
-              <ul className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border md:grid-cols-2">
+              </header>
+              <ul
+                className="grid gap-px overflow-hidden md:grid-cols-2"
+                style={{ background: "var(--stone-100)", borderRadius: 20, border: "1px solid var(--stone-100)" }}
+              >
                 {credentials.map((c, i) => (
-                  <li key={c} className="flex items-start gap-4 bg-surface p-7">
-                    <span className="display text-3xl text-copper">0{i + 1}</span>
-                    <span className="pt-2 text-base leading-relaxed text-ink">{c}</span>
+                  <li
+                    key={c}
+                    className="flex items-start gap-4 p-7"
+                    style={{ background: "var(--paper)" }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontWeight: 700,
+                        fontSize: "1.6rem",
+                        color: "var(--green-700)",
+                        lineHeight: 1,
+                      }}
+                    >
+                      0{i + 1}
+                    </span>
+                    <span style={{ color: "var(--ink-900)", fontSize: "0.98rem", lineHeight: 1.6 }}>{c}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-14 flex flex-wrap justify-center gap-4 border-t border-border pt-12">
+              <div
+                className="mt-14 flex flex-wrap justify-center gap-4 pt-12"
+                style={{ borderTop: "1px solid var(--stone-100)" }}
+              >
                 <a
                   href={SITE.whatsappUrl}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elegant)] transition-all hover:bg-primary-deep"
+                  className="inline-flex h-12 items-center gap-2.5 px-7"
+                  style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
                 >
-                  <Phone className="h-4 w-4" aria-hidden /> קביעת תור בוואטסאפ
+                  <Phone className="h-[16px] w-[16px]" strokeWidth={1.5} aria-hidden /> קביעת תור בוואטסאפ
                 </a>
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-surface px-7 py-4 text-sm font-bold text-ink transition-colors hover:border-primary hover:text-primary"
+                  className="inline-flex h-12 items-center gap-2.5 px-6"
+                  style={{
+                    background: "transparent",
+                    color: "var(--green-700)",
+                    border: "1.5px solid var(--green-600)",
+                    borderRadius: 999,
+                    fontWeight: 600,
+                    fontSize: 15,
+                  }}
                 >
-                  <Mail className="h-4 w-4 text-copper" aria-hidden /> שלחו לי מייל
+                  <Mail className="h-[16px] w-[16px]" strokeWidth={1.5} aria-hidden /> שלחו לי מייל
                 </a>
               </div>
             </div>

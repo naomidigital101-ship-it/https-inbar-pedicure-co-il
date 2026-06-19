@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
+import { LegalArticle } from "@/components/brand/LegalArticle";
 
 const SITE = "https://inbar-farchi.lovable.app";
 const PAGE_URL = `${SITE}/privacy`;
@@ -92,32 +93,7 @@ function PrivacyPage() {
       <SiteHeader />
       <main id="main-content" className="flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "מדיניות פרטיות" }]} />
-        <article className="border-b border-[#b8dcd4] bg-[#fdfbf7]">
-          <div className="mx-auto max-w-[760px] px-4 py-14 md:px-8 md:py-20">
-            <div className="mb-8 flex items-center gap-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-                מסמכים משפטיים
-              </span>
-              <span aria-hidden="true" className="h-px w-12 bg-[#b8dcd4]" />
-            </div>
-            <h1 className="mb-6 text-4xl font-black leading-tight text-[#1d3a35] md:text-5xl">
-              מדיניות פרטיות
-            </h1>
-            <p className="mb-10 text-sm text-[#888]">עודכן לאחרונה: מאי 2026</p>
-            <div className="space-y-10 text-base leading-loose text-[#2d4a44]">
-              {sections.map((s) => (
-                <section key={s.title}>
-                  <h2 className="mb-4 text-xl font-bold text-[#1d3a35]">{s.title}</h2>
-                  {s.body.map((p, i) => (
-                    <p key={i} className="mb-3">
-                      {p}
-                    </p>
-                  ))}
-                </section>
-              ))}
-            </div>
-          </div>
-        </article>
+        <LegalArticle title="מדיניות פרטיות" eyebrow="מסמכים משפטיים" label="LEGAL · 00" updated="עודכן לאחרונה: מאי 2026" sections={sections} />
       </main>
       <SiteFooter />
     </div>

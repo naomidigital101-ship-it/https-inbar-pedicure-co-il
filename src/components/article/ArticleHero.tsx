@@ -1,45 +1,65 @@
 import type { Article } from "@/lib/articles";
+import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 
 export function ArticleHero({ article }: { article: Article }) {
   return (
-    <header className="border-b border-[#b8dcd4] bg-[#fdfbf7]">
-      <div className="mx-auto max-w-[1400px] px-4 py-12 md:px-8 md:py-16">
+    <header
+      className="relative overflow-hidden"
+      style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
+    >
+      <BrandHeroBackdrop label="ARTICLE · 00" />
+      <div className="relative mx-auto max-w-[1320px] px-6 py-12 md:px-10 md:py-16">
         <div className="mb-6 flex items-center gap-3">
-          <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-            {article.category}
-          </span>
-          <span aria-hidden="true" className="h-px w-12 bg-[#b8dcd4]" />
+          <BrandEyebrow>{article.category}</BrandEyebrow>
+          <span aria-hidden className="h-px w-12" style={{ background: "var(--green-400)" }} />
         </div>
 
-        <h1 className="mb-6 text-3xl font-black leading-tight text-[#1d3a35] md:text-5xl lg:text-6xl">
+        <h1
+          className="mb-6"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 300,
+            fontSize: "clamp(2rem, 5vw, 3.8rem)",
+            lineHeight: 1.1,
+            letterSpacing: "-0.03em",
+            color: "var(--ink-900)",
+            maxWidth: 920,
+          }}
+        >
           {article.title}
         </h1>
 
-        <p className="mb-8 max-w-3xl text-base font-bold leading-relaxed text-[#5a4f48] md:text-lg">
+        <p
+          className="mb-8 max-w-3xl"
+          style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}
+        >
           {article.excerpt}
         </p>
 
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-bold uppercase tracking-wider text-[#6b5f55]">
+        <div
+          className="flex flex-wrap items-center gap-x-5 gap-y-2"
+          style={{ fontSize: 12.5, color: "var(--ink-600)", letterSpacing: "0.04em" }}
+        >
           <span>
-            כותב: <span className="text-[#1d3a35]">{article.author}</span>
+            כותב: <span style={{ color: "var(--ink-900)", fontWeight: 600 }}>{article.author}</span>
           </span>
-          <span aria-hidden="true" className="text-[#c9b8a3]">|</span>
-          <time dateTime={article.date} className="text-[#1d3a35]">
+          <span aria-hidden style={{ color: "var(--stone-300)" }}>·</span>
+          <time dateTime={article.date} style={{ color: "var(--ink-900)" }}>
             {article.dateLabel}
           </time>
           {article.dateModified && article.dateModifiedLabel && (
             <>
-              <span aria-hidden="true" className="text-[#c9b8a3]">|</span>
+              <span aria-hidden style={{ color: "var(--stone-300)" }}>·</span>
               <span>
                 עודכן:{" "}
-                <time dateTime={article.dateModified} className="text-[#1d3a35]">
+                <time dateTime={article.dateModified} style={{ color: "var(--ink-900)" }}>
                   {article.dateModifiedLabel}
                 </time>
               </span>
             </>
           )}
-          <span aria-hidden="true" className="text-[#c9b8a3]">|</span>
-          <span className="text-[#5fa898]">{article.readingTime}</span>
+          <span aria-hidden style={{ color: "var(--stone-300)" }}>·</span>
+          <span style={{ color: "var(--green-700)", fontWeight: 600 }}>{article.readingTime}</span>
         </div>
       </div>
     </header>
