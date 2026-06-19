@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles, MessageCircle, Phone } from "lucide-react";
 import { SITE } from "@/lib/site-config";
-import inbarPortrait from "@/assets/inbar-portrait-cutout.png";
+import inbarHero from "@/assets/inbar-hero.png.asset.json";
 
 const SPECIALTIES = [
   { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
@@ -35,14 +35,14 @@ export function PremiumHero() {
       dir="rtl"
       className="relative"
       aria-labelledby="hero-heading"
-      style={{ background: "var(--paper, #FAFAF8)" }}
+      style={{ background: "#F0E6DD" }}
     >
       <div className="mx-auto max-w-[1240px] px-6 md:px-10 pt-12 pb-20 md:pt-24 md:pb-[128px]">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16 md:items-center">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
           <motion.div {...fadeProps} className="md:col-span-7 md:order-2">
             <div className="flex items-center gap-3" aria-hidden>
-              <span style={{ width: 28, height: 1, background: "var(--green-600)" }} />
+              <span style={{ width: 28, height: 1, background: "var(--green-700, #2F6657)" }} />
               <span
                 style={{
                   fontFamily: "var(--font-display, 'Heebo', sans-serif)",
@@ -50,7 +50,7 @@ export function PremiumHero() {
                   fontSize: 11,
                   letterSpacing: "0.32em",
                   textTransform: "uppercase",
-                  color: "var(--green-600)",
+                  color: "var(--green-700, #2F6657)",
                 }}
               >
                 Clinique Podologique · Beit El
@@ -150,14 +150,14 @@ export function PremiumHero() {
             {/* Trust strip */}
             <dl
               className="mt-12 grid grid-cols-3 gap-px"
-              style={{ background: "var(--stone-200, #E7E5E0)" }}
+              style={{ background: "rgba(47, 102, 87, 0.18)" }}
               aria-label="נתוני הקליניקה"
             >
               {TRUST_STATS.map((s) => (
                 <div
                   key={s.label}
                   className="flex flex-col gap-1 px-4 py-5"
-                  style={{ background: "var(--paper)" }}
+                  style={{ background: "#F0E6DD" }}
                 >
                   <dt
                     style={{
@@ -192,124 +192,23 @@ export function PremiumHero() {
             className="md:col-span-5 md:order-1"
             aria-label="דיוקן ענבר פרחי"
           >
-            <figure className="relative" style={{ margin: 0, paddingTop: "28px", paddingInlineStart: "40px" }}>
-              {/* Editorial catalogue number */}
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  top: 0,
-                  insetInlineStart: 0,
-                  fontFamily: "var(--font-serif, 'Frank Ruhl Libre', serif)",
-                  fontWeight: 400,
-                  fontSize: "52px",
-                  lineHeight: 1,
-                  color: "var(--green-600)",
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                01
-              </span>
-
-              {/* Vertical rail with rotated label */}
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  top: "70px",
-                  bottom: "70px",
-                  insetInlineStart: "16px",
-                  width: "1px",
-                  background: "var(--stone-200, #E7E5E0)",
-                }}
-              />
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  insetInlineStart: "8px",
-                  bottom: "72px",
-                  transform: "rotate(-90deg)",
-                  transformOrigin: "left bottom",
-                  fontFamily: "var(--font-display, 'Heebo', sans-serif)",
-                  fontWeight: 300,
-                  fontSize: "10px",
-                  letterSpacing: "0.4em",
-                  color: "var(--green-600)",
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                INBAR FARCHI · EST. 2013
-              </span>
-
-              {/* Hairline horizontal rules that extend past the image edges */}
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  insetInlineStart: 0,
-                  insetInlineEnd: "-24px",
-                  top: "calc(28px + 28%)",
-                  height: "1px",
-                  background: "var(--stone-200, #E7E5E0)",
-                }}
-              />
-              <span
-                aria-hidden
-                className="absolute"
-                style={{
-                  insetInlineStart: "-12px",
-                  insetInlineEnd: "32px",
-                  top: "calc(28px + 70%)",
-                  height: "1px",
-                  background: "var(--stone-200, #E7E5E0)",
-                }}
-              />
-
+            <figure className="relative" style={{ margin: 0 }}>
               <img
-                src={inbarPortrait}
-                alt="ענבר פרחי אוחזת מודל אנטומי של כף הרגל בקליניקה הטיפולית בבית אל"
-                width={1024}
-                height={1536}
+                src={inbarHero.url}
+                alt="ענבר פרחי, פדיקוריסטית טיפולית, אוחזת מודל אנטומי של כף הרגל"
+                width={1240}
+                height={1240}
                 loading="eager"
-                className="relative"
                 style={{
                   display: "block",
                   width: "100%",
                   height: "auto",
-                  maxHeight: "640px",
+                  maxHeight: "680px",
                   objectFit: "contain",
                   objectPosition: "center",
+                  mixBlendMode: "multiply",
                 }}
               />
-
-              <figcaption
-                className="relative mt-5 flex items-center gap-3"
-                style={{ paddingInlineStart: "0" }}
-              >
-                <span
-                  aria-hidden
-                  style={{
-                    width: "32px",
-                    height: "1px",
-                    background: "var(--green-600)",
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "var(--font-display, 'Heebo', sans-serif)",
-                    fontWeight: 400,
-                    fontSize: "12px",
-                    letterSpacing: "0.08em",
-                    color: "var(--ink-600)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  מודל אנטומי · הדגמה לטיפול בכף רגל סוכרתית
-                </span>
-              </figcaption>
             </figure>
           </motion.aside>
         </div>
