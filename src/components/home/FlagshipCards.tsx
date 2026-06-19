@@ -4,8 +4,8 @@ import treatmentFungus from "@/assets/treatment-fungus.jpg";
 import treatmentIngrown from "@/assets/treatment-ingrown.jpg";
 import treatmentDiabetic from "@/assets/treatment-diabetic.jpg";
 
-const TEAL = "#0F6B6E";
-const STAMP = "#E89C82";
+const TEAL = "var(--green-500)";
+const STAMP = "var(--accent-gold)";
 
 type Flagship = {
   slug: "fungus" | "ingrown-nails" | "diabetic-feet";
@@ -62,27 +62,22 @@ export function FlagshipCards() {
       <div className="mx-auto max-w-[1280px] px-6">
         <div className="mb-10 md:mb-14 max-w-2xl">
           <span
-            className="inline-flex items-center px-3 py-1 rounded-full mb-4"
-            style={{ background: `${TEAL}14`, color: TEAL, fontSize: 12, fontWeight: 600, letterSpacing: "0.01em" }}
+            className="inline-block mb-4 text-[12px] font-medium uppercase"
+            style={{ color: "var(--green-500)", letterSpacing: "0.24em" }}
           >
             תחומי הליבה
           </span>
           <h2
             id="flagship-heading"
             style={{
-              fontWeight: 800,
+              fontWeight: 300,
               fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
-              lineHeight: 1.05,
+              lineHeight: 1.15,
               letterSpacing: "-0.02em",
-              color: "var(--ink)",
+              color: "var(--ink-900)",
             }}
           >
-            שלושה תחומים<br />
-            <span style={{ position: "relative", display: "inline-block" }}>
-              שאני
-              <span aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 6, background: `${TEAL}33`, borderRadius: 999 }} />
-            </span>{" "}
-            מתמחה בהם
+            שלושה תחומים שאני מתמחה בהם
           </h2>
         </div>
 
@@ -94,7 +89,8 @@ export function FlagshipCards() {
               key={f.slug}
               to="/services/$slug"
               params={{ slug: f.slug }}
-              className="group relative block overflow-hidden rounded-2xl border border-border bg-white shadow-[var(--shadow-soft)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+              className="group relative block overflow-hidden border transition-colors"
+              style={{ borderColor: "var(--stone-100)", background: "var(--paper)", borderRadius: 8 }}
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <img
@@ -105,17 +101,12 @@ export function FlagshipCards() {
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div
-                  aria-hidden
-                  className="absolute inset-0"
-                  style={{ background: `linear-gradient(180deg, transparent 55%, color-mix(in oklab, ${f.accent} 25%, transparent) 100%)` }}
-                />
                 <span
                   aria-hidden
-                  className="absolute top-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 backdrop-blur-sm shadow-[var(--shadow-soft)]"
-                  style={{ color: f.accent }}
+                  className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center"
+                  style={{ color: f.accent, background: "var(--paper)", borderRadius: 6, border: "1px solid var(--stone-100)" }}
                 >
-                  <Icon className="h-5 w-5" strokeWidth={1.8} />
+                  <Icon className="h-5 w-5" strokeWidth={1.5} />
                 </span>
               </div>
 
@@ -123,9 +114,9 @@ export function FlagshipCards() {
               <span
                 style={{
                   display: "inline-block",
-                  fontSize: 10.5,
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  letterSpacing: "0.24em",
                   textTransform: "uppercase",
                   color: f.accent,
                   marginBottom: 8,
@@ -135,33 +126,33 @@ export function FlagshipCards() {
               </span>
               <h3
                 style={{
-                  fontFamily: "var(--font-body)",
-                  fontWeight: 800,
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
                   fontSize: "1.35rem",
-                  letterSpacing: "-0.02em",
-                  color: "var(--ink)",
-                  lineHeight: 1.15,
+                  letterSpacing: "-0.01em",
+                  color: "var(--ink-900)",
+                  lineHeight: 1.25,
                   marginBottom: 10,
                 }}
               >
                 {f.title}
               </h3>
-              <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--ink-soft)", marginBottom: 18 }}>
+              <p style={{ fontSize: 15, lineHeight: 1.65, color: "var(--ink-600)", marginBottom: 18 }}>
                 {f.sub}
               </p>
               <div className="flex items-center justify-between">
                 <span
                   style={{
                     fontSize: 13,
-                    fontWeight: 700,
-                    color: TEAL,
+                    fontWeight: 500,
+                    color: "var(--green-700)",
                   }}
                 >
                   לפרטים ולפרוטוקול
                 </span>
                 <span
-                  className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all group-hover:-translate-x-1"
-                  style={{ border: `1.5px solid ${TEAL}`, color: TEAL }}
+                  className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center transition-transform group-hover:-translate-x-1"
+                  style={{ border: "1px solid var(--green-500)", color: "var(--green-600)", borderRadius: 6 }}
                 >
                   <ArrowLeft className="h-4 w-4" aria-hidden />
                 </span>

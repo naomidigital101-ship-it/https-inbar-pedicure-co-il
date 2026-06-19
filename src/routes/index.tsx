@@ -409,8 +409,8 @@ function Home() {
           </div>
         </section>
 
-        {/* PULL QUOTE */}
-        <section dir="rtl" className="py-24" style={{ background: "var(--ink)", fontFamily: "var(--font-body)" }}>
+        {/* PULL QUOTE / CTA BAND */}
+        <section dir="rtl" className="py-24 md:py-[120px]" style={{ background: "var(--green-950)", fontFamily: "var(--font-body)" }}>
           <div className="mx-auto max-w-[1000px] px-6">
             <div className="flex flex-col gap-10 md:flex-row md:items-center">
               <div className="flex-shrink-0">
@@ -443,19 +443,20 @@ function Home() {
                 <blockquote
                   className="mt-3 text-2xl leading-snug md:text-[2rem]"
                   style={{
-                    fontFamily: "var(--font-body)",
-                    fontWeight: 500,
-                    letterSpacing: "-0.015em",
-                    color: "oklch(0.94 0.012 185)",
+                    fontFamily: "var(--font-serif)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.005em",
+                    lineHeight: 1.45,
+                    color: "#FAFAF8",
                   }}
                 >
                   אני לא מטפלת רק בסימפטום אלא במקור הבעיה. כל רגל מספרת סיפור אחר, והשליחות שלי היא להבין אותו ולהחזיר לך הליכה שקטה.
                 </blockquote>
                 <div className="mt-8 flex items-center gap-4">
-                  <span className="h-px w-10" style={{ background: "var(--primary)" }} />
+                  <span className="h-px w-10" style={{ background: "var(--green-300)" }} />
                   <p
-                    className="text-[11px] uppercase tracking-[0.25em]"
-                    style={{ color: "var(--primary)", fontWeight: 700 }}
+                    className="text-[12px] uppercase"
+                    style={{ color: "var(--green-300)", fontWeight: 500, letterSpacing: "0.24em" }}
                   >
                     ענבר פרחי · פדיקוריסטית טיפולית
                   </p>
@@ -476,9 +477,14 @@ function Home() {
             </div>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
               {AUDIENCES.map((a, i) => (
-                <article key={a.title} className="group relative overflow-hidden rounded-3xl border border-border bg-surface p-7 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
+                <article key={a.title} className="group relative overflow-hidden rounded-lg border border-border bg-surface p-7 transition-colors hover:bg-stone-50">
                   <div className="mb-5 flex items-center gap-3">
-                    <span className="display text-4xl text-copper">0{i + 1}</span>
+                    <span
+                      className="serif-accent"
+                      style={{ fontSize: "2.4rem", lineHeight: 1, color: "var(--green-300)" }}
+                    >
+                      0{i + 1}
+                    </span>
                     <span aria-hidden className="h-px flex-1 bg-border" />
                   </div>
                   <h3 className="display mb-3 text-xl text-ink">{a.title}</h3>
@@ -489,21 +495,32 @@ function Home() {
           </div>
         </section>
 
-        {/* PROCESS */}
-        <section className="bg-primary-deep py-24 text-white">
-          <div className="mx-auto max-w-[1280px] px-6">
+        {/* PROCESS — French catalogue */}
+        <section className="py-24 md:py-[120px]" style={{ background: "var(--stone-50)" }}>
+          <div className="mx-auto max-w-[1200px] px-6">
             <div className="mb-14 max-w-2xl">
-              <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-copper-soft">איך זה עובד</p>
-              <h2 className="display text-4xl text-white md:text-5xl">
-                התהליך, <span className="display-italic text-copper-soft">צעד אחר צעד</span>
+              <p
+                className="mb-4 text-[12px] font-medium uppercase"
+                style={{ letterSpacing: "0.24em", color: "var(--green-500)" }}
+              >
+                תהליך הטיפול
+              </p>
+              <h2 className="display" style={{ fontSize: "clamp(2rem, 4vw, 2.5rem)", color: "var(--ink-900)", fontWeight: 300 }}>
+                איך נראה טיפול בקליניקה — צעד אחר צעד
               </h2>
             </div>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-10 md:grid-cols-4 md:gap-px md:bg-[var(--stone-100)]">
               {PROCESS.map((p) => (
-                <div key={p.n} className="relative">
-                  <p className="display text-6xl text-copper-soft/80">{p.n}</p>
-                  <h3 className="display mt-3 text-2xl text-white">{p.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-white/75">{p.desc}</p>
+                <div key={p.n} className="relative md:p-7" style={{ background: "var(--stone-50)" }}>
+                  <span
+                    className="serif-accent block"
+                    style={{ fontSize: "3.2rem", lineHeight: 1, color: "var(--green-300)" }}
+                  >
+                    {p.n}
+                  </span>
+                  <span aria-hidden className="mt-5 mb-5 block h-px w-10" style={{ background: "var(--green-500)" }} />
+                  <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.25rem", color: "var(--ink-900)", letterSpacing: "-0.01em" }}>{p.title}</h3>
+                  <p className="mt-3 text-[15px]" style={{ lineHeight: 1.7, color: "var(--ink-600)" }}>{p.desc}</p>
                 </div>
               ))}
             </div>

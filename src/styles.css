@@ -4,19 +4,28 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Assistant — פונט יחיד לכל האתר (כותרות + גוף), עברית מלאה. */
+/* Heebo — display/headings (light 300 + 600). Hebrew + Latin. */
+@import "@fontsource-variable/heebo";
+
+/* Assistant — body copy. Hebrew + Latin. */
 @import "@fontsource/assistant/300.css";
 @import "@fontsource/assistant/400.css";
 @import "@fontsource/assistant/500.css";
 @import "@fontsource/assistant/600.css";
 @import "@fontsource/assistant/700.css";
-@import "@fontsource/assistant/800.css";
 @import "@fontsource/assistant/hebrew-300.css";
 @import "@fontsource/assistant/hebrew-400.css";
 @import "@fontsource/assistant/hebrew-500.css";
 @import "@fontsource/assistant/hebrew-600.css";
 @import "@fontsource/assistant/hebrew-700.css";
-@import "@fontsource/assistant/hebrew-800.css";
+
+/* Frank Ruhl Libre — serif accents (pull-quotes, catalogue numbers). */
+@import "@fontsource/frank-ruhl-libre/400.css";
+@import "@fontsource/frank-ruhl-libre/500.css";
+@import "@fontsource/frank-ruhl-libre/700.css";
+@import "@fontsource/frank-ruhl-libre/hebrew-400.css";
+@import "@fontsource/frank-ruhl-libre/hebrew-500.css";
+@import "@fontsource/frank-ruhl-libre/hebrew-700.css";
 
 /*
  * ענבר פרחי - design system
@@ -78,19 +87,22 @@
   --color-text-muted: var(--text-muted);
   --color-text-dim: var(--text-dim);
   --color-accent-hover: var(--accent-hover);
-  --font-heading: "Assistant", system-ui, sans-serif;
+  --color-footer: var(--footer-bg);
+  --color-accent-gold: var(--accent-gold);
+  --font-heading: "Heebo Variable", "Assistant", system-ui, sans-serif;
   --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Assistant", system-ui, sans-serif;
-  /* Mint clinical brand shadows — derived from --primary #7BC4A8 */
-  --shadow-soft: 0 1px 2px rgb(35 66 58 / 0.05), 0 8px 20px -10px rgb(35 66 58 / 0.12);
-  --shadow-elegant: 0 8px 18px -6px rgb(35 66 58 / 0.16), 0 24px 48px -20px rgb(35 66 58 / 0.16);
-  --shadow-lift: 0 24px 48px -16px rgb(35 66 58 / 0.22);
-  --shadow-clinical: 0 1px 0 rgb(35 66 58 / 0.04), 0 1px 2px rgb(35 66 58 / 0.04), 0 12px 32px -16px rgb(35 66 58 / 0.14);
-  --shadow-ring: 0 0 0 1px rgb(35 66 58 / 0.06), 0 1px 2px rgb(35 66 58 / 0.04);
+  --font-display: "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-serif: "Frank Ruhl Libre", "Heebo Variable", serif;
+  /* Restrained clinical shadows — derived from --primary #468677 */
+  --shadow-soft: 0 1px 2px rgb(30 36 34 / 0.04), 0 4px 10px -6px rgb(30 36 34 / 0.06);
+  --shadow-elegant: 0 1px 2px rgb(30 36 34 / 0.04), 0 8px 18px -10px rgb(30 36 34 / 0.08);
+  --shadow-lift: 0 1px 2px rgb(30 36 34 / 0.04), 0 12px 24px -12px rgb(30 36 34 / 0.10);
+  --shadow-clinical: 0 0 0 1px rgb(30 36 34 / 0.04);
+  --shadow-ring: 0 0 0 1px rgb(30 36 34 / 0.04);
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.5rem;
   /* Radius scale — generous, friendly */
   --radius-pill: 999px;
   /* Spacing scale (4/8/12/16/24/32/48/64/96) */
@@ -103,60 +115,81 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
-  --font-heading: "Assistant", system-ui, sans-serif;
+  --font-heading: "Heebo Variable", "Assistant", system-ui, sans-serif;
   --font-body: "Assistant", system-ui, sans-serif;
-  --font-display: "Assistant", system-ui, sans-serif;
+  --font-display: "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-serif: "Frank Ruhl Libre", "Heebo Variable", serif;
   /*
-   * Inbar Farchi — brand tokens (Fresh Mint / Clinical Trust)
-   * Primary mint #7BC4A8 · Ink #23423A · Soft #E6F5EF
-   * Surface-soft #F1F9F5 · Border #CDE8DD · White bg
+   * Inbar Farchi — French Pharmacy palette
+   * Shadow Green primary #468677 · Paper #FAFAF8 · Ink #1E2422
+   * Stone-50 #F5F4F1 · Stone-100 #ECEAE5 · Accent gold #C9A24B
    */
-  --background: #FFFFFF;
-  --surface: #FFFFFF;
-  --surface-soft: #F1F9F5;
-  --surface-warm: #F1F9F5; /* legacy alias → mint soft surface */
-  --foreground: #23423A;
-  --ink: #23423A;
-  --ink-soft: #3A584F;
-  --text-muted: #5E7A70;
-  --text-dim: #8AA59B;
-  --card: #FFFFFF;
-  --card-foreground: #23423A;
-  --popover: #FFFFFF;
-  --popover-foreground: #23423A;
-  --primary: #7BC4A8;
-  --primary-hover: #5FAE8E;
-  --primary-soft: #E6F5EF;
-  --primary-deep: #3E9B7E;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F1F9F5;
-  --secondary-foreground: #23423A;
-  --muted: #F1F9F5;
-  --muted-foreground: #5E7A70;
-  --accent: #7BC4A8;
-  --accent-hover: #5FAE8E;
-  --accent-foreground: #FFFFFF;
-  /* Legacy "copper" tokens — remapped to mint so old usages stay on-brand */
-  --copper: #5FAE8E;
-  --copper-soft: #E6F5EF;
+  --paper: #FAFAF8;
+  --stone-50: #F5F4F1;
+  --stone-100: #ECEAE5;
+  --stone-300: #C9C6BF;
+  --ink-900: #1E2422;
+  --ink-600: #5B5F5C;
+  --green-50: #F4F9F7;
+  --green-100: #DAEDE7;
+  --green-200: #B5DACE;
+  --green-300: #8DC2B3;
+  --green-400: #60A191;
+  --green-500: #468677;
+  --green-600: #366B60;
+  --green-700: #2E574F;
+  --green-800: #284741;
+  --green-900: #253C38;
+  --green-950: #11221F;
+  --accent-gold: #C9A24B;
+
+  --background: #FAFAF8;
+  --surface: #FAFAF8;
+  --surface-soft: #F4F9F7;
+  --surface-warm: #F5F4F1;
+  --foreground: #1E2422;
+  --ink: #1E2422;
+  --ink-soft: #5B5F5C;
+  --text-muted: #5B5F5C;
+  --text-dim: #C9C6BF;
+  --card: #FAFAF8;
+  --card-foreground: #1E2422;
+  --popover: #FAFAF8;
+  --popover-foreground: #1E2422;
+  --primary: #468677;
+  --primary-hover: #366B60;
+  --primary-soft: #DAEDE7;
+  --primary-deep: #2E574F;
+  --primary-foreground: #FAFAF8;
+  --secondary: #F5F4F1;
+  --secondary-foreground: #1E2422;
+  --muted: #F5F4F1;
+  --muted-foreground: #5B5F5C;
+  --accent: #468677;
+  --accent-hover: #366B60;
+  --accent-foreground: #FAFAF8;
+  /* Legacy "copper" tokens — remapped to muted gold for premium accents */
+  --copper: #C9A24B;
+  --copper-soft: #F4ECD9;
+  --footer-bg: #11221F;
   --destructive: oklch(0.55 0.18 28);
   --destructive-foreground: oklch(1 0 0);
-  --border: #CDE8DD;
-  --input: #FFFFFF;
-  --ring: #7BC4A8;
-  --chart-1: #7BC4A8;
-  --chart-2: #3E9B7E;
-  --chart-3: #B8E0CD;
-  --chart-4: #23423A;
-  --chart-5: #5E7A70;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #23423A;
-  --sidebar-primary: #7BC4A8;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F1F9F5;
-  --sidebar-accent-foreground: #23423A;
-  --sidebar-border: #CDE8DD;
-  --sidebar-ring: #7BC4A8;
+  --border: #ECEAE5;
+  --input: #FAFAF8;
+  --ring: #366B60;
+  --chart-1: #468677;
+  --chart-2: #2E574F;
+  --chart-3: #B5DACE;
+  --chart-4: #1E2422;
+  --chart-5: #5B5F5C;
+  --sidebar: #FAFAF8;
+  --sidebar-foreground: #1E2422;
+  --sidebar-primary: #468677;
+  --sidebar-primary-foreground: #FAFAF8;
+  --sidebar-accent: #F5F4F1;
+  --sidebar-accent-foreground: #1E2422;
+  --sidebar-border: #ECEAE5;
+  --sidebar-ring: #366B60;
 }
 
 .dark {
@@ -215,18 +248,23 @@
   .display-italic,
   .heading {
     font-family: var(--font-display) !important;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.0;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  h3, h4, .heading-strong {
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   [dir="rtl"] body {
     text-align: right;
   }
 
-  /* Body copy — readable line-height for medical content (WCAG) */
+  /* Body copy — generous line-height for medical content (WCAG) */
   p {
-    line-height: 1.65;
+    line-height: 1.7;
   }
 
   /* Default cursor on every interactive element (UX polish) */
@@ -252,23 +290,30 @@
 
   .kicker {
     font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--primary);
   }
 
   .display {
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.0;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   .display-italic {
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: -0.02em;
     color: var(--primary);
+    font-style: normal;
+  }
+
+  .serif-accent {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-feature-settings: "kern", "liga", "lnum";
   }
 
   .grain {
