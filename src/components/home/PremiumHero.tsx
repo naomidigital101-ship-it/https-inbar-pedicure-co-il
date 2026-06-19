@@ -39,25 +39,76 @@ export function PremiumHero() {
     >
       {/* Clean white canvas with organic accents */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Organic arc — top right (RTL: behind image side) */}
+        {/* Organic arc — spans top-right to bottom-left of the entire hero */}
         <svg
-          className="absolute -top-40 -right-40 md:-top-56 md:-right-52"
-          width="900"
-          height="900"
-          viewBox="0 0 900 900"
+          className="absolute inset-0 h-full w-full"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden
-          preserveAspectRatio="xMaxYMin meet"
         >
           <path
-            d="M900 0 A900 900 0 0 0 0 900"
+            d="M100 0 A 130 130 0 0 0 0 100"
             stroke="#8DC2B3"
             strokeOpacity="0.9"
-            strokeWidth="44"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+            style={{ strokeWidth: "1.6px" }}
             fill="none"
           />
         </svg>
+        {/* Light gray brand accents — subtle designed touches */}
+        <span
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{
+            top: "14%",
+            right: "6%",
+            width: 1,
+            height: 56,
+            background: "rgba(30,36,34,0.12)",
+          }}
+        />
+        <span
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{
+            top: "12%",
+            right: "5.2%",
+            fontFamily: "var(--font-serif)",
+            fontSize: 11,
+            letterSpacing: "0.22em",
+            color: "rgba(30,36,34,0.32)",
+            writingMode: "vertical-rl",
+            transform: "rotate(180deg)",
+          }}
+        >
+          INBAR · 01
+        </span>
+        {/* tiny cross mark */}
+        <svg
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{ top: "22%", left: "44%" }}
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+        >
+          <path d="M7 0 V14 M0 7 H14" stroke="rgba(30,36,34,0.18)" strokeWidth="1" />
+        </svg>
+        {/* hairline rule across image side bottom */}
+        <span
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{
+            bottom: "10%",
+            left: "8%",
+            width: 110,
+            height: 1,
+            background: "rgba(30,36,34,0.10)",
+          }}
+        />
         {/* Halftone dots — bottom left */}
         <svg
           className="absolute -bottom-10 -left-10 hidden sm:block"
@@ -84,7 +135,7 @@ export function PremiumHero() {
         </svg>
       </div>
       <div className="relative">
-      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-8 pb-6 md:pt-14 md:pb-10">
+      <div className="mx-auto max-w-[1320px] px-6 md:px-10 pt-6 pb-6 md:pt-10 md:pb-8">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8 md:items-center">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
           <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-6">
