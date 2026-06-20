@@ -284,15 +284,13 @@ export function PremiumHero() {
                 width={1240}
                 height={1700}
                 loading="eager"
-                className="relative mx-auto"
+                className="relative mx-auto max-h-[44svh] w-auto md:max-h-none md:w-full"
                 style={{
                   display: "block",
-                  width: "100%",
                   height: "auto",
                   objectFit: "contain",
                   objectPosition: "center bottom",
                   maxWidth: "720px",
-                  maxHeight: "calc(100svh - 96px)",
                 }}
               />
             </figure>
