@@ -22,17 +22,17 @@ export function InArticleCTA() {
           lineHeight: 1.15,
         }}
       >
-        תיאום תור בקליניקה — חזרה תוך 24 שעות
+        רוצה ליווי אישי בתהליך טיפוח כף הרגל?
       </h3>
       <p className="mb-6 max-w-2xl" style={{ color: "var(--ink-600)", fontSize: 15, lineHeight: 1.7 }}>
-        אבחון מדויק של הבעיה, תוכנית טיפול אישית ופרוטוקול חזרה ביתי. סטריליות מלאה, כלים חד-פעמיים וליווי בוואטסאפ עד החלמה.
+        כל מקרה הוא תהליך אישי. אצלי תקבלי בדיקה יסודית, התאמה של תוכנית טיפוח לאורח החיים שלך והנחיות ביתיות מסודרות. ליווי בוואטסאפ לאורך הדרך, בלי הבטחות שווא ובלי קיצורי דרך.
       </p>
       <a
         href="#lead-magnet"
         className="inline-flex h-12 items-center gap-2 px-7"
         style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
       >
-        קביעת תור
+        לקביעת פגישת ייעוץ
         <span aria-hidden>←</span>
       </a>
     </aside>
