@@ -279,7 +279,7 @@ function Home() {
         </section>
 
         {/* MEDICAL AUTHORITY LOGOS */}
-        <section className="border-y border-border py-6" style={{ background: "var(--stone-50)" }}>
+        <section className="bg-background py-6">
           <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-[10.5px] font-bold uppercase tracking-[0.2em] text-text-muted">
             <span>מבוסס פרוטוקולים של</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
@@ -370,7 +370,7 @@ function Home() {
         </section>
 
         {/* RED FLAGS */}
-        <section className="py-20 md:py-24" style={{ background: "var(--stone-50)" }}>
+        <section className="bg-background py-20 md:py-24">
           <div className="mx-auto max-w-[1100px] px-6">
             <div className="grid gap-10 md:grid-cols-[1fr_1.4fr] md:items-start">
               <div>
@@ -382,7 +382,7 @@ function Home() {
                   פדיקור טיפולי הוא כלי חזק, אבל יש סימנים שמחייבים בדיקה קלינית מקדימה. אם את/ה מזהה אחד מאלה, אשמח להפנות לרופא המתאים לפני שנמשיך.
                 </p>
               </div>
-              <div className="rounded-2xl border border-destructive/25 bg-surface p-6 md:p-8">
+              <div className="rounded-2xl border border-destructive/25 bg-surface-warm p-6 md:p-8">
                 <div className="mb-4 flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-destructive/10 text-destructive">
                     <AlertTriangle className="h-5 w-5" aria-hidden strokeWidth={1.8} />
@@ -571,7 +571,7 @@ function Home() {
         </section>
 
         {/* ABOUT TEASER */}
-        <section className="py-24" style={{ background: "var(--stone-50)" }}>
+        <section className="bg-background py-24">
           <div className="mx-auto grid max-w-[1180px] gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <div className="relative">
               <div aria-hidden className="absolute -inset-4 rounded-[2.5rem] bg-copper-soft opacity-50" />
@@ -641,12 +641,12 @@ function Home() {
                 לשאלות שמתביישים <span className="display-italic text-primary-deep">לשאול</span>
               </h2>
             </div>
-            <div className="divide-y divide-border rounded-3xl border border-border px-6 md:px-10" style={{ background: "var(--stone-50)" }}>
+            <div className="divide-y divide-border border-y border-border">
               {FAQS.map((f) => (
                 <details key={f.q} className="group py-6">
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-6 text-lg font-medium text-ink marker:hidden">
                     <span>{f.q}</span>
-                    <span aria-hidden className="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-border bg-surface text-primary transition-all group-open:rotate-45 group-open:border-primary group-open:bg-primary group-open:text-primary-foreground">+</span>
+                    <span aria-hidden className="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-border text-primary transition-all group-open:rotate-45 group-open:border-primary group-open:bg-primary group-open:text-primary-foreground">+</span>
                   </summary>
                   <p className="mt-4 max-w-3xl text-base leading-relaxed text-ink-soft">{f.a}</p>
                 </details>
