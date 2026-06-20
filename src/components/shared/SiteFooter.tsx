@@ -29,7 +29,7 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-12">
           <section aria-labelledby="footer-brand" className="space-y-5 md:col-span-5">
             <h2 id="footer-brand" className="sr-only">{SITE.brand}</h2>
-            <BrandLogo tone="paper" layout="horizontal" size={64} />
+            <BrandLogo tone="paper" layout="horizontal" size={96} />
             <p className="max-w-md text-sm leading-relaxed" style={{ color: "#B5C8C2" }}>
               קליניקה לפדיקור טיפולי המתמחה בטיפול ביבלות, פטרת, ציפורן חודרנית ובכף הרגל של חולי סוכרת. סטריליות מלאה, פרוטוקולים קליניים וליווי אישי עד החלמה.
             </p>
