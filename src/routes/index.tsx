@@ -570,6 +570,58 @@ function Home() {
           </div>
         </section>
 
+        {/* BEFORE & AFTER */}
+        <section className="bg-background py-24">
+          <div className="mx-auto max-w-[1280px] px-6">
+            <div className="mb-14 max-w-2xl">
+              <p className="kicker mb-4">תוצאות מהקליניקה</p>
+              <h2 className="display text-4xl text-ink md:text-5xl">
+                לפני ואחרי — <span className="display-italic text-primary-deep">תיעוד אמיתי</span>
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-ink-soft">
+                מקרים אמיתיים של מטופלים בקליניקה — מציפורן חודרנית כרונית, דרך פטרת עיקשת, יבלות עמוקות וסדקים בעקב, ועד שיקום ציפורן בשיטת BIO.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { title: "ציפורן חודרנית", desc: "אורתוניקסיה ושיקום מבנה הציפורן ללא ניתוח, ללא כאב.", slug: "ingrown-nails" },
+                { title: "פטרת ציפורן", desc: "פרוטוקול קליני יסודי עם הדרכה ביתית עד החלמה מלאה.", slug: "fungus" },
+                { title: "יבלה עמוקה", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.", slug: "corns" },
+                { title: "שיקום ציפורן BIO", desc: "מילוי וטיפוח ציפורן שהתנתקה ממיטת הציפורן.", slug: "onycholysis" },
+              ].map((c, i) => (
+                <Link
+                  key={c.title}
+                  to="/services/$slug"
+                  params={{ slug: c.slug }}
+                  className="group overflow-hidden rounded-2xl border border-border bg-surface transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]"
+                >
+                  <div className="grid grid-cols-2 gap-px bg-border">
+                    <div className="relative aspect-square bg-surface-warm flex items-center justify-center">
+                      <span className="absolute right-2 top-2 rounded-full bg-ink/85 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white">לפני</span>
+                      <Footprints className="h-10 w-10 text-ink/20" aria-hidden strokeWidth={1.4} />
+                    </div>
+                    <div className="relative aspect-square flex items-center justify-center" style={{ background: "var(--primary-soft)" }}>
+                      <span className="absolute right-2 top-2 rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white">אחרי</span>
+                      <CheckCircle2 className="h-10 w-10 text-primary-deep/60" aria-hidden strokeWidth={1.4} />
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <p className="kicker mb-2">מקרה {String(i + 1).padStart(2, "0")}</p>
+                    <h3 className="display text-lg text-ink">{c.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">{c.desc}</p>
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-primary-deep group-hover:text-copper">
+                      לפרטים <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" aria-hidden />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <p className="mt-6 text-xs text-text-muted">
+              * כל המקרים מוצגים באישור המטופלים. תמונות מלאות נמסרות בייעוץ אישי בקליניקה.
+            </p>
+          </div>
+        </section>
+
         {/* ABOUT TEASER */}
         <section className="bg-background py-24">
           <div className="mx-auto grid max-w-[1180px] gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center">
@@ -657,6 +709,58 @@ function Home() {
 
         {/* CTA FINAL */}
         <section className="bg-background pb-24">
+          {/* PEDICURIST EMPOWERMENT */}
+          <div className="mx-auto mb-16 max-w-[1180px] px-6">
+            <div className="relative overflow-hidden rounded-[2rem] border border-copper/30 bg-surface-warm p-8 md:p-12">
+              <div aria-hidden className="absolute -left-16 -top-16 h-48 w-48 rounded-full bg-copper-soft/30 blur-3xl" />
+              <div className="relative grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-center">
+                <div>
+                  <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-copper/15 text-copper">
+                    <Megaphone className="h-6 w-6" aria-hidden strokeWidth={1.6} />
+                  </div>
+                  <p className="kicker mb-3">פדיקוריסטית? הצטרפי למאבק</p>
+                  <h2 className="display text-3xl text-ink md:text-[2.3rem]">
+                    הגיע הזמן להכיר <span className="display-italic text-primary-deep">בערך המקצועי שלנו</span>
+                  </h2>
+                </div>
+                <div>
+                  <p className="text-base leading-relaxed text-ink-soft">
+                    הפדיקור הטיפולי עדיין לא מוכר רשמית כמקצוע פרא־רפואי בישראל, למרות הניסיון, ההשתלמויות ופרוטוקולי הסטריליות שאנחנו מקפידות עליהם בכל יום. אני מובילה מסלול הכשרה והסברה לפדיקוריסטיות שרוצות להעלות את הסטנדרט המקצועי, להגן על המטופלים שלהן ולהילחם להכרה רשמית.
+                  </p>
+                  <ul className="mt-5 grid gap-2.5 text-sm text-ink-soft sm:grid-cols-2">
+                    {[
+                      "השתלמויות מקצועיות מתקדמות",
+                      "פרוטוקולי סטריליות מאושרים",
+                      "ליווי קליני אישי",
+                      "קהילה מקצועית פעילה",
+                    ].map((b) => (
+                      <li key={b} className="flex items-start gap-2.5">
+                        <Users className="mt-0.5 h-4 w-4 flex-shrink-0 text-copper" aria-hidden strokeWidth={1.8} />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <Link
+                      to="/masterclass"
+                      className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3 text-sm font-bold text-white transition-colors hover:bg-primary-deep"
+                    >
+                      להצטרפות למאסטרקלאס <ArrowLeft className="h-4 w-4" aria-hidden />
+                    </Link>
+                    <a
+                      href={SITE.whatsappUrl}
+                      target="_blank"
+                      rel="noopener"
+                      className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-7 py-3 text-sm font-bold text-ink transition-colors hover:border-primary hover:text-primary"
+                    >
+                      <MessageCircle className="h-4 w-4" aria-hidden /> ליצירת קשר
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <PartnersStrip />
           <div className="mx-auto max-w-[1100px] px-6">
             <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary-deep via-primary to-primary-deep px-8 py-16 text-center md:px-16 md:py-20">
