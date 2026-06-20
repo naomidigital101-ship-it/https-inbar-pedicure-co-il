@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
-import logoAsset from "@/assets/inbar-logo.png.asset.json";
+import logoAsset from "@/assets/inbar-logo-final.png.asset.json";
 
 const navLinks = [
   { label: "בית", href: "/" },
