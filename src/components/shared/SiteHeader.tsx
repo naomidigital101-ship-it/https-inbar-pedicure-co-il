@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
 import logoAsset from "@/assets/inbar-logo.png.asset.json";
@@ -15,12 +15,52 @@ const navLinks = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const current = typeof window !== "undefined" ? window.location.pathname : "/";
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
     <header
       className="sticky top-0 z-50"
-      style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
+      style={{
+        background: "color-mix(in oklab, var(--paper) 92%, transparent)",
+        backdropFilter: "saturate(140%) blur(10px)",
+        boxShadow: scrolled
+          ? "0 1px 0 var(--stone-100), 0 8px 24px -16px rgb(30 36 34 / 0.18)"
+          : "0 1px 0 var(--stone-100)",
+        transition: "box-shadow 240ms ease, background 240ms ease",
+      }}
     >
+      {/* Gold hairline accent — מותג */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent 0%, var(--accent-gold) 22%, var(--accent-gold) 78%, transparent 100%)",
+          opacity: 0.55,
+        }}
+      />
+      {/* Organic green arc — נגיעה אורגנית בקצה */}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute -bottom-px left-0 hidden h-10 w-[260px] md:block"
+        viewBox="0 0 260 40"
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <path
+          d="M0 40 Q 60 0 130 18 T 260 40"
+          stroke="var(--green-300)"
+          strokeOpacity="0.45"
+          strokeWidth="1"
+          fill="none"
+        />
+      </svg>
       <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-4">
         <a href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80" aria-label={SITE.brand}>
           <img
@@ -42,14 +82,22 @@ export function SiteHeader() {
               <a
                 key={l.href}
                 href={l.href}
-                className="relative pb-1 transition-colors"
+                className="group relative pb-1 transition-colors hover:text-[var(--green-700)]"
                 style={{
                   color: active ? "var(--green-700)" : "var(--ink-900)",
                   fontWeight: active ? 500 : 400,
-                  borderBottom: active ? "1px solid var(--green-500)" : "1px solid transparent",
                 }}
               >
                 {l.label}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 -bottom-0.5 h-px origin-center scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, var(--accent-gold), transparent)",
+                    transform: active ? "scaleX(1)" : undefined,
+                  }}
+                />
               </a>
             );
           })}
@@ -57,16 +105,45 @@ export function SiteHeader() {
             href={SITE.whatsappUrl}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-[0.85rem] font-medium transition-colors"
-            style={{ background: "var(--green-500)", color: "var(--paper)", borderRadius: 8 }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--green-600)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--green-500)")}
+            className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-[0.85rem] font-medium transition-all"
+            style={{
+              background: "var(--green-700)",
+              color: "var(--paper)",
+              borderRadius: 999,
+              boxShadow:
+                "0 1px 0 rgb(255 255 255 / 0.15) inset, 0 8px 20px -12px rgb(79 140 123 / 0.55)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "var(--green-800)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "var(--green-700)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
           >
+            <span
+              aria-hidden
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: "var(--accent-gold)" }}
+            />
             <MessageCircle className="h-4 w-4" aria-hidden />
             קבעו תור עכשיו
           </a>
         </nav>
-        <button type="button" className="lg:hidden p-2" aria-label="תפריט" aria-expanded={open} onClick={() => setOpen((v) => !v)} style={{ color: "var(--ink-900)" }}>
+        <button
+          type="button"
+          className="lg:hidden p-2 transition-colors"
+          aria-label="תפריט"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          style={{
+            color: "var(--green-700)",
+            border: "1px solid var(--stone-100)",
+            borderRadius: 999,
+            background: "var(--stone-50)",
+          }}
+        >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
