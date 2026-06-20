@@ -8,25 +8,18 @@ import { InArticleCTA } from "./InArticleCTA";
  * כל דומיין אחר נכפה ל-nofollow גם אם סומן אחרת.
  */
 const DOFOLLOW_HOSTS = new Set<string>([
-  // יצרני אופנועים רשמיים
-  "ktm.com", "husqvarna-motorcycles.com", "betamotor.com",
-  "honda.co.il", "powersports.honda.com", "yamaha-motor.eu",
-  "sherco.com", "gasgas.com", "kawasaki.eu",
-  // תקני בטיחות ורגולציה
-  "mipsprotection.com", "unece.org", "nhtsa.gov",
-  "snell.org", "fim-moto.com", "smf.org",
-  // יצרני חלקים ושמנים
-  "motul.com", "ngk.com", "brembo.com",
-  "dunlop.eu", "michelin.com", "pirelli.com",
-  "didchain.com", "rkexcelamerica.com", "motionpro.com",
-  // ידע מוסמך
+  // משרדי בריאות וגופים רגולטוריים
+  "gov.il", "health.gov.il", "who.int",
+  // קופות חולים
+  "clalit.co.il", "maccabi4u.co.il", "leumit.co.il", "meuhedet.co.il",
+  // מקורות מידע מובילים
+  "mayoclinic.org", "nhs.uk", "nih.gov", "cdc.gov",
+  // מחקר ופרסומים מקצועיים
+  "pubmed.ncbi.nlm.nih.gov", "cochrane.org", "bmj.com", "nejm.org",
+  // איגודים מקצועיים בתחום כף הרגל
+  "iwgdf.org", "apma.org", "fip-ifp.org", "thecollegeofpodiatry.com",
+  // ידע כללי
   "en.wikipedia.org", "he.wikipedia.org",
-  // רגולציה ישראלית
-  "gov.il", "parks.org.il", "npa.org.il", "kkl.org.il",
-  // יצרני נוספים
-  "ngkntk.com",
-  // מחקר קליני
-  "pubmed.ncbi.nlm.nih.gov", "nih.gov", "bmj.com", "nejm.org",
 ]);
 
 function isAllowedDofollow(href: string): boolean {
