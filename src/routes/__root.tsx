@@ -100,6 +100,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16.png" },
       { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "alternate", hrefLang: "he-IL", href: SITE.url + "/" },
+      { rel: "alternate", hrefLang: "x-default", href: SITE.url + "/" },
       {
         rel: "alternate",
         type: "application/rss+xml",
@@ -112,7 +114,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": ["LocalBusiness", "HealthAndBeautyBusiness", "LocalBusiness"],
+          "@type": ["LocalBusiness", "HealthAndBeautyBusiness"],
           "@id": SITE.url + "/#business",
           name: SITE.brand,
           url: SITE.url,
