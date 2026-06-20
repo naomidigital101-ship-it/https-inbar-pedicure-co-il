@@ -8,8 +8,8 @@ export const SITE = {
   tagline: "פדיקוריסטית טיפולית לטיפול בכף הרגל",
   shortDescription:
     "פדיקור טיפולי לטיפול ביבלות, פטרת, ציפורן חודרנית וסדקים בעקב. גישה סטרילית, עדינה ומבוססת ניסיון.",
-  url: "https://inbar-farchi.lovable.app",
-  domain: "inbar-farchi.lovable.app",
+  url: "https://inbar-pedicure.co.il",
+  domain: "inbar-pedicure.co.il",
   city: "בית אל",
   region: "אזור בנימין",
   phoneDisplay: "050-666-8595",
@@ -20,7 +20,20 @@ export const SITE = {
   wazeUrl: "https://waze.com/ul?q=ענבר%20פרחי%20פדיקור%20טיפולי%20בית%20אל",
   email: "inbar.pedicure@gmail.com",
   hoursDisplay: "ראשון–חמישי, 09:00–20:00",
-  hoursOpeningSpec: ["Su,Mo,Tu,We,Th 09:00-20:00"] as const,
+  hoursOpeningSpec: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+      opens: "09:00",
+      closes: "20:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Friday", "Saturday"],
+      opens: "00:00",
+      closes: "00:00",
+    },
+  ] as const,
   yearsExperience: 12,
   treatmentsCount: "200+",
 } as const;

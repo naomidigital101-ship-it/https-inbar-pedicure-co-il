@@ -41,4 +41,4 @@ Disallow: /admin/
 Disallow: /thank-you
 Disallow: /branding
 
-Sitemap: https://inbar-farchi.lovable.app/sitemap.xml
+Sitemap: https://inbar-pedicure.co.il/sitemap.xml

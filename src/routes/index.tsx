@@ -128,7 +128,7 @@ export const Route = createFileRoute("/")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": ["LocalBusiness", "LocalBusiness"],
+          "@type": ["LocalBusiness", "HealthAndBeautyBusiness"],
           name: SITE.brand,
           description: `קליניקה טיפולית לפדיקור טיפולי בבית אל, אזור בנימין. ${SITE.shortDescription}`,
           url: SITE.url,
