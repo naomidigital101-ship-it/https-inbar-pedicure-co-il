@@ -161,7 +161,7 @@ function ServicePage() {
               <a
                 href={SITE.whatsappUrl}
                 target="_blank"
-                rel="noopener"
+                rel="noopener nofollow"
                 className="inline-flex h-12 items-center px-7"
                 style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
               >
@@ -288,7 +288,7 @@ function ServicePage() {
                           <a
                             href={src.url}
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="noopener noreferrer nofollow"
                             className="underline"
                             style={{ color: "var(--green-700)" }}
                           >
@@ -366,7 +366,7 @@ function ServicePage() {
               {s.sources.map((src, i) => (
                 <li key={src.url}>
                   <span style={{ color: "var(--green-700)", fontWeight: 700 }}>[{i + 1}]</span>{" "}
-                  <a href={src.url} target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "var(--ink-900)" }}>
+                  <a href={src.url} target="_blank" rel="noopener noreferrer nofollow" className="underline" style={{ color: "var(--ink-900)" }}>
                     {src.label}
                   </a>
                 </li>
@@ -415,7 +415,7 @@ function ServicePage() {
               <a
                 href={SITE.whatsappUrl}
                 target="_blank"
-                rel="noopener"
+                rel="noopener nofollow"
                 className="inline-flex h-12 items-center px-7"
                 style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
               >

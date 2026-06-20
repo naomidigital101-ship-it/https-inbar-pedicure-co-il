@@ -31,7 +31,7 @@ export function PartnersStrip() {
                 <a
                   href={p.url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   aria-label={`${p.name} — ${p.tagline}`}
                   className="inline-flex items-center text-ink-soft opacity-60 grayscale transition-all duration-300 hover:text-primary-deep hover:opacity-100 hover:grayscale-0"
                 >

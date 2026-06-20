@@ -768,7 +768,7 @@ function Home() {
                   אשמח לקבל אתכם לפגישת אבחון בקליניקה ב{SITE.city}. {SITE.hoursDisplay}.
                 </p>
                 <div className="mt-10 flex flex-wrap justify-center gap-4">
-                  <a href={SITE.whatsappUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-surface px-8 py-4 text-sm font-bold text-primary-deep shadow-[var(--shadow-elegant)] transition-transform hover:scale-105">
+                  <a href={SITE.whatsappUrl} target="_blank" rel="noopener nofollow" className="inline-flex items-center gap-2 rounded-full bg-surface px-8 py-4 text-sm font-bold text-primary-deep shadow-[var(--shadow-elegant)] transition-transform hover:scale-105">
                     <MessageCircle className="h-4 w-4" aria-hidden /> וואטסאפ
                   </a>
                   <a href={SITE.telUrl} className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-transparent px-8 py-4 text-sm font-bold text-white transition-colors hover:bg-white/10">

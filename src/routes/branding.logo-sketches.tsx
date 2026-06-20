@@ -541,7 +541,7 @@ function LogoSketchesPage() {
               <a
                 href={SITE.whatsappUrl}
                 target="_blank"
-                rel="noopener"
+                rel="noopener nofollow"
                 className="inline-flex items-center justify-center self-start whitespace-nowrap px-7 py-3.5 text-[14px] font-medium transition-colors md:self-end"
                 style={{
                   background: "var(--accent-gold)",
