@@ -5,6 +5,7 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { LeadMagnet } from "@/components/shared/LeadMagnet";
 import { BrandHeroBackdrop, BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
+import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
 
 const PAGE_URL = `${SITE.url}/knowledge`;
 const TITLE = `מרכז הידע — מדריכים מקצועיים בפדיקור טיפולי | ${SITE.brand}`;
@@ -12,16 +13,19 @@ const DESCRIPTION =
   "מרכז הידע של ענבר פרחי: מאמרים ומדריכים על יבלות, פטרת, ציפורן חודרנית, סוכרת, סדקים בעקב, מניעה ותחזוקה — בשפה ברורה ומבוססת ניסיון קליני.";
 
 const CATEGORY_DESCRIPTIONS: Record<string, string> = {
-  corns: "מדוע נוצרות יבלות בכף הרגל, איך מטפלים בהן בבטחה ומה ההבדל בין יבלת קשה לרכה.",
-  fungus: "פטרת ציפורן ופטרת עור — סימני זיהוי, גורמי הסיכון, טיפול ופרוטוקול מניעה.",
-  "ingrown-nails": "ציפורן חודרנית: גורמים, ניקוז זהיר, גזירה נכונה ומניעת חזרה של הבעיה.",
-  "diabetic-feet": "פדיקור בטוח לחולי סוכרת — סטריליות מלאה, בדיקה תקופתית וזיהוי סימני אזהרה.",
-  "cracked-heels": "סדקים בעקב ועור קשה — שגרת טיפול, תכשירים מומלצים ומתי לפנות לטיפול קליני.",
-  prevention: "שגרת תחזוקה ביתית, גזירה נכונה, בחירת נעליים והרגלים שמונעים בעיות עתידיות.",
-  "sports-feet": "פדיקור לספורטאים וחיילים — שלפוחיות, חיכוך, ציפורניים שחורות והגנה לכף הרגל.",
+  "foot-care": "שגרת טיפוח יומית, גזירת ציפורניים נכונה, סדקים בעקב ועור יבש — מבוסס משרד הבריאות, NHS ו-Mayo Clinic.",
+  conditions: "פטרת ציפורן, יבלות ויראליות, ציפורן חודרנית, דורבן וכאבי עקב — זיהוי מבדל ופרוטוקולי טיפול.",
+  "diabetic-foot": "פדיקור בטוח לחולי סוכרת לפי IWGDF — סטריליות, בדיקה יומית וזיהוי סימני אזהרה.",
+  treatments: "אורטוניקסיה, שיקום ציפורן BIO, הסרת יבלות והביקור הראשון בקליניקה — מה באמת קורה בטיפול.",
+  footwear: "איך לבחור נעליים, מתי צריך מדרסים, נעלי ריצה ונעליים לעבודה ממושכת — בלי שיווק.",
+  "sports-feet": "ספורטאים, רצים, חיילים ומילואימניקים — שלפוחיות, שין ספלינטס וטיפול בכף רגל בעומס.",
 };
 
 export const Route = createFileRoute("/knowledge")({
+  loader: async () => {
+    const articles = await listPublishedAiArticleCards();
+    return { articles };
+  },
   head: () => ({
     meta: [
       { title: TITLE },
