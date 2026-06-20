@@ -6,6 +6,7 @@ import { LeadMagnet } from "@/components/shared/LeadMagnet";
 import { BrandHeroBackdrop, BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
+import type { ArticleCard } from "@/lib/article-cards";
 
 const PAGE_URL = `${SITE.url}/knowledge`;
 const TITLE = `מרכז הידע — מדריכים מקצועיים בפדיקור טיפולי | ${SITE.brand}`;
@@ -198,7 +199,7 @@ function KnowledgeIndex() {
               </h2>
             </div>
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {articles.map((a) => (
+              {articles.map((a: ArticleCard) => (
                 <li key={a.slug}>
                   <Link
                     to="/article/$slug"
