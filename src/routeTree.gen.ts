@@ -18,11 +18,11 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MasterclassRouteImport } from './routes/masterclass'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as BrandingRouteImport } from './routes/branding'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as BrandingIndexRouteImport } from './routes/branding.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
@@ -80,11 +80,6 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BrandingRoute = BrandingRouteImport.update({
-  id: '/branding',
-  path: '/branding',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
   id: '/accessibility',
   path: '/accessibility',
@@ -105,6 +100,11 @@ const ServicesIndexRoute = ServicesIndexRouteImport.update({
   path: '/services/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandingIndexRoute = BrandingIndexRouteImport.update({
+  id: '/branding/',
+  path: '/branding/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -121,9 +121,9 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandingLogoSketchesRoute = BrandingLogoSketchesRouteImport.update({
-  id: '/logo-sketches',
-  path: '/logo-sketches',
-  getParentRoute: () => BrandingRoute,
+  id: '/branding/logo-sketches',
+  path: '/branding/logo-sketches',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ArticleSlugRoute = ArticleSlugRouteImport.update({
   id: '/article/$slug',
@@ -167,7 +167,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/branding': typeof BrandingRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
@@ -184,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/category/$slug': typeof CategorySlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/branding/': typeof BrandingIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
@@ -194,7 +194,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/branding': typeof BrandingRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
@@ -211,6 +210,7 @@ export interface FileRoutesByTo {
   '/category/$slug': typeof CategorySlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin': typeof AdminIndexRoute
+  '/branding': typeof BrandingIndexRoute
   '/services': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
@@ -222,7 +222,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/branding': typeof BrandingRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
@@ -239,6 +238,7 @@ export interface FileRoutesById {
   '/category/$slug': typeof CategorySlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
+  '/branding/': typeof BrandingIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
@@ -251,7 +251,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
-    | '/branding'
     | '/contact'
     | '/knowledge'
     | '/masterclass'
@@ -268,6 +267,7 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/services/$slug'
     | '/admin/'
+    | '/branding/'
     | '/services/'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
@@ -278,7 +278,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
-    | '/branding'
     | '/contact'
     | '/knowledge'
     | '/masterclass'
@@ -295,6 +294,7 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/services/$slug'
     | '/admin'
+    | '/branding'
     | '/services'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
@@ -305,7 +305,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
-    | '/branding'
     | '/contact'
     | '/knowledge'
     | '/masterclass'
@@ -322,6 +321,7 @@ export interface FileRouteTypes {
     | '/category/$slug'
     | '/services/$slug'
     | '/admin/'
+    | '/branding/'
     | '/services/'
     | '/admin/preview/$slug'
     | '/api/public/indexnow'
@@ -333,7 +333,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
-  BrandingRoute: typeof BrandingRouteWithChildren
   ContactRoute: typeof ContactRoute
   KnowledgeRoute: typeof KnowledgeRoute
   MasterclassRoute: typeof MasterclassRoute
@@ -346,9 +345,11 @@ export interface RootRouteChildren {
   AdminContentRoute: typeof AdminContentRoute
   AdminLoginRoute: typeof AdminLoginRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
+  BrandingLogoSketchesRoute: typeof BrandingLogoSketchesRoute
   CategorySlugRoute: typeof CategorySlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  BrandingIndexRoute: typeof BrandingIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
   AdminPreviewSlugRoute: typeof AdminPreviewSlugRoute
   ApiPublicIndexnowRoute: typeof ApiPublicIndexnowRoute
@@ -421,13 +422,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/branding': {
-      id: '/branding'
-      path: '/branding'
-      fullPath: '/branding'
-      preLoaderRoute: typeof BrandingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/accessibility': {
       id: '/accessibility'
       path: '/accessibility'
@@ -456,6 +450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/branding/': {
+      id: '/branding/'
+      path: '/branding'
+      fullPath: '/branding/'
+      preLoaderRoute: typeof BrandingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
@@ -479,10 +480,10 @@ declare module '@tanstack/react-router' {
     }
     '/branding/logo-sketches': {
       id: '/branding/logo-sketches'
-      path: '/logo-sketches'
+      path: '/branding/logo-sketches'
       fullPath: '/branding/logo-sketches'
       preLoaderRoute: typeof BrandingLogoSketchesRouteImport
-      parentRoute: typeof BrandingRoute
+      parentRoute: typeof rootRouteImport
     }
     '/article/$slug': {
       id: '/article/$slug'
@@ -536,23 +537,10 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface BrandingRouteChildren {
-  BrandingLogoSketchesRoute: typeof BrandingLogoSketchesRoute
-}
-
-const BrandingRouteChildren: BrandingRouteChildren = {
-  BrandingLogoSketchesRoute: BrandingLogoSketchesRoute,
-}
-
-const BrandingRouteWithChildren = BrandingRoute._addFileChildren(
-  BrandingRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
-  BrandingRoute: BrandingRouteWithChildren,
   ContactRoute: ContactRoute,
   KnowledgeRoute: KnowledgeRoute,
   MasterclassRoute: MasterclassRoute,
@@ -565,9 +553,11 @@ const rootRouteChildren: RootRouteChildren = {
   AdminContentRoute: AdminContentRoute,
   AdminLoginRoute: AdminLoginRoute,
   ArticleSlugRoute: ArticleSlugRoute,
+  BrandingLogoSketchesRoute: BrandingLogoSketchesRoute,
   CategorySlugRoute: CategorySlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   AdminIndexRoute: AdminIndexRoute,
+  BrandingIndexRoute: BrandingIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
   AdminPreviewSlugRoute: AdminPreviewSlugRoute,
   ApiPublicIndexnowRoute: ApiPublicIndexnowRoute,
