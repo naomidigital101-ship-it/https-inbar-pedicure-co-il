@@ -10,6 +10,7 @@ import logo05 from "@/assets/logo-sketches/logo-05-pill-foot-mark.png";
 import logo06 from "@/assets/logo-sketches/logo-06-i-as-foot-bold.png";
 import logo07 from "@/assets/logo-sketches/logo-07-i-serif-toes.png";
 import logo08 from "@/assets/logo-sketches/logo-08-i-foot-silhouette.png";
+import logoFinal from "@/assets/logo-final-i-foot.png";
 
 type Sketch = {
   id: string;
