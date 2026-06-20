@@ -1387,7 +1387,7 @@ function IndexationTab() {
         <a
           href="https://search.google.com/search-console?resource_id=https%3A%2F%2Finbar-farchi.lovable.app%2F"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
           className="border border-[#c9b8a3] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44] hover:bg-[#ede2d4]"
         >
           🔗 פתח Search Console
@@ -1431,14 +1431,14 @@ function IndexationTab() {
               <a
                 href={submitResult.sitemapUrl}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 className="text-[#6b5f55] underline"
               >
                 צפה ב-sitemap
               </a>
             </li>
             <li className="text-[10px] text-[#7a6e65]">
-              IndexNow key: <a href={submitResult.indexNowKeyLocation} target="_blank" rel="noopener noreferrer" className="underline">{submitResult.indexNowKeyLocation}</a>
+              IndexNow key: <a href={submitResult.indexNowKeyLocation} target="_blank" rel="noopener noreferrer nofollow" className="underline">{submitResult.indexNowKeyLocation}</a>
             </li>
             <li className="text-[10px] text-[#7a6e65]">
               זמן: {submitResult.startedAt} → {submitResult.finishedAt}
@@ -1455,7 +1455,7 @@ function IndexationTab() {
                     <a
                       href={l.link}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       className="text-[#7aa7e8] underline"
                     >
                       {l.url}
@@ -1556,7 +1556,7 @@ function IndexationTab() {
                     <a
                       href={r.inspectionLink}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       className="border border-[#c9b8a3] px-2 py-1 text-center text-[10px] font-bold uppercase text-[#5a4f48] hover:bg-[#ede2d4]"
                     >
                       פתח ב-GSC ↗
@@ -1873,7 +1873,7 @@ function AutopilotHistoryTab() {
                             <a
                               href={`/article/${r.slug}`}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noreferrer nofollow"
                               className="text-[#c9a84c] hover:underline"
                             >
                               /article/{r.slug}

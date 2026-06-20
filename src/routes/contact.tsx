@@ -141,7 +141,7 @@ function ContactPage() {
               <a
                 href={SITE.whatsappUrl}
                 target="_blank"
-                rel="noopener"
+                rel="noopener nofollow"
                 className="inline-flex h-12 items-center gap-2.5 px-7"
                 style={{
                   background: "var(--green-600)",
@@ -204,7 +204,7 @@ function ContactCard({
             <a
               href={subHref}
               target="_blank"
-              rel="noopener"
+              rel="noopener nofollow"
               className="mt-1 inline-block"
               style={{ color: "var(--green-700)", fontSize: 12, fontWeight: 600 }}
             >

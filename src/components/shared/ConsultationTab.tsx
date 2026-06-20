@@ -11,7 +11,7 @@ export function ConsultationTab() {
     <a
       href={`${SITE.whatsappUrl}?text=${message}`}
       target="_blank"
-      rel="noopener"
+      rel="noopener nofollow"
       aria-label="לתיאום פגישת ייעוץ בוואטסאפ"
       className="group fixed left-5 top-28 z-40 hidden h-20 w-20 flex-col items-center justify-center gap-1 rounded-full bg-primary-deep text-primary-foreground shadow-[var(--shadow-lift)] ring-4 ring-background transition-all duration-300 hover:scale-105 hover:bg-primary lg:flex"
     >

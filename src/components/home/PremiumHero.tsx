@@ -197,7 +197,7 @@ export function PremiumHero() {
               <a
                 href={HERO_WA_HREF}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener noreferrer nofollow"
                 aria-label="פתחו שיחת ווצאפ עם ענבר"
                 className="inline-flex h-11 items-center gap-2.5 px-6 text-[14px] transition-colors"
                 style={{

@@ -225,7 +225,7 @@ export function SiteHeader() {
         <a
           href={SITE.whatsappUrl}
           target="_blank"
-          rel="noopener"
+          rel="noopener nofollow"
           className="group relative hidden items-center gap-2 px-5 py-2.5 text-[0.85rem] font-medium transition-all lg:inline-flex"
           style={{
             background: "var(--green-700)",

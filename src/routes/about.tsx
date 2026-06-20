@@ -368,7 +368,7 @@ function AboutPage() {
                 <a
                   href={SITE.whatsappUrl}
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener nofollow"
                   className="inline-flex h-12 items-center gap-2.5 px-7"
                   style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
                 >

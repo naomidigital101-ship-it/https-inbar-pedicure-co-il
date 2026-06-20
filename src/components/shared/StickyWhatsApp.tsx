@@ -15,7 +15,7 @@ export function StickyWhatsApp() {
         <a
           href={SITE.whatsappUrl}
           target="_blank"
-          rel="noopener"
+          rel="noopener nofollow"
           className="flex flex-1 items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-bold text-primary-foreground"
         >
           <MessageCircle className="h-4 w-4" aria-hidden />
@@ -24,7 +24,7 @@ export function StickyWhatsApp() {
         <a
           href={SITE.wazeUrl}
           target="_blank"
-          rel="noopener"
+          rel="noopener nofollow"
           aria-label="ניווט לקליניקה"
           className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-ink/15 bg-surface text-copper"
         >
