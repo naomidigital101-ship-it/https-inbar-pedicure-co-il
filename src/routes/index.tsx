@@ -223,6 +223,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const { latestArticles } = Route.useLoaderData();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
