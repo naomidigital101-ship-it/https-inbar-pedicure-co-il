@@ -96,10 +96,10 @@ export function LeadMagnet() {
             lineHeight: 1.1,
           }}
         >
-          47 בדיקות לפני יציאה לשטח
+          המדריך לבריאות כף הרגל
         </h2>
         <p style={{ color: "color-mix(in oklab, var(--paper) 80%, transparent)", fontSize: 15.5, lineHeight: 1.65 }}>
-          הצ׳קליסט שכל מכונאי שומר לעצמו. חינם במייל.
+          טיפים יומיומיים, סימני אזהרה ושגרת טיפוח שכל פדיקוריסטית טיפולית ממליצה. חינם במייל.
         </p>
       </div>
 
