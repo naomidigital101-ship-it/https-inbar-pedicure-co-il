@@ -7,6 +7,9 @@ import logo02 from "@/assets/logo-sketches/logo-02-wordmark-arc.png";
 import logo03 from "@/assets/logo-sketches/logo-03-botanical-foot.png";
 import logo04 from "@/assets/logo-sketches/logo-04-vertical-stamp.png";
 import logo05 from "@/assets/logo-sketches/logo-05-pill-foot-mark.png";
+import logo06 from "@/assets/logo-sketches/logo-06-i-as-foot-bold.png";
+import logo07 from "@/assets/logo-sketches/logo-07-i-serif-toes.png";
+import logo08 from "@/assets/logo-sketches/logo-08-i-foot-silhouette.png";
 
 type Sketch = {
   id: string;
@@ -21,6 +24,39 @@ type Sketch = {
 };
 
 const SKETCHES: Sketch[] = [
+  {
+    id: "i-as-foot-bold",
+    number: "06",
+    title: "I = Foot · Bold",
+    subtitle: "האות I היא כף הרגל · גרסה מלאה",
+    description:
+      "האות I (Inbar) שמסתיימת בחמש אצבעות בראשה ובעקב מעוגל בתחתיתה. נקודת זהב בנקודת הלחץ. הצורה היא גם אות וגם רגל בו-זמנית — זיהוי מיידי, פטיש ויזואלי חזק.",
+    bestFor: "סמל ראשי · אריזות · merch · favicon",
+    image: logo06,
+    ratio: "portrait",
+  },
+  {
+    id: "i-serif-toes",
+    number: "07",
+    title: "I + Ascending Toes",
+    subtitle: "I סריפי עם אצבעות עולות",
+    description:
+      "I סריפי קלאסי, עדין ואדיטוריאלי, שמעליו חמש נקודות עולות באלכסון — כמו תנועה, כמו צמיחה. נקודת זהב בבסיס. תחושה של בית-אופנה צרפתי, לא של מרפאה. רומנטי ומדויק.",
+    bestFor: "ברנדינג מדויק · נייר מכתבים · אריזות יוקרה",
+    image: logo07,
+    ratio: "portrait",
+  },
+  {
+    id: "i-foot-silhouette",
+    number: "08",
+    title: "I = Foot · Silhouette",
+    subtitle: "צללית רגל שהיא I",
+    description:
+      "צללית מלאה של כף רגל בצד-פרופיל, שהקו האנכי שלה יוצר את האות I. נקודת זהב בכרית הרגל. נטו, ללא מסגרת, ללא מילוי מיותר. הכי קריא ב-favicon וב-app icon.",
+    bestFor: "Favicon · App icon · סטיקרים · חותמות",
+    image: logo08,
+    ratio: "portrait",
+  },
   {
     id: "pill-foot-mark",
     number: "00",
