@@ -1385,7 +1385,7 @@ function IndexationTab() {
           הגש את כל החסרים לאינדוקס
         </button>
         <a
-          href="https://search.google.com/search-console?resource_id=https%3A%2F%2Finbar-farchi.lovable.app%2F"
+          href="https://search.google.com/search-console?resource_id=https%3A%2F%2Finbar-pedicure.co.il%2F"
           target="_blank"
           rel="noopener noreferrer nofollow"
           className="border border-[#c9b8a3] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44] hover:bg-[#ede2d4]"

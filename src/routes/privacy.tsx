@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { LegalArticle } from "@/components/brand/LegalArticle";
 
-const SITE = "https://inbar-farchi.lovable.app";
+const SITE = "https://inbar-pedicure.co.il";
 const PAGE_URL = `${SITE}/privacy`;
 const TITLE = "מדיניות פרטיות | ענבר פרחי";
 const DESCRIPTION =
