@@ -1,6 +1,6 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
-import logoAsset from "@/assets/inbar-logo.png.asset.json";
+import logoAsset from "@/assets/inbar-logo-final.png.asset.json";
 
 const siteLinks = [
   { label: "אודות ענבר", href: "/about" },
