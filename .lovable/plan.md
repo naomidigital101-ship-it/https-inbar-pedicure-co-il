@@ -1,67 +1,44 @@
+## מטרה
+להתקין את ערכת ה-Hebrew SEO & GEO Toolkit כסקיל בפרויקט, להריץ ביקורת מלאה על האתר, ולתקן את כל הפערים שיתגלו ב-SEO ו-GEO (חיפוש AI).
 
-## סיכום סריקת inbar-pedicure.co.il
+## שלב 1 — התקנת הסקיל
+- העתקת התיקייה `/tmp/hebrew-seo/hebrew-seo-geo-toolkit/` (SKILL.md, SKILL_HE.md, references/, scripts/, metadata.json) אל `.agents/skills/hebrew-seo-geo-toolkit/`.
+- אימות שאין `.git` בארכיון, התעלמות מ-`evidence.json` אם לא רלוונטי.
+- קריאה ל-`skills--apply_draft` עם הנתיב, כך שהסקיל יהיה זמין בשיחות עתידיות (טריגרים: SEO, GEO, מילות מפתח, .co.il, schema).
 
-האתר המקורי בנוי על וורדפרס + Yoast. שלוש מפות אתר משנה: `post-sitemap`, `page-sitemap`, `pedicure-treatments-sitemap`. סך הכול 18 כתובות פומביות.
+## שלב 2 — ביקורת SEO+GEO על האתר החי
+הרצת `python3 scripts/seo_audit.py "https://inbar-pedicure.co.il"` מהסקיל, בנוסף לבדיקה ידנית של:
+- `<title>`, meta description, canonical, og:* על כל ראוט.
+- robots.txt + sitemap.xml.
+- כל ה-JSON-LD (Organization, LocalBusiness, FAQPage, Article, Person, BreadcrumbList).
+- hreflang.
 
-### מיפוי URL־ים — מקור → אצלנו
+## שלב 3 — תיקונים ידועים שכבר אותרו בקוד
+1. **`src/routes/__root.tsx` שורה 115** — `"@type": ["LocalBusiness", "HealthAndBeautyBusiness", "LocalBusiness"]` עם כפילות. תיקון ל-`["LocalBusiness", "HealthAndBeautyBusiness"]`.
+2. **`src/routes/index.tsx` שורה 131** — אותה כפילות ב-`["LocalBusiness", "LocalBusiness"]`. תיקון ל-`"LocalBusiness"` יחיד או הוספת `HealthAndBeautyBusiness`.
+3. **`public/robots.txt` שורה 45** — `Sitemap: https://inbar-farchi.lovable.app/sitemap.xml` מצביע על דומיין ישן. עדכון ל-`https://inbar-pedicure.co.il/sitemap.xml`.
+4. **hreflang חסר לחלוטין** — הוספה ב-`__root.tsx` של `<link rel="alternate" hreflang="he-IL" href="..." />` ו-`hreflang="x-default"` עבור הדומיין הראשי.
+5. **שעות שבת ב-LocalBusiness** — לוודא ש-`openingHoursSpecification` מציין סגירה ביום שבת (`Sa` עם `closes: "00:00"` או הסרת השבת מהרשימה — כיום מוגדר `Su,Mo,Tu,We,Th 09:00-20:00` מה שתקין כי שבת לא נכללת, אבל אפשר להוסיף Sa/Fr explicit closed לאיתות חזק יותר ל-Google ו-AI).
 
-#### עמודי מערכת (6)
-| מקור | אצלנו | סטטוס |
-|---|---|---|
-| `/` | `/` | ✅ קיים |
-| `/אודותיי/` | `/about` | ✅ קיים |
-| `/contact/` | `/contact` | ✅ קיים |
-| `/מדיניות-פרטיות/` | `/privacy` | ✅ קיים |
-| `/תנאי-שימוש-ותקנון-האתר/` | `/terms` | ✅ קיים |
-| `/הצהרת-נגישות/` | `/accessibility` | ✅ קיים |
+## שלב 4 — שיפורי GEO (חיפוש AI) לפי הסקיל
+1. **תוכן בפורמט שאלה-תשובה ב-FAQ Schema** — עבור על כל עמודי שירותים ו-Knowledge ולוודא ש-FAQPage קיים, עם תשובות 40-80 מילים (פורמט מועדף ל-AI).
+2. **EEAT על עמוד About** — להוסיף `Person` schema עם `hasCredential`, `alumniOf`, `knowsAbout`, ושדה `description` מפורט. כיום קיים Person בסיסי.
+3. **`Article` schema על כל מאמר** — לוודא `author`, `datePublished`, `dateModified`, `image`, `publisher` ב-`article.$slug.tsx`.
+4. **`BreadcrumbList`** — לוודא קיום על עמודי category/services/articles.
+5. **`speakable` schema** (Voice / AI assistants) — להוסיף ב-Article ו-FAQPage את `speakable: { "@type": "SpeakableSpecification", xpath: [...] }` עבור כותרות ותשובות מרכזיות.
 
-#### עמודי טיפולים (5 במקור — 7 אצלנו)
-| מקור `/pedicure-treatments/...` | אצלנו `/services/...` | סטטוס |
-|---|---|---|
-| `יבלות` | `corns` | ✅ |
-| `athletesfoot` | `fungus` | ✅ |
-| `אורטוניקסיה-ציפורן-חודרנית-בכף-הרגל` | `ingrown-nails` | ✅ |
-| `detached-nail-treatment` | `onycholysis` | ✅ |
-| `cracked-dry-heels-treatment` | `cracked-heels` | ✅ |
-| — | `diabetic-feet` | ➕ אצלנו בלבד |
-| — | `sports-feet` | ➕ אצלנו בלבד |
+## שלב 5 — אופטימיזציות מורפולוגיה עברית
+- מעבר על מטא-דאטה של 7 עמודי השירותים (`services.$slug.tsx`) ועל המאמרים: לוודא שחיפושים בצורות תחילית (ב-, מ-, ה-, ל-) מכוסים ב-title/description (לדוגמה: "טיפול בפטרת" + "פטרת ברגליים" + "להיפטר מפטרת").
+- וידוא ש-`<h1>` מכיל את מילת המפתח הראשית בצורה הנפוצה ביותר.
 
-#### מאמרים (7 במקור) — **הפער העיקרי**
-המאמרים שלנו (10) שונים לחלוטין מאלה של המקור. אף לא אחד מ־7 המאמרים המקוריים קיים אצלנו:
+## שלב 6 — IndexNow + Sitemap refresh
+- וידוא ש-`/sitemap.xml` מחזיר את כל הראוטים הסטטיים + מאמרים פורסמו.
+- שליחת IndexNow לכל URL שהשתנה (יש כבר `api/public/indexnow.ts`).
 
-| כותרת מקורית | slug אצלנו (מומלץ) |
-|---|---|
-| מה זה פדיקור רפואי | `medical-pedicure-explained` |
-| יבלת ויראלית | `viral-plantar-wart` |
-| יבלת קשה | `hard-callus-vs-wart` |
-| טיפול ביבלות לחולי סוכרת | `warts-treatment-for-diabetics` |
-| רגל של לוחם — המדריך המלא | `combat-soldier-foot-care-guide` |
-| פטרת ציפורניים — טראומה או פסוריאזיס? | `nail-fungus-vs-trauma-vs-psoriasis` |
-| האם פטרת ציפורניים מדבקת? | `is-nail-fungus-contagious` |
+## שלב 7 — דיווח
+סיכום קצר של מה שתוקן, רשימת פערים שלא תוקנו (אם נשארו), והפניה ל-`<presentation-open-seo-review>` לסקירה החיה.
 
-### פערי תוכן בעמוד הבית
-ה־TrustBand שלנו תואם (12+ / 150+ / 200+ / 20+). חסרים מהבית המקורי:
-- **בלוק "פדיקוריסטית? הצטרפי למאבק"** — קריאה לעצומה לחברות במקצוע. לא קיים אצלנו.
-- **גלריית Before & After** — ארבעה זוגות תמונות לפני/אחרי. לא קיים אצלנו כסקשן ייעודי בבית.
-- **בלוק FAQ של 8 שאלות** ("תשובות כנות לשאלות שבדרך כלל מתביישים לשאול"). לא קיים אצלנו בעמוד הבית.
-- **בלוק קהלים** (חולי סכרת / מבוגרים / חיילים ומילואימניקים / ספורטאים) — אצלנו זה ב־`TreatmentFinder` כסלקטור, לא כסקשן תצוגה.
-- ניסוח hero: ה־bullets במקור כוללים "מרצה למומחות פדיקור טיפולי" ו"השתלמויות באיכילוב" — שווה לוודא שזה מופיע.
-
-### פערים נוספים
-- **Redirects 301**: צריך מיפוי מ־slug עברי מקודד אצל המקור ל־slug אצלנו, אחרת המעבר ישבור את ה־SEO. דוגמה: `/pedicure-treatments/יבלות/` → `/services/corns`.
-- **שמירת תמונות**: 4 תמונות Before/After ותמונת hero של פדיקור־טיפולי-תוצאות מהמקור — להוריד ולשמור תחת `src/assets/`.
-
----
-
-### מה הייתי עושה (לאישורך)
-
-1. **יצירת 7 מאמרים חסרים** — לכתוב את התוכן בעברית מקצועית (כל מאמר ~1200–1800 מילים, עם FAQ, תמונות AI להמחשה, schema), ולפרסם דרך `ai_articles`.
-2. **הוספת סקשן "מאבק על המקצוע / עצומה"** בעמוד הבית — בלוק נפרד עם CTA לפדיקוריסטיות (ואופציה לטופס הצטרפות בהמשך).
-3. **הוספת סקשן Before & After** בעמוד הבית — גריד תמונות עם תוויות.
-4. **הוספת סקשן FAQ עם 8 השאלות** בעמוד הבית, כולל JSON-LD `FAQPage`.
-5. **הוספת סקשן "קהלים"** ויזואלי בעמוד הבית (4 כרטיסיות: סכרת / מבוגרים / חיילים / ספורטאים) שמקשר לעמודי השירותים הרלוונטיים.
-6. **טבלת redirects** ב־`src/routes/api/public/` או דרך middleware: מיפוי 1:1 מכל URL ישן → URL חדש (כולל slug עברי מקודד), כדי שכשהדומיין יעבור — קישורים נכנסים ל־Google ימשיכו לעבוד.
-
-### שאלה לפני הביצוע
-
-זה הרבה תוכן. רוצה שאבצע **הכול במכה אחת**, או שנפצל לשלבים (קודם redirects + 7 מאמרים, אחר כך סקשנים בבית)?
+## טכני
+- אין צורך בחבילות חדשות; הסקיל הוא סטטי + סקריפטים שייקראו לפי דרישה.
+- כל השינויים בקוד הם בקבצי ראוט קיימים + `__root.tsx` + `robots.txt`. אין מיגרציות DB ואין שינוי בערכת העיצוב.
+- לא נוגעים ב-`routeTree.gen.ts` (auto-generated).
