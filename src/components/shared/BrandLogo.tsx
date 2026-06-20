@@ -18,60 +18,60 @@ export function BrandLogo({
   const goldColor = "var(--accent-gold)";
   const isStacked = layout === "stacked";
 
-  // Render INBAR with the "I" replaced by a serif I + ascending toe-dots above it.
-  // The whole wordmark is one SVG so the custom I aligns perfectly with NBAR.
+  // Inline SVG of the custom "I" (serif I + ascending toe-dots + gold heel dot).
+  // viewBox is sized so the I matches the cap height of the surrounding serif text.
+  const IFoot = (
+    <svg
+      aria-hidden
+      viewBox="0 0 70 110"
+      style={{
+        height: "1.05em",
+        width: "auto",
+        display: "inline-block",
+        verticalAlign: "baseline",
+        overflow: "visible",
+        flexShrink: 0,
+      }}
+    >
+      {/* Ascending toe-dots above the I */}
+      <circle cx="20" cy="24" r="7" fill={inkColor} />
+      <circle cx="34" cy="19" r="6" fill={inkColor} />
+      <circle cx="46" cy="15" r="5" fill={inkColor} />
+      <circle cx="56" cy="12" r="4" fill={inkColor} />
+      <circle cx="64" cy="10" r="3.2" fill={inkColor} />
+      {/* Serif I */}
+      <g fill={inkColor}>
+        <rect x="6" y="38" width="28" height="6" rx="1" />
+        <rect x="16" y="42" width="8" height="54" />
+        <rect x="6" y="94" width="28" height="6" rx="1" />
+      </g>
+      {/* Gold heel pressure dot */}
+      <circle cx="20" cy="97" r="2.6" fill={goldColor} />
+    </svg>
+  );
+
   return (
     <span
       className={isStacked ? "flex flex-col items-center" : "inline-flex items-center"}
       aria-label="INBAR"
     >
-      <svg
-        role="img"
-        aria-hidden
-        viewBox="0 0 360 110"
-        width={size * 3.4}
-        height={size}
-        style={{ display: "block", overflow: "visible" }}
+      <span
+        dir="ltr"
+        style={{
+          fontFamily: "var(--font-serif)",
+          fontWeight: 400,
+          fontSize: size * 0.95,
+          letterSpacing: "0.06em",
+          color: inkColor,
+          lineHeight: 1,
+          display: "inline-flex",
+          alignItems: "baseline",
+          gap: "0.04em",
+        }}
       >
-        {/* Five ascending toe-dots above the I */}
-        {[
-          { cx: 16, cy: 22, r: 7 },
-          { cx: 30, cy: 17, r: 6 },
-          { cx: 42, cy: 13, r: 5 },
-          { cx: 52, cy: 10, r: 4 },
-          { cx: 60, cy: 8, r: 3.2 },
-        ].map((d, i) => (
-          <circle key={i} cx={d.cx} cy={d.cy} r={d.r} fill={inkColor} />
-        ))}
-
-        {/* Serif capital I — top serif, stem, bottom serif */}
-        <g fill={inkColor}>
-          {/* top serif */}
-          <rect x="6" y="36" width="28" height="6" rx="1" />
-          {/* stem */}
-          <rect x="16" y="40" width="8" height="56" />
-          {/* bottom serif */}
-          <rect x="6" y="94" width="28" height="6" rx="1" />
-        </g>
-
-        {/* Gold accent dot at the heel pressure point */}
-        <circle cx="20" cy="97.5" r="2.6" fill={goldColor} />
-
-        {/* "NBAR" in matching serif typography */}
-        <text
-          x="58"
-          y="98"
-          fill={inkColor}
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontWeight: 400,
-            fontSize: 86,
-            letterSpacing: "0.06em",
-          }}
-        >
-          NBAR
-        </text>
-      </svg>
+        {IFoot}
+        <span>NBAR</span>
+      </span>
       {showTagline && isStacked ? (
         <span
           className="mt-2"
