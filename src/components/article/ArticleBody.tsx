@@ -127,23 +127,23 @@ export function ArticleBody({ article }: { article: Article }) {
   const links = article.contextualLinks;
 
   return (
-    <article className="article-prose max-w-[68ch]">
+    <article className="article-prose max-w-[68ch]" style={{ fontFamily: "var(--font-body)" }}>
       {article.tldr && article.tldr.length > 0 && (
         <aside
           aria-label="תקציר מהיר"
-          className="mb-8 border-r-4 border-[var(--green-700)] bg-[var(--stone-50)] p-5"
+          className="mb-10 rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-6"
           data-speakable="true"
         >
-          <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[var(--green-700)]">
+          <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--green-700)]">
             תקציר מהיר
           </div>
           <dl className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
             {article.tldr.map((row, i) => (
-              <div key={`tldr-${i}`} className="flex flex-col border-b border-[var(--stone-100)] pb-2 last:border-b-0">
-                <dt className="text-[11px] font-bold uppercase tracking-wider text-[var(--ink-600)]">
+              <div key={`tldr-${i}`} className="flex flex-col border-b border-[var(--green-100)] pb-2 last:border-b-0">
+                <dt className="text-[11px] font-medium uppercase tracking-wider text-[var(--ink-600)]">
                   {row.label}
                 </dt>
-                <dd className="text-sm font-black text-[var(--ink-900)]">{row.value}</dd>
+                <dd className="text-sm font-semibold text-[var(--ink-900)]">{row.value}</dd>
               </div>
             ))}
           </dl>
@@ -153,7 +153,7 @@ export function ArticleBody({ article }: { article: Article }) {
       {article.intro.map((p, i) => (
         <p
           key={`intro-${i}`}
-          className="mb-5 text-base font-bold leading-relaxed text-[var(--ink-900)] md:text-lg"
+          className="mb-5 text-[1.05rem] font-normal leading-[1.85] text-[var(--ink-900)] md:text-[1.15rem]"
         >
           {renderRich(p, links, usedLinks)}
         </p>
@@ -162,19 +162,28 @@ export function ArticleBody({ article }: { article: Article }) {
       {article.specTable && (
         <section aria-label={article.specTable.title ?? "טבלת מפרט"} className="my-8">
           {article.specTable.title && (
-            <h2 className="mb-3 text-xl font-black text-[var(--ink-900)] md:text-2xl">
+            <h2
+              className="mb-3"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "clamp(1.5rem, 3vw, 2rem)",
+                letterSpacing: "-0.02em",
+                color: "var(--ink-900)",
+              }}
+            >
               {article.specTable.title}
             </h2>
           )}
-          <div className="overflow-x-auto border border-[var(--stone-100)]">
+          <div className="overflow-x-auto rounded-lg border border-[var(--green-100)]">
             <table className="w-full border-collapse text-right text-sm">
               <thead>
-                <tr className="bg-[var(--stone-50)]">
+                <tr className="bg-[var(--green-50)]">
                   {article.specTable.columns.map((col, i) => (
                     <th
                       key={`col-${i}`}
                       scope="col"
-                      className="border-b border-[var(--stone-100)] px-3 py-2 text-xs font-black uppercase tracking-wider text-[var(--green-700)]"
+                      className="border-b border-[var(--green-100)] px-3 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--green-700)]"
                     >
                       {col}
                     </th>
@@ -187,7 +196,7 @@ export function ArticleBody({ article }: { article: Article }) {
                     {row.map((cell, c) => (
                       <td
                         key={`cell-${r}-${c}`}
-                        className="border-b border-[var(--stone-100)] px-3 py-2 font-bold text-[var(--ink-900)]"
+                        className="border-b border-[var(--green-100)] px-3 py-2.5 font-normal text-[var(--ink-900)]"
                       >
                         {cell}
                       </td>
@@ -198,7 +207,7 @@ export function ArticleBody({ article }: { article: Article }) {
             </table>
           </div>
           {article.specTable.caption && (
-            <p className="mt-2 text-xs font-bold text-[var(--ink-600)]">
+            <p className="mt-2 text-xs font-normal text-[var(--ink-600)]">
               {article.specTable.caption}
             </p>
           )}
@@ -210,14 +219,30 @@ export function ArticleBody({ article }: { article: Article }) {
           {section.level === 2 ? (
             <h2
               id={section.id}
-              className="mt-12 mb-4 scroll-mt-24 text-2xl font-black leading-tight text-[var(--ink-900)] md:text-3xl"
+              className="mt-14 mb-5 scroll-mt-24"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "clamp(1.65rem, 3.4vw, 2.4rem)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.025em",
+                color: "var(--ink-900)",
+              }}
             >
               {section.heading}
             </h2>
           ) : (
             <h3
               id={section.id}
-              className="mt-8 mb-3 scroll-mt-24 text-xl font-black leading-tight text-[var(--ink-900)] md:text-2xl"
+              className="mt-10 mb-3 scroll-mt-24"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 400,
+                fontSize: "clamp(1.25rem, 2.4vw, 1.6rem)",
+                lineHeight: 1.2,
+                letterSpacing: "-0.015em",
+                color: "var(--ink-900)",
+              }}
             >
               {section.heading}
             </h3>
@@ -226,7 +251,7 @@ export function ArticleBody({ article }: { article: Article }) {
           {section.paragraphs?.map((p, i) => (
             <p
               key={`${section.id}-p-${i}`}
-              className="mb-4 text-base font-bold leading-relaxed text-[var(--ink-900)]"
+              className="mb-4 text-[1rem] font-normal leading-[1.85] text-[var(--ink-900)]"
             >
               {renderRich(p, links, usedLinks)}
             </p>
@@ -234,16 +259,16 @@ export function ArticleBody({ article }: { article: Article }) {
 
           {section.list && (
             section.ordered ? (
-              <ol className="mb-4 space-y-2 pr-0">
+              <ol className="mb-5 space-y-2.5 pr-0">
                 {section.list.map((item, i) => {
                   const img = getItemImage(item);
                   return (
                     <li
                       key={`${section.id}-li-${i}`}
-                      className="text-base font-bold leading-relaxed text-[var(--ink-900)]"
+                      className="text-[1rem] font-normal leading-[1.85] text-[var(--ink-900)]"
                     >
                       <div className="flex gap-3">
-                        <span aria-hidden="true" className="min-w-[1.75rem] text-[var(--green-700)]">
+                        <span aria-hidden="true" className="min-w-[1.75rem] font-semibold text-[var(--green-700)]">
                           {i + 1}.
                         </span>
                         <span>{renderRich(getItemText(item), links, usedLinks)}</span>
@@ -254,16 +279,16 @@ export function ArticleBody({ article }: { article: Article }) {
                 })}
               </ol>
             ) : (
-              <ul className="mb-4 space-y-2 pr-0">
+              <ul className="mb-5 space-y-2.5 pr-0">
                 {section.list.map((item, i) => {
                   const img = getItemImage(item);
                   return (
                     <li
                       key={`${section.id}-li-${i}`}
-                      className="text-base font-bold leading-relaxed text-[var(--ink-900)]"
+                      className="text-[1rem] font-normal leading-[1.85] text-[var(--ink-900)]"
                     >
                       <div className="flex gap-3">
-                        <span aria-hidden="true" className="text-[var(--green-700)]">←</span>
+                        <span aria-hidden="true" className="mt-2 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--green-600)]" />
                         <span>{renderRich(getItemText(item), links, usedLinks)}</span>
                       </div>
                       {img && <InlineItemImage image={img} />}
@@ -275,15 +300,15 @@ export function ArticleBody({ article }: { article: Article }) {
           )}
 
           {section.image && (
-            <figure className="my-6 max-w-sm">
+            <figure className="my-8 max-w-md">
               <img
                 src={section.image.src}
                 alt={section.image.alt}
                 loading="lazy"
-                className="block w-full border border-[var(--stone-100)]"
+                className="block w-full rounded-lg border border-[var(--green-100)]"
               />
               {section.image.caption && (
-                <figcaption className="mt-3 text-xs font-bold text-[var(--ink-600)]">
+                <figcaption className="mt-3 text-xs font-normal italic text-[var(--ink-600)]">
                   {section.image.caption}
                 </figcaption>
               )}
@@ -345,7 +370,14 @@ export function ArticleBody({ article }: { article: Article }) {
         <section className="mt-16">
           <h2
             id="faq"
-            className="mt-12 mb-4 scroll-mt-24 text-2xl font-black leading-tight text-[var(--ink-900)] md:text-3xl"
+            className="mt-12 mb-6 scroll-mt-24"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "clamp(1.7rem, 3.4vw, 2.4rem)",
+              letterSpacing: "-0.025em",
+              color: "var(--ink-900)",
+            }}
           >
             שאלות נפוצות
           </h2>
@@ -353,12 +385,12 @@ export function ArticleBody({ article }: { article: Article }) {
             {article.faqs.map((f, i) => (
               <div
                 key={`faq-${i}`}
-                className="border border-[var(--stone-100)] bg-[var(--stone-50)] p-5"
+                className="rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-6"
               >
-                <dt className="mb-2 text-lg font-black text-[var(--ink-900)]">
+                <dt className="mb-2 text-lg font-semibold text-[var(--ink-900)]" style={{ fontFamily: "var(--font-display)", fontWeight: 500 }}>
                   {f.q}
                 </dt>
-                <dd className="text-base font-bold leading-relaxed text-[var(--ink-900)]">
+                <dd className="text-[0.98rem] font-normal leading-[1.85] text-[var(--ink-900)]">
                   {f.a}
                 </dd>
               </div>
@@ -371,23 +403,30 @@ export function ArticleBody({ article }: { article: Article }) {
         <section className="mt-16">
           <h2
             id="glossary"
-            className="mt-12 mb-2 scroll-mt-24 text-2xl font-black leading-tight text-[var(--ink-900)] md:text-3xl"
+            className="mt-12 mb-2 scroll-mt-24"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "clamp(1.7rem, 3.4vw, 2.4rem)",
+              letterSpacing: "-0.025em",
+              color: "var(--ink-900)",
+            }}
           >
             מילון מונחים
           </h2>
-          <p className="mb-6 text-sm font-bold text-[var(--ink-600)]">
+          <p className="mb-6 text-sm font-normal text-[var(--ink-600)]">
             כל המושגים שעשויים להיות לא ברורים, בהסבר פשוט.
           </p>
           <dl className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {article.glossary.map((g, i) => (
               <div
                 key={`gl-${i}`}
-                className="border-r-2 border-[var(--green-700)] bg-[var(--stone-50)] p-4"
+                className="rounded-lg border-r-2 border-[var(--green-600)] bg-[var(--green-50)] p-4"
               >
-                <dt className="mb-1 text-base font-black text-[var(--ink-900)]">
+                <dt className="mb-1 text-base font-semibold text-[var(--ink-900)]">
                   {g.term}
                 </dt>
-                <dd className="text-sm font-bold leading-relaxed text-[var(--ink-900)]">
+                <dd className="text-sm font-normal leading-[1.8] text-[var(--ink-900)]">
                   {g.definition}
                 </dd>
               </div>
@@ -397,26 +436,43 @@ export function ArticleBody({ article }: { article: Article }) {
       )}
 
       {article.authorBio && (
-        <section className="mt-16 border border-[var(--stone-100)] bg-[var(--stone-50)] p-6">
-          <div className="mb-2 text-[10px] font-black uppercase tracking-widest text-[var(--green-700)]">
+        <section className="mt-16 rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-7">
+          <div className="mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--green-700)]">
             על הכותב
           </div>
-          <h2 className="mb-2 text-xl font-black text-[var(--ink-900)]">
+          <h2
+            className="mb-3"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "1.6rem",
+              letterSpacing: "-0.02em",
+              color: "var(--ink-900)",
+            }}
+          >
             {article.author}
           </h2>
-          <p className="text-sm font-bold leading-relaxed text-[var(--ink-900)]">
+          <p className="text-[0.95rem] font-normal leading-[1.85] text-[var(--ink-900)]">
             {article.authorBio}
           </p>
         </section>
       )}
 
       {article.checklist && article.checklist.items.length > 0 && (
-        <section className="mt-12 border-2 border-dashed border-[var(--green-700)]/60 bg-[var(--paper)] p-6 print:border-black">
+        <section className="mt-12 rounded-xl border border-dashed border-[var(--green-600)]/60 bg-[var(--paper)] p-7 print:border-black">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-xl font-black text-[var(--ink-900)] md:text-2xl">
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                fontSize: "clamp(1.4rem, 2.8vw, 1.9rem)",
+                letterSpacing: "-0.02em",
+                color: "var(--ink-900)",
+              }}
+            >
               {article.checklist.title ?? "צ'קליסט"}
             </h2>
-            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--green-700)]">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--green-700)]">
               ניתן להדפסה
             </span>
           </div>
@@ -424,11 +480,11 @@ export function ArticleBody({ article }: { article: Article }) {
             {article.checklist.items.map((item, i) => (
               <li
                 key={`chk-${i}`}
-                className="flex items-start gap-3 text-sm font-bold leading-relaxed text-[var(--ink-900)]"
+                className="flex items-start gap-3 text-sm font-normal leading-[1.8] text-[var(--ink-900)]"
               >
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 inline-block h-4 w-4 flex-shrink-0 border border-[var(--ink-600)]"
+                  className="mt-0.5 inline-block h-4 w-4 flex-shrink-0 rounded-sm border border-[var(--green-600)]"
                 />
                 <span>{item}</span>
               </li>
@@ -439,12 +495,21 @@ export function ArticleBody({ article }: { article: Article }) {
 
       {article.sources && article.sources.length > 0 && (
         <section className="mt-12">
-          <h2 className="mb-3 text-xl font-black text-[var(--ink-900)] md:text-2xl">
+          <h2
+            className="mb-4"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "clamp(1.4rem, 2.8vw, 1.9rem)",
+              letterSpacing: "-0.02em",
+              color: "var(--ink-900)",
+            }}
+          >
             מקורות וקריאה נוספת
           </h2>
-          <ul className="space-y-2">
+          <ul className="space-y-2.5">
             {article.sources.map((s, i) => (
-              <li key={`src-${i}`} className="text-sm font-bold text-[var(--ink-900)]">
+              <li key={`src-${i}`} className="text-sm font-normal text-[var(--ink-900)]">
                 <span aria-hidden="true" className="text-[var(--green-700)]">←</span>{" "}
                 <a
                   href={s.url}
@@ -460,7 +525,7 @@ export function ArticleBody({ article }: { article: Article }) {
         </section>
       )}
 
-      <figure className="mt-16 max-w-md overflow-hidden border border-[var(--stone-100)]">
+      <figure className="mt-16 max-w-md overflow-hidden rounded-xl border border-[var(--green-100)]">
         <div className="aspect-[4/3] w-full overflow-hidden">
           <img
             src={article.heroImage}
@@ -469,7 +534,7 @@ export function ArticleBody({ article }: { article: Article }) {
             loading="lazy"
           />
         </div>
-        <figcaption className="border-t border-[var(--stone-100)] bg-[var(--stone-50)] px-4 py-2 text-[11px] font-bold text-[var(--ink-600)]">
+        <figcaption className="border-t border-[var(--green-100)] bg-[var(--green-50)] px-4 py-2.5 text-[11px] font-normal italic text-[var(--ink-600)]">
           {article.heroAlt}
         </figcaption>
       </figure>
