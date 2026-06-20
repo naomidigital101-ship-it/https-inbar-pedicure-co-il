@@ -65,6 +65,7 @@ export const Route = createFileRoute("/knowledge")({
 });
 
 function KnowledgeIndex() {
+  const { articles } = Route.useLoaderData();
   return (
     <div style={{ background: "var(--paper)" }}>
       <SiteHeader />
@@ -179,6 +180,70 @@ function KnowledgeIndex() {
         <section className="mx-auto max-w-[1200px] px-6 pb-20">
           <LeadMagnet />
         </section>
+
+        {articles.length > 0 ? (
+          <section className="mx-auto max-w-[1200px] px-6 pb-24">
+            <div className="mb-10">
+              <BrandEyebrow>כל המאמרים</BrandEyebrow>
+              <h2
+                className="mt-3"
+                style={{
+                  fontFamily: "'Frank Ruhl Libre', serif",
+                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                  fontWeight: 500,
+                  color: "var(--ink-900)",
+                }}
+              >
+                מאמרים אחרונים ב{SITE.brand}
+              </h2>
+            </div>
+            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {articles.map((a) => (
+                <li key={a.slug}>
+                  <Link
+                    to="/article/$slug"
+                    params={{ slug: a.slug }}
+                    className="group block h-full overflow-hidden rounded-2xl border transition-all hover:-translate-y-0.5"
+                    style={{ background: "var(--paper)", borderColor: "var(--stone-100)" }}
+                    aria-label={a.title}
+                  >
+                    <div className="aspect-[16/10] overflow-hidden" style={{ background: "var(--stone-50)" }}>
+                      <img
+                        src={a.heroImage}
+                        alt={a.heroAlt}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <p className="text-xs" style={{ color: "var(--green-700)", fontWeight: 500 }}>
+                        {a.category} · {a.dateLabel}
+                      </p>
+                      <h3
+                        className="mt-3"
+                        style={{
+                          fontFamily: "'Frank Ruhl Libre', serif",
+                          fontSize: "1.25rem",
+                          lineHeight: 1.3,
+                          color: "var(--ink-900)",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {a.title}
+                      </h3>
+                      <p className="mt-3 text-sm" style={{ color: "var(--ink-600)", lineHeight: 1.7 }}>
+                        {a.excerpt}
+                      </p>
+                      <p className="mt-4 text-xs" style={{ color: "var(--ink-600)" }}>
+                        {a.readingTime}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
       </main>
       <SiteFooter />
     </div>
