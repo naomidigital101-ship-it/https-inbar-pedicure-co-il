@@ -64,7 +64,7 @@ export const Route = createFileRoute("/article/$slug")({
         "@type": "Person",
         name: article.author,
         ...(article.authorBio ? { description: article.authorBio } : {}),
-        jobTitle: "מומחית טיפוח כף הרגל",
+        jobTitle: "פדיקוריסטית טיפולית",
         knowsAbout: [
           "טיפוח כף הרגל",
           "טיפול בציפורניים",
