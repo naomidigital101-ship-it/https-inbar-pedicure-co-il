@@ -87,7 +87,7 @@ function renderRich(
       target="_blank"
       rel={buildExternalRel(best.link.href, best.link.rel)}
       title={best.link.title}
-      className="font-black text-[var(--ink-900)] underline decoration-[var(--green-700)] decoration-2 underline-offset-4 hover:text-[var(--green-700)]"
+      className="font-medium text-[var(--ink-900)] underline decoration-[var(--green-600)] decoration-1 underline-offset-4 transition-colors hover:text-[var(--green-700)]"
     >
       {matchText}
       <span aria-hidden="true" className="ms-0.5 text-[10px] text-[var(--green-700)]">↗</span>
@@ -97,7 +97,7 @@ function renderRich(
       key={`int-${best.linkIdx}`}
       href={best.link.href}
       title={best.link.title}
-      className="font-black text-[var(--ink-900)] underline decoration-[var(--green-700)] decoration-2 underline-offset-4 hover:text-[var(--green-700)]"
+      className="font-medium text-[var(--ink-900)] underline decoration-[var(--green-600)] decoration-1 underline-offset-4 transition-colors hover:text-[var(--green-700)]"
     >
       {matchText}
     </a>
