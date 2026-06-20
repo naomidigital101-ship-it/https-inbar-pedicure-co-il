@@ -2,7 +2,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles, MessageCircle, Phone } from "lucide-react";
 import { SITE } from "@/lib/site-config";
 import inbarHero from "@/assets/inbar-foot-model.png.asset.json";
-import pillFootMark from "@/assets/logo-sketches/logo-05-pill-foot-mark.png";
 
 const SPECIALTIES = [
   { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
@@ -153,30 +152,12 @@ export function PremiumHero() {
         <div className="grid grid-cols-1 gap-3 md:grid-cols-12 md:gap-8 md:items-end flex-1">
           {/* TEXT — left column on desktop (RTL: order-2 lands left) */}
           <motion.div {...fadeProps} className="order-2 md:order-2 md:col-span-6 md:self-center md:pb-8">
-            <div className="mb-3 flex items-center gap-3 md:mb-4">
-              <img
-                src={pillFootMark}
-                alt="סמל המותג של ענבר פרחי — כף רגל בתוך מסגרת קפסולה"
-                width={64}
-                height={104}
-                loading="eager"
-                className="h-14 w-auto md:h-[72px]"
-                style={{ display: "block" }}
-              />
-              <span
-                aria-hidden
-                className="h-10 w-px"
-                style={{ background: "rgba(30,36,34,0.14)" }}
-              />
-              <span
-                className="text-[11px] tracking-[0.18em]"
-                style={{ color: "var(--green-700, #234C42)", fontWeight: 600 }}
-              >
-                נעים להכיר, אני ענבר
-                <br />
-                פדיקוריסטית טיפולית
-              </span>
-            </div>
+            <span
+              className="inline-block mb-2 text-[11px] tracking-[0.18em] md:mb-3"
+              style={{ color: "var(--green-700, #234C42)", fontWeight: 600 }}
+            >
+              נעים להכיר, אני ענבר · פדיקוריסטית קלינית
+            </span>
             <h1
               id="hero-heading"
               className="display"
