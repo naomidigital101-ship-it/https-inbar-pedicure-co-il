@@ -3,7 +3,7 @@ name: Inbar Prachi brand voice & forbidden terms
 description: Foot-care positioning. Forbidden words across all AI content and copy
 type: constraint
 ---
-ענבר פרחי = מומחית לטיפוח כף הרגל (לא רפואית).
+ענבר פרחי = פדיקוריסטית טיפולית (לא פודיאטרית, לא רפואית, לא אחות, לא רופאה). זה התואר המקצועי היחיד שמותר להשתמש בו עליה.
 
 מילים אסורות בכלל הטקסטים והכותרות (AI generation + copy ידני):
 - "רפואי/ת/ים/ות"
