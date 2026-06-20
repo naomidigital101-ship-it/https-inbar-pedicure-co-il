@@ -26,6 +26,7 @@ import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as BrandingLogoSketchesRouteImport } from './routes/branding.logo-sketches'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
@@ -119,6 +120,11 @@ const CategorySlugRoute = CategorySlugRouteImport.update({
   path: '/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandingLogoSketchesRoute = BrandingLogoSketchesRouteImport.update({
+  id: '/logo-sketches',
+  path: '/logo-sketches',
+  getParentRoute: () => BrandingRoute,
+} as any)
 const ArticleSlugRoute = ArticleSlugRouteImport.update({
   id: '/article/$slug',
   path: '/article/$slug',
@@ -161,7 +167,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/branding': typeof BrandingRoute
+  '/branding': typeof BrandingRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/admin/content': typeof AdminContentRoute
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
   '/category/$slug': typeof CategorySlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -187,7 +194,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/branding': typeof BrandingRoute
+  '/branding': typeof BrandingRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
@@ -200,6 +207,7 @@ export interface FileRoutesByTo {
   '/admin/content': typeof AdminContentRoute
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
   '/category/$slug': typeof CategorySlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin': typeof AdminIndexRoute
@@ -214,7 +222,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/branding': typeof BrandingRoute
+  '/branding': typeof BrandingRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/masterclass': typeof MasterclassRoute
@@ -227,6 +235,7 @@ export interface FileRoutesById {
   '/admin/content': typeof AdminContentRoute
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
+  '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
   '/category/$slug': typeof CategorySlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -255,6 +264,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/login'
     | '/article/$slug'
+    | '/branding/logo-sketches'
     | '/category/$slug'
     | '/services/$slug'
     | '/admin/'
@@ -281,6 +291,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/login'
     | '/article/$slug'
+    | '/branding/logo-sketches'
     | '/category/$slug'
     | '/services/$slug'
     | '/admin'
@@ -307,6 +318,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/login'
     | '/article/$slug'
+    | '/branding/logo-sketches'
     | '/category/$slug'
     | '/services/$slug'
     | '/admin/'
@@ -321,7 +333,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
-  BrandingRoute: typeof BrandingRoute
+  BrandingRoute: typeof BrandingRouteWithChildren
   ContactRoute: typeof ContactRoute
   KnowledgeRoute: typeof KnowledgeRoute
   MasterclassRoute: typeof MasterclassRoute
@@ -465,6 +477,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/branding/logo-sketches': {
+      id: '/branding/logo-sketches'
+      path: '/logo-sketches'
+      fullPath: '/branding/logo-sketches'
+      preLoaderRoute: typeof BrandingLogoSketchesRouteImport
+      parentRoute: typeof BrandingRoute
+    }
     '/article/$slug': {
       id: '/article/$slug'
       path: '/article/$slug'
@@ -517,11 +536,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface BrandingRouteChildren {
+  BrandingLogoSketchesRoute: typeof BrandingLogoSketchesRoute
+}
+
+const BrandingRouteChildren: BrandingRouteChildren = {
+  BrandingLogoSketchesRoute: BrandingLogoSketchesRoute,
+}
+
+const BrandingRouteWithChildren = BrandingRoute._addFileChildren(
+  BrandingRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
-  BrandingRoute: BrandingRoute,
+  BrandingRoute: BrandingRouteWithChildren,
   ContactRoute: ContactRoute,
   KnowledgeRoute: KnowledgeRoute,
   MasterclassRoute: MasterclassRoute,
