@@ -1,4 +1,5 @@
-import wordmark from "@/assets/inbar-logo-wordmark.png";
+import wordmarkAsset from "@/assets/inbar-logo-wordmark.png.asset.json";
+const wordmark = wordmarkAsset.url;
 
 type Tone = "ink" | "paper";
 type Layout = "horizontal" | "stacked";
