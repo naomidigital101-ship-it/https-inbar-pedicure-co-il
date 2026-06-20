@@ -408,6 +408,89 @@ function LogoSketchesPage() {
           </div>
         </section>
 
+        {/* Final logo · featured */}
+        <section className="mx-auto max-w-[1280px] px-6 pt-4 pb-16">
+          <div
+            className="relative overflow-hidden rounded-[32px]"
+            style={{
+              background: "var(--paper)",
+              border: "1px solid var(--stone-100)",
+              boxShadow: "var(--shadow-elegant)",
+            }}
+          >
+            <div className="grid gap-0 md:grid-cols-[1.1fr_1fr]">
+              {/* Light preview */}
+              <div
+                className="flex items-center justify-center p-10 md:p-16"
+                style={{ background: "var(--stone-50)" }}
+              >
+                <img
+                  src={logoFinal}
+                  alt="לוגו סופי — ענבר פרחי, פדיקוריסטית טיפולית"
+                  className="h-auto w-full max-w-[420px] object-contain"
+                />
+              </div>
+              {/* Copy + dark preview */}
+              <div className="flex flex-col justify-between gap-8 p-8 md:p-12">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span
+                      aria-hidden
+                      className="h-px w-8"
+                      style={{ background: "var(--accent-gold)" }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: 11.5,
+                        fontWeight: 600,
+                        letterSpacing: "0.28em",
+                        color: "var(--accent-gold)",
+                      }}
+                    >
+                      FINAL · LOGO
+                    </span>
+                  </div>
+                  <h2
+                    className="mt-4"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 300,
+                      fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                      letterSpacing: "-0.02em",
+                      color: "var(--ink-900)",
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    האות I היא כף הרגל — גרסה סופית
+                  </h2>
+                  <p
+                    className="mt-4 text-[15px]"
+                    style={{ color: "var(--ink-600)", lineHeight: 1.75 }}
+                  >
+                    אות I דקה ומדויקת יותר, חמש אצבעות בראש ועקב מעוגל בבסיס,
+                    עם נקודת זהב בנקודת הלחץ. סמל עצמאי, ללא טקסט — מוכן לשימוש
+                    כפטיש ויזואלי, favicon, חותם על אריזות וחתימת מייל.
+                  </p>
+                </div>
+                {/* Dark preview */}
+                <div
+                  className="flex items-center justify-center overflow-hidden rounded-[20px]"
+                  style={{ background: "var(--green-950)", aspectRatio: "16 / 9" }}
+                >
+                  <img
+                    src={logoFinal}
+                    alt=""
+                    aria-hidden
+                    className="h-full w-auto object-contain p-6"
+                    style={{ filter: "brightness(1.08) saturate(0.92)" }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Grid */}
         <section className="mx-auto max-w-[1280px] px-6 pb-24">
           <div className="grid gap-7 md:grid-cols-2">
