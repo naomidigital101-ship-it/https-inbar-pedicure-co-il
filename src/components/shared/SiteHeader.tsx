@@ -251,14 +251,6 @@ export function SiteHeader() {
           <MessageCircle className="h-4 w-4" aria-hidden />
           קבעו תור עכשיו
         </a>
-        {/* legacy old CTA removed */}
-        {false && (
-          <a
-            href={SITE.whatsappUrl}
-          >
-            x
-          </a>
-        )}
         <button
           type="button"
           className="lg:hidden p-2 transition-colors"
