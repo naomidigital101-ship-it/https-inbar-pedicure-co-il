@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
-import logoAsset from "@/assets/inbar-logo-final.png.asset.json";
+import { BrandLogo } from "./BrandLogo";
 
 const navLinks = [
   { label: "בית", href: "/" },
@@ -62,14 +62,8 @@ export function SiteHeader() {
         />
       </svg>
       <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-4">
-        <a href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80" aria-label={SITE.brand}>
-          <img
-            src={logoAsset.url}
-            alt={`${SITE.brand} — קליניקה לבריאות כף הרגל`}
-            className="h-12 w-auto md:h-14"
-            loading="eager"
-            decoding="async"
-          />
+        <a href="/" className="transition-opacity hover:opacity-80" aria-label={SITE.brand}>
+          <BrandLogo tone="ink" layout="horizontal" size={52} />
         </a>
         <nav
           className="hidden items-center gap-7 text-[0.92rem] lg:flex"
