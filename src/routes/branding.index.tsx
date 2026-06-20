@@ -14,7 +14,7 @@ import {
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 
-export const Route = createFileRoute("/branding")({
+export const Route = createFileRoute("/branding/")({
   head: () => ({
     meta: [
       { title: "מערכת המיתוג · ענבר פרחי" },
