@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, GraduationCap, Award, AlertTriangle, BookOpen, Package, Wind, Megaphone, Users, CheckCircle2 } from "lucide-react";
+import { Footprints, Sparkles, Scissors, ShieldCheck, Droplets, HeartPulse, Activity, ArrowLeft, Phone, MessageCircle, GraduationCap, Award, AlertTriangle, BookOpen, Package, Wind, Megaphone, Users } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { PartnersStrip } from "@/components/shared/PartnersStrip";
@@ -12,6 +12,10 @@ import { AboutExpert } from "@/components/home/AboutExpert";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import inbarPhoto from "@/assets/inbar-hero-editorial.jpg";
+import baWarts from "@/assets/before-after/warts.png.asset.json";
+import baCracked from "@/assets/before-after/cracked.png.asset.json";
+import baIngrown from "@/assets/before-after/ingrown.png.asset.json";
+import baOnycho from "@/assets/before-after/onycho.png.asset.json";
 
 const SERVICES = [
   { slug: "corns", icon: Footprints, title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
@@ -584,10 +588,10 @@ function Home() {
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { title: "ציפורן חודרנית", desc: "אורתוניקסיה ושיקום מבנה הציפורן ללא ניתוח, ללא כאב.", slug: "ingrown-nails" },
-                { title: "פטרת ציפורן", desc: "פרוטוקול קליני יסודי עם הדרכה ביתית עד החלמה מלאה.", slug: "fungus" },
-                { title: "יבלה עמוקה", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.", slug: "corns" },
-                { title: "שיקום ציפורן BIO", desc: "מילוי וטיפוח ציפורן שהתנתקה ממיטת הציפורן.", slug: "onycholysis" },
+                { title: "ציפורן חודרנית", desc: "אורתוניקסיה ושיקום מבנה הציפורן ללא ניתוח, ללא כאב.", slug: "ingrown-nails", img: baIngrown.url, alt: "תמונת לפני ואחרי טיפול בציפורן חודרנית בכף הרגל" },
+                { title: "יבלה עמוקה", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.", slug: "corns", img: baWarts.url, alt: "תמונת לפני ואחרי טיפול ביבלות בכף הרגל" },
+                { title: "עור סדוק בעקב", desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.", slug: "cracked-heels", img: baCracked.url, alt: "תמונת לפני ואחרי טיפול בעור סדוק בעקב" },
+                { title: "שיקום ציפורן BIO", desc: "מילוי וטיפוח ציפורן שהתנתקה ממיטת הציפורן.", slug: "onycholysis", img: baOnycho.url, alt: "תמונת לפני ואחרי שיקום ציפורן מנותקת אונכילוזיס" },
               ].map((c, i) => (
                 <Link
                   key={c.title}
@@ -595,15 +599,13 @@ function Home() {
                   params={{ slug: c.slug }}
                   className="group overflow-hidden rounded-2xl border border-border bg-surface transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]"
                 >
-                  <div className="grid grid-cols-2 gap-px bg-border">
-                    <div className="relative aspect-square bg-surface-warm flex items-center justify-center">
-                      <span className="absolute right-2 top-2 rounded-full bg-ink/85 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white">לפני</span>
-                      <Footprints className="h-10 w-10 text-ink/20" aria-hidden strokeWidth={1.4} />
-                    </div>
-                    <div className="relative aspect-square flex items-center justify-center" style={{ background: "var(--primary-soft)" }}>
-                      <span className="absolute right-2 top-2 rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white">אחרי</span>
-                      <CheckCircle2 className="h-10 w-10 text-primary-deep/60" aria-hidden strokeWidth={1.4} />
-                    </div>
+                  <div className="relative aspect-[3/2] overflow-hidden bg-surface-warm">
+                    <img
+                      src={c.img}
+                      alt={c.alt}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
                   </div>
                   <div className="p-5">
                     <p className="kicker mb-2">מקרה {String(i + 1).padStart(2, "0")}</p>
