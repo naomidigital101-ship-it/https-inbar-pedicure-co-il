@@ -15,6 +15,7 @@ import {
   type ArticleCard,
 } from "@/lib/article-cards";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
+import { CATEGORY_LONG_CONTENT } from "@/lib/category-content";
 
 const PER_PAGE = 40;
 
@@ -140,6 +141,8 @@ function CategoryPage() {
         />
         <CategoryHero category={category} totalArticles={totalArticles} />
 
+        <CategoryLongContent slug={category.slug} />
+
         <section className="mx-auto max-w-[1400px] px-4 py-12 md:px-8 md:py-16">
           <CategoryGrid articles={pageArticles} />
           <Pagination
@@ -153,5 +156,63 @@ function CategoryPage() {
       </main>
       <SiteFooter />
     </div>
+  );
+}
+
+function CategoryLongContent({ slug }: { slug: string }) {
+  const content = CATEGORY_LONG_CONTENT[slug as keyof typeof CATEGORY_LONG_CONTENT];
+  if (!content) return null;
+  return (
+    <section className="mx-auto max-w-[900px] px-6 pt-12 pb-4 md:px-10">
+      <div className="space-y-4" style={{ color: "var(--ink-900)", fontSize: "1.02rem", lineHeight: 1.85 }}>
+        {content.intro.map((p, i) => (
+          <p key={`ci-${i}`}>{p}</p>
+        ))}
+      </div>
+      {content.topics.length > 0 && (
+        <div className="mt-10 grid gap-6">
+          {content.topics.map((t, i) => (
+            <div key={`ct-${i}`} className="rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-6">
+              <h2
+                className="mb-2"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 500,
+                  fontSize: "1.25rem",
+                  color: "var(--ink-900)",
+                }}
+              >
+                {t.heading}
+              </h2>
+              <p style={{ color: "var(--ink-900)", lineHeight: 1.85, fontSize: "0.98rem" }}>{t.body}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {content.faqs.length > 0 && (
+        <div className="mt-10">
+          <h2
+            className="mb-4"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)",
+              letterSpacing: "-0.02em",
+              color: "var(--green-700)",
+            }}
+          >
+            שאלות נפוצות
+          </h2>
+          <dl className="space-y-4">
+            {content.faqs.map((f, i) => (
+              <div key={`cf-${i}`} className="rounded-lg border border-[var(--stone-100)] bg-[var(--paper)] p-5">
+                <dt className="mb-1 font-semibold" style={{ color: "var(--ink-900)" }}>{f.q}</dt>
+                <dd style={{ color: "var(--ink-900)", lineHeight: 1.85, fontSize: "0.96rem" }}>{f.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+    </section>
   );
 }
