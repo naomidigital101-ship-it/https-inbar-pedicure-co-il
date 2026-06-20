@@ -1,6 +1,6 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
-import logoAsset from "@/assets/inbar-logo-final.png.asset.json";
+import { BrandLogo } from "./BrandLogo";
 
 const siteLinks = [
   { label: "אודות ענבר", href: "/about" },
@@ -28,11 +28,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1280px] px-6 py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-12">
           <section aria-labelledby="footer-brand" className="space-y-5 md:col-span-5">
-            <div className="flex items-center gap-4">
-              <img src={logoAsset.url} alt={SITE.brand} className="h-20 w-auto" loading="lazy" decoding="async" style={{ filter: "brightness(0) invert(1)", opacity: 0.92 }} />
-              <h2 id="footer-brand" className="sr-only">{SITE.brand}</h2>
-            </div>
-            <p className="text-[12px] font-medium uppercase" style={{ letterSpacing: "0.24em", color: "var(--green-300)" }}>פדיקור טיפולי · {SITE.city}</p>
+            <h2 id="footer-brand" className="sr-only">{SITE.brand}</h2>
+            <BrandLogo tone="paper" layout="horizontal" size={64} />
             <p className="max-w-md text-sm leading-relaxed" style={{ color: "#B5C8C2" }}>
               קליניקה לפדיקור טיפולי המתמחה בטיפול ביבלות, פטרת, ציפורן חודרנית ובכף הרגל של חולי סוכרת. סטריליות מלאה, פרוטוקולים קליניים וליווי אישי עד החלמה.
             </p>
