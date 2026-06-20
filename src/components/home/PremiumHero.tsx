@@ -284,7 +284,7 @@ export function PremiumHero() {
                 width={1240}
                 height={1700}
                 loading="eager"
-                className="relative mx-auto max-h-[44svh] w-auto md:max-h-none md:w-full"
+                className="relative mx-auto max-h-[44svh] w-auto md:max-h-[calc(100svh-96px)] md:w-full"
                 style={{
                   display: "block",
                   height: "auto",
