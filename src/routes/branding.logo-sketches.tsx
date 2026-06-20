@@ -6,6 +6,7 @@ import logo01 from "@/assets/logo-sketches/logo-01-apothecary-seal.png";
 import logo02 from "@/assets/logo-sketches/logo-02-wordmark-arc.png";
 import logo03 from "@/assets/logo-sketches/logo-03-botanical-foot.png";
 import logo04 from "@/assets/logo-sketches/logo-04-vertical-stamp.png";
+import logo05 from "@/assets/logo-sketches/logo-05-pill-foot-mark.png";
 
 type Sketch = {
   id: string;
@@ -20,6 +21,17 @@ type Sketch = {
 };
 
 const SKETCHES: Sketch[] = [
+  {
+    id: "pill-foot-mark",
+    number: "00",
+    title: "Pill Foot Mark",
+    subtitle: "פטיש ויזואלי · סמל קפסולה",
+    description:
+      "סמל קפסולה אנכי עם כף רגל מסוגננת בקו דק, שלוש נקודות בהונות ונקודת זהב בעקב. פטיש ויזואלי חזק, מיידי לזיהוי, עובד מצוין כסמל עצמאי לצד טקסט או לבד כ-favicon.",
+    bestFor: "סמל ראשי באתר · Favicon · אריזות · סטיקרים",
+    image: logo05,
+    ratio: "portrait",
+  },
   {
     id: "apothecary-seal",
     number: "01",
