@@ -5,7 +5,7 @@ import { RelatedArticles } from "@/components/article/RelatedArticles";
 import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { articles } from "@/lib/articles";
 
-const TITLE = "תודה! הצ׳קליסט שלך מוכן להורדה | Dirt Road Guide";
+const TITLE = "תודה! המדריך שלך מוכן להורדה | ענבר פרחי";
 const CHECKLIST_PDF_URL = "/downloads/checklist-47.pdf";
 
 export const Route = createFileRoute("/thank-you")({
@@ -55,7 +55,7 @@ function ThankYouPage() {
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
                 href={CHECKLIST_PDF_URL}
-                download="checklist-47-dirt-road-guide.pdf"
+                download="madrich-pedicure-tipuli.pdf"
                 className="inline-flex h-12 items-center gap-2.5 px-7"
                 style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
               >

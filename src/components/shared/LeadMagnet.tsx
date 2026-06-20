@@ -10,7 +10,7 @@ function triggerChecklistDownload() {
   if (typeof document === "undefined") return;
   const a = document.createElement("a");
   a.href = CHECKLIST_PDF_URL;
-  a.download = "checklist-47-dirt-road-guide.pdf";
+  a.download = "madrich-pedicure-tipuli.pdf";
   a.rel = "noopener";
   document.body.appendChild(a);
   a.click();
