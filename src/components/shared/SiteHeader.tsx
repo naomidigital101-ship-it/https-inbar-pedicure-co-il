@@ -1,20 +1,52 @@
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle } from "lucide-react";
+import {
+  Menu,
+  X,
+  MessageCircle,
+  ChevronDown,
+  Footprints,
+  Droplets,
+  Scissors,
+  Sparkles,
+  Activity,
+  HeartPulse,
+  Award,
+} from "lucide-react";
 import { SITE, SERVICES_NAV } from "@/lib/site-config";
 import { BrandLogo } from "./BrandLogo";
 
 const navLinks = [
   { label: "בית", href: "/" },
   { label: "שירותים", href: "/services" },
-  { label: "מאסטרקלאס", href: "/masterclass" },
   { label: "מרכז הידע", href: "/knowledge" },
   { label: "אודות ענבר", href: "/about" },
   { label: "צור קשר", href: "/contact" },
 ];
 
+const SERVICE_ICONS: Record<string, typeof Footprints> = {
+  corns: Footprints,
+  fungus: Droplets,
+  "ingrown-nails": Scissors,
+  onycholysis: Sparkles,
+  "cracked-heels": Activity,
+  "diabetic-feet": HeartPulse,
+  "sports-feet": Award,
+};
+
+const SERVICE_DESCRIPTIONS: Record<string, string> = {
+  corns: "הסרת יבלות וקאלוסים בכלים סטריליים",
+  fungus: "טיפול יסודי בפטרת עור וציפורן",
+  "ingrown-nails": "אורתוניקסיה ללא ניתוח, ללא כאב",
+  onycholysis: "שיקום ציפורן מנותקת בשיטת BIO",
+  "cracked-heels": "איחוי סדקים והחזרת רכות לעקב",
+  "diabetic-feet": "פרוטוקול IWGDF, סטריליות מלאה",
+  "sports-feet": "פתרונות לחיילים וספורטאים",
+};
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const current = typeof window !== "undefined" ? window.location.pathname : "/";
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -65,12 +97,107 @@ export function SiteHeader() {
           <BrandLogo tone="ink" layout="horizontal" size={44} />
         </a>
         <nav
-          className="hidden items-center gap-7 text-[0.92rem] lg:flex"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-[0.92rem] lg:flex"
           aria-label="ניווט ראשי"
           style={{ color: "var(--ink-900)" }}
         >
           {navLinks.map((l) => {
             const active = l.href === current || (l.href !== "/" && current.startsWith(l.href));
+            if (l.href === "/services") {
+              return (
+                <div
+                  key={l.href}
+                  className="relative"
+                  onMouseEnter={() => setServicesOpen(true)}
+                  onMouseLeave={() => setServicesOpen(false)}
+                >
+                  <a
+                    href="/services"
+                    className="group relative inline-flex items-center gap-1 pb-1 transition-colors hover:text-[var(--green-700)]"
+                    style={{
+                      color: active ? "var(--green-700)" : "var(--ink-900)",
+                      fontWeight: active ? 500 : 400,
+                    }}
+                  >
+                    {l.label}
+                    <ChevronDown
+                      className="h-3.5 w-3.5 transition-transform"
+                      style={{ transform: servicesOpen ? "rotate(180deg)" : undefined }}
+                      aria-hidden
+                    />
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-x-0 -bottom-0.5 h-px origin-center scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent, var(--accent-gold), transparent)",
+                        transform: active ? "scaleX(1)" : undefined,
+                      }}
+                    />
+                  </a>
+                  {servicesOpen && (
+                    <div
+                      className="absolute right-1/2 top-full z-50 translate-x-1/2 pt-3"
+                      role="menu"
+                      aria-label="תפריט שירותים"
+                    >
+                      <div
+                        className="grid w-[640px] grid-cols-2 gap-1 p-3"
+                        style={{
+                          background: "var(--paper)",
+                          borderRadius: 16,
+                          border: "1px solid var(--stone-100)",
+                          boxShadow: "0 24px 48px -24px rgb(30 36 34 / 0.25)",
+                        }}
+                      >
+                        {SERVICES_NAV.map((s) => {
+                          const Icon = SERVICE_ICONS[s.slug] ?? Footprints;
+                          return (
+                            <a
+                              key={s.slug}
+                              href={`/services/${s.slug}`}
+                              className="group flex items-start gap-3 rounded-xl p-3 transition-colors"
+                              style={{ color: "var(--ink-900)" }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = "var(--stone-50)";
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = "transparent";
+                              }}
+                            >
+                              <span
+                                aria-hidden
+                                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+                                style={{
+                                  background: "var(--green-100, #E6F0EC)",
+                                  color: "var(--green-700)",
+                                }}
+                              >
+                                <Icon className="h-5 w-5" strokeWidth={1.6} />
+                              </span>
+                              <span className="min-w-0">
+                                <span
+                                  className="block text-[0.92rem] font-medium"
+                                  style={{ color: "var(--ink-900)" }}
+                                >
+                                  {s.label}
+                                </span>
+                                <span
+                                  className="mt-0.5 block text-[0.78rem] leading-snug"
+                                  style={{ color: "var(--ink-600)" }}
+                                >
+                                  {SERVICE_DESCRIPTIONS[s.slug]}
+                                </span>
+                              </span>
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            }
             return (
               <a
                 key={l.href}
@@ -94,36 +221,36 @@ export function SiteHeader() {
               </a>
             );
           })}
-          <a
-            href={SITE.whatsappUrl}
-            target="_blank"
-            rel="noopener"
-            className="group relative inline-flex items-center gap-2 px-5 py-2.5 text-[0.85rem] font-medium transition-all"
-            style={{
-              background: "var(--green-700)",
-              color: "var(--paper)",
-              borderRadius: 999,
-              boxShadow:
-                "0 1px 0 rgb(255 255 255 / 0.15) inset, 0 8px 20px -12px rgb(79 140 123 / 0.55)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--green-800)";
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--green-700)";
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-          >
-            <span
-              aria-hidden
-              className="h-1.5 w-1.5 rounded-full"
-              style={{ background: "var(--accent-gold)" }}
-            />
-            <MessageCircle className="h-4 w-4" aria-hidden />
-            קבעו תור עכשיו
-          </a>
         </nav>
+        <a
+          href={SITE.whatsappUrl}
+          target="_blank"
+          rel="noopener"
+          className="group relative hidden items-center gap-2 px-5 py-2.5 text-[0.85rem] font-medium transition-all lg:inline-flex"
+          style={{
+            background: "var(--green-700)",
+            color: "var(--paper)",
+            borderRadius: 999,
+            boxShadow:
+              "0 1px 0 rgb(255 255 255 / 0.15) inset, 0 8px 20px -12px rgb(79 140 123 / 0.55)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "var(--green-800)";
+            e.currentTarget.style.transform = "translateY(-1px)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "var(--green-700)";
+            e.currentTarget.style.transform = "translateY(0)";
+          }}
+        >
+          <span
+            aria-hidden
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ background: "var(--accent-gold)" }}
+          />
+          <MessageCircle className="h-4 w-4" aria-hidden />
+          קבעו תור עכשיו
+        </a>
         <button
           type="button"
           className="lg:hidden p-2 transition-colors"
