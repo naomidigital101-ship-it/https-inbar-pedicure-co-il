@@ -16,19 +16,19 @@ import { SITE } from "@/lib/site-config";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div dir="rtl" className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">העמוד לא נמצא</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+          העמוד שחיפשת לא קיים או הועבר. אפשר לחזור לעמוד הבית או ליצור איתי קשר.
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            חזרה לעמוד הבית
           </Link>
         </div>
       </div>
@@ -41,13 +41,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div dir="rtl" className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          העמוד לא נטען כראוי
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          משהו השתבש אצלנו. אפשר לנסות לרענן או לחזור לעמוד הבית.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -57,13 +57,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            נסו שוב
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            חזרה לעמוד הבית
           </a>
         </div>
       </div>
@@ -88,14 +88,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: SITE.shortDescription },
       { property: "og:description", content: SITE.shortDescription },
       { name: "twitter:description", content: SITE.shortDescription },
-      { title: "Lovable App" },
-      { property: "og:title", content: "Lovable App" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "description", content: "ענבר פדיקור היא קליניקה מקצועית המציעה טיפולי פדיקור מתקדמים." },
-      { property: "og:description", content: "ענבר פדיקור היא קליניקה מקצועית המציעה טיפולי פדיקור מתקדמים." },
-      { name: "twitter:description", content: "ענבר פדיקור היא קליניקה מקצועית המציעה טיפולי פדיקור מתקדמים." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/aae3a7de-d973-4930-b52d-0379f70db9ac/id-preview-51f41651--44f03f9f-543f-4ee7-a088-faeb76d97532.lovable.app-1781902758090.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/aae3a7de-d973-4930-b52d-0379f70db9ac/id-preview-51f41651--44f03f9f-543f-4ee7-a088-faeb76d97532.lovable.app-1781902758090.png" },
     ],
     links: [
       {

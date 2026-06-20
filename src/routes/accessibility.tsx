@@ -66,7 +66,7 @@ const sections: { title: string; body: string[] }[] = [
     body: [
       "אם נתקלתם בבעיית נגישות באתר, או אם יש לכם הצעה לשיפור, אנא פנו אלינו ונשתדל לטפל בכך בהקדם:",
       "רכזת נגישות: נעמי",
-      "דואר אלקטרוני: accessibility@dirt-road-guide.lovable.app",
+      "דואר אלקטרוני: inbar.pedicure@gmail.com",
       "זמן תגובה ממוצע: עד 7 ימי עסקים.",
     ],
   },

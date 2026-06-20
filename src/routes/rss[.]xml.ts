@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { articles } from "@/lib/articles";
+import { SITE } from "@/lib/site-config";
 
-const BASE_URL = "https://inbar-farchi.lovable.app";
-const SITE_TITLE = "ענבר פרחי";
+const BASE_URL = SITE.url;
+const SITE_TITLE = SITE.brand;
 const SITE_DESC =
-  "פורטל אופנועי שטח בישראל: מדריכי תחזוקה, ביקורות, מסלולים וטכניקת רכיבה.";
+  "מאמרים בנושא פדיקור טיפולי: יבלות, פטרת, ציפורן חודרנית, סדקים בעקב, פדיקור לחולי סוכרת והדרכות מבוססות פרוטוקולים קליניים.";
 
 function escapeXml(s: string): string {
   return s
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/rss.xml")({
             `      <pubDate>${pubDate}</pubDate>`,
             `      <description>${escapeXml(a.excerpt)}</description>`,
             `      <category>${escapeXml(a.category)}</category>`,
-            `      <author>noreply@inbar-farchi.lovable.app (${escapeXml(a.author)})</author>`,
+            `      <author>noreply@${SITE.domain} (${escapeXml(a.author)})</author>`,
             `    </item>`,
           ].join("\n");
         });

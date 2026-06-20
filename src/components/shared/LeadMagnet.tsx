@@ -10,7 +10,7 @@ function triggerChecklistDownload() {
   if (typeof document === "undefined") return;
   const a = document.createElement("a");
   a.href = CHECKLIST_PDF_URL;
-  a.download = "checklist-47-dirt-road-guide.pdf";
+  a.download = "madrich-pedicure-tipuli.pdf";
   a.rel = "noopener";
   document.body.appendChild(a);
   a.click();
@@ -96,10 +96,10 @@ export function LeadMagnet() {
             lineHeight: 1.1,
           }}
         >
-          47 בדיקות לפני יציאה לשטח
+          המדריך לבריאות כף הרגל
         </h2>
         <p style={{ color: "color-mix(in oklab, var(--paper) 80%, transparent)", fontSize: 15.5, lineHeight: 1.65 }}>
-          הצ׳קליסט שכל מכונאי שומר לעצמו. חינם במייל.
+          טיפים יומיומיים, סימני אזהרה ושגרת טיפוח שכל פדיקוריסטית טיפולית ממליצה. חינם במייל.
         </p>
       </div>
 
