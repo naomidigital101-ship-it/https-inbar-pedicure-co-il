@@ -61,9 +61,9 @@ export function SiteHeader() {
           fill="none"
         />
       </svg>
-      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-2.5">
+      <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-1.5">
         <a href="/" className="transition-opacity hover:opacity-80" aria-label={SITE.brand}>
-          <BrandLogo tone="ink" layout="horizontal" size={68} />
+          <BrandLogo tone="ink" layout="horizontal" size={84} />
         </a>
         <nav
           className="hidden items-center gap-7 text-[0.92rem] lg:flex"
