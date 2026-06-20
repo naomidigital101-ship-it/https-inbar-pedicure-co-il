@@ -29,6 +29,30 @@ const RAW_MAP: Record<string, string> = {
   "/יבלת-קשה": "/article/hard-callus-vs-wart",
   "/פטרת-ציפורניים-טראומה-או-פסוריאזיס-המ": "/article/nail-fungus-vs-trauma-vs-psoriasis",
   "/האם-פטרת-ציפורניים-מדבקת": "/article/is-nail-fungus-contagious",
+
+  // Broken /article/* slugs מסריקת Screaming Frog (פנו ליעד הקרוב ביותר)
+  "/services/medical-pedicure-explained": "/article/medical-pedicure-explained",
+  "/article/cracked-heels-and-dry-skin": "/article/dry-skin-cracked-heels-care-guide",
+  "/article/dry-cracked-heels-treatment": "/article/dry-skin-cracked-heels-care-guide",
+  "/article/treating-dry-cracked-heels": "/article/dry-skin-cracked-heels-care-guide",
+  "/article/how-to-cut-toenails-correctly": "/article/how-to-cut-toenails-correctly-prevent-ingrown-toenail",
+  "/article/fungus-on-toes": "/article/nail-fungus-causes-and-treatment",
+  "/article/piteret-tsipornayim-beragliim": "/article/nail-fungus-causes-and-treatment",
+  "/article/peteret-tsipornaim": "/article/nail-fungus-causes-and-treatment",
+  "/article/tipul-be-piteret-kef-regel": "/article/nail-fungus-causes-and-treatment",
+  "/article/foot-fungus-prevention": "/article/is-nail-fungus-contagious",
+  "/article/how-to-choose-running-shoes": "/article/eich-livchor-naalei-ritza",
+  "/article/how-to-choose-the-right-shoes": "/article/eich-livchor-naalei-ritza",
+  "/article/choosing-comfortable-shoes": "/article/eich-livchor-naalei-ritza",
+  "/article/foot-types-and-pronation": "/article/eich-livchor-naalei-ritza",
+  "/article/yabalot-viraliyot-ve-lachatz-bakaf-haregel": "/article/viral-plantar-wart",
+  "/article/tsiporen-choderanit": "/article/orthonyxia-nail-bracing-for-ingrown-toenail",
+  "/article/tsiporen-khodranit": "/article/orthonyxia-nail-bracing-for-ingrown-toenail",
+  "/article/diabetic-foot-care": "/article/diabetic-foot-daily-self-check-guide",
+  "/article/callus-and-corns": "/article/hard-callus-vs-wart",
+  "/article/foot-stretches-and-exercises": "/article/shin-splints-causes-prevention-guide",
+  "/article/custom-orthotics-guide": "/article/kavim-ba-akev-boker-dorban",
+  "/article/midrasim-le-keev-raglayim": "/article/kavim-ba-akev-boker-dorban",
 };
 
 /** מנרמל path: מסיר trailing slash, מפענח אחוזים, lowercase לאותיות ASCII. */
