@@ -12,9 +12,9 @@ import {
 } from "@/lib/ai-content.server";
 
 const NOTIFY_EMAIL = "naomi.digital101@gmail.com";
-const SENDER_DOMAIN = "notify.inbar-farchi.lovable.app";
+const SENDER_DOMAIN = "notify.inbar-pedicure.co.il";
 const FROM = `ענבר פרחי <autopilot@${SENDER_DOMAIN}>`;
-const SITE_BASE = "https://inbar-farchi.lovable.app";
+const SITE_BASE = "https://inbar-pedicure.co.il";
 const DAILY_TARGET = 5;
 const STALE_RUN_MS = 45 * 60 * 1000;
 const MAX_LOG_LINES = 30;

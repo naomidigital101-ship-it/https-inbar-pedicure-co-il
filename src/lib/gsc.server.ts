@@ -1,5 +1,5 @@
 const GATEWAY = "https://connector-gateway.lovable.dev/google_search_console";
-const SITE_URL = "https://inbar-farchi.lovable.app/";
+const SITE_URL = "https://inbar-pedicure.co.il/";
 const SITE_URL_ENCODED = encodeURIComponent(SITE_URL);
 
 function authHeaders() {
@@ -86,9 +86,9 @@ export async function pingIndexNow(urls: string[]): Promise<{ ok: boolean; statu
     method: "POST",
     headers: { "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify({
-      host: "inbar-farchi.lovable.app",
+      host: "inbar-pedicure.co.il",
       key: KEY,
-      keyLocation: `https://inbar-farchi.lovable.app/${KEY}.txt`,
+      keyLocation: `https://inbar-pedicure.co.il/${KEY}.txt`,
       urlList: urls,
     }),
   });

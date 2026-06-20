@@ -56,7 +56,7 @@ export const Route = createFileRoute("/category/$slug")({
     }
     const { category, pageArticles, currentPage, totalPages } = loaderData;
     const url = `/category/${params.slug}`;
-    const SITE_URL = "https://inbar-farchi.lovable.app";
+    const SITE_URL = "https://inbar-pedicure.co.il";
     const absUrl = `${SITE_URL}${url}`;
     const pageSuffix = currentPage > 1 ? ` - עמוד ${currentPage}` : "";
     const title = `${category.name}${pageSuffix} | ענבר פרחי`;
