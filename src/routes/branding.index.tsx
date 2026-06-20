@@ -23,7 +23,7 @@ export const Route = createFileRoute("/branding/")({
         content:
           "שפת המיתוג של הקליניקה — פלטה, טיפוגרפיה Ellinia CLM ו-Heebo, מרווחים, אלמנטים גרפיים וקומפוננטות.",
       },
-      { name: "robots", content: "noindex,follow" },
+      { name: "robots", content: "noindex,nofollow" },
     ],
   }),
   component: BrandingPage,
