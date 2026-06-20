@@ -83,6 +83,27 @@ function ContactPage() {
               כל פנייה מטופלת באופן אישי, ללא שיפוטיות.
             </p>
 
+            <div
+              className="mb-12 grid gap-6 p-7 md:grid-cols-[1fr_auto] md:items-center md:gap-10"
+              style={{
+                background: "var(--green-50)",
+                border: "1px solid var(--green-100)",
+                borderRadius: 20,
+              }}
+            >
+              <p style={{ color: "var(--ink-900)", lineHeight: 1.8, fontSize: "1rem" }}>
+                <strong style={{ color: "var(--green-700)" }}>מילה אישית ממני –</strong> מעבר להיותי
+                פדיקוריסטית, אני אמא לשלוש בנות: אגם, אביגיל ואודיה. לכן אני מקפידה על שעות קבועות
+                בקליניקה, מתחייבת לזמן הטיפול שלכם בלי הפרעות, וזמינה בוואטסאפ למענה אישי גם בין
+                המטופלים. אם אני לא עונה ברגע זה – זה כי אני באמצע טיפול, ואחזור אליכם תוך שעות ספורות.
+              </p>
+              <span
+                aria-hidden
+                className="hidden md:block h-16 w-px"
+                style={{ background: "var(--green-100)" }}
+              />
+            </div>
+
             <div className="grid gap-4 md:grid-cols-2">
               <ContactCard href={SITE.whatsappUrl} external eyebrow="וואטסאפ" title={SITE.phoneDisplay} sub="הדרך המהירה ביותר לקבוע תור" icon={<MessageCircle className="h-6 w-6" strokeWidth={1.5} aria-hidden />} />
               <ContactCard href={SITE.telUrl} eyebrow="טלפון" title={SITE.phoneDisplay} sub="חיוג ישיר" icon={<Phone className="h-6 w-6" strokeWidth={1.5} aria-hidden />} />
