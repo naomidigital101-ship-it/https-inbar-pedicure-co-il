@@ -330,6 +330,63 @@ export type Database = {
         }
         Relationships: []
       }
+      instagram_posts: {
+        Row: {
+          after_image_url: string | null
+          before_image_url: string | null
+          caption: string
+          created_at: string
+          created_by: string | null
+          hashtags: string
+          id: string
+          idea: Json | null
+          ig_media_id: string | null
+          image_url: string | null
+          post_type: string
+          publish_error: string | null
+          published_at: string | null
+          scheduled_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          after_image_url?: string | null
+          before_image_url?: string | null
+          caption?: string
+          created_at?: string
+          created_by?: string | null
+          hashtags?: string
+          id?: string
+          idea?: Json | null
+          ig_media_id?: string | null
+          image_url?: string | null
+          post_type?: string
+          publish_error?: string | null
+          published_at?: string | null
+          scheduled_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          after_image_url?: string | null
+          before_image_url?: string | null
+          caption?: string
+          created_at?: string
+          created_by?: string | null
+          hashtags?: string
+          id?: string
+          idea?: Json | null
+          ig_media_id?: string | null
+          image_url?: string | null
+          post_type?: string
+          publish_error?: string | null
+          published_at?: string | null
+          scheduled_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           created_at: string
