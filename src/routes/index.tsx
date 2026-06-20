@@ -91,6 +91,10 @@ const BULLETS = [
 ] as const;
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const articles = await listPublishedAiArticleCards();
+    return { latestArticles: articles.slice(0, 6) };
+  },
   head: () => ({
     meta: [
       { title: `פדיקור טיפולי בבית אל ובאזור בנימין | ${SITE.brand}` },
