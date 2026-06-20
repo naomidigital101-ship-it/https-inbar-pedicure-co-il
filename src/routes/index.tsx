@@ -11,6 +11,8 @@ import { TrustBand } from "@/components/home/TrustBand";
 import { AboutExpert } from "@/components/home/AboutExpert";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
+import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
+import type { ArticleCard } from "@/lib/article-cards";
 import inbarPhoto from "@/assets/inbar-hero-editorial.jpg";
 import baWarts from "@/assets/before-after/warts.png.asset.json";
 import baCracked from "@/assets/before-after/cracked.png.asset.json";
@@ -89,6 +91,10 @@ const BULLETS = [
 ] as const;
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const articles = await listPublishedAiArticleCards();
+    return { latestArticles: articles.slice(0, 6) };
+  },
   head: () => ({
     meta: [
       { title: `פדיקור טיפולי בבית אל ובאזור בנימין | ${SITE.brand}` },
@@ -217,6 +223,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const { latestArticles } = Route.useLoaderData();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
@@ -453,6 +460,42 @@ function Home() {
                 </Link>
               ))}
             </div>
+
+            {latestArticles.length > 0 ? (
+              <div className="mt-12">
+                <p className="kicker mb-5">מאמרים אחרונים</p>
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {latestArticles.map((a: ArticleCard) => (
+                    <Link
+                      key={a.slug}
+                      to="/article/$slug"
+                      params={{ slug: a.slug }}
+                      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[var(--shadow-soft)]"
+                      aria-label={a.title}
+                    >
+                      <div className="aspect-[16/10] overflow-hidden bg-surface-warm">
+                        <img
+                          src={a.heroImage}
+                          alt={a.heroAlt}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform group-hover:scale-[1.03]"
+                        />
+                      </div>
+                      <div className="flex flex-1 flex-col p-6">
+                        <p className="text-xs font-bold text-primary-deep">
+                          {a.category} · {a.dateLabel}
+                        </p>
+                        <h3 className="display mt-3 text-lg leading-snug text-ink">{a.title}</h3>
+                        <p className="mt-3 text-sm leading-relaxed text-ink-soft">{a.excerpt}</p>
+                        <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-bold text-copper">
+                          קריאה <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" aria-hidden />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         </section>
 

@@ -5,6 +5,8 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { LeadMagnet } from "@/components/shared/LeadMagnet";
 import { BrandHeroBackdrop, BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
+import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
+import type { ArticleCard } from "@/lib/article-cards";
 
 const PAGE_URL = `${SITE.url}/knowledge`;
 const TITLE = `מרכז הידע — מדריכים מקצועיים בפדיקור טיפולי | ${SITE.brand}`;
@@ -12,16 +14,19 @@ const DESCRIPTION =
   "מרכז הידע של ענבר פרחי: מאמרים ומדריכים על יבלות, פטרת, ציפורן חודרנית, סוכרת, סדקים בעקב, מניעה ותחזוקה — בשפה ברורה ומבוססת ניסיון קליני.";
 
 const CATEGORY_DESCRIPTIONS: Record<string, string> = {
-  corns: "מדוע נוצרות יבלות בכף הרגל, איך מטפלים בהן בבטחה ומה ההבדל בין יבלת קשה לרכה.",
-  fungus: "פטרת ציפורן ופטרת עור — סימני זיהוי, גורמי הסיכון, טיפול ופרוטוקול מניעה.",
-  "ingrown-nails": "ציפורן חודרנית: גורמים, ניקוז זהיר, גזירה נכונה ומניעת חזרה של הבעיה.",
-  "diabetic-feet": "פדיקור בטוח לחולי סוכרת — סטריליות מלאה, בדיקה תקופתית וזיהוי סימני אזהרה.",
-  "cracked-heels": "סדקים בעקב ועור קשה — שגרת טיפול, תכשירים מומלצים ומתי לפנות לטיפול קליני.",
-  prevention: "שגרת תחזוקה ביתית, גזירה נכונה, בחירת נעליים והרגלים שמונעים בעיות עתידיות.",
-  "sports-feet": "פדיקור לספורטאים וחיילים — שלפוחיות, חיכוך, ציפורניים שחורות והגנה לכף הרגל.",
+  "foot-care": "שגרת טיפוח יומית, גזירת ציפורניים נכונה, סדקים בעקב ועור יבש — מבוסס משרד הבריאות, NHS ו-Mayo Clinic.",
+  conditions: "פטרת ציפורן, יבלות ויראליות, ציפורן חודרנית, דורבן וכאבי עקב — זיהוי מבדל ופרוטוקולי טיפול.",
+  "diabetic-foot": "פדיקור בטוח לחולי סוכרת לפי IWGDF — סטריליות, בדיקה יומית וזיהוי סימני אזהרה.",
+  treatments: "אורטוניקסיה, שיקום ציפורן BIO, הסרת יבלות והביקור הראשון בקליניקה — מה באמת קורה בטיפול.",
+  footwear: "איך לבחור נעליים, מתי צריך מדרסים, נעלי ריצה ונעליים לעבודה ממושכת — בלי שיווק.",
+  "sports-feet": "ספורטאים, רצים, חיילים ומילואימניקים — שלפוחיות, שין ספלינטס וטיפול בכף רגל בעומס.",
 };
 
 export const Route = createFileRoute("/knowledge")({
+  loader: async () => {
+    const articles = await listPublishedAiArticleCards();
+    return { articles };
+  },
   head: () => ({
     meta: [
       { title: TITLE },
@@ -61,6 +66,7 @@ export const Route = createFileRoute("/knowledge")({
 });
 
 function KnowledgeIndex() {
+  const { articles } = Route.useLoaderData();
   return (
     <div style={{ background: "var(--paper)" }}>
       <SiteHeader />
@@ -175,6 +181,70 @@ function KnowledgeIndex() {
         <section className="mx-auto max-w-[1200px] px-6 pb-20">
           <LeadMagnet />
         </section>
+
+        {articles.length > 0 ? (
+          <section className="mx-auto max-w-[1200px] px-6 pb-24">
+            <div className="mb-10">
+              <BrandEyebrow>כל המאמרים</BrandEyebrow>
+              <h2
+                className="mt-3"
+                style={{
+                  fontFamily: "'Frank Ruhl Libre', serif",
+                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                  fontWeight: 500,
+                  color: "var(--ink-900)",
+                }}
+              >
+                מאמרים אחרונים ב{SITE.brand}
+              </h2>
+            </div>
+            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {articles.map((a: ArticleCard) => (
+                <li key={a.slug}>
+                  <Link
+                    to="/article/$slug"
+                    params={{ slug: a.slug }}
+                    className="group block h-full overflow-hidden rounded-2xl border transition-all hover:-translate-y-0.5"
+                    style={{ background: "var(--paper)", borderColor: "var(--stone-100)" }}
+                    aria-label={a.title}
+                  >
+                    <div className="aspect-[16/10] overflow-hidden" style={{ background: "var(--stone-50)" }}>
+                      <img
+                        src={a.heroImage}
+                        alt={a.heroAlt}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <p className="text-xs" style={{ color: "var(--green-700)", fontWeight: 500 }}>
+                        {a.category} · {a.dateLabel}
+                      </p>
+                      <h3
+                        className="mt-3"
+                        style={{
+                          fontFamily: "'Frank Ruhl Libre', serif",
+                          fontSize: "1.25rem",
+                          lineHeight: 1.3,
+                          color: "var(--ink-900)",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {a.title}
+                      </h3>
+                      <p className="mt-3 text-sm" style={{ color: "var(--ink-600)", lineHeight: 1.7 }}>
+                        {a.excerpt}
+                      </p>
+                      <p className="mt-4 text-xs" style={{ color: "var(--ink-600)" }}>
+                        {a.readingTime}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
       </main>
       <SiteFooter />
     </div>

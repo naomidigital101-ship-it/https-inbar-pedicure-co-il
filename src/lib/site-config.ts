@@ -36,13 +36,12 @@ export const SERVICES_NAV = [
 ] as const;
 
 export const KNOWLEDGE_CATEGORIES_NAV = [
-  { slug: "corns", label: "יבלות" },
-  { slug: "fungus", label: "פטרת" },
-  { slug: "ingrown-nails", label: "ציפורניים" },
-  { slug: "diabetic-feet", label: "סוכרת וכף הרגל" },
-  { slug: "cracked-heels", label: "עור וסדקים" },
-  { slug: "prevention", label: "מניעה ותחזוקה" },
-  { slug: "sports-feet", label: "ספורטאים ומבוגרים" },
+  { slug: "foot-care", label: "טיפוח כף הרגל" },
+  { slug: "conditions", label: "בעיות נפוצות" },
+  { slug: "diabetic-foot", label: "כף רגל סוכרתית" },
+  { slug: "treatments", label: "טיפולים ופרוצדורות" },
+  { slug: "footwear", label: "נעליים ומדרסים" },
+  { slug: "sports-feet", label: "ספורט וחיילים" },
 ] as const;
 
 /**
