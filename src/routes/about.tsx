@@ -168,10 +168,157 @@ function AboutPage() {
             </div>
           </section>
 
+          {/* The journey */}
           <section className="py-20" style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}>
             <div className="mx-auto max-w-[1320px] px-6 md:px-10">
               <header className="mb-12 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
                 <SerifNumber>01</SerifNumber>
+                <div>
+                  <BrandEyebrow className="mb-3 block">המסע המקצועי</BrandEyebrow>
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 300,
+                      fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.02em",
+                      color: "var(--ink-900)",
+                    }}
+                  >
+                    איך הגעתי לכאן
+                  </h2>
+                </div>
+              </header>
+              <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                {journey.map((j, i) => (
+                  <li
+                    key={j.title}
+                    className="relative p-7"
+                    style={{
+                      background: "var(--stone-50)",
+                      border: "1px solid var(--stone-100)",
+                      borderRadius: 20,
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontWeight: 700,
+                        fontSize: "2rem",
+                        color: "var(--green-600)",
+                        lineHeight: 1,
+                      }}
+                    >
+                      0{i + 1}
+                    </span>
+                    <div
+                      className="mt-4"
+                      style={{ color: "var(--green-700)", fontSize: 12, fontWeight: 700, letterSpacing: "0.12em" }}
+                    >
+                      {j.age.toUpperCase()}
+                    </div>
+                    <h3
+                      className="mt-2 mb-3"
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 400,
+                        fontSize: "1.25rem",
+                        color: "var(--ink-900)",
+                      }}
+                    >
+                      {j.title}
+                    </h3>
+                    <p style={{ color: "var(--ink-600)", fontSize: "0.95rem", lineHeight: 1.7 }}>
+                      {j.body}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          {/* Personal — family */}
+          <section
+            className="py-20"
+            style={{ background: "var(--green-50)", borderTop: "1px solid var(--green-100)" }}
+          >
+            <div className="mx-auto max-w-[1100px] px-6 md:px-10">
+              <header className="mb-10 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
+                <SerifNumber>02</SerifNumber>
+                <div>
+                  <BrandEyebrow className="mb-3 block">מאחורי הקליניקה</BrandEyebrow>
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 300,
+                      fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
+                      lineHeight: 1.1,
+                      letterSpacing: "-0.02em",
+                      color: "var(--green-700)",
+                    }}
+                  >
+                    אמא של שלוש בנות
+                  </h2>
+                </div>
+              </header>
+              <p
+                className="mb-10 max-w-2xl"
+                style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.85 }}
+              >
+                מעבר לקליניקה, אני קודם כל אמא לשלוש בנות מקסימות – אגם, אביגיל ואודיה. הן המורות הכי טובות שלי
+                לסבלנות, לקשב ולנוכחות אמיתית. מה שאני לומדת מהן בבית, אני מביאה גם לכיסא הטיפול:
+                להקשיב באמת, להסביר לאט, ולהיות שם עד שהכאב נגמר.
+              </p>
+              <ul className="grid gap-4 sm:grid-cols-3">
+                {daughters.map((d, i) => (
+                  <li
+                    key={d.name}
+                    className="p-6 text-center"
+                    style={{
+                      background: "var(--paper)",
+                      border: "1px solid var(--green-100)",
+                      borderRadius: 20,
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontWeight: 700,
+                        fontSize: "1.1rem",
+                        color: "var(--green-600)",
+                        letterSpacing: "0.18em",
+                      }}
+                    >
+                      0{i + 1}
+                    </div>
+                    <div
+                      className="mt-3"
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 400,
+                        fontSize: "1.6rem",
+                        color: "var(--ink-900)",
+                      }}
+                    >
+                      {d.name}
+                    </div>
+                    <div
+                      className="mt-1"
+                      style={{ color: "var(--ink-600)", fontSize: 13, letterSpacing: "0.08em" }}
+                    >
+                      {d.role}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section className="py-20" style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}>
+            <div className="mx-auto max-w-[1320px] px-6 md:px-10">
+              <header className="mb-12 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
+                <SerifNumber>03</SerifNumber>
                 <div>
                   <BrandEyebrow className="mb-3 block">הכשרה וניסיון</BrandEyebrow>
                   <h2
