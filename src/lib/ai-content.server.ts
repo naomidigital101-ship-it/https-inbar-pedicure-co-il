@@ -709,6 +709,33 @@ export async function runArticleQA(opts: {
       });
   }
 
+  // Forbidden brand/scope terms — Inbar Prachi is a foot-care professional, not a medical clinician.
+  const forbiddenTerms: Array<{ re: RegExp; label: string }> = [
+    { re: /רפואי(ת|ים|ות)?\b/, label: "רפואי" },
+    { re: /קליני(ת|ים|ות)?\b/, label: "קליני" },
+    { re: /פדיקור\s*רפואי/, label: "פדיקור רפואי" },
+    { re: /השרי(י|)?ת(\s|\u00A0)*(ה|רגלי|במים)/, label: "השרייה במים" },
+    { re: /להשרות\s+(את\s+)?(ה)?רגלי/, label: "להשרות את הרגליים" },
+    { re: /אמבט\s+רגליים/, label: "אמבט רגליים" },
+    { re: /\bמטופל(ת|ים|ות)?\b/, label: "מטופלת (השתמשי 'לקוחה')" },
+    { re: /\bמרפאה\b/, label: "מרפאה (השתמשי 'קליניקה')" },
+    { re: /פרא[- ]?רפואית/, label: "פרא-רפואית" },
+    { re: /\bמינון\b/, label: "מינון" },
+    { re: /\bמרשם\b/, label: "מרשם" },
+    { re: /\bאבחנ(ה|ות)\b/, label: "אבחנה" },
+    { re: /\bאבחון\b/, label: "אבחון" },
+    { re: /\bכירורגי(ה|ת|)?\b/, label: "כירורגיה" },
+  ];
+  for (const { re, label } of forbiddenTerms) {
+    if (re.test(allText)) {
+      issues.push({
+        severity: "error",
+        category: "language",
+        message: `מונח אסור במאמר: "${label}"`,
+      });
+    }
+  }
+
   // SEO
   if (p.title.length > 60)
     issues.push({
