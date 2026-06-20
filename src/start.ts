@@ -2,6 +2,7 @@ import { createStart, createMiddleware } from "@tanstack/react-start";
 import { attachSupabaseAuth } from "@/integrations/supabase/auth-attacher";
 
 import { renderErrorPage } from "./lib/error-page";
+import { findLegacyRedirect } from "./lib/legacy-redirects";
 
 const CSP_VALUE = [
   "default-src 'self'",
@@ -36,6 +37,24 @@ const cspMiddleware = createMiddleware().server(async ({ next }) => {
   return response;
 });
 
+/**
+ * 301 redirects מנתיבי האתר הקודם (WordPress, inbar-pedicure.co.il).
+ * רץ לפני שאר ה־middleware — כדי לא לבזבז עיבוד על נתיב שיופנה.
+ */
+const legacyRedirectMiddleware = createMiddleware().server(async ({ next, request }) => {
+  const url = new URL(request.url);
+  const target = findLegacyRedirect(url.pathname);
+  if (target) {
+    const dest = new URL(target, url.origin);
+    dest.search = url.search;
+    return new Response(null, {
+      status: 301,
+      headers: { Location: dest.toString() },
+    });
+  }
+  return next();
+});
+
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
     return await next();
@@ -52,6 +71,6 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
 });
 
 export const startInstance = createStart(() => ({
-  requestMiddleware: [cspMiddleware, errorMiddleware],
+  requestMiddleware: [legacyRedirectMiddleware, cspMiddleware, errorMiddleware],
   functionMiddleware: [attachSupabaseAuth],
 }));
