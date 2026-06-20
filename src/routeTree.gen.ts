@@ -28,6 +28,7 @@ import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as BrandingLogoSketchesRouteImport } from './routes/branding.logo-sketches'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminInstagramRouteImport } from './routes/admin.instagram'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
 import { Route as ApiPublicIndexnowRouteImport } from './routes/api/public/indexnow'
 import { Route as AdminPreviewSlugRouteImport } from './routes/admin.preview.$slug'
@@ -129,6 +130,11 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminInstagramRoute = AdminInstagramRouteImport.update({
+  id: '/admin/instagram',
+  path: '/admin/instagram',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminContentRoute = AdminContentRouteImport.update({
   id: '/admin/content',
   path: '/admin/content',
@@ -170,6 +176,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/instagram': typeof AdminInstagramRoute
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/instagram': typeof AdminInstagramRoute
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
@@ -223,6 +231,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/instagram': typeof AdminInstagramRoute
   '/admin/login': typeof AdminLoginRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
@@ -251,6 +260,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/thank-you'
     | '/admin/content'
+    | '/admin/instagram'
     | '/admin/login'
     | '/article/$slug'
     | '/branding/logo-sketches'
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/thank-you'
     | '/admin/content'
+    | '/admin/instagram'
     | '/admin/login'
     | '/article/$slug'
     | '/branding/logo-sketches'
@@ -303,6 +314,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/thank-you'
     | '/admin/content'
+    | '/admin/instagram'
     | '/admin/login'
     | '/article/$slug'
     | '/branding/logo-sketches'
@@ -330,6 +342,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
   AdminContentRoute: typeof AdminContentRoute
+  AdminInstagramRoute: typeof AdminInstagramRoute
   AdminLoginRoute: typeof AdminLoginRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
   BrandingLogoSketchesRoute: typeof BrandingLogoSketchesRoute
@@ -479,6 +492,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/instagram': {
+      id: '/admin/instagram'
+      path: '/admin/instagram'
+      fullPath: '/admin/instagram'
+      preLoaderRoute: typeof AdminInstagramRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/content': {
       id: '/admin/content'
       path: '/admin/content'
@@ -530,6 +550,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
   AdminContentRoute: AdminContentRoute,
+  AdminInstagramRoute: AdminInstagramRoute,
   AdminLoginRoute: AdminLoginRoute,
   ArticleSlugRoute: ArticleSlugRoute,
   BrandingLogoSketchesRoute: BrandingLogoSketchesRoute,

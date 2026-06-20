@@ -125,12 +125,26 @@ function AdminDashboard() {
               ניהול לידים
             </h1>
           </div>
-          <button
-            onClick={handleLogout}
-            className="border border-[#b8dcd4] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
-          >
-            התנתק
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => navigate({ to: "/admin/instagram" })}
+              className="bg-[#5fa898] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fdfbf7] transition-colors hover:bg-[#1d3a35]"
+            >
+              מנוע תוכן אינסטגרם
+            </button>
+            <button
+              onClick={() => navigate({ to: "/admin/content" })}
+              className="border border-[#b8dcd4] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
+            >
+              תוכן AI
+            </button>
+            <button
+              onClick={handleLogout}
+              className="border border-[#b8dcd4] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
+            >
+              התנתק
+            </button>
+          </div>
         </div>
       </header>
 
