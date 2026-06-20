@@ -14,7 +14,7 @@ export function BrandLogo({
   size = 56,
   showTagline = true,
 }: BrandLogoProps) {
-  const inkColor = tone === "paper" ? "var(--paper)" : "var(--green-800)";
+  const inkColor = tone === "paper" ? "var(--paper)" : "#7DAEA0";
   const goldColor = "var(--accent-gold)";
   const isStacked = layout === "stacked";
 
