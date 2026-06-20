@@ -39,6 +39,31 @@ export function PremiumHero() {
     >
       {/* Clean white canvas with organic accents */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Stone-50 soft pillar behind the portrait — warm light touch */}
+        <div
+          aria-hidden
+          className="absolute hidden md:block"
+          style={{
+            right: "6%",
+            bottom: 0,
+            width: "38%",
+            height: "82%",
+            background: "var(--stone-50)",
+            borderTopLeftRadius: "260px",
+            borderTopRightRadius: "260px",
+          }}
+        />
+        {/* Stone-50 hairline strip along the bottom of the text side */}
+        <div
+          aria-hidden
+          className="absolute left-0 hidden md:block"
+          style={{
+            bottom: 0,
+            width: "52%",
+            height: 88,
+            background: "linear-gradient(180deg, transparent 0%, var(--stone-50) 100%)",
+          }}
+        />
         {/* Organic arc — confined to the image side (right half in RTL) */}
         <svg
           className="absolute inset-y-0 right-0 h-full w-1/2"
