@@ -11,6 +11,8 @@ import { TrustBand } from "@/components/home/TrustBand";
 import { AboutExpert } from "@/components/home/AboutExpert";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
+import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
+import type { ArticleCard } from "@/lib/article-cards";
 import inbarPhoto from "@/assets/inbar-hero-editorial.jpg";
 import baWarts from "@/assets/before-after/warts.png.asset.json";
 import baCracked from "@/assets/before-after/cracked.png.asset.json";
