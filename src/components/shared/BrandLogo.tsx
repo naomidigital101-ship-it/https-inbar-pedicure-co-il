@@ -1,4 +1,4 @@
-import wordmarkAsset from "@/assets/inbar-logo-wordmark.png.asset.json";
+import wordmarkAsset from "@/assets/inbar-logo-wordmark.webp.asset.json";
 const wordmark = wordmarkAsset.url;
 
 type Tone = "ink" | "paper";

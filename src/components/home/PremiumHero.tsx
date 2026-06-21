@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ShieldCheck, ScissorsLineDashed, Stethoscope, HeartPulse, Sparkles, MessageCircle, Phone } from "lucide-react";
 import { SITE } from "@/lib/site-config";
-import inbarHero from "@/assets/inbar-foot-model.png.asset.json";
+import inbarHero from "@/assets/inbar-foot-model.webp.asset.json";
 
 const SPECIALTIES = [
   { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
