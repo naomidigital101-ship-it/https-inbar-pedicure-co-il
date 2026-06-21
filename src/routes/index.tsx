@@ -13,11 +13,12 @@ import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
 import type { ArticleCard } from "@/lib/article-cards";
-import inbarPhoto from "@/assets/inbar-hero-editorial.jpg";
-import baWarts from "@/assets/before-after/warts.png.asset.json";
-import baCracked from "@/assets/before-after/cracked.png.asset.json";
-import baIngrown from "@/assets/before-after/ingrown.png.asset.json";
-import baOnycho from "@/assets/before-after/onycho.png.asset.json";
+import inbarPhotoAsset from "@/assets/inbar-hero-editorial.webp.asset.json";
+import baWarts from "@/assets/before-after/warts.webp.asset.json";
+import baCracked from "@/assets/before-after/cracked.webp.asset.json";
+import baIngrown from "@/assets/before-after/ingrown.webp.asset.json";
+import baOnycho from "@/assets/before-after/onycho.webp.asset.json";
+const inbarPhoto = inbarPhotoAsset.url;
 
 const SERVICES = [
   { slug: "corns", icon: Footprints, title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
