@@ -5,6 +5,7 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
 import { SERVICES_BY_SLUG, SERVICES, type ServicePage } from "@/lib/services-content";
+import { OnycholysisVisuals } from "@/components/services/OnycholysisVisuals";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -213,6 +214,7 @@ function ServicePage() {
 
         {/* Sections */}
         <section className="pb-12" style={{ background: "var(--paper)" }}>
+          {s.slug === "onycholysis" && <OnycholysisVisuals />}
           <div className="mx-auto max-w-[820px] px-6">
             {s.sections.map((sec, i) => (
               <article
