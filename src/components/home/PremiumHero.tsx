@@ -277,20 +277,43 @@ export function PremiumHero() {
             className="order-1 md:order-1 md:col-span-6 md:self-end relative flex items-end justify-center"
             aria-label="דיוקן ענבר פרחי"
           >
-            <figure className="relative mx-auto flex items-end justify-center" style={{ margin: 0, maxWidth: "760px" }}>
+            <figure
+              className="relative mx-auto flex items-end justify-center w-full"
+              style={{ margin: 0, maxWidth: "760px" }}
+            >
+              {/* Soft mobile backdrop pillar — designed frame so the portrait doesn't look harshly cut */}
+              <div
+                aria-hidden
+                className="absolute md:hidden"
+                style={{
+                  left: "50%",
+                  bottom: 0,
+                  transform: "translateX(-50%)",
+                  width: "min(78vw, 360px)",
+                  height: "92%",
+                  background:
+                    "radial-gradient(120% 80% at 50% 30%, var(--stone-50) 0%, color-mix(in oklab, var(--stone-50) 55%, #FFFFFF) 55%, #FFFFFF 100%)",
+                  borderTopLeftRadius: 999,
+                  borderTopRightRadius: 999,
+                }}
+              />
               <img
                 src={inbarHero.url}
                 alt="ענבר פרחי מחזיקה מודל אנטומי של כף רגל"
                 width={1240}
                 height={1700}
                 loading="eager"
-                className="relative mx-auto max-h-[44svh] w-auto md:max-h-[calc(100svh-96px)] md:w-full"
+                className="relative mx-auto max-h-[52svh] w-auto md:max-h-[calc(100svh-96px)] md:w-full"
                 style={{
                   display: "block",
                   height: "auto",
                   objectFit: "contain",
                   objectPosition: "center bottom",
                   maxWidth: "720px",
+                  WebkitMaskImage:
+                    "linear-gradient(180deg, #000 0%, #000 78%, rgba(0,0,0,0.55) 92%, rgba(0,0,0,0) 100%)",
+                  maskImage:
+                    "linear-gradient(180deg, #000 0%, #000 78%, rgba(0,0,0,0.55) 92%, rgba(0,0,0,0) 100%)",
                 }}
               />
             </figure>
