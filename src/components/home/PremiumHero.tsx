@@ -156,7 +156,7 @@ export function PremiumHero() {
               className="inline-block mb-2 text-[11px] tracking-[0.18em] md:mb-3"
               style={{ color: "var(--green-700, #234C42)", fontWeight: 600 }}
             >
-              נעים להכיר, אני ענבר · פדיקוריסטית קלינית
+              נעים להכיר, אני ענבר · פדיקוריסטית טיפולית
             </span>
             <h1
               id="hero-heading"
