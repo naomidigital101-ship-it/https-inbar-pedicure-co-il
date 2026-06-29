@@ -39,7 +39,7 @@ const SERVICE_DESCRIPTIONS: Record<string, string> = {
   "ingrown-nails": "אורתוניקסיה ללא ניתוח, ללא כאב",
   onycholysis: "שיקום ציפורן מנותקת בשיטת BIO",
   "cracked-heels": "איחוי סדקים והחזרת רכות לעקב",
-  "diabetic-feet": "פרוטוקול IWGDF, סטריליות מלאה",
+  "diabetic-feet": "פרוטוקול אגודת אייל, ללא סכינים",
   "sports-feet": "פתרונות לחיילים וספורטאים",
 };
 

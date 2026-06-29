@@ -375,7 +375,7 @@ function ServicePage() {
               ))}
             </ol>
             <p className="mt-4" style={{ color: "var(--ink-600)", fontSize: 12 }}>
-              התוכן בעמוד זה מבוסס על מקורות קליניים מוכרים (NHS, CDC, Mayo Clinic, AAD, IDF, APMA, IWGDF). הוא אינו תחליף לייעוץ מקצועי אישי.
+              התוכן בעמוד זה מבוסס על מקורות קליניים מוכרים (NHS, Mayo Clinic, AAD, APMA, אגודת אייל). הוא אינו תחליף לייעוץ מקצועי אישי.
             </p>
           </div>
         </section>

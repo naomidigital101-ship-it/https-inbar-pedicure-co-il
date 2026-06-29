@@ -5,7 +5,7 @@ import inbarHero from "@/assets/inbar-foot-model.webp.asset.json";
 
 const SPECIALTIES = [
   { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
-  { icon: HeartPulse, label: "כף רגל סוכרתית, פרוטוקול IWGDF" },
+  { icon: HeartPulse, label: "כף רגל סוכרתית, פרוטוקול אגודת אייל" },
   { icon: ScissorsLineDashed, label: "ציפורן חודרנית ואורתוניקסיה" },
   { icon: Sparkles, label: "טיפול בפטרת ושיקום ציפורן BIO" },
   { icon: ShieldCheck, label: "סטריליות מלאה, כלים חד-פעמיים" },
@@ -13,7 +13,7 @@ const SPECIALTIES = [
 
 const TRUST_STATS = [
   { value: "12", label: "שנות ניסיון קליני" },
-  { value: "IWGDF", label: "פרוטוקול בינלאומי" },
+  { value: "אגודת אייל", label: "פרוטוקול בינלאומי" },
   { value: "1:1", label: "טיפול אישי בלבד" },
 ] as const;
 

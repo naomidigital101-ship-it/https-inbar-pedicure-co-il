@@ -43,7 +43,7 @@ const PALETTE: Array<{ name: string; varName: string; hex: string; note?: string
 
 const SPECIALTIES = [
   { icon: Stethoscope, label: "אבחון קליני מעמיק של כף הרגל" },
-  { icon: HeartPulse, label: "כף רגל סוכרתית · פרוטוקול IWGDF" },
+  { icon: HeartPulse, label: "כף רגל סוכרתית · פרוטוקול אגודת אייל" },
   { icon: ScissorsLineDashed, label: "ציפורן חודרנית ואורתוניקסיה" },
   { icon: Sparkles, label: "טיפול בפטרת ושיקום ציפורן BIO" },
   { icon: ShieldCheck, label: "סטריליות מלאה, כלים חד-פעמיים" },
@@ -403,7 +403,7 @@ function TypographySection() {
           meta="1.5rem · 700"
           element={
             <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--ink-900)" }}>
-              תקני IWGDF ו-NHS
+              תקני אגודת אייל
             </h3>
           }
         />
@@ -995,7 +995,7 @@ function ComponentsSection() {
           <dl className="grid grid-cols-3 gap-px" style={{ background: "rgba(141, 194, 179, 0.45)" }}>
             {[
               { value: "12", label: "שנות ניסיון קליני" },
-              { value: "IWGDF", label: "פרוטוקול בינלאומי" },
+              { value: "אגודת אייל", label: "פרוטוקול בינלאומי" },
               { value: "1:1", label: "טיפול אישי בלבד" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col gap-0.5 px-3 py-4" style={{ background: "var(--paper)" }}>
@@ -1030,7 +1030,7 @@ function ComponentsSection() {
             Trust pills
           </span>
           <div className="flex flex-wrap gap-2">
-            {["IWGDF", "NHS", "איכילוב", "סטריליות מלאה", "כלים חד-פעמיים", "1:1"].map((t) => (
+            {["אגודת אייל", "NHS", "איכילוב", "סטריליות מלאה", "כלים חד-פעמיים", "1:1"].map((t) => (
               <span
                 key={t}
                 className="inline-flex h-8 items-center px-3 text-[12px]"

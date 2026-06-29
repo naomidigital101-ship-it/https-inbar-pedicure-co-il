@@ -31,7 +31,7 @@ const TREATMENT_OPTIONS: readonly SlugOption[] = [
   { value: "fungus", label: "טיפול בפטרת" },
   { value: "ingrown-nails", label: "אורטוניקסיה" },
   { value: "onycholysis", label: "שיקום ציפורן BIO" },
-  { value: "diabetic-feet", label: "פרוטוקול IWGDF" },
+  { value: "diabetic-feet", label: "פרוטוקול אגודת אייל" },
   { value: "corns", label: "טיפול ביבלות" },
   { value: "cracked-heels", label: "טיפול בסדקים" },
 ];

@@ -35,7 +35,7 @@ const CONCERNS = [
   { slug: "ingrown-nails", icon: Scissors, title: "ציפורן חודרנית", desc: "כאב חד בצד הציפורן, אדמומיות או נפיחות חוזרת." },
   { slug: "cracked-heels", icon: Activity, title: "סדקים בעקב", desc: "עור יבש שמתפצל, לעיתים מדמם ומקשה על הליכה." },
   { slug: "onycholysis", icon: Sparkles, title: "ציפורן מנותקת", desc: "ציפורן שהתרוממה ממיטת הציפורן ודורשת שיקום BIO." },
-  { slug: "diabetic-feet", icon: HeartPulse, title: "פדיקור לחולי סוכרת", desc: "טיפול בטוח לפי פרוטוקול IWGDF, בלי חתכים, בלי סיכונים." },
+  { slug: "diabetic-feet", icon: HeartPulse, title: "פדיקור לחולי סוכרת", desc: "טיפול בטוח לפי פרוטוקול אגודת אייל, בלי חתכים, בלי סיכונים." },
 ] as const;
 
 const PROOF_CHIPS = [
@@ -61,14 +61,14 @@ const STATS = [
 
 const PROCESS = [
   { n: "01", title: "אבחון מעמיק", desc: "בדיקה של כף הרגל, היסטוריה אישית, נעליים ותבנית הליכה." },
-  { n: "02", title: "תכנית טיפול", desc: "פרוטוקול אישי המבוסס על הסטנדרטים של איכילוב, NHS ו-IWGDF." },
+  { n: "02", title: "תכנית טיפול", desc: "פרוטוקול אישי המבוסס על הסטנדרטים של איכילוב, אגודת אייל." },
   { n: "03", title: "טיפול בקליניקה", desc: "סטריליות מלאה, כלים חד-פעמיים, בלי דם, בלי כאב מיותר." },
   { n: "04", title: "ליווי עד החלמה", desc: "הדרכה ביתית, מעקב WhatsApp ומפגשי המשך לפי הצורך." },
 ] as const;
 
 const TRUST = [
   "השתלמויות באיכילוב",
-  "פרוטוקול IWGDF לסוכרת",
+  "פרוטוקול אגודת אייל לסוכרת",
   "ציוד סטרילי חד־פעמי",
   "מומלצת ע\"י רופאי משפחה ואורתופדים",
 ] as const;
@@ -86,7 +86,7 @@ const FAQS = [
 
 const BULLETS = [
   "טיפול ביבלות ופטריות בשיטה סטרילית המונעת זיהום",
-  "התמחות בכף הרגל של חולי סוכרת לפי פרוטוקול IWGDF",
+  "התמחות בכף הרגל של חולי סוכרת לפי פרוטוקול אגודת אייל",
   "אורטוניקסיה ושיקום ציפורן ללא פגיעה במבנה",
   "ליווי אישי בוואטסאפ עד החלמה מלאה",
 ] as const;
@@ -174,7 +174,7 @@ export const Route = createFileRoute("/")({
           knowsAbout: ["פדיקור טיפולי", "טיפול ביבלות", "פטרת ציפורן", "ציפורן חודרנית", "אורטוניקסיה", "שיקום ציפורן BIO", "כף הרגל הסוכרתית"],
           areaServed: "בית אל, אזור בנימין, ירושלים",
           description:
-            "פדיקוריסטית טיפולית עם 12+ שנות ניסיון קליני, מרצה ארצית להכשרת פדיקוריסטיות, מתמחה בכף הרגל הסוכרתית, אורטוניקסיה ושיקום ציפורן BIO. מבוססת פרוטוקולים של איכילוב, NHS ו-IWGDF.",
+            "פדיקוריסטית טיפולית עם 12+ שנות ניסיון קליני, מרצה ארצית להכשרת פדיקוריסטיות, מתמחה בכף הרגל הסוכרתית, אורטוניקסיה ושיקום ציפורן BIO. מבוססת פרוטוקולים של איכילוב, אגודת אייל.",
         }),
       },
       {
@@ -299,7 +299,7 @@ function Home() {
             <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
             <span>משרד הבריאות</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
-            <span>IWGDF</span>
+            <span>אגודת אייל</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-copper/60" />
             <span>NHS</span>
           </div>
@@ -366,7 +366,7 @@ function Home() {
               {[
                 { icon: Package, title: "כלים חד־פעמיים", desc: "סכינים, להבים ופצירות נפתחים מולך מאריזה סטרילית סגורה." },
                 { icon: ShieldCheck, title: "עיקור אוטוקלאב", desc: "כל כלי רב־פעמי עובר ניקוי אולטרה־סוני ועיקור בלחץ ואדים." },
-                { icon: HeartPulse, title: "פרוטוקול סוכרת", desc: "לחולי סוכרת: בלי חתכים, בלי השרייה, ובדיקה לפי IWGDF." },
+                { icon: HeartPulse, title: "פרוטוקול סוכרת", desc: "לחולי סוכרת: בלי חתכים, בלי השרייה, ובדיקה לפי אגודת אייל." },
                 { icon: Wind, title: "סביבה נקייה", desc: "משטח עבודה מחוטא בין מטופל למטופל, מסכה וכפפות בכל טיפול." },
               ].map(({ icon: Icon, title, desc }) => (
                 <article key={title} className="rounded-2xl border border-border bg-surface p-6">
@@ -436,7 +436,7 @@ function Home() {
                   ידע מבוסס, <span className="display-italic text-primary-deep">בעברית פשוטה</span>
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-ink-soft">
-                  עשרות מאמרים על יבלות, פטרת, ציפורניים, סוכרת ומניעה, כתובים על בסיס פרוטוקולים של משרד הבריאות, NHS, AAD ו-IWGDF.
+                  עשרות מאמרים על יבלות, פטרת, ציפורניים, סוכרת ומניעה, כתובים על בסיס פרוטוקולים של משרד הבריאות, NHS, AAD, אגודת אייל.
                 </p>
               </div>
               <Link to="/knowledge" className="group inline-flex items-center gap-2 text-sm font-bold text-primary-deep hover:text-copper">
