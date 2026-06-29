@@ -17,7 +17,7 @@ const DOFOLLOW_HOSTS = new Set<string>([
   // מחקר ופרסומים מקצועיים
   "pubmed.ncbi.nlm.nih.gov", "cochrane.org", "bmj.com", "nejm.org",
   // איגודים מקצועיים בתחום כף הרגל
-  "iwgdf.org", "apma.org", "fip-ifp.org", "thecollegeofpodiatry.com",
+  "apma.org", "fip-ifp.org", "thecollegeofpodiatry.com", "eyal.org.il",
   // ידע כללי
   "en.wikipedia.org", "he.wikipedia.org",
 ]);

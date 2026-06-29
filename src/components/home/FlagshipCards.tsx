@@ -42,7 +42,7 @@ const FLAGSHIPS: readonly Flagship[] = [
   {
     slug: "diabetic-feet",
     title: "פדיקור לחולי סוכרת",
-    sub: "פרוטוקול IWGDF, סטריליות מלאה",
+    sub: "פרוטוקול אגודת אייל, ללא סכינים",
     icon: HeartPulse,
     tag: "סוכרת",
     accent: STAMP,

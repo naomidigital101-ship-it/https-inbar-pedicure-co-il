@@ -4,6 +4,7 @@ import { createLovableAiGateway, getLovableApiKey } from "./ai-gateway.server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { categories } from "./categories";
 import { articles as staticArticles } from "./articles";
+import { DIABETES_CANON } from "./diabetes-canon";
 
 /* ---------- Zod schemas for AI structured output ---------- */
 
@@ -434,7 +435,12 @@ export async function suggestTopicsCore(opts: {
 2. קופות חולים: clalit.co.il, maccabi4u.co.il, leumit.co.il, meuhedet.co.il
 3. ארגוני בריאות בינלאומיים: Mayo Clinic, NHS (nhs.uk), CDC, WHO, NIH, MedlinePlus
 4. מחקר אקדמי: PubMed, Cochrane, BMJ, NEJM, JAMA, The Lancet, British Journal of Sports Medicine
-5. ארגונים מקצועיים: APMA (apma.org), IWGDF (iwgdfguidelines.org), AAOS, NICE
+5. ארגונים מקצועיים: APMA (apma.org), AAOS, NICE
+
+סוכרת — מקור יחיד ובלעדי: סיכום השתלמות "סוכרת" של אגודת אייל (להלן). אסור להציע נושאי סוכרת המבוססים על IWGDF / IDF / diabetes.org / ADA / CDC / NHS / Mayo / WHO. כל נתון על סוכרת חייב להיות מנוסח אך ורק מתוך הקנון הבא:
+
+${DIABETES_CANON}
+
 פורומים, בלוגים אישיים, אתרי שיווק, Reddit, Quora - אינם מקור.
 אם הנושא דורש מספרים/אחוזי הצלחה/פרוטוקולים שלא ניתן להצליב בין 3+ מקורות מורשים - אל תציעי אותו.
 
@@ -506,7 +512,11 @@ export async function generateArticleCore(opts: {
   2. קופות חולים ישראליות: clalit.co.il, maccabi4u.co.il, leumit.co.il, meuhedet.co.il
   3. ארגוני בריאות בינלאומיים: mayoclinic.org, nhs.uk, cdc.gov, who.int, nih.gov, medlineplus.gov
   4. מחקר אקדמי: pubmed.ncbi.nlm.nih.gov, cochranelibrary.com, bmj.com, nejm.org, jamanetwork.com, thelancet.com, bjsm.bmj.com
-  5. ארגונים מקצועיים: apma.org, iwgdfguidelines.org, aaos.org, nice.org.uk, podiatry.org.uk
+  5. ארגונים מקצועיים: apma.org, aaos.org, nice.org.uk, podiatry.org.uk
+
+סוכרת — מקור יחיד ובלעדי: סיכום השתלמות "סוכרת" של אגודת אייל (להלן). כשהמאמר עוסק בסוכרת, ברגל סוכרתית, בנוירופתיה סוכרתית, באיסכמיה, ב-HbA1c, ב-ABI, באמבט חומץ או בכל מצב שאפילו קצת קשור לסוכרת — מותר להשתמש רק בעובדות מהקנון הזה, מילה במילה. אסור להוסיף סטטיסטיקות, פרוטוקולים, ערכי סף או אזכורים מ-IWGDF, IDF, diabetes.org, diabetes.org.uk, ADA, CDC, NHS, Mayo, WHO לגבי סוכרת. אם נתון לא מופיע בקנון — אל תכתבי אותו.
+
+${DIABETES_CANON}
 - אם נתון לא ניתן להצליב בין 3+ מקורות מהרשימה - כתבי טווח שמרני או "כדאי להתייעץ עם הקליניקה לטיפוח כף הרגל / רופא משפחה" במקום מספר ספציפי.
 - אסור להמציא מחקרים, אחוזי הצלחה, סטטיסטיקות. אסור פורומים, בלוגים, אתרי שיווק, Reddit, Quora כמקור.
 - חובה דיסקליימר בסוף המאמר: המאמר הוא מידע כללי בלבד ואינו מחליף ייעוץ אישי בקליניקה או אצל רופא. בכל בעיה מתמשכת או חריגה - יש לפנות לרופא.
@@ -526,7 +536,7 @@ export async function generateArticleCore(opts: {
 - glossary למונחים מקצועיים.
 - checklist לכל מדריך טיפול ביתי או הכנה לפרוצדורה.
 - contextualLinks: 4-10 קישורים, מתוכם **לפחות 3 פנימיים** למאמרים קיימים מהרשימה למטה (href = "/article/<slug>"). הטקסט ב-"match" חייב להופיע מילה במילה בגוף המאמר. בנה רשת קישורים חזקה - כל קישור צריך להיות רלוונטי באמת לטקסט שעוטף אותו, לא דחוס בכוח.
-- קישורים חיצוניים (external: true): מותר ורצוי כשמוסיף ערך אמיתי - מקור סמכותי (ויקיפדיה, משרד הבריאות, NHS, Mayo Clinic, AAD, IWGDF, מחקר רפואי). השתמש ב-rel: "nofollow" כברירת מחדל לחיצוניים, או "dofollow" רק לדומיינים סמכותיים (gov.il, health.gov.il, nhs.uk, mayoclinic.org, aad.org, iwgdfguidelines.org, wikipedia.org). לכל חיצוני הוסף title קצר.
+- קישורים חיצוניים (external: true): מותר ורצוי כשמוסיף ערך אמיתי - מקור סמכותי (ויקיפדיה, משרד הבריאות, NHS, Mayo Clinic, AAD, מחקר רפואי). השתמש ב-rel: "nofollow" כברירת מחדל לחיצוניים, או "dofollow" רק לדומיינים סמכותיים (gov.il, health.gov.il, nhs.uk, mayoclinic.org, aad.org, wikipedia.org). לכל חיצוני הוסף title קצר. למאמרי סוכרת — המקור היחיד המורשה הוא eyal.org.il (אגודת אייל), בלי קישורי IWGDF/IDF/diabetes.org.
 - ויזואליזציה חובה: כל מושג/כלי/חלק/פעולה שמוזכר חייב להיות מומחש. לפחות 3 sections עם inlineImagePrompt (אנגלית, צילום ריאליסטי או דיאגרמה נקייה) + inlineImageAlt בעברית. מומחש = "מפתח אלן 8 מ"מ" -> תמונה של מפתח אלן, "פלאג ניקוז" -> תמונה ממוקדת. אינפוגרפיקה אחת לפחות (asInfographic: true). תמונות AI עם טקסט עברי - רק אם הכתיב מושלם, אחרת בלי טקסט.
 - sources חובה: 3-7 קישורים ישירים למקור רשמי (PDF של manual, דף יצרן רשמי, מסמך תקן, מחקר). לכל מקור label תיאורי בעברית + URL מלא.
 
@@ -790,8 +800,8 @@ export async function runArticleQA(opts: {
     "bmj.com", "nejm.org", "jamanetwork.com", "thelancet.com", "nature.com",
     "sciencedirect.com", "springer.com", "wiley.com", "bjsm.bmj.com",
     // Clinical guidelines
-    "nice.org.uk", "aaos.org", "apma.org", "iwgdfguidelines.org", "iwgdf.org",
-    "diabetes.org", "diabetes.org.uk", "idf.org",
+    "nice.org.uk", "aaos.org", "apma.org",
+    "eyal.org.il",
     // Renowned clinics & medical references
     "mayoclinic.org", "clevelandclinic.org", "hopkinsmedicine.org",
     "health.harvard.edu", "medlineplus.gov", "merckmanuals.com",
@@ -1402,9 +1412,9 @@ const AUTHORITATIVE_SOURCES = [
   "רשויות בריאות בינלאומיות: who.int, cdc.gov, nih.gov, nhs.uk, fda.gov, ema.europa.eu",
   "מאגרי מחקר רפואי: pubmed.ncbi.nlm.nih.gov, cochranelibrary.com, uptodate.com, medlineplus.gov",
   "כתבי עת רפואיים מובילים: bmj.com, nejm.org, jamanetwork.com, thelancet.com, bjsm.bmj.com",
-  "קווים מנחים קליניים: nice.org.uk, aaos.org, apma.org (American Podiatric Medical Association), iwgdfguidelines.org (International Working Group on the Diabetic Foot), idf.org",
+  "קווים מנחים קליניים: nice.org.uk, aaos.org, apma.org (American Podiatric Medical Association)",
   "מרפאות וייעוץ רפואי מוסמכים: mayoclinic.org, clevelandclinic.org, hopkinsmedicine.org, health.harvard.edu, merckmanuals.com",
-  "סוכרת: diabetes.org, diabetes.org.uk",
+  "סוכרת — מקור יחיד ובלעדי: סיכום השתלמות אגודת אייל (eyal.org.il). אסור IWGDF/IDF/diabetes.org/ADA לתוכן סוכרת.",
   "רפואת ספורט: acsm.org, sportsmedicineaustralia.com.au",
   "ידע כללי לאימות הצלבה: en.wikipedia.org, he.wikipedia.org",
 ];
@@ -1467,7 +1477,10 @@ export async function factCheckPublishedArticle(opts: {
   const texts = collectArticleTexts(p);
   const corpus = texts.join("\n").slice(0, 12000);
 
-  const system = `את בודקת עובדות מקצועית לאתר פודיאטריה רפואי בעברית. את מאמתת כל הצהרה רפואית, מספר, אחוז הצלחה, מינון, פרוטוקול ופרוטוקול טיפול רק מול מקורות רפואיים סמכותיים (משרד הבריאות, קופות חולים, Mayo Clinic, NHS, CDC, NIH, PubMed, Cochrane, NICE, APMA, IWGDF, BMJ, NEJM, JAMA, The Lancet). אם את לא בטוחה במאה אחוז שמקור רפואי סמכותי תומך בהצהרה - אל תציעי תיקון. אסור להמציא מחקרים, מקורות או סטטיסטיקות. אסור מקף ארוך. אם הטקסט המקורי נכון - אל תכללי אותו ברשימת התיקונים.`;
+  const system = `את בודקת עובדות מקצועית לאתר פודיאטריה רפואי בעברית. את מאמתת כל הצהרה רפואית, מספר, אחוז הצלחה, מינון, פרוטוקול ופרוטוקול טיפול רק מול מקורות רפואיים סמכותיים (משרד הבריאות, קופות חולים, Mayo Clinic, NHS, CDC, NIH, PubMed, Cochrane, NICE, APMA, BMJ, NEJM, JAMA, The Lancet). לכל טענה על סוכרת — המקור הסמכותי היחיד הוא סיכום השתלמות אגודת אייל הצמוד למטה. אם הטקסט סותר את הקנון של אגודת אייל לגבי סוכרת — תקני לפי הקנון; אם אינו סותר אך אינו מופיע בקנון — אל תאשרי. אם את לא בטוחה במאה אחוז שמקור רפואי סמכותי תומך בהצהרה - אל תציעי תיקון. אסור להמציא מחקרים, מקורות או סטטיסטיקות. אסור מקף ארוך. אם הטקסט המקורי נכון - אל תכללי אותו ברשימת התיקונים.
+
+קנון הסוכרת (מקור יחיד):
+${DIABETES_CANON}`;
 
   const prompt = `מקורות רפואיים סמכותיים מותרים בלבד:
 ${AUTHORITATIVE_SOURCES.map((s) => "- " + s).join("\n")}
@@ -1476,7 +1489,7 @@ ${AUTHORITATIVE_SOURCES.map((s) => "- " + s).join("\n")}
 ${corpus}
 
 משימה:
-1. עברי על כל הצהרה רפואית במאמר (אבחנות, סימפטומים, גורמים, פרוטוקולי טיפול, אחוזי הצלחה, זמני החלמה, מינונים, התוויות נגד, סיכוני סיבוכים, מיון לפי IWGDF/NICE, וכדומה).
+1. עברי על כל הצהרה רפואית במאמר (אבחנות, סימפטומים, גורמים, פרוטוקולי טיפול, אחוזי הצלחה, זמני החלמה, מינונים, התוויות נגד, סיכוני סיבוכים, וכדומה). לטענות סוכרת — הצלבה אך ורק מול קנון אגודת אייל.
 2. עבור כל הצהרה - בדקי אותה מול הידע שלך שמבוסס על המקורות הרפואיים הסמכותיים בלבד.
 3. אם מצאת שגיאה ויש לך מקור רפואי סמכותי שתומך בתיקון - הוסיפי ל-corrections. ה-"original" חייב להיות מחרוזת שמופיעה ממש בטקסט המקורי (העתק מדויק). ה-"corrected" חייב להיות תיקון מדויק וקצר באותה שפה.
 4. אם אינך בטוחה - אל תכללי. בתחום רפואי עדיף לפספס תיקון מאשר להזיק.

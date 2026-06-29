@@ -8,7 +8,7 @@ const STATS = [
   { icon: ShieldCheck, num: "20+", label: "פדיקוריסטיות הוכשרו" },
 ] as const;
 
-const STANDARDS = ["איכילוב", "משרד הבריאות", "IWGDF", "NHS", "AAD"] as const;
+const STANDARDS = ["איכילוב", "משרד הבריאות", "אגודת אייל", "NHS", "AAD"] as const;
 
 export function TrustBand() {
   return (
