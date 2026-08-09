@@ -46,7 +46,16 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const current = typeof window !== "undefined" ? window.location.pathname : "/";
+  /*
+   * הנתיב נקרא רק אחרי ההרכבה. קריאה ישירה של window.location ברינדור
+   * יוצרת אי-התאמה בין השרת ללקוח, ו-React נוטש את ההידרציה של כל התת-עץ —
+   * מה שהשאיר את אנימציות framer-motion בהירו תקועות ב-opacity: 0.
+   */
+  const [current, setCurrent] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrent(window.location.pathname);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -102,7 +111,9 @@ export function SiteHeader() {
             aria-label="ניווט ראשי"
           >
             {navLinks.map((l) => {
-              const active = l.href === current || (l.href !== "/" && current.startsWith(l.href));
+              const active =
+                current !== null &&
+                (l.href === current || (l.href !== "/" && current.startsWith(l.href)));
               const linkStyle = {
                 color: active ? "var(--primary)" : "var(--ink)",
                 background: active ? "var(--primary-soft)" : "transparent",

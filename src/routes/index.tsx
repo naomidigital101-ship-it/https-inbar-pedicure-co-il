@@ -14,15 +14,15 @@ import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
 import type { ArticleCard } from "@/lib/article-cards";
 import inbarPhotoAsset from "@/assets/inbar-hero-editorial.webp.asset.json";
 import inbarPortraitAsset from "@/assets/inbar-farchi.jpg.asset.json";
-import footModelAsset from "@/assets/inbar-foot-model.webp.asset.json";
+import sterileTools from "@/assets/treatment-diabetic.jpg";
 import baWarts from "@/assets/before-after/warts.webp.asset.json";
 import baCracked from "@/assets/before-after/cracked.webp.asset.json";
 import baIngrown from "@/assets/before-after/ingrown.webp.asset.json";
 import baOnycho from "@/assets/before-after/onycho.webp.asset.json";
 
+/* מודל שכבות העור שמור להירו בלבד — הוא cutout שקוף ונשבר בכרטיסים עם object-cover. */
 const inbarPhoto = inbarPhotoAsset.url;
 const inbarPortrait = inbarPortraitAsset.url;
-const footModel = footModelAsset.url;
 
 /** שלוש ערכות הגוון של השפה: ירקרק, שמנת-זהב, ורדרד-טרקוטה. */
 const TINTS = [
@@ -35,7 +35,7 @@ const SERVICES = [
   { slug: "corns", title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
   { slug: "ingrown-nails", title: "ציפורן חודרנית", desc: "אורתוניקסיה — תיקון מבני ללא ניתוח, ללא כאב." },
   { slug: "fungus", title: "פטרת עור וציפורן", desc: "אבחנה, טיפול יסודי והדרכה ביתית עד החלמה מלאה." },
-  { slug: "diabetic-feet", title: "פדיקור לחולי סוכרת", desc: "פרוטוקול אגודת אייל: בלי חתכים, בלי השרייה, בלי סיכונים." },
+  { slug: "diabetic-feet", title: "פדיקור לחולי סוכרת", desc: "טיפול בטוח לכף רגל סוכרתית: בלי חתכים, בלי השרייה, בלי סיכונים." },
   { slug: "cracked-heels", title: "עור סדוק ועקבים", desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל." },
   { slug: "onycholysis", title: "שיקום ציפורן BIO", desc: "שיקום ציפורן שהתנתקה ממיטת הציפורן — עד תוצאה מושלמת." },
 ] as const;
@@ -53,7 +53,7 @@ const CHIPS = [
 const PROCESS = [
   { num: "01", title: "בואו נכיר", desc: "שיחה קצרה בטלפון או בוואטסאפ — מה מטריד, ממתי, ומה כבר ניסית." },
   { num: "02", title: "אבחון בקליניקה", desc: "בדיקה מעמיקה של כף הרגל, הנעליים ותבנית ההליכה — ואבחנה ברורה." },
-  { num: "03", title: "תוכנית טיפול", desc: "פרוטוקול אישי על בסיס הסטנדרטים של איכילוב ואגודת אייל." },
+  { num: "03", title: "תוכנית טיפול", desc: "פרוטוקול טיפול אישי, מותאם למצב כף הרגל ולאורח החיים שלך." },
   { num: "04", title: "טיפול קליני", desc: "סטריליות מלאה, כלים חד־פעמיים, בלי דם ובלי כאב מיותר." },
   { num: "05", title: "ליווי עד החלמה", desc: "הדרכה ביתית, מעקב בוואטסאפ ומפגשי המשך לפי הצורך." },
 ] as const;
@@ -67,7 +67,7 @@ const ACADEMY_TRACKS = [
   {
     num: "02",
     title: "התמחויות מתקדמות",
-    desc: "אורתוניקסיה, שיקום ציפורן BIO, כף רגל סוכרתית לפי אגודת אייל",
+    desc: "אורתוניקסיה, שיקום ציפורן BIO וטיפול בכף רגל סוכרתית",
   },
   {
     num: "03",
@@ -78,7 +78,7 @@ const ACADEMY_TRACKS = [
 
 const WHY_ITEMS = [
   "12+ שנות ניסיון קליני מוכח",
-  "פרוטוקולים של איכילוב ואגודת אייל",
+  "עבודה לפי פרוטוקולים קליניים מתועדים",
   "סטריליות מלאה — כלים חד־פעמיים",
   "התמחות בכף רגל סוכרתית",
   "טיפול אישי 1:1 בלבד, בלי שיפוט",
@@ -89,7 +89,7 @@ const WHY_ITEMS = [
 
 const CREDENTIALS = [
   "בוגרת קורסים בינלאומיים",
-  "פרוטוקול אגודת אייל",
+  "התמחות בכף רגל סוכרתית",
   "מוסמכת שיקום BIO",
   "150+ שעות השתלמות בשנה",
 ] as const;
@@ -213,7 +213,7 @@ export const Route = createFileRoute("/")({
           knowsAbout: ["פדיקור טיפולי", "טיפול ביבלות", "פטרת ציפורן", "ציפורן חודרנית", "אורטוניקסיה", "שיקום ציפורן BIO", "כף הרגל הסוכרתית"],
           areaServed: "בית אל, אזור בנימין, ירושלים",
           description:
-            "פדיקוריסטית טיפולית עם 12+ שנות ניסיון קליני, מרצה ארצית להכשרת פדיקוריסטיות, מתמחה בכף הרגל הסוכרתית, אורטוניקסיה ושיקום ציפורן BIO. מבוססת פרוטוקולים של איכילוב, אגודת אייל.",
+            "פדיקוריסטית טיפולית עם 12+ שנות ניסיון קליני, מרצה ארצית להכשרת פדיקוריסטיות, מתמחה בכף הרגל הסוכרתית, אורטוניקסיה ושיקום ציפורן BIO.",
         }),
       },
       {
@@ -358,7 +358,7 @@ function Home() {
             {[
               {
                 href: "#clinic",
-                img: inbarPortrait,
+                img: inbarPhoto,
                 alt: "ענבר פרחי בקליניקה בבית אל",
                 badge: "למטופלים",
                 badgeBg: "var(--green-400)",
@@ -369,8 +369,8 @@ function Home() {
               },
               {
                 href: "#academy",
-                img: footModel,
-                alt: "ענבר פרחי מלמדת עם מודל אנטומי של כף רגל",
+                img: sterileTools,
+                alt: "מגש כלים סטריליים חד־פעמיים לעבודה בסטנדרט קליני",
                 badge: "לפדיקוריסטיות",
                 badgeBg: "var(--gold-bright)",
                 title: "רוצה לעבוד ברמה קלינית?",
@@ -426,7 +426,7 @@ function Home() {
         <section id="clinic" className="mx-auto max-w-[1200px] px-6 py-14 md:py-[70px]" aria-labelledby="clinic-heading">
           <SectionHead
             title={<span id="clinic-heading">הטיפולים בקליניקה</span>}
-            sub="כל טיפול מבוסס פרוטוקול קליני מתועד — איכילוב, משרד הבריאות, אגודת אייל, NHS. סטריליות מלאה, כלים חד־פעמיים, בלי כאב מיותר."
+            sub="כל טיפול מבוסס פרוטוקול קליני מתועד, סטריליות מלאה וכלים חד־פעמיים. אבחון מדויק, טיפול עדין, בלי כאב מיותר."
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((svc, i) => {
@@ -573,10 +573,10 @@ function Home() {
             </div>
             <div className="relative">
               <img
-                src={footModel}
-                alt="ענבר פרחי מרצה עם מודל אנטומי של כף רגל"
+                src={inbarPortrait}
+                alt="ענבר פרחי בקליניקה"
                 loading="lazy"
-                className="block w-full rounded-[26px]"
+                className="block aspect-square w-full rounded-[26px] object-cover"
                 style={{ boxShadow: "0 24px 60px rgba(0,0,0,0.35)" }}
               />
               <div
@@ -841,7 +841,7 @@ function Home() {
                     מדריכים לבריאות כף הרגל
                   </h2>
                   <p className="m-0 text-[17px]" style={{ color: "var(--text-muted)" }}>
-                    ידע מבוסס פרוטוקולים — משרד הבריאות, NHS, AAD — בעברית פשוטה
+                    כל מה שכדאי לדעת על בריאות כף הרגל, בעברית פשוטה
                   </p>
                 </div>
                 <Link

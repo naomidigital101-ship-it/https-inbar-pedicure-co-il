@@ -407,6 +407,22 @@
     animation: floaty 4s ease-in-out infinite;
   }
 
+  /*
+   * כניסה רכה להירו. מכוון ב-CSS ולא ב-framer-motion: אלמנט שמתחיל
+   * ב-opacity:0 ומחכה ל-JS נעלם לגמרי אם ההידרציה נכשלת (תוסף דפדפן,
+   * שגיאה בעץ). אנימציית CSS רצה גם בלי JS, ובלי JS בכלל התוכן פשוט גלוי.
+   */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .fade-up-delayed {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+  }
+
   .serif-accent {
     font-family: var(--font-serif);
     font-weight: 400;

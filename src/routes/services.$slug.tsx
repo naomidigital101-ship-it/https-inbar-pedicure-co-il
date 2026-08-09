@@ -164,7 +164,14 @@ function ServicePage() {
                 target="_blank"
                 rel="noopener nofollow"
                 className="inline-flex h-12 items-center px-7"
-                style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
+                style={{
+                  background: "var(--accent)",
+                  color: "var(--accent-foreground)",
+                  borderRadius: 999,
+                  fontWeight: 700,
+                  fontSize: 15,
+                  boxShadow: "var(--shadow-cta)",
+                }}
               >
                 קביעת תור בוואטסאפ
               </a>

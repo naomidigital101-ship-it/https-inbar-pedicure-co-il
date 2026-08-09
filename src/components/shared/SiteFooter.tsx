@@ -32,7 +32,8 @@ export function SiteFooter() {
       aria-label="פוטר האתר"
       style={{ background: "var(--footer-bg)", color: MUTED }}
     >
-      <div className="mx-auto max-w-[1280px] px-6 py-14 md:py-16">
+      {/* pb מוגדל בדסקטופ כדי שכפתור הוואטסאפ הצף לא יכסה את שורת הדיסקליימר */}
+      <div className="mx-auto max-w-[1280px] px-6 pb-14 pt-14 md:pb-24 md:pt-16">
         <div className="grid gap-11 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <section aria-labelledby="footer-brand" className="space-y-4">
             <h2 id="footer-brand" className="sr-only">{SITE.brand}</h2>
