@@ -105,6 +105,7 @@
   --color-terracotta: var(--accent);
   --color-terracotta-soft: var(--accent-soft);
   --color-terracotta-ink: var(--accent-ink);
+  --color-terracotta-light: var(--accent-light);
   --color-whatsapp: var(--whatsapp);
   --font-heading: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
   --font-body: "Assistant", "Heebo Variable", system-ui, sans-serif;
@@ -195,12 +196,17 @@
   --secondary-foreground: #15302E;
   --muted: #F5F9F6;
   --muted-foreground: #5E7A73;
-  /* accent = טרקוטה, צבע ה-CTA הראשי */
-  --accent: #E2725B;
-  --accent-hover: #C95A44;
+  /*
+   * accent = טרקוטה, צבע ה-CTA הראשי.
+   * הרפרנס נותן #E2725B, אבל טקסט לבן עליו הוא 3.09:1 ונופל ב-WCAG AA
+   * (נדרש 4.5). הוכהה ל-#B84A34 שנותן 5.16:1 — אותה משפחת צבע, עובר תקן.
+   * הגוון המקורי שמור ב---accent-light לשימוש דקורטיבי בלבד (נקודות, קווי הדגשה),
+   * שם אין דרישת ניגודיות. להחזרת הגוון המקורי: להחליף את שני הערכים כאן.
+   */
+  --accent: #B84A34;
+  --accent-hover: #9E3A26;
+  --accent-light: #E2725B;
   --accent-soft: #FDF0EC;
-  /* טרקוטה כהה לטקסט על רקע בהיר — #E2725B נותן 3.09:1 בלבד ונופל ב-WCAG AA.
-     לכפתורים מלאים ולרקעים משתמשים ב---accent המקורי. */
   --accent-ink: #B84A34;
   --accent-foreground: #FFFFFF;
   /* Legacy "copper" tokens — remapped to the brand gold */
