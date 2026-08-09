@@ -275,7 +275,7 @@ function ServicePage() {
                       borderRadius: 16,
                     }}
                   >
-                    <BrandEyebrow style={{ fontSize: 11, color: "var(--accent-gold)" }}>מהקליניקה שלי</BrandEyebrow>
+                    <BrandEyebrow style={{ fontSize: 11, color: "var(--gold-ink)" }}>מהקליניקה שלי</BrandEyebrow>
                     <p className="mt-2" style={{ color: "var(--ink-900)", fontSize: 14.5, lineHeight: 1.7 }}>{sec.fromClinic}</p>
                   </div>
                 )}

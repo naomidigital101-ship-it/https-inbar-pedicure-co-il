@@ -4,7 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Heebo — display/headings (light 300 + 600). Hebrew + Latin. */
+/* Rubik — display/headings (700–900). Hebrew + Latin. */
+@import "@fontsource/rubik/500.css";
+@import "@fontsource/rubik/600.css";
+@import "@fontsource/rubik/700.css";
+@import "@fontsource/rubik/800.css";
+@import "@fontsource/rubik/900.css";
+@import "@fontsource/rubik/hebrew-500.css";
+@import "@fontsource/rubik/hebrew-600.css";
+@import "@fontsource/rubik/hebrew-700.css";
+@import "@fontsource/rubik/hebrew-800.css";
+@import "@fontsource/rubik/hebrew-900.css";
+
+/* Heebo — secondary UI font. Hebrew + Latin. */
 @import "@fontsource-variable/heebo";
 
 /* Assistant — body copy. Hebrew + Latin. */
@@ -27,40 +39,10 @@
 @import "@fontsource/frank-ruhl-libre/hebrew-500.css";
 @import "@fontsource/frank-ruhl-libre/hebrew-700.css";
 
-/* Ellinia CLM — primary brand font (Hebrew + Latin) */
-@font-face {
-  font-family: "Ellinia CLM";
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url("/__l5e/assets-v1/7d67b737-2d66-4ea6-8172-57fba4cd10f7/elliniaclm-light-webfont.woff") format("woff");
-}
-@font-face {
-  font-family: "Ellinia CLM";
-  font-style: italic;
-  font-weight: 300;
-  font-display: swap;
-  src: url("/__l5e/assets-v1/700f5f92-d513-4dce-85e9-7b83233dfe9f/elliniaclm-lightitalic-webfont.woff") format("woff");
-}
-@font-face {
-  font-family: "Ellinia CLM";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("/__l5e/assets-v1/ef126f08-a083-4e22-b4f6-bfcec4fd79a4/elliniaclm-bold-webfont.woff") format("woff");
-}
-@font-face {
-  font-family: "Ellinia CLM";
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-  src: url("/__l5e/assets-v1/14d2af62-aade-4c3f-b949-743889978943/elliniaclm-bolditalic-webfont.woff") format("woff");
-}
-
 /*
- * ענבר פרחי - design system
- * פלטה: cream bg + dirt/mud חומים + כתום CTA + ירוק לאסף לידים.
- * כל הצבעים ב-oklch. הוספת צבע: עדכן :root + רישום ב-@theme inline.
+ * ענבר פרחי — Foot Care Academy design system
+ * ירוק כהה #0F4C4A כצבע מותג · טרקוטה #E2725B ל-CTA · זהב #C9A227/#F4C95D לאקדמיה.
+ * כותרות Rubik 700–900, גוף Assistant. הוספת צבע: עדכן :root + רישום ב-@theme inline.
  */
 
 @theme inline {
@@ -119,20 +101,26 @@
   --color-accent-hover: var(--accent-hover);
   --color-footer: var(--footer-bg);
   --color-accent-gold: var(--accent-gold);
-  --font-heading: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-body: "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-display: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-serif: "Ellinia CLM", "Frank Ruhl Libre", "Heebo Variable", serif;
-  /* Restrained clinical shadows — derived from --primary #468677 */
-  --shadow-soft: 0 1px 2px rgb(30 36 34 / 0.04), 0 4px 10px -6px rgb(30 36 34 / 0.06);
-  --shadow-elegant: 0 1px 2px rgb(30 36 34 / 0.04), 0 8px 18px -10px rgb(30 36 34 / 0.08);
-  --shadow-lift: 0 1px 2px rgb(30 36 34 / 0.04), 0 12px 24px -12px rgb(30 36 34 / 0.10);
-  --shadow-clinical: 0 0 0 1px rgb(30 36 34 / 0.04);
-  --shadow-ring: 0 0 0 1px rgb(30 36 34 / 0.04);
+  --color-gold-bright: var(--gold-bright);
+  --color-terracotta: var(--accent);
+  --color-terracotta-soft: var(--accent-soft);
+  --color-terracotta-ink: var(--accent-ink);
+  --color-whatsapp: var(--whatsapp);
+  --font-heading: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-body: "Assistant", "Heebo Variable", system-ui, sans-serif;
+  --font-display: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-serif: "Frank Ruhl Libre", "Rubik", "Assistant", serif;
+  /* Shadows — derived from the brand green #0F4C4A */
+  --shadow-soft: 0 6px 22px rgb(15 76 74 / 0.08);
+  --shadow-elegant: 0 10px 30px rgb(15 76 74 / 0.09);
+  --shadow-lift: 0 22px 50px rgb(15 76 74 / 0.16);
+  --shadow-clinical: 0 0 0 1px rgb(15 76 74 / 0.06);
+  --shadow-ring: 0 0 0 1px rgb(15 76 74 / 0.06);
+  --shadow-cta: 0 10px 26px rgb(226 114 91 / 0.40);
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 1rem;
   /* Radius scale — generous, friendly */
   --radius-pill: 999px;
   /* Spacing scale (4/8/12/16/24/32/48/64/96) */
@@ -145,81 +133,98 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
-  --font-heading: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-body: "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-display: "Ellinia CLM", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-serif: "Ellinia CLM", "Frank Ruhl Libre", "Heebo Variable", serif;
+  --font-heading: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-body: "Assistant", "Heebo Variable", system-ui, sans-serif;
+  --font-display: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
+  --font-serif: "Frank Ruhl Libre", "Rubik", "Assistant", serif;
   /*
-   * Inbar Farchi — French Pharmacy palette
-   * Shadow Green primary #468677 · Paper #FAFAF8 · Ink #1E2422
-   * Stone-50 #F5F4F1 · Stone-100 #ECEAE5 · Accent gold #C9A24B
+   * Inbar Farchi — Foot Care Academy palette
+   * ירוק מותג #0F4C4A · טרקוטה CTA #E2725B · זהב אקדמיה #C9A227 / #F4C95D
+   * דיו #15302E · טקסט משני #5E7A73 · רקע לבן
    */
-  --paper: #FAFAF8;
-  --stone-50: #F5F4F1;
-  --stone-100: #ECEAE5;
-  --stone-300: #C9C6BF;
-  --ink-900: #1E2422;
-  --ink-600: #5B5F5C;
-  --green-50: #F4F9F7;
-  --green-100: #E4F1EC;
-  --green-200: #C7E2D8;
-  --green-300: #A8D2C3;
-  --green-400: #8DC2B3;
-  --green-500: #8DC2B3;
-  --green-600: #6FAE9C;
-  --green-700: #4F8C7B;
-  --green-800: #3D7264;
-  --green-900: #305A4F;
-  --green-950: #1F3B33;
-  --accent-gold: #C9A24B;
+  --paper: #FFFFFF;
+  --stone-50: #F5F9F6;
+  --stone-100: #EAF2ED;
+  --stone-300: #BCD9CB;
+  --ink-900: #15302E;
+  /* #59736C במקום #5E7A73 שברפרנס — כהה במעט כדי לעבור WCAG AA גם על רקעים גוונים */
+  --ink-600: #59736C;
+  --green-50: #F5F9F6;
+  --green-100: #EFF6F1;
+  --green-200: #DCEBE4;
+  --green-300: #BCD9CB;
+  --green-400: #7BD8A0;
+  --green-500: #2E7D74;
+  --green-600: #17635F;
+  --green-700: #0F4C4A;
+  --green-800: #0D403E;
+  --green-900: #0A2826;
+  --green-950: #071E1C;
+  --accent-gold: #C9A227;
+  --gold-bright: #F4C95D;
+  /* זהב לטקסט על רקע בהיר. #8A7A45 שברפרנס נותן 4.24:1 — הוכהה מעט ל-AA. */
+  --gold-ink: #7E6F3E;
+  --cream-50: #FBF7EF;
+  --cream-100: #FBF4E3;
+  --gold-ring: #EAD9AC;
+  --blush-50: #FDF0EC;
+  --blush-200: #F2C4B7;
+  --whatsapp: #25D366;
+  --whatsapp-hover: #1FB457;
 
-  --background: #FAFAF8;
-  --surface: #FAFAF8;
-  --surface-soft: #F4F9F7;
-  --surface-warm: #F5F4F1;
-  --foreground: #1E2422;
-  --ink: #1E2422;
-  --ink-soft: #5B5F5C;
-  --text-muted: #5B5F5C;
-  --text-dim: #C9C6BF;
-  --card: #FAFAF8;
-  --card-foreground: #1E2422;
-  --popover: #FAFAF8;
-  --popover-foreground: #1E2422;
-  --primary: #8DC2B3;
-  --primary-hover: #6FAE9C;
-  --primary-soft: #E4F1EC;
-  --primary-deep: #4F8C7B;
-  --primary-foreground: #FAFAF8;
-  --secondary: #F5F4F1;
-  --secondary-foreground: #1E2422;
-  --muted: #F5F4F1;
-  --muted-foreground: #5B5F5C;
-  --accent: #8DC2B3;
-  --accent-hover: #6FAE9C;
-  --accent-foreground: #FAFAF8;
-  /* Legacy "copper" tokens — remapped to muted gold for premium accents */
-  --copper: #C9A24B;
-  --copper-soft: #F4ECD9;
-  --footer-bg: #11221F;
+  --background: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-soft: #EFF6F1;
+  --surface-warm: #FBF7EF;
+  --foreground: #15302E;
+  --ink: #15302E;
+  --ink-soft: #3D5A54;
+  --text-muted: #59736C;
+  /* #8FA69F — מיועד לרקעים כהים (פוטר). על רקע בהיר יש להשתמש ב---text-muted. */
+  --text-dim: #8FA69F;
+  --card: #FFFFFF;
+  --card-foreground: #15302E;
+  --popover: #FFFFFF;
+  --popover-foreground: #15302E;
+  --primary: #0F4C4A;
+  --primary-hover: #17635F;
+  --primary-soft: #EFF6F1;
+  --primary-deep: #0A2826;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EFF6F1;
+  --secondary-foreground: #15302E;
+  --muted: #F5F9F6;
+  --muted-foreground: #5E7A73;
+  /* accent = טרקוטה, צבע ה-CTA הראשי */
+  --accent: #E2725B;
+  --accent-hover: #C95A44;
+  --accent-soft: #FDF0EC;
+  /* טרקוטה כהה לטקסט על רקע בהיר — #E2725B נותן 3.09:1 בלבד ונופל ב-WCAG AA.
+     לכפתורים מלאים ולרקעים משתמשים ב---accent המקורי. */
+  --accent-ink: #B84A34;
+  --accent-foreground: #FFFFFF;
+  /* Legacy "copper" tokens — remapped to the brand gold */
+  --copper: #C9A227;
+  --copper-soft: #FBF4E3;
+  --footer-bg: #071E1C;
   --destructive: oklch(0.55 0.18 28);
   --destructive-foreground: oklch(1 0 0);
-  --border: #ECEAE5;
-  --input: #FAFAF8;
-  --ring: #6FAE9C;
-  --chart-1: #8DC2B3;
-  --chart-2: #4F8C7B;
-  --chart-3: #C7E2D8;
-  --chart-4: #1E2422;
-  --chart-5: #5B5F5C;
-  --sidebar: #FAFAF8;
-  --sidebar-foreground: #1E2422;
-  --sidebar-primary: #8DC2B3;
-  --sidebar-primary-foreground: #FAFAF8;
-  --sidebar-accent: #F5F4F1;
-  --sidebar-accent-foreground: #1E2422;
-  --sidebar-border: #ECEAE5;
-  --sidebar-ring: #6FAE9C;
+  --border: #EAF2ED;
+  --input: #FFFFFF;
+  --ring: #0F4C4A;
+  --chart-1: #0F4C4A;
+  --chart-2: #E2725B;
+  --chart-3: #F4C95D;
+  --chart-4: #7BD8A0;
+  --chart-5: #5E7A73;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #15302E;
+  --sidebar-primary: #0F4C4A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EFF6F1;
+  --sidebar-accent-foreground: #15302E;
+  --sidebar-border: #EAF2ED;
+  --sidebar-ring: #0F4C4A;
 }
 
 .dark {
@@ -278,14 +283,20 @@
   .display-italic,
   .heading {
     font-family: var(--font-display) !important;
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.18;
+  }
+
+  h1 {
+    font-weight: 900;
+    line-height: 1.14;
   }
 
   h3, h4, .heading-strong {
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
   }
 
   [dir="rtl"] body {
@@ -320,24 +331,80 @@
 
   .kicker {
     font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--primary);
+    color: var(--gold-ink);
   }
 
   .display {
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.18;
   }
 
   .display-italic {
-    font-weight: 300;
-    letter-spacing: -0.02em;
+    font-weight: 800;
+    letter-spacing: -0.01em;
     color: var(--primary);
     font-style: normal;
+  }
+
+  /* פס זהב קצר לפני eyebrow — ראה סקשן "נעים מאוד" ברפרנס */
+  .kicker-rule::before {
+    content: "";
+    display: inline-block;
+    width: 36px;
+    height: 1px;
+    margin-inline-end: 14px;
+    vertical-align: middle;
+    background: var(--accent-gold);
+  }
+
+  /* כפתור CTA טרקוטה — הצורה הראשית בשפה החדשה */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--accent-foreground);
+    border-radius: var(--radius-pill);
+    padding: 16px 32px;
+    font-weight: 700;
+    box-shadow: var(--shadow-cta);
+  }
+  .btn-cta:hover {
+    background: var(--accent-hover);
+    color: var(--accent-foreground);
+  }
+
+  /* כפתור זכוכית על רקע כהה/תמונה */
+  .btn-glass {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgb(255 255 255 / 0.14);
+    backdrop-filter: blur(6px);
+    border: 1.5px solid rgb(255 255 255 / 0.5);
+    color: #FFFFFF;
+    border-radius: var(--radius-pill);
+    padding: 16px 32px;
+    font-weight: 700;
+  }
+  .btn-glass:hover {
+    background: #FFFFFF;
+    color: var(--primary);
+  }
+
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .animate-floaty {
+    animation: floaty 4s ease-in-out infinite;
   }
 
   .serif-accent {

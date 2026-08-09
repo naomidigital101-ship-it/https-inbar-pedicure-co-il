@@ -18,6 +18,7 @@
     "@fontsource/assistant": "^5.2.9",
     "@fontsource/frank-ruhl-libre": "^5.2.8",
     "@fontsource/heebo": "^5.2.8",
+    "@fontsource/rubik": "^5.3.0",
     "@hookform/resolvers": "^5.2.2",
     "@lovable.dev/email-js": "^0.0.4",
     "@lovable.dev/webhooks-js": "^0.0.1",

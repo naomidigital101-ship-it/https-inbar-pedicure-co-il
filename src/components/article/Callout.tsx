@@ -6,7 +6,7 @@ const styles: Record<
 > = {
   tip: { label: "טיפ", accent: "var(--green-700)", bg: "var(--green-50)", icon: "★" },
   warning: { label: "אזהרה", accent: "#9B3A28", bg: "color-mix(in oklab, #C4634F 10%, var(--paper))", icon: "!" },
-  saving: { label: "חיסכון", accent: "var(--accent-gold)", bg: "color-mix(in oklab, var(--accent-gold) 10%, var(--paper))", icon: "₪" },
+  saving: { label: "חיסכון", accent: "var(--gold-ink)", bg: "color-mix(in oklab, var(--accent-gold) 10%, var(--paper))", icon: "₪" },
 };
 
 export function Callout({

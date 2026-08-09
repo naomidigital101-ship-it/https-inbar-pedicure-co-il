@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from "react";
+﻿import type { CSSProperties, ReactNode } from "react";
 
 /**
  * אלמנטים גרפיים ומחזיקי-עיצוב המשותפים לכל האתר.
@@ -53,11 +53,11 @@ export function Halftone({ className = "", size = 220 }: { className?: string; s
     >
       <defs>
         <radialGradient id="brandHalftoneFade" cx="30%" cy="70%" r="70%">
-          <stop offset="0%" stopColor="#1E2422" stopOpacity="0.45" />
-          <stop offset="100%" stopColor="#1E2422" stopOpacity="0" />
+          <stop offset="0%" stopColor="#15302E" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#15302E" stopOpacity="0" />
         </radialGradient>
         <pattern id="brandDots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.6" fill="#1E2422" />
+          <circle cx="2" cy="2" r="1.6" fill="#15302E" />
         </pattern>
         <mask id="brandDotsMask">
           <rect width="260" height="260" fill="url(#brandHalftoneFade)" />
