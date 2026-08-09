@@ -102,14 +102,9 @@ export function SiteHeader() {
         }}
       >
         <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-3">
-          {/* גדלים נפרדים: ב-375px הלוקאפ המלא משאיר פחות מ-40px לכפתור התפריט */}
+          {/* שורה מקוצרת בהדר — השורה המלאה דורשת wordmark של ~65px כדי לשמור על הפרופורציה */}
           <a href="/" className="transition-opacity hover:opacity-80" aria-label={SITE.brand}>
-            <span className="sm:hidden">
-              <BrandLogo tone="ink" size={44} tagline="short" />
-            </span>
-            <span className="hidden sm:inline-flex">
-              <BrandLogo tone="ink" size={50} />
-            </span>
+            <BrandLogo tone="ink" wordSize={31} tagline="short" />
           </a>
 
           <nav

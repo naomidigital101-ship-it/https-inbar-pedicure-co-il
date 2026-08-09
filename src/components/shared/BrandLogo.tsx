@@ -1,19 +1,13 @@
 import { SITE } from "@/lib/site-config";
 
 type Tone = "ink" | "paper";
-type Layout = "horizontal" | "stacked";
+type Tagline = "full" | "short" | "none";
 
 type BrandLogoProps = {
   tone?: Tone;
-  /** נשמר לתאימות עם נקודות השימוש הקיימות; הלוקאפ תמיד מרוכז אנכית. */
-  layout?: Layout;
-  /** גובה הלוקאפ כולו בפיקסלים. שאר המידות נגזרות ממנו. */
-  size?: number;
-  /**
-   * רוחב הלוקאפ נקבע על ידי שורת התיאור, ולכן "short" הוא הדרך לצמצם אותו
-   * במסכים צרים — הקטנת גופן לבדה לא עוזרת בגלל רצפת הקריאוּת של 8px.
-   */
-  tagline?: "full" | "short" | "none";
+  /** גודל הגופן של INBAR בפיקסלים. כל שאר המידות נגזרות ממנו. */
+  wordSize?: number;
+  tagline?: Tagline;
 };
 
 const TAGLINE_START = "THERAPEUTIC PEDICURE";
@@ -24,14 +18,24 @@ const TAGLINE_END = "PROFESSIONAL TRAINING";
  *
  * בנוי מטיפוגרפיה ולא מקובץ תמונה, כדי שיירש את צבעי המותג (ירוק על רקע
  * בהיר, לבן על הפוטר הכהה) במקום להסתמך על filter:invert על PNG שחור.
- *
- * האותיות של INBAR מפוזרות ב-space-between כדי שהמילה תתפוס בדיוק את רוחב
- * שורת התיאור — זו הפרופורציה של הלוגו המקורי, והיא נשמרת בכל גודל.
  * הנקודה המפרידה בזהב היא החוליה לשפה העיצובית של האתר.
+ *
+ * האותיות של INBAR מפוזרות ב-space-between כך שהמילה תופסת בדיוק את רוחב
+ * שורת התיאור — הפרופורציה של הלוגו המקורי.
+ *
+ * חשוב: רוחב השורה הוא שקובע כמה האותיות מתפזרות. אם הגופן של INBAR קטן
+ * מדי ביחס לשורה, האותיות נמתחות ונוצרים פערים ענקיים. היחסים ב-RATIO
+ * מכוילים כך שהפער בין אות לאות יישאר בערך רבע מרוחב אות — לכן אסור
+ * לשנות גודל של אחד מהם בלי השני.
  */
+const RATIO: Record<Exclude<Tagline, "none">, number> = {
+  full: 8.1,
+  short: 3.9,
+};
+
 export function BrandLogo({
   tone = "ink",
-  size = 56,
+  wordSize = 32,
   tagline = "full",
 }: BrandLogoProps) {
   const color = tone === "paper" ? "#FFFFFF" : "var(--primary)";
@@ -40,14 +44,10 @@ export function BrandLogo({
       ? "rgba(255,255,255,0.55)"
       : "color-mix(in oklab, var(--primary) 60%, transparent)";
 
-  /*
-   * בלוגו המקורי שורת התיאור זעירה ביחס ל-INBAR (יחס ~5.6:1), אבל הוא מיועד
-   * לשכפול בגדלים גדולים. בגובה הדר של ~50px זה יוצא 4px ולא קריא, ולכן
-   * השורה הוגדלה ליחס ~3:1 — עדיין משנית בבירור, אבל נקראת.
-   */
-  const taglineSize = Math.max(8, size * 0.17);
   const withTagline = tagline !== "none";
-  const wordSize = withTagline ? size * 0.52 : size * 0.8;
+  const taglineSize = withTagline
+    ? Math.max(8, wordSize / RATIO[tagline])
+    : 0;
 
   return (
     <span
@@ -62,7 +62,6 @@ export function BrandLogo({
           display: "flex",
           justifyContent: "space-between",
           fontFamily: "var(--font-serif)",
-          // 500 מתקרב למשקל הסריף הגבוה-ניגודיות של הלוגו המקורי
           fontWeight: 500,
           fontSize: wordSize,
           direction: "ltr",
@@ -81,8 +80,8 @@ export function BrandLogo({
               display: "block",
               height: 1,
               background: ruleColor,
-              marginTop: size * 0.14,
-              marginBottom: size * 0.12,
+              marginTop: wordSize * 0.26,
+              marginBottom: wordSize * 0.22,
             }}
           />
           <span

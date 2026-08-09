@@ -37,7 +37,7 @@ export function SiteFooter() {
         <div className="grid gap-11 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <section aria-labelledby="footer-brand" className="space-y-4">
             <h2 id="footer-brand" className="sr-only">{SITE.brand}</h2>
-            <BrandLogo tone="paper" size={62} />
+            <BrandLogo tone="paper" wordSize={65} />
             <p className="m-0 max-w-md text-[15px] leading-[1.7]">
               פדיקור טיפולי ב{SITE.city} ו{SITE.region}, והכשרות מקצועיות לפדיקוריסטיות בכל הארץ.
               סטריליות מלאה, פרוטוקולים קליניים וליווי אישי עד החלמה.
