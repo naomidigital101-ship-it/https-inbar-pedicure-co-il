@@ -126,6 +126,8 @@ export type CategoryRow = {
   slug: string;
   label: string;
   title: string | null;
+  short_name: string | null;
+  mod_code: string | null;
   description: string | null;
   meta_title: string | null;
   meta_description: string | null;

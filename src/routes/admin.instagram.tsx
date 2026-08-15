@@ -265,25 +265,16 @@ function AdminInstagram() {
   const igConfigured = statusQ.data?.configured ?? false;
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7]" dir="rtl">
-      <header className="border-b border-[#b8dcd4] bg-[#e9f4f1]">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-              [ SYS // INSTAGRAM ]
-            </span>
-            <h1 className="text-lg font-black text-[#1d3a35]">מנוע תוכן אינסטגרם</h1>
-          </div>
-          <button
-            onClick={() => navigate({ to: "/admin" })}
-            className="border border-[#b8dcd4] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
-          >
-            ← חזרה לאדמין
-          </button>
-        </div>
-      </header>
+    // הכותרת והניווט מגיעים ממעטפת האדמין (routes/admin.tsx)
+    <div dir="rtl">
+      <h1
+        className="mb-6 text-[26px]"
+        style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: "var(--ink-900)" }}
+      >
+        מנוע תוכן אינסטגרם
+      </h1>
 
-      <main className="mx-auto max-w-[1400px] px-4 py-6 md:px-8">
+      <div>
         {!igConfigured && (
           <div className="mb-6 border border-[#5fa898] bg-[#e9f4f1] p-4">
             <p className="text-sm font-black text-[#1d3a35]">חיבור אינסטגרם לא מוגדר</p>
@@ -351,7 +342,7 @@ function AdminInstagram() {
             igConfigured={igConfigured}
           />
         )}
-      </main>
+      </div>
     </div>
   );
 }

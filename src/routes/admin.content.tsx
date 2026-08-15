@@ -86,23 +86,17 @@ function AdminContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7]" dir="rtl">
-      <header className="border-b border-[#b8dcd4] bg-[#e9f4f1]">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-              [ AI // CONTENT ]
-            </span>
-            <h1 className="text-lg font-black text-[#1d3a35]">ניהול תוכן AI</h1>
-          </div>
-          <Link
-            to="/admin"
-            className="text-xs font-bold uppercase tracking-wider text-[#5a4f48] hover:text-[#5fa898]"
-          >
-            ← חזרה לפאנל ראשי
-          </Link>
-        </div>
-        <div className="mx-auto flex max-w-[1400px] flex-wrap gap-2 px-4 py-4 md:px-8">
+    // הכותרת והניווט מגיעים ממעטפת האדמין (routes/admin.tsx);
+    // כאן נשאר רק ניווט המשנה בין חלקי מנוע התוכן.
+    <div dir="rtl">
+      <header className="mb-6">
+        <h1
+          className="mb-3 text-[26px]"
+          style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: "var(--ink-900)" }}
+        >
+          מנוע תוכן AI
+        </h1>
+        <div className="flex flex-wrap gap-2">
           <button
             onClick={() => scrollToSection("dashboard-section")}
             className="border border-[#b8dcd4] px-3 py-2 text-xs font-black uppercase tracking-wider text-[#2d4a44] transition-colors hover:border-[#5fa898] hover:text-[#1d3a35]"
@@ -142,7 +136,7 @@ function AdminContent() {
         </div>
       </header>
 
-      <main id="main-content" className="mx-auto max-w-[1400px] space-y-8 px-4 py-8 md:px-8">
+      <div className="space-y-8">
         <AdminSection id="dashboard-section" title="לוח בקרה">
           <DashboardTab />
         </AdminSection>
@@ -161,7 +155,7 @@ function AdminContent() {
         <AdminSection id="autopilot-history-section" title="היסטוריית אוטופיילוט">
           <AutopilotHistoryTab />
         </AdminSection>
-      </main>
+      </div>
     </div>
   );
 }
