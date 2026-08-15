@@ -12,11 +12,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { Upload, Trash2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  adminListMedia,
-  adminRegisterMedia,
-  adminDeleteMedia,
-} from "@/lib/admin-cms.functions";
+import { adminListMedia, adminRegisterMedia, adminDeleteMedia } from "@/lib/admin-cms.functions";
 import { Button, Field, IconButton, TextInput } from "@/components/admin/AdminUI";
 
 const BUCKET = "site-media";
@@ -46,7 +42,13 @@ export function useMediaLibrary() {
 /** מנקה שם קובץ לנתיב בטוח: עברית ורווחים לא שורדים ב-Storage. */
 function safeName(name: string): string {
   const dot = name.lastIndexOf(".");
-  const ext = dot > -1 ? name.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, "") : "jpg";
+  const ext =
+    dot > -1
+      ? name
+          .slice(dot + 1)
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "")
+      : "jpg";
   const stamp = Date.now().toString(36);
   const rand = Math.random().toString(36).slice(2, 8);
   return `${stamp}-${rand}.${ext}`;

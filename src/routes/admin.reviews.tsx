@@ -106,7 +106,11 @@ function ReviewsAdmin() {
               </p>
               <p
                 className="text-[30px]"
-                style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: "var(--ink-900)" }}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  color: "var(--ink-900)",
+                }}
               >
                 {average}
               </p>
@@ -117,7 +121,11 @@ function ReviewsAdmin() {
               </p>
               <p
                 className="text-[30px]"
-                style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: "var(--ink-900)" }}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  color: "var(--ink-900)",
+                }}
               >
                 {published.length}
               </p>

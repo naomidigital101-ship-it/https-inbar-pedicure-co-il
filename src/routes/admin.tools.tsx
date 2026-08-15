@@ -30,18 +30,15 @@ function ToolsAdmin() {
 
   return (
     <>
-      <PageHeader
-        title="כלים מתקדמים"
-        description="פעולות שנעשות פעם אחת או לעיתים רחוקות."
-      />
+      <PageHeader title="כלים מתקדמים" description="פעולות שנעשות פעם אחת או לעיתים רחוקות." />
 
       <Card
         title="ייבוא תוכן הטיפולים"
         description="מעתיק את התוכן של שבעת עמודי הטיפולים מהאתר הקיים אל מערכת הניהול, כדי שאפשר יהיה לערוך אותו."
       >
         <p className="mb-4 text-[14px] leading-relaxed" style={{ color: "var(--ink-600)" }}>
-          זו פעולה שמריצים פעם אחת, בהתקנה. עמוד שכבר יש בו תוכן במערכת לא ייגע —
-          כך שאם כבר ערכת משהו, הייבוא לא ידרוס אותו.
+          זו פעולה שמריצים פעם אחת, בהתקנה. עמוד שכבר יש בו תוכן במערכת לא ייגע — כך שאם כבר ערכת
+          משהו, הייבוא לא ידרוס אותו.
         </p>
         <div className="flex flex-wrap gap-2">
           <Button
@@ -70,10 +67,7 @@ function ToolsAdmin() {
         </div>
       </Card>
 
-      <Card
-        title="מנוע התוכן"
-        description="כתיבה אוטומטית של מאמרים, בדיקת עובדות ותזמון פרסום."
-      >
+      <Card title="מנוע התוכן" description="כתיבה אוטומטית של מאמרים, בדיקת עובדות ותזמון פרסום.">
         <div className="flex flex-wrap gap-2">
           <Link
             to="/admin/content"

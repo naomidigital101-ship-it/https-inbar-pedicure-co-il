@@ -4,7 +4,8 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
-import { SERVICES } from "@/lib/services-content";
+import { listServices, type ServiceCard } from "@/lib/cms.functions";
+import { useSite } from "@/lib/use-site";
 
 const PAGE_URL = `${SITE.url}/services`;
 const TITLE = `שירותי פדיקור טיפולי | ${SITE.brand}`;
@@ -12,7 +13,11 @@ const DESCRIPTION =
   "כל שירותי הפדיקור הטיפולי של ענבר פרחי — יבלות, פטרת, ציפורן חודרנית, אוניכוליזיס, סדקים, סוכרת וספורטאים. תוכן מבוסס מקורות קליניים סמכותיים.";
 
 export const Route = createFileRoute("/services/")({
-  head: () => ({
+  loader: async () => {
+    const { services } = await listServices();
+    return { services };
+  },
+  head: ({ loaderData }) => ({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
@@ -39,7 +44,7 @@ export const Route = createFileRoute("/services/")({
           "@context": "https://schema.org",
           "@type": "ItemList",
           name: "שירותי פדיקור טיפולי",
-          itemListElement: SERVICES.map((s, i) => ({
+          itemListElement: (loaderData?.services ?? []).map((s, i) => ({
             "@type": "ListItem",
             position: i + 1,
             url: `${SITE.url}/services/${s.slug}`,
@@ -53,6 +58,8 @@ export const Route = createFileRoute("/services/")({
 });
 
 function ServicesIndex() {
+  const { services } = Route.useLoaderData() as { services: ServiceCard[] };
+  const site = useSite();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
@@ -78,17 +85,26 @@ function ServicesIndex() {
             >
               שירותים לכל כף רגל
             </h1>
-            <p className="mt-6 max-w-2xl" style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}>
-              לכל טיפול יש עמוד ייעודי עם רקע קליני, פרוטוקול הטיפול בקליניקה, המלצות מניעה ותשובות לשאלות שחוזרות אצל מטופלים.
+            <p
+              className="mt-6 max-w-2xl"
+              style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}
+            >
+              לכל טיפול יש עמוד ייעודי עם רקע קליני, פרוטוקול הטיפול בקליניקה, המלצות מניעה ותשובות
+              לשאלות שחוזרות אצל מטופלים.
             </p>
           </div>
         </section>
         <section className="pb-24 pt-16" style={{ background: "var(--paper)" }}>
           <div
             className="mx-auto grid max-w-[1320px] gap-px overflow-hidden md:grid-cols-2"
-            style={{ background: "var(--stone-100)", border: "1px solid var(--stone-100)", borderRadius: 20, marginInline: "1.5rem" }}
+            style={{
+              background: "var(--stone-100)",
+              border: "1px solid var(--stone-100)",
+              borderRadius: 20,
+              marginInline: "1.5rem",
+            }}
           >
-            {SERVICES.map((s, i) => (
+            {services.map((s, i) => (
               <Link
                 key={s.slug}
                 to="/services/$slug"
@@ -97,7 +113,15 @@ function ServicesIndex() {
                 style={{ background: "var(--paper)" }}
               >
                 <div className="flex items-center justify-between">
-                  <span style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontSize: "2.4rem", color: "var(--green-700)", lineHeight: 1 }}>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontWeight: 700,
+                      fontSize: "2.4rem",
+                      color: "var(--green-700)",
+                      lineHeight: 1,
+                    }}
+                  >
                     0{i + 1}
                   </span>
                   <BrandEyebrow style={{ fontSize: 11 }}>טיפול</BrandEyebrow>
@@ -113,15 +137,23 @@ function ServicesIndex() {
                 >
                   {s.title}
                 </h2>
-                <p style={{ color: "var(--ink-600)", fontSize: "0.98rem", lineHeight: 1.65 }}>{s.subtitle}</p>
-                <span className="mt-2 inline-flex items-center gap-2" style={{ color: "var(--green-700)", fontSize: 13, fontWeight: 600 }}>
+                <p style={{ color: "var(--ink-600)", fontSize: "0.98rem", lineHeight: 1.65 }}>
+                  {s.subtitle}
+                </p>
+                <span
+                  className="mt-2 inline-flex items-center gap-2"
+                  style={{ color: "var(--green-700)", fontSize: 13, fontWeight: 600 }}
+                >
                   קראו עוד ←
                 </span>
               </Link>
             ))}
           </div>
         </section>
-        <section className="py-20" style={{ background: "var(--green-50)", borderTop: "1px solid var(--green-100)" }}>
+        <section
+          className="py-20"
+          style={{ background: "var(--green-50)", borderTop: "1px solid var(--green-100)" }}
+        >
           <div className="mx-auto max-w-[900px] px-6 text-center">
             <BrandEyebrow>לא בטוחים?</BrandEyebrow>
             <h2
@@ -136,21 +168,30 @@ function ServicesIndex() {
             >
               נשמע יחד מה הכי מתאים לכם
             </h2>
-            <p className="mx-auto mt-5 max-w-lg" style={{ color: "var(--ink-600)", lineHeight: 1.7 }}>
+            <p
+              className="mx-auto mt-5 max-w-lg"
+              style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
+            >
               תתקשרו או תשלחו וואטסאפ — אבחן את המצב ואסביר את האפשרויות.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
-                href={SITE.whatsappUrl}
+                href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener nofollow"
                 className="inline-flex h-12 items-center px-7"
-                style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
+                style={{
+                  background: "var(--green-600)",
+                  color: "var(--paper)",
+                  borderRadius: 999,
+                  fontWeight: 700,
+                  fontSize: 15,
+                }}
               >
                 וואטסאפ
               </a>
               <a
-                href={SITE.telUrl}
+                href={site.telUrl}
                 className="inline-flex h-12 items-center px-6"
                 style={{
                   background: "transparent",
@@ -161,7 +202,7 @@ function ServicesIndex() {
                   fontSize: 15,
                 }}
               >
-                {SITE.phoneDisplay}
+                {site.phoneDisplay}
               </a>
             </div>
           </div>

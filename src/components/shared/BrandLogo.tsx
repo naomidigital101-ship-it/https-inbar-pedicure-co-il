@@ -1,4 +1,4 @@
-import { SITE } from "@/lib/site-config";
+import { useSite } from "@/lib/use-site";
 
 type Tone = "ink" | "paper";
 type Tagline = "full" | "short" | "none";
@@ -33,26 +33,21 @@ const RATIO: Record<Exclude<Tagline, "none">, number> = {
   short: 3.9,
 };
 
-export function BrandLogo({
-  tone = "ink",
-  wordSize = 32,
-  tagline = "full",
-}: BrandLogoProps) {
+export function BrandLogo({ tone = "ink", wordSize = 32, tagline = "full" }: BrandLogoProps) {
   const color = tone === "paper" ? "#FFFFFF" : "var(--primary)";
   const ruleColor =
     tone === "paper"
       ? "rgba(255,255,255,0.55)"
       : "color-mix(in oklab, var(--primary) 60%, transparent)";
 
+  const site = useSite();
   const withTagline = tagline !== "none";
-  const taglineSize = withTagline
-    ? Math.max(8, wordSize / RATIO[tagline])
-    : 0;
+  const taglineSize = withTagline ? Math.max(8, wordSize / RATIO[tagline]) : 0;
 
   return (
     <span
       className="inline-flex flex-col"
-      aria-label={SITE.brand}
+      aria-label={site.brand}
       role="img"
       style={{ color, lineHeight: 1 }}
     >

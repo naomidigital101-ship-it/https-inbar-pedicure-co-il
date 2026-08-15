@@ -72,7 +72,11 @@ export function Card({
             {title && (
               <h2
                 className="text-[16.5px]"
-                style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--ink-900)" }}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  color: "var(--ink-900)",
+                }}
               >
                 {title}
               </h2>
@@ -208,10 +212,7 @@ export function TextInput({
   );
 }
 
-export function TextArea({
-  rows = 4,
-  ...rest
-}: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+export function TextArea({ rows = 4, ...rest }: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <textarea
       rows={rows}
@@ -223,10 +224,7 @@ export function TextArea({
   );
 }
 
-export function Select({
-  children,
-  ...rest
-}: React.SelectHTMLAttributes<HTMLSelectElement>) {
+export function Select({ children, ...rest }: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return (
     <select
       dir="rtl"
@@ -340,11 +338,7 @@ export function RepeaterList<T>({
                 {itemLabel ? itemLabel(item, i) : `פריט ${i + 1}`}
               </span>
               <div className="flex items-center gap-1">
-                <IconButton
-                  label="הזזה למעלה"
-                  disabled={i === 0}
-                  onClick={() => move(i, i - 1)}
-                >
+                <IconButton label="הזזה למעלה" disabled={i === 0} onClick={() => move(i, i - 1)}>
                   <ChevronUp className="h-4 w-4" />
                 </IconButton>
                 <IconButton
@@ -366,8 +360,7 @@ export function RepeaterList<T>({
             <div className="px-4 py-4">
               {renderItem(
                 item,
-                (patch) =>
-                  onChange(items.map((row, j) => (j === i ? { ...row, ...patch } : row))),
+                (patch) => onChange(items.map((row, j) => (j === i ? { ...row, ...patch } : row))),
                 i,
               )}
             </div>
@@ -376,11 +369,7 @@ export function RepeaterList<T>({
       </ol>
 
       {(max === undefined || items.length < max) && (
-        <Button
-          type="button"
-          className="mt-3"
-          onClick={() => onChange([...items, makeEmpty()])}
-        >
+        <Button type="button" className="mt-3" onClick={() => onChange([...items, makeEmpty()])}>
           <Plus className="h-4 w-4" aria-hidden />
           {addLabel}
         </Button>

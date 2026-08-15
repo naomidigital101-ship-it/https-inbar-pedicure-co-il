@@ -110,11 +110,7 @@ function LeadsAdmin() {
       {!query.isLoading && leads.length === 0 && (
         <EmptyState
           title={all.length ? "אין פניות בסינון הזה" : "עדיין אין פניות"}
-          hint={
-            all.length
-              ? undefined
-              : "כשמישהי תשאיר פרטים בטופס באתר, הפנייה תופיע כאן."
-          }
+          hint={all.length ? undefined : "כשמישהי תשאיר פרטים בטופס באתר, הפנייה תופיע כאן."}
         />
       )}
 

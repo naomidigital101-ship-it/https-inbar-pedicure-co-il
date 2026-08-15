@@ -124,9 +124,7 @@ function ServiceEditor() {
     return (
       <>
         <PageHeader title="הטיפול לא נמצא" />
-        <Button onClick={() => navigate({ to: "/admin/services" })}>
-          חזרה לרשימת הטיפולים
-        </Button>
+        <Button onClick={() => navigate({ to: "/admin/services" })}>חזרה לרשימת הטיפולים</Button>
       </>
     );
   }
@@ -170,11 +168,7 @@ function ServiceEditor() {
       />
 
       {/* לשוניות */}
-      <div
-        className="mb-6 flex flex-wrap gap-1.5 pb-1"
-        role="tablist"
-        aria-label="חלקי העמוד"
-      >
+      <div className="mb-6 flex flex-wrap gap-1.5 pb-1" role="tablist" aria-label="חלקי העמוד">
         {TABS.map((t) => (
           <button
             key={t.key}
@@ -221,10 +215,7 @@ function ContentTab({ value, set }: TabProps) {
     <>
       <Card title="כותרות" description="מה שהמטופלת רואה בראש העמוד ובתפריט.">
         <Field label="שם בתפריט" hint="קצר — זה מה שמופיע ברשימת הטיפולים">
-          <TextInput
-            value={value.nav_label}
-            onChange={(e) => set({ nav_label: e.target.value })}
-          />
+          <TextInput value={value.nav_label} onChange={(e) => set({ nav_label: e.target.value })} />
         </Field>
         <Field label="כותרת העמוד">
           <TextInput value={value.title} onChange={(e) => set({ title: e.target.value })} />
@@ -334,10 +325,7 @@ function SectionEditor({
   return (
     <>
       <Field label="כותרת הפרק">
-        <TextInput
-          value={section.heading}
-          onChange={(e) => update({ heading: e.target.value })}
-        />
+        <TextInput value={section.heading} onChange={(e) => update({ heading: e.target.value })} />
       </Field>
 
       <Field label="טקסט">
@@ -405,7 +393,9 @@ function SectionEditor({
                   type="button"
                   onClick={() =>
                     update({
-                      cites: on ? cites.filter((c) => c !== n) : [...cites, n].sort((a, b) => a - b),
+                      cites: on
+                        ? cites.filter((c) => c !== n)
+                        : [...cites, n].sort((a, b) => a - b),
                     })
                   }
                   className="px-3 py-1.5 text-[12.5px]"
@@ -438,10 +428,7 @@ function TableEditor({
   if (!table) {
     return (
       <Field label="טבלת השוואה" hint="אופציונלי">
-        <Button
-          type="button"
-          onClick={() => onChange({ headers: ["", ""], rows: [["", ""]] })}
-        >
+        <Button type="button" onClick={() => onChange({ headers: ["", ""], rows: [["", ""]] })}>
           <Plus className="h-4 w-4" aria-hidden />
           הוספת טבלה
         </Button>
@@ -564,11 +551,7 @@ function FaqsTab({ value, set }: TabProps) {
               <TextInput value={item.q} onChange={(e) => update({ q: e.target.value })} />
             </Field>
             <Field label="התשובה">
-              <TextArea
-                rows={5}
-                value={item.a}
-                onChange={(e) => update({ a: e.target.value })}
-              />
+              <TextArea rows={5} value={item.a} onChange={(e) => update({ a: e.target.value })} />
             </Field>
           </>
         )}
@@ -663,10 +646,7 @@ function MediaTab({ value, set }: TabProps) {
           value={value.card_image ?? ""}
           onChange={(v) => set({ card_image: v || null })}
         />
-        <Field
-          label="תיאור התמונה"
-          hint="מה רואים בתמונה. חשוב לקוראות מסך ולגוגל."
-        >
+        <Field label="תיאור התמונה" hint="מה רואים בתמונה. חשוב לקוראות מסך ולגוגל.">
           <TextInput
             value={value.card_alt ?? ""}
             onChange={(e) => set({ card_alt: e.target.value || null })}
@@ -734,10 +714,7 @@ function SeoTab({ value, set }: TabProps) {
 
   return (
     <>
-      <Card
-        title="איך העמוד נראה בגוגל"
-        description="זו התצוגה המקורבת של תוצאת החיפוש."
-      >
+      <Card title="איך העמוד נראה בגוגל" description="זו התצוגה המקורבת של תוצאת החיפוש.">
         <div
           className="mb-5 px-4 py-3.5"
           style={{ background: "var(--stone-50)", borderRadius: 10 }}
@@ -802,10 +779,7 @@ function SeoTab({ value, set }: TabProps) {
           />
         </Field>
         <Field label="סוג התוכן לגוגל">
-          <Select
-            value={value.schema_type}
-            onChange={(e) => set({ schema_type: e.target.value })}
-          >
+          <Select value={value.schema_type} onChange={(e) => set({ schema_type: e.target.value })}>
             <option value="MedicalWebPage">עמוד מידע רפואי</option>
             <option value="MedicalProcedure">פרוצדורה רפואית</option>
             <option value="Service">שירות</option>

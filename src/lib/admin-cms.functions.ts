@@ -62,10 +62,7 @@ export const adminSaveSettings = createServerFn({ method: "POST" })
     // להזריק מפתחות חדשים שאף קומפוננטה לא קוראת.
     const entries = Object.entries(data.values);
     for (const [key, value] of entries) {
-      const { error } = await supabaseAdmin
-        .from("site_settings")
-        .update({ value })
-        .eq("key", key);
+      const { error } = await supabaseAdmin.from("site_settings").update({ value }).eq("key", key);
       if (error) throw new Error(`${key}: ${error.message}`);
     }
     return { ok: true, updated: entries.length };
@@ -147,9 +144,7 @@ export const adminSaveService = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => ServiceInput.parse(d))
   .handler(async ({ context, data }) => {
     await requireAdmin(context.userId);
-    const { error } = await supabaseAdmin
-      .from("services")
-      .upsert(data, { onConflict: "slug" });
+    const { error } = await supabaseAdmin.from("services").upsert(data, { onConflict: "slug" });
     if (error) throw new Error(error.message);
     return { ok: true, slug: data.slug };
   });
@@ -161,10 +156,7 @@ export const adminDeleteService = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => SlugOnly.parse(d))
   .handler(async ({ context, data }) => {
     await requireAdmin(context.userId);
-    const { error } = await supabaseAdmin
-      .from("services")
-      .delete()
-      .eq("slug", data.slug);
+    const { error } = await supabaseAdmin.from("services").delete().eq("slug", data.slug);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -242,9 +234,7 @@ export const adminImportContentFromSource = createServerFn({ method: "POST" })
           description: c.description,
         })
         .eq("slug", c.slug);
-      const { error } = data.overwrite
-        ? await query
-        : await query.is("description", null);
+      const { error } = data.overwrite ? await query : await query.is("description", null);
       if (error) throw new Error(`category ${c.slug}: ${error.message}`);
     }
 
@@ -357,10 +347,7 @@ export const adminDeleteBeforeAfter = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => IdOnly.parse(d))
   .handler(async ({ context, data }) => {
     await requireAdmin(context.userId);
-    const { error } = await supabaseAdmin
-      .from("before_after")
-      .delete()
-      .eq("id", data.id);
+    const { error } = await supabaseAdmin.from("before_after").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -486,9 +473,7 @@ export const adminRegisterMedia = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => MediaInput.parse(d))
   .handler(async ({ context, data }) => {
     await requireAdmin(context.userId);
-    const { error } = await supabaseAdmin
-      .from("media")
-      .upsert(data, { onConflict: "path" });
+    const { error } = await supabaseAdmin.from("media").upsert(data, { onConflict: "path" });
     if (error) throw new Error(error.message);
     return { ok: true };
   });

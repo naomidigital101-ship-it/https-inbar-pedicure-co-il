@@ -181,9 +181,7 @@ function DashboardTab() {
     <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
       {cards.map((c) => (
         <div key={c.label} className="border border-[#b8dcd4] bg-[#e9f4f1] p-4">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">
-            {c.label}
-          </p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-[#6b5f55]">{c.label}</p>
           <p className="mt-1 text-3xl font-black text-[#1d3a35]">{c.value}</p>
         </div>
       ))}
@@ -227,7 +225,9 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
   const [qaProgress, setQaProgress] = useState<QAProgress | null>(null);
   const pushLog = (msg: string) =>
     setApProgress((p) =>
-      p ? { ...p, log: [...p.log.slice(-30), `${new Date().toLocaleTimeString("he-IL")} — ${msg}`] } : p,
+      p
+        ? { ...p, log: [...p.log.slice(-30), `${new Date().toLocaleTimeString("he-IL")} — ${msg}`] }
+        : p,
     );
   const q = useQuery({ queryKey: ["ai", "topics"], queryFn: () => listFn() });
   const runQaBatchWithRetry = async (
@@ -238,7 +238,9 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
     let lastError: unknown;
     for (let attempt = 1; attempt <= 3; attempt++) {
       try {
-        return await postQaFn({ data: { ids, limit: batch, onlyUnchecked: false, repairPasses: 2 } });
+        return await postQaFn({
+          data: { ids, limit: batch, onlyUnchecked: false, repairPasses: 2 },
+        });
       } catch (error) {
         lastError = error;
         const message = error instanceof Error ? error.message : "שגיאה לא ידועה";
@@ -265,8 +267,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
   });
 
   const updateStatus = useMutation({
-    mutationFn: (v: { id: string; status: "approved" | "rejected" }) =>
-      setStatusFn({ data: v }),
+    mutationFn: (v: { id: string; status: "approved" | "rejected" }) => setStatusFn({ data: v }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["ai", "topics"] }),
   });
 
@@ -287,7 +288,14 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
   const autopilot = useMutation({
     mutationFn: async () => {
       // Step 1: Suggest topics
-      setApProgress({ step: 1, label: "מציע נושאים חדשים", detail: `מבקש ${bulkSuggest} נושאים`, current: 0, total: bulkSuggest, log: [] });
+      setApProgress({
+        step: 1,
+        label: "מציע נושאים חדשים",
+        detail: `מבקש ${bulkSuggest} נושאים`,
+        current: 0,
+        total: bulkSuggest,
+        log: [],
+      });
       pushLog("שלב 1/5 התחיל");
       let suggested = 0;
       try {
@@ -317,7 +325,9 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
         }
         suggested = sug.inserted;
         pushLog(`נוספו ${suggested} נושאים`);
-        setApProgress((p) => (p ? { ...p, current: suggested, detail: `נוספו ${suggested} נושאים` } : p));
+        setApProgress((p) =>
+          p ? { ...p, current: suggested, detail: `נוספו ${suggested} נושאים` } : p,
+        );
         qc.invalidateQueries({ queryKey: ["ai", "topics"] });
       } catch (e) {
         console.error("[autopilot] step 1 failed:", e);
@@ -325,9 +335,18 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       }
 
       // Step 2: Write all pending topics one-by-one
-      setApProgress((p) => ({ step: 2, label: "כותב מאמרים", detail: "מתחיל לכתוב", current: 0, total: 0, log: p?.log ?? [] }));
+      setApProgress((p) => ({
+        step: 2,
+        label: "כותב מאמרים",
+        detail: "מתחיל לכתוב",
+        current: 0,
+        total: 0,
+        log: p?.log ?? [],
+      }));
       pushLog("שלב 2/5 התחיל");
-      let generated = 0, passedQA = 0, failedQA = 0;
+      let generated = 0,
+        passedQA = 0,
+        failedQA = 0;
       for (let i = 0; i < 200; i++) {
         try {
           const r = await generateNextFn({ data: {} } as never);
@@ -336,7 +355,16 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
           if (r.processed.passed) passedQA++;
           else failedQA++;
           const total = generated + (r.remaining ?? 0);
-          setApProgress((p) => (p ? { ...p, current: generated, total, detail: `נכתב: ${r.processed!.slug} ${r.processed!.passed ? "✅" : "⚠️"} — נותרו ${r.remaining}` } : p));
+          setApProgress((p) =>
+            p
+              ? {
+                  ...p,
+                  current: generated,
+                  total,
+                  detail: `נכתב: ${r.processed!.slug} ${r.processed!.passed ? "✅" : "⚠️"} — נותרו ${r.remaining}`,
+                }
+              : p,
+          );
           pushLog(`נכתב: ${r.processed.slug} ${r.processed.passed ? "✅" : "⚠️"}`);
           qc.invalidateQueries({ queryKey: ["ai"] });
           if (r.done) break;
@@ -350,13 +378,29 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       pushLog(`נכתבו ${generated} מאמרים`);
 
       // Step 3: Publish all
-      setApProgress((p) => ({ step: 3, label: "מפרסם מאמרים", detail: "שולח לפרסום", current: 0, total: generated, log: p?.log ?? [] }));
+      setApProgress((p) => ({
+        step: 3,
+        label: "מפרסם מאמרים",
+        detail: "שולח לפרסום",
+        current: 0,
+        total: generated,
+        log: p?.log ?? [],
+      }));
       pushLog("שלב 3/5 התחיל");
       let published = 0;
       try {
         const pub = await publishAllFn({ data: {} } as never);
         published = pub.published;
-        setApProgress((p) => (p ? { ...p, current: published, total: Math.max(published, p.total), detail: `פורסמו ${published} מאמרים` } : p));
+        setApProgress((p) =>
+          p
+            ? {
+                ...p,
+                current: published,
+                total: Math.max(published, p.total),
+                detail: `פורסמו ${published} מאמרים`,
+              }
+            : p,
+        );
         pushLog(`פורסמו ${published} מאמרים`);
         qc.invalidateQueries({ queryKey: ["ai"] });
       } catch (e) {
@@ -365,10 +409,20 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       }
 
       // Step 4: Fact-check
-      setApProgress((p) => ({ step: 4, label: "מאמת עובדות", detail: "סורק מאמרים מול מקורות", current: 0, total: published, log: p?.log ?? [] }));
+      setApProgress((p) => ({
+        step: 4,
+        label: "מאמת עובדות",
+        detail: "סורק מאמרים מול מקורות",
+        current: 0,
+        total: published,
+        log: p?.log ?? [],
+      }));
       pushLog("שלב 4/5 התחיל");
       const factBatch = 3;
-      let fcScanned = 0, fcFixed = 0, fcCorr = 0, fcApplied = 0;
+      let fcScanned = 0,
+        fcFixed = 0,
+        fcCorr = 0,
+        fcApplied = 0;
       for (let off = 0; off < 1000; off += factBatch) {
         try {
           const fc = await factCheckFn({ data: { limit: factBatch, offset: off, rerunQA: true } });
@@ -377,7 +431,16 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
           fcFixed += fc.fixed;
           fcCorr += fc.totalCorrections;
           fcApplied += fc.totalApplied;
-          setApProgress((p) => (p ? { ...p, current: fcScanned, total: Math.max(fcScanned, p.total), detail: `נסרקו ${fcScanned} • תוקנו ${fcFixed} • תיקונים ${fcApplied}/${fcCorr}` } : p));
+          setApProgress((p) =>
+            p
+              ? {
+                  ...p,
+                  current: fcScanned,
+                  total: Math.max(fcScanned, p.total),
+                  detail: `נסרקו ${fcScanned} • תוקנו ${fcFixed} • תיקונים ${fcApplied}/${fcCorr}`,
+                }
+              : p,
+          );
           pushLog(`אימות באטץ': נסרקו ${fc.scanned}, תוקנו ${fc.fixed}`);
           qc.invalidateQueries({ queryKey: ["ai"] });
           if (fc.scanned < factBatch) break;
@@ -389,18 +452,32 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       pushLog(`אימות הסתיים: סרק ${fcScanned}, תיקן ${fcFixed}`);
 
       // Step 5: Post-publish QA + enrichment
-      setApProgress((p) => ({ step: 5, label: "QA והעשרה", detail: "סורק מפורסמים", current: 0, total: published, log: p?.log ?? [] }));
+      setApProgress((p) => ({
+        step: 5,
+        label: "QA והעשרה",
+        detail: "סורק מפורסמים",
+        current: 0,
+        total: published,
+        log: p?.log ?? [],
+      }));
       pushLog("שלב 5/5 התחיל");
       const qaBatch = 1;
       const qaTargets = await listPublishedQaTargetsFn({ data: { onlyUnchecked: false } });
-      let qaScanned = 0, qaFixed = 0, qaEnriched = 0, qaPassed = 0, qaFailed = 0;
+      let qaScanned = 0,
+        qaFixed = 0,
+        qaEnriched = 0,
+        qaPassed = 0,
+        qaFailed = 0;
       for (let index = 0; index < qaTargets.length; index += qaBatch) {
         try {
           const batchTargets = qaTargets.slice(index, index + qaBatch);
           const qa = await runQaBatchWithRetry(
             batchTargets.map((item) => item.id),
             qaBatch,
-            (attempt, message) => pushLog(`QA timeout על ${batchTargets[0]?.slug ?? "מאמר"}, ניסיון ${attempt + 1}/3 — ${message}`),
+            (attempt, message) =>
+              pushLog(
+                `QA timeout על ${batchTargets[0]?.slug ?? "מאמר"}, ניסיון ${attempt + 1}/3 — ${message}`,
+              ),
           );
           if (qa.scanned === 0) break;
           qaScanned += qa.scanned;
@@ -408,7 +485,16 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
           qaEnriched += qa.enriched;
           qaPassed += qa.passed;
           qaFailed += qa.failed;
-          setApProgress((p) => (p ? { ...p, current: qaScanned, total: Math.max(qaScanned, p.total), detail: `נסרקו ${qaScanned} • תוקנו ${qaFixed} • הועשרו ${qaEnriched} • עברו ${qaPassed} / נכשלו ${qaFailed}` } : p));
+          setApProgress((p) =>
+            p
+              ? {
+                  ...p,
+                  current: qaScanned,
+                  total: Math.max(qaScanned, p.total),
+                  detail: `נסרקו ${qaScanned} • תוקנו ${qaFixed} • הועשרו ${qaEnriched} • עברו ${qaPassed} / נכשלו ${qaFailed}`,
+                }
+              : p,
+          );
           pushLog(`QA באטץ': ${qa.scanned} נסרקו, ${qa.fixed} תוקנו`);
           qc.invalidateQueries({ queryKey: ["ai"] });
           if (qa.scanned < qaBatch) break;
@@ -417,7 +503,13 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
           pushLog(`באטץ' QA נכשל: ${(e as Error).message} — ממשיך`);
         }
       }
-      const qa = { scanned: qaScanned, fixed: qaFixed, enriched: qaEnriched, passed: qaPassed, failed: qaFailed };
+      const qa = {
+        scanned: qaScanned,
+        fixed: qaFixed,
+        enriched: qaEnriched,
+        passed: qaPassed,
+        failed: qaFailed,
+      };
 
       return { suggested, generated, passedQA, failedQA, published, factChecked: fcFixed, qa };
     },
@@ -444,21 +536,54 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
   const postQa = useMutation({
     mutationFn: async () => {
       const batch = 1;
-      let scanned = 0, fixed = 0, enriched = 0, passed = 0, failed = 0;
+      let scanned = 0,
+        fixed = 0,
+        enriched = 0,
+        passed = 0,
+        failed = 0;
       const targets = await listPublishedQaTargetsFn({ data: { onlyUnchecked: false } });
       const total = targets.length;
-      setQaProgress({ current: 0, total, currentSlug: "מתחיל...", scanned: 0, passed: 0, failed: 0, fixed: 0, log: [] });
+      setQaProgress({
+        current: 0,
+        total,
+        currentSlug: "מתחיל...",
+        scanned: 0,
+        passed: 0,
+        failed: 0,
+        fixed: 0,
+        log: [],
+      });
       for (let index = 0; index < targets.length; index += batch) {
         try {
           const batchTargets = targets.slice(index, index + batch);
           const currentTarget = batchTargets[0];
-          setQaProgress((p) => p ? { ...p, currentSlug: currentTarget ? `${currentTarget.slug} (${index + 1}${total ? ` מתוך ${total}` : ""})` : `סורק מאמר ${index + 1}${total ? ` מתוך ${total}` : ""}...` } : p);
+          setQaProgress((p) =>
+            p
+              ? {
+                  ...p,
+                  currentSlug: currentTarget
+                    ? `${currentTarget.slug} (${index + 1}${total ? ` מתוך ${total}` : ""})`
+                    : `סורק מאמר ${index + 1}${total ? ` מתוך ${total}` : ""}...`,
+                }
+              : p,
+          );
           const r = await runQaBatchWithRetry(
             batchTargets.map((item) => item.id),
             batch,
             (attempt, message) => {
               const retryLine = `${new Date().toLocaleTimeString("he-IL")} — ⏳ timeout על ${currentTarget?.slug ?? "מאמר"}, ניסיון ${attempt + 1}/3`;
-              setQaProgress((p) => p ? { ...p, log: [...p.log.slice(-50), retryLine, `${new Date().toLocaleTimeString("he-IL")} — ${message}`] } : p);
+              setQaProgress((p) =>
+                p
+                  ? {
+                      ...p,
+                      log: [
+                        ...p.log.slice(-50),
+                        retryLine,
+                        `${new Date().toLocaleTimeString("he-IL")} — ${message}`,
+                      ],
+                    }
+                  : p,
+              );
             },
           );
           if (r.scanned === 0) break;
@@ -471,22 +596,31 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
           const lastSlug = last?.slug ?? "—";
           const lastStatus = last?.passed ? "✅ עבר" : "⚠️ נכשל";
           const repairPassesUsed = last && "repairPassesUsed" in last ? last.repairPassesUsed : 0;
-          const lastFixed = last?.fixed ? ` (תוקן${repairPassesUsed ? ` ב-${repairPassesUsed} סבבים` : ""})` : "";
+          const lastFixed = last?.fixed
+            ? ` (תוקן${repairPassesUsed ? ` ב-${repairPassesUsed} סבבים` : ""})`
+            : "";
           const lastError = !last?.passed && last?.error ? ` — ${last.error}` : "";
           const logLine = `${new Date().toLocaleTimeString("he-IL")} — ${lastSlug} ${lastStatus}${lastFixed}${lastError}`;
-          setQaProgress((p) => p ? {
-            ...p,
-            current: scanned,
-            currentSlug: `${lastSlug} ${lastStatus}${lastFixed}${lastError}`,
-            scanned, passed, failed, fixed,
-            log: [...p.log.slice(-50), logLine],
-          } : p);
+          setQaProgress((p) =>
+            p
+              ? {
+                  ...p,
+                  current: scanned,
+                  currentSlug: `${lastSlug} ${lastStatus}${lastFixed}${lastError}`,
+                  scanned,
+                  passed,
+                  failed,
+                  fixed,
+                  log: [...p.log.slice(-50), logLine],
+                }
+              : p,
+          );
           qc.invalidateQueries({ queryKey: ["ai"] });
           if (r.scanned < batch) break;
         } catch (e) {
           console.error("[postQa] batch failed:", e);
           const errLine = `${new Date().toLocaleTimeString("he-IL")} — ❌ ${(e as Error).message}`;
-          setQaProgress((p) => p ? { ...p, log: [...p.log.slice(-50), errLine] } : p);
+          setQaProgress((p) => (p ? { ...p, log: [...p.log.slice(-50), errLine] } : p));
         }
       }
       return { scanned, fixed, enriched, passed, failed };
@@ -527,14 +661,19 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
         generated++;
         if (r.processed.passed) passed++;
         else failed++;
-        toast.message(`נכתב: ${r.processed.slug} ${r.processed.passed ? "✅" : "⚠️"} — נותרו ${r.remaining}`);
+        toast.message(
+          `נכתב: ${r.processed.slug} ${r.processed.passed ? "✅" : "⚠️"} — נותרו ${r.remaining}`,
+        );
         qc.invalidateQueries({ queryKey: ["ai"] });
         if (r.done) break;
       }
       return { generated, passed, failed };
     },
     onSuccess: (r) => {
-      toast.success(`הסתיים: נוצרו ${r.generated} מאמרים — ${r.passed} עברו QA, ${r.failed} נכשלו`, { duration: 8000 });
+      toast.success(
+        `הסתיים: נוצרו ${r.generated} מאמרים — ${r.passed} עברו QA, ${r.failed} נכשלו`,
+        { duration: 8000 },
+      );
       qc.invalidateQueries({ queryKey: ["ai"] });
       onArticleCreated?.();
     },
@@ -565,7 +704,10 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       }
       const summary = `אימות עובדות: סרק ${r.scanned}, תיקן ${r.fixed} מאמרים, ${r.totalApplied}/${r.totalCorrections} תיקונים יושמו`;
       console.log(summary + lines.join("\n"));
-      toast.success(summary + (r.totalCorrections > 0 ? " — פירוט מלא בקונסול" : " — לא נמצאו עובדות שגויות"), { duration: 10000 });
+      toast.success(
+        summary + (r.totalCorrections > 0 ? " — פירוט מלא בקונסול" : " — לא נמצאו עובדות שגויות"),
+        { duration: 10000 },
+      );
       qc.invalidateQueries({ queryKey: ["ai"] });
     },
     onError: (e) => toast.error(`אימות עובדות נכשל: ${(e as Error).message}`),
@@ -585,27 +727,37 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
         </p>
         <ol className="mb-4 grid grid-cols-1 gap-2 text-sm text-[#2d4a44] md:grid-cols-5">
           <li className="border border-[#c9b8a3] bg-[#fdfbf7] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">שלב 1</div>
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">
+              שלב 1
+            </div>
             <div className="font-bold text-[#1d3a35]">💡 הצעת נושאים</div>
             <div className="text-xs text-[#5a4f48]">AI מציע נושאים חדשים</div>
           </li>
           <li className="border border-[#c9b8a3] bg-[#fdfbf7] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">שלב 2</div>
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">
+              שלב 2
+            </div>
             <div className="font-bold text-[#1d3a35]">✍️ כתיבת מאמרים</div>
             <div className="text-xs text-[#5a4f48]">כל נושא בתור הופך למאמר מלא</div>
           </li>
           <li className="border border-[#c9b8a3] bg-[#fdfbf7] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">שלב 3</div>
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">
+              שלב 3
+            </div>
             <div className="font-bold text-[#1d3a35]">📢 פרסום</div>
             <div className="text-xs text-[#5a4f48]">כל המאמרים מתפרסמים מיד</div>
           </li>
           <li className="border border-[#c9b8a3] bg-[#fdfbf7] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">שלב 4</div>
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">
+              שלב 4
+            </div>
             <div className="font-bold text-[#1d3a35]">🔬 אימות עובדות</div>
             <div className="text-xs text-[#5a4f48]">בדיקה מול מקורות סמכותיים</div>
           </li>
           <li className="border border-[#c9b8a3] bg-[#fdfbf7] px-3 py-2">
-            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">שלב 5</div>
+            <div className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">
+              שלב 5
+            </div>
             <div className="font-bold text-[#1d3a35]">🔍 QA והעשרה</div>
             <div className="text-xs text-[#5a4f48]">תיקונים, תמונות, וידאו, FAQ</div>
           </li>
@@ -623,13 +775,21 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
             />
             נושאים חדשים
           </label>
-          <span className="text-[#7a6e65]">→ ואז יכתוב את <strong className="text-[#1d3a35]">כל</strong> הנושאים בתור</span>
+          <span className="text-[#7a6e65]">
+            → ואז יכתוב את <strong className="text-[#1d3a35]">כל</strong> הנושאים בתור
+          </span>
         </div>
         <button
           onClick={() => {
-            const inQueue = q.data?.filter((t) => t.status === "pending" || t.status === "approved").length ?? 0;
+            const inQueue =
+              q.data?.filter((t) => t.status === "pending" || t.status === "approved").length ?? 0;
             const total = bulkSuggest + inQueue;
-            if (!confirm(`להפעיל אוטופיילוט?\n\n• יציע ${bulkSuggest} נושאים חדשים\n• יכתוב ~${total} מאמרים\n• יפרסם הכל\n• יאמת עובדות\n• ירוץ QA והעשרה\n\nהתהליך עלול לקחת ${total * 2}-${total * 4} דקות. אל תסגור את הדף.`)) return;
+            if (
+              !confirm(
+                `להפעיל אוטופיילוט?\n\n• יציע ${bulkSuggest} נושאים חדשים\n• יכתוב ~${total} מאמרים\n• יפרסם הכל\n• יאמת עובדות\n• ירוץ QA והעשרה\n\nהתהליך עלול לקחת ${total * 2}-${total * 4} דקות. אל תסגור את הדף.`,
+              )
+            )
+              return;
             autopilot.mutate();
           }}
           disabled={autopilot.isPending}
@@ -644,7 +804,8 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                 שלב {apProgress.step}/5 — {apProgress.label}
               </div>
               <div className="text-xs font-bold text-[#1d3a35]">
-                {apProgress.current}{apProgress.total > 0 ? ` / ${apProgress.total}` : ""}
+                {apProgress.current}
+                {apProgress.total > 0 ? ` / ${apProgress.total}` : ""}
               </div>
             </div>
             <div className="mb-2 h-2 w-full overflow-hidden bg-[#b8dcd4]">
@@ -686,47 +847,49 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
           [ שליטה ידנית — שלב בודד ]
         </div>
         <div className="flex flex-wrap gap-2">
-        <button
-          onClick={() => {
-            const count = q.data?.filter((t) => t.status === "pending" || t.status === "approved").length ?? 0;
-            if (!confirm(`לכתוב מאמר מכל הנושאים בתור? (${count} נושאים)`)) return;
-            generateAll.mutate();
-          }}
-          disabled={generateAll.isPending}
-          className="bg-[#4a6fff] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fdfbf7] hover:bg-[#6a8fff] disabled:opacity-60"
-        >
-          {generateAll.isPending ? "כותב..." : "✍️ כתוב את כל הנושאים"}
-        </button>
-        <button
-          onClick={() => {
-            if (!confirm("לפרסם מיד את כל המאמרים שעברו QA או מתוזמנים?")) return;
-            publishAll.mutate();
-          }}
-          disabled={publishAll.isPending}
-          className="bg-[#0a8a3a] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fdfbf7] hover:bg-[#0aa84a] disabled:opacity-60"
-        >
-          {publishAll.isPending ? "מפרסם..." : "📢 פרסם הכל מיד"}
-        </button>
-        <button
-          onClick={() => {
-            if (!confirm("לאמת עובדות במאמרים שפורסמו מול מקורות סמכותיים?")) return;
-            factCheck.mutate();
-          }}
-          disabled={factCheck.isPending}
-          className="bg-[#c98a00] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fdfbf7] hover:bg-[#e6a000] disabled:opacity-60"
-        >
-          {factCheck.isPending ? "מאמת..." : "🔬 אימות עובדות"}
-        </button>
-        <button
-          onClick={() => {
-            if (!confirm("להריץ בוט QA על המאמרים שפורסמו? יסרוק ויתקן אוטומטית.")) return;
-            postQa.mutate();
-          }}
-          disabled={postQa.isPending}
-          className="border border-[#5fa898] bg-transparent px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5fa898] hover:bg-[#5fa898] hover:text-[#fdfbf7] disabled:opacity-60"
-        >
-          {postQa.isPending ? "מריץ QA..." : "🔍 QA על מפורסמים"}
-        </button>
+          <button
+            onClick={() => {
+              const count =
+                q.data?.filter((t) => t.status === "pending" || t.status === "approved").length ??
+                0;
+              if (!confirm(`לכתוב מאמר מכל הנושאים בתור? (${count} נושאים)`)) return;
+              generateAll.mutate();
+            }}
+            disabled={generateAll.isPending}
+            className="bg-[#4a6fff] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fdfbf7] hover:bg-[#6a8fff] disabled:opacity-60"
+          >
+            {generateAll.isPending ? "כותב..." : "✍️ כתוב את כל הנושאים"}
+          </button>
+          <button
+            onClick={() => {
+              if (!confirm("לפרסם מיד את כל המאמרים שעברו QA או מתוזמנים?")) return;
+              publishAll.mutate();
+            }}
+            disabled={publishAll.isPending}
+            className="bg-[#0a8a3a] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fdfbf7] hover:bg-[#0aa84a] disabled:opacity-60"
+          >
+            {publishAll.isPending ? "מפרסם..." : "📢 פרסם הכל מיד"}
+          </button>
+          <button
+            onClick={() => {
+              if (!confirm("לאמת עובדות במאמרים שפורסמו מול מקורות סמכותיים?")) return;
+              factCheck.mutate();
+            }}
+            disabled={factCheck.isPending}
+            className="bg-[#c98a00] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#fdfbf7] hover:bg-[#e6a000] disabled:opacity-60"
+          >
+            {factCheck.isPending ? "מאמת..." : "🔬 אימות עובדות"}
+          </button>
+          <button
+            onClick={() => {
+              if (!confirm("להריץ בוט QA על המאמרים שפורסמו? יסרוק ויתקן אוטומטית.")) return;
+              postQa.mutate();
+            }}
+            disabled={postQa.isPending}
+            className="border border-[#5fa898] bg-transparent px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5fa898] hover:bg-[#5fa898] hover:text-[#fdfbf7] disabled:opacity-60"
+          >
+            {postQa.isPending ? "מריץ QA..." : "🔍 QA על מפורסמים"}
+          </button>
         </div>
         {qaProgress && (
           <div className="mt-4 border border-[#5fa898] bg-[#150505] p-3">
@@ -735,23 +898,32 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                 [ QA על מפורסמים — בתהליך ]
               </div>
               <div className="text-xs font-bold text-[#2d4a44]">
-                {qaProgress.current}{qaProgress.total > 0 ? ` / ${qaProgress.total}` : ""}
+                {qaProgress.current}
+                {qaProgress.total > 0 ? ` / ${qaProgress.total}` : ""}
               </div>
             </div>
             <div className="mb-2 h-2 w-full bg-[#b8dcd4]">
               <div
                 className="h-full bg-[#5fa898] transition-all"
-                style={{ width: `${qaProgress.total > 0 ? Math.min(100, Math.round((qaProgress.current / qaProgress.total) * 100)) : 0}%` }}
+                style={{
+                  width: `${qaProgress.total > 0 ? Math.min(100, Math.round((qaProgress.current / qaProgress.total) * 100)) : 0}%`,
+                }}
               />
             </div>
-            <div className="mb-2 truncate text-xs text-[#ffaa88]">
-              ▶ {qaProgress.currentSlug}
-            </div>
+            <div className="mb-2 truncate text-xs text-[#ffaa88]">▶ {qaProgress.currentSlug}</div>
             <div className="flex flex-wrap gap-3 text-xs text-[#2d4a44]">
-              <span>נסרקו: <b className="text-[#fff]">{qaProgress.scanned}</b></span>
-              <span>עברו: <b className="text-[#0aa84a]">{qaProgress.passed}</b></span>
-              <span>נכשלו: <b className="text-[#5fa898]">{qaProgress.failed}</b></span>
-              <span>תוקנו: <b className="text-[#c98a00]">{qaProgress.fixed}</b></span>
+              <span>
+                נסרקו: <b className="text-[#fff]">{qaProgress.scanned}</b>
+              </span>
+              <span>
+                עברו: <b className="text-[#0aa84a]">{qaProgress.passed}</b>
+              </span>
+              <span>
+                נכשלו: <b className="text-[#5fa898]">{qaProgress.failed}</b>
+              </span>
+              <span>
+                תוקנו: <b className="text-[#c98a00]">{qaProgress.fixed}</b>
+              </span>
             </div>
             {qaProgress.log.length > 0 && (
               <details className="mt-2">
@@ -759,9 +931,12 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                   יומן ({qaProgress.log.length})
                 </summary>
                 <div className="mt-2 max-h-40 overflow-y-auto bg-[#fdfbf7] p-2 font-mono text-[10px] text-[#aaa]">
-                  {qaProgress.log.slice().reverse().map((line, i) => (
-                    <div key={i}>{line}</div>
-                  ))}
+                  {qaProgress.log
+                    .slice()
+                    .reverse()
+                    .map((line, i) => (
+                      <div key={i}>{line}</div>
+                    ))}
                 </div>
               </details>
             )}
@@ -770,9 +945,7 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
       </div>
 
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm font-bold text-[#2d4a44]">
-          {q.data?.length ?? 0} נושאים בתור
-        </p>
+        <p className="text-sm font-bold text-[#2d4a44]">{q.data?.length ?? 0} נושאים בתור</p>
         <button
           onClick={() => suggest.mutate()}
           disabled={suggest.isPending}
@@ -804,17 +977,13 @@ function TopicsTab({ onArticleCreated }: { onArticleCreated?: () => void }) {
                     {t.status === "pending" && (
                       <>
                         <button
-                          onClick={() =>
-                            updateStatus.mutate({ id: t.id, status: "approved" })
-                          }
+                          onClick={() => updateStatus.mutate({ id: t.id, status: "approved" })}
                           className="border border-[#0a8a3a] px-2 py-1 text-[10px] font-bold uppercase text-[#0a8a3a]"
                         >
                           אשר
                         </button>
                         <button
-                          onClick={() =>
-                            updateStatus.mutate({ id: t.id, status: "rejected" })
-                          }
+                          onClick={() => updateStatus.mutate({ id: t.id, status: "rejected" })}
                           className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#5a4f48]"
                         >
                           דחה
@@ -964,9 +1133,7 @@ function FactDetail({ report }: { report: FactCheckReport }) {
             <li
               key={i}
               className={`border-r-4 p-3 ${
-                c.applied
-                  ? "border-r-[#0a8a3a] bg-[#0a1a10]"
-                  : "border-r-[#c98a00] bg-[#1a1408]"
+                c.applied ? "border-r-[#0a8a3a] bg-[#0a1a10]" : "border-r-[#c98a00] bg-[#1a1408]"
               }`}
             >
               <div className="mb-2 flex items-center justify-between gap-2">
@@ -996,7 +1163,9 @@ function FactDetail({ report }: { report: FactCheckReport }) {
                 </div>
                 <div>
                   <span className="font-black text-[#2d4a44]">מקור: </span>
-                  <span className="text-[#5a4f48]" dir="ltr">{c.source}</span>
+                  <span className="text-[#5a4f48]" dir="ltr">
+                    {c.source}
+                  </span>
                 </div>
               </div>
             </li>
@@ -1020,7 +1189,9 @@ function QaDetail({ report, attempts }: { report: QaReport; attempts: number }) 
       </div>
       <div
         className={`border p-3 text-sm font-bold ${
-          report.passed ? "border-[#0a8a3a] bg-[#08220f] text-[#a0e8b0]" : "border-[#7a1a1a] bg-[#220a0a] text-[#f0a0a0]"
+          report.passed
+            ? "border-[#0a8a3a] bg-[#08220f] text-[#a0e8b0]"
+            : "border-[#7a1a1a] bg-[#220a0a] text-[#f0a0a0]"
         }`}
       >
         {report.passed ? "✓ המאמר עבר את כל בדיקות ה-QA" : "✗ המאמר לא עבר את כל בדיקות ה-QA"}
@@ -1084,7 +1255,9 @@ function ArticlesTab() {
   const requeue = useMutation({
     mutationFn: (id: string) => requeueFn({ data: { articleId: id } }),
     onSuccess: (r) => {
-      const blockingMessage = !r.passed ? r.issues.find((issue) => issue.severity === "error")?.message : null;
+      const blockingMessage = !r.passed
+        ? r.issues.find((issue) => issue.severity === "error")?.message
+        : null;
       toast[r.passed ? "success" : "error"](
         r.passed
           ? r.repaired
@@ -1136,101 +1309,113 @@ function ArticlesTab() {
             const fc = a.fact_check_report as FactCheckReport | null;
             const fcAt = a.fact_checked_at ? new Date(a.fact_checked_at) : null;
             const fcDate = fcAt
-              ? fcAt.toLocaleDateString("he-IL", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })
+              ? fcAt.toLocaleDateString("he-IL", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
               : null;
             const qaReport = a.qa_report as QaReport | null;
             const qaIssues = qaReport?.issues ?? [];
             const qaErrors = qaIssues.filter((i) => i.severity === "error").length;
             const qaWarns = qaIssues.filter((i) => i.severity === "warn").length;
             return (
-            <tr key={a.id} className="border-t border-[#b8dcd4] text-sm text-[#2d4a44]">
-              <td className="px-3 py-2">{a.title}</td>
-              <td className="px-3 py-2 text-[#6b5f55]" dir="ltr">
-                {a.slug}
-              </td>
-              <td className="px-3 py-2 text-[#6b5f55]">{a.status}</td>
-              <td className="px-3 py-2">
-                {qaReport ? (
-                  <button
-                    type="button"
-                    onClick={() => setDetail({ kind: "qa", title: a.title, report: qaReport, attempts: a.qa_attempts })}
-                    className="flex flex-col items-start gap-0.5 text-right text-[10px]"
-                    title="לחצי לפירוט QA"
-                  >
-                    <span
-                      className={`inline-block px-1.5 py-0.5 font-black uppercase ${
-                        qaReport.passed
-                          ? "bg-[#0a8a3a] text-[#fdfbf7]"
-                          : "bg-[#7a1a1a] text-[#1d3a35]"
-                      }`}
-                    >
-                      {qaReport.passed ? `✓ עבר QA` : `✗ QA נכשל`}
-                    </span>
-                    <span className="text-[9px] text-[#5a4f48]">
-                      {a.qa_attempts} ניסיונות · {qaErrors} שגיאות · {qaWarns} אזהרות
-                    </span>
-                  </button>
-                ) : (
-                  <span className="text-[10px] text-[#7a6e65]">— {a.qa_attempts} ניסיונות</span>
-                )}
-              </td>
-              <td className="px-3 py-2">
-                {fc && fcDate ? (
-                  <button
-                    type="button"
-                    onClick={() => setDetail({ kind: "fact", title: a.title, report: fc })}
-                    className="flex flex-col items-start gap-0.5 text-right text-[10px]"
-                    title="לחצי לפירוט אימות העובדות"
-                  >
-                    <span
-                      className={`inline-block w-fit px-1.5 py-0.5 font-black uppercase ${
-                        (fc.corrections_applied ?? 0) > 0
-                          ? "bg-[#c98a00] text-[#fdfbf7]"
-                          : "bg-[#0a8a3a] text-[#fdfbf7]"
-                      }`}
-                    >
-                      {(fc.corrections_applied ?? 0) > 0
-                        ? `✓ תוקנו ${fc.corrections_applied}`
-                        : "✓ אומת"}
-                    </span>
-                    <span className="text-[9px] text-[#7a6e65]">{fcDate}</span>
-                  </button>
-                ) : (
-                  <span className="text-[10px] text-[#7a6e65]">— לא אומת</span>
-                )}
-              </td>
-              <td className="px-3 py-2">
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    onClick={() => requeue.mutate(a.id)}
-                    disabled={requeue.isPending}
-                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44]"
-                  >
-                    {requeue.isPending ? "מריץ QA..." : "QA חוזר"}
-                  </button>
-                  {a.status !== "published" && a.status !== "archived" && (
+              <tr key={a.id} className="border-t border-[#b8dcd4] text-sm text-[#2d4a44]">
+                <td className="px-3 py-2">{a.title}</td>
+                <td className="px-3 py-2 text-[#6b5f55]" dir="ltr">
+                  {a.slug}
+                </td>
+                <td className="px-3 py-2 text-[#6b5f55]">{a.status}</td>
+                <td className="px-3 py-2">
+                  {qaReport ? (
                     <button
-                      onClick={() => pub.mutate(a.id)}
-                      className="bg-[#0a8a3a] px-2 py-1 text-[10px] font-bold uppercase text-[#fdfbf7]"
+                      type="button"
+                      onClick={() =>
+                        setDetail({
+                          kind: "qa",
+                          title: a.title,
+                          report: qaReport,
+                          attempts: a.qa_attempts,
+                        })
+                      }
+                      className="flex flex-col items-start gap-0.5 text-right text-[10px]"
+                      title="לחצי לפירוט QA"
                     >
-                      פרסם
+                      <span
+                        className={`inline-block px-1.5 py-0.5 font-black uppercase ${
+                          qaReport.passed
+                            ? "bg-[#0a8a3a] text-[#fdfbf7]"
+                            : "bg-[#7a1a1a] text-[#1d3a35]"
+                        }`}
+                      >
+                        {qaReport.passed ? `✓ עבר QA` : `✗ QA נכשל`}
+                      </span>
+                      <span className="text-[9px] text-[#5a4f48]">
+                        {a.qa_attempts} ניסיונות · {qaErrors} שגיאות · {qaWarns} אזהרות
+                      </span>
                     </button>
+                  ) : (
+                    <span className="text-[10px] text-[#7a6e65]">— {a.qa_attempts} ניסיונות</span>
                   )}
-                  <button
-                    onClick={() => openArticle(a.slug, a.status)}
-                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44]"
-                  >
-                    {a.status === "published" ? "תצוגה" : "תצוגה מקדימה"}
-                  </button>
-                  <button
-                    onClick={() => arch.mutate(a.id)}
-                    className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#5a4f48]"
-                  >
-                    ארכב
-                  </button>
-                </div>
-              </td>
-            </tr>
+                </td>
+                <td className="px-3 py-2">
+                  {fc && fcDate ? (
+                    <button
+                      type="button"
+                      onClick={() => setDetail({ kind: "fact", title: a.title, report: fc })}
+                      className="flex flex-col items-start gap-0.5 text-right text-[10px]"
+                      title="לחצי לפירוט אימות העובדות"
+                    >
+                      <span
+                        className={`inline-block w-fit px-1.5 py-0.5 font-black uppercase ${
+                          (fc.corrections_applied ?? 0) > 0
+                            ? "bg-[#c98a00] text-[#fdfbf7]"
+                            : "bg-[#0a8a3a] text-[#fdfbf7]"
+                        }`}
+                      >
+                        {(fc.corrections_applied ?? 0) > 0
+                          ? `✓ תוקנו ${fc.corrections_applied}`
+                          : "✓ אומת"}
+                      </span>
+                      <span className="text-[9px] text-[#7a6e65]">{fcDate}</span>
+                    </button>
+                  ) : (
+                    <span className="text-[10px] text-[#7a6e65]">— לא אומת</span>
+                  )}
+                </td>
+                <td className="px-3 py-2">
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => requeue.mutate(a.id)}
+                      disabled={requeue.isPending}
+                      className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44]"
+                    >
+                      {requeue.isPending ? "מריץ QA..." : "QA חוזר"}
+                    </button>
+                    {a.status !== "published" && a.status !== "archived" && (
+                      <button
+                        onClick={() => pub.mutate(a.id)}
+                        className="bg-[#0a8a3a] px-2 py-1 text-[10px] font-bold uppercase text-[#fdfbf7]"
+                      >
+                        פרסם
+                      </button>
+                    )}
+                    <button
+                      onClick={() => openArticle(a.slug, a.status)}
+                      className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44]"
+                    >
+                      {a.status === "published" ? "תצוגה" : "תצוגה מקדימה"}
+                    </button>
+                    <button
+                      onClick={() => arch.mutate(a.id)}
+                      className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#5a4f48]"
+                    >
+                      ארכב
+                    </button>
+                  </div>
+                </td>
+              </tr>
             );
           })}
         </tbody>
@@ -1257,8 +1442,24 @@ function IndexationTab() {
   const [filter, setFilter] = useState<"all" | "indexed" | "missing">("missing");
   const [submitting, setSubmitting] = useState<string | null>(null);
   const [inspecting, setInspecting] = useState<string | null>(null);
-  const [inspectResults, setInspectResults] = useState<Record<string, { verdict: string; coverageState: string; lastCrawlTime?: string; indexingState?: string; pageFetchState?: string; robotsTxtState?: string; googleCanonical?: string; inspectionLink: string }>>({});
-  const [submitResult, setSubmitResult] = useState<Awaited<ReturnType<typeof submitFn>> | null>(null);
+  const [inspectResults, setInspectResults] = useState<
+    Record<
+      string,
+      {
+        verdict: string;
+        coverageState: string;
+        lastCrawlTime?: string;
+        indexingState?: string;
+        pageFetchState?: string;
+        robotsTxtState?: string;
+        googleCanonical?: string;
+        inspectionLink: string;
+      }
+    >
+  >({});
+  const [submitResult, setSubmitResult] = useState<Awaited<ReturnType<typeof submitFn>> | null>(
+    null,
+  );
 
   const submitOne = async (url: string) => {
     setSubmitting(url);
@@ -1327,12 +1528,17 @@ function IndexationTab() {
     <div className="space-y-4">
       <div className="border border-[#b8dcd4] bg-[#faf3eb] p-4 text-xs text-[#5a4f48]">
         <p>
-          טבלה זו מציגה <b className="text-[#2d4a44]">פרוקסי</b> לאינדוקס: עמוד עם impressions בתוצאות חיפוש (90 ימים אחרונים) נחשב מאונדקס.
-          זה לא מדויק — עמוד יכול להיות מאונדקס בלי שאף אחד חיפש אותו. כדי לקבל את הסטטוס <b className="text-[#2d4a44]">האמיתי</b> של Google ללא ספק, לחצי
-          <b className="text-[#2d4a44]"> "בדוק במציאות"</b> בשורה הרלוונטית — זה קורא ל-URL Inspection API הרשמי.
+          טבלה זו מציגה <b className="text-[#2d4a44]">פרוקסי</b> לאינדוקס: עמוד עם impressions
+          בתוצאות חיפוש (90 ימים אחרונים) נחשב מאונדקס. זה לא מדויק — עמוד יכול להיות מאונדקס בלי
+          שאף אחד חיפש אותו. כדי לקבל את הסטטוס <b className="text-[#2d4a44]">האמיתי</b> של Google
+          ללא ספק, לחצי
+          <b className="text-[#2d4a44]"> "בדוק במציאות"</b> בשורה הרלוונטית — זה קורא ל-URL
+          Inspection API הרשמי.
         </p>
         <p className="mt-2 text-[10px] text-[#7a6e65]">
-          הערה: Google אינו חושף Indexing API להגשה ישירה (רק Job Postings/Livestream). "הגש לאינדוקס" מבצע: (1) ping ל-IndexNow → מודיע ל-Bing/Yandex מיידית. (2) PUT ל-sitemap ב-Search Console → מאיץ את Googlebot.
+          הערה: Google אינו חושף Indexing API להגשה ישירה (רק Job Postings/Livestream). "הגש
+          לאינדוקס" מבצע: (1) ping ל-IndexNow → מודיע ל-Bing/Yandex מיידית. (2) PUT ל-sitemap
+          ב-Search Console → מאיץ את Googlebot.
         </p>
         {q.data?.error && (
           <p className="mt-2 border-r-2 border-[#7a1a1a] bg-[#1a0a0a] px-2 py-1 text-[10px] text-[#f0a0a0]">
@@ -1343,11 +1549,13 @@ function IndexationTab() {
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="text-xs text-[#2d4a44]">
-          {q.isLoading ? "טוען..." : (
+          {q.isLoading ? (
+            "טוען..."
+          ) : (
             <>
               <b className="text-[#0a8a3a]">{indexedCount}</b> מאונדקסים ·{" "}
-              <b className="text-[#5fa898]">{totalCount - indexedCount}</b> חסרים ·{" "}
-              סה"כ <b>{totalCount}</b>
+              <b className="text-[#5fa898]">{totalCount - indexedCount}</b> חסרים · סה"כ{" "}
+              <b>{totalCount}</b>
             </>
           )}
         </div>
@@ -1432,7 +1640,15 @@ function IndexationTab() {
               </a>
             </li>
             <li className="text-[10px] text-[#7a6e65]">
-              IndexNow key: <a href={submitResult.indexNowKeyLocation} target="_blank" rel="noopener noreferrer nofollow" className="underline">{submitResult.indexNowKeyLocation}</a>
+              IndexNow key:{" "}
+              <a
+                href={submitResult.indexNowKeyLocation}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                className="underline"
+              >
+                {submitResult.indexNowKeyLocation}
+              </a>
             </li>
             <li className="text-[10px] text-[#7a6e65]">
               זמן: {submitResult.startedAt} → {submitResult.finishedAt}
@@ -1460,7 +1676,8 @@ function IndexationTab() {
             </details>
           )}
           <p className="mt-3 text-[10px] text-[#7a6e65]">
-            הערה: Googlebot עשוי לקחת מ-כמה דקות עד מספר ימים להגיע ולאנדקס בפועל. לחצי "בדוק במציאות" בשורה אחרי שעה-כמה ימים כדי לראות את הסטטוס הרשמי.
+            הערה: Googlebot עשוי לקחת מ-כמה דקות עד מספר ימים להגיע ולאנדקס בפועל. לחצי "בדוק
+            במציאות" בשורה אחרי שעה-כמה ימים כדי לראות את הסטטוס הרשמי.
           </p>
         </div>
       )}
@@ -1484,80 +1701,80 @@ function IndexationTab() {
             {rows.map((r) => {
               const ins = inspectResults[r.url];
               return (
-              <tr key={r.url} className="border-t border-[#b8dcd4] align-top">
-                <td className="px-3 py-2 max-w-[300px] truncate" title={r.title}>{r.title}</td>
-                <td className="px-3 py-2 text-[10px] text-[#6b5f55]" dir="ltr">
-                  /article/{r.slug}
-                </td>
-                <td className="px-3 py-2 text-[10px] text-[#7a6e65]">{r.source}</td>
-                <td className="px-3 py-2">
-                  <span
-                    className={`inline-block px-1.5 py-0.5 text-[10px] font-black uppercase ${
-                      r.indexed
-                        ? "bg-[#0a8a3a] text-[#fdfbf7]"
-                        : "bg-[#7a1a1a] text-[#1d3a35]"
-                    }`}
-                  >
-                    {r.indexed ? "✓ יש impressions" : "✗ אין impressions"}
-                  </span>
-                </td>
-                <td className="px-3 py-2 text-[10px]">
-                  {ins ? (
-                    <div className="space-y-0.5">
-                      <span
-                        className={`inline-block px-1.5 py-0.5 font-black uppercase ${
-                          ins.verdict === "PASS"
-                            ? "bg-[#0a8a3a] text-[#fdfbf7]"
-                            : ins.verdict === "PARTIAL"
-                            ? "bg-[#8a6a0a] text-[#fdfbf7]"
-                            : ins.verdict === "FAIL"
-                            ? "bg-[#7a1a1a] text-[#1d3a35]"
-                            : "bg-[#c9b8a3] text-[#2d4a44]"
-                        }`}
+                <tr key={r.url} className="border-t border-[#b8dcd4] align-top">
+                  <td className="px-3 py-2 max-w-[300px] truncate" title={r.title}>
+                    {r.title}
+                  </td>
+                  <td className="px-3 py-2 text-[10px] text-[#6b5f55]" dir="ltr">
+                    /article/{r.slug}
+                  </td>
+                  <td className="px-3 py-2 text-[10px] text-[#7a6e65]">{r.source}</td>
+                  <td className="px-3 py-2">
+                    <span
+                      className={`inline-block px-1.5 py-0.5 text-[10px] font-black uppercase ${
+                        r.indexed ? "bg-[#0a8a3a] text-[#fdfbf7]" : "bg-[#7a1a1a] text-[#1d3a35]"
+                      }`}
+                    >
+                      {r.indexed ? "✓ יש impressions" : "✗ אין impressions"}
+                    </span>
+                  </td>
+                  <td className="px-3 py-2 text-[10px]">
+                    {ins ? (
+                      <div className="space-y-0.5">
+                        <span
+                          className={`inline-block px-1.5 py-0.5 font-black uppercase ${
+                            ins.verdict === "PASS"
+                              ? "bg-[#0a8a3a] text-[#fdfbf7]"
+                              : ins.verdict === "PARTIAL"
+                                ? "bg-[#8a6a0a] text-[#fdfbf7]"
+                                : ins.verdict === "FAIL"
+                                  ? "bg-[#7a1a1a] text-[#1d3a35]"
+                                  : "bg-[#c9b8a3] text-[#2d4a44]"
+                          }`}
+                        >
+                          {ins.verdict}
+                        </span>
+                        <div className="text-[#5a4f48]">{ins.coverageState}</div>
+                        {ins.lastCrawlTime && (
+                          <div className="text-[#7a6e65]">
+                            crawl: {new Date(ins.lastCrawlTime).toLocaleDateString("he-IL")}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-[#7a6e65]">—</span>
+                    )}
+                  </td>
+                  <td className="px-3 py-2 text-[11px]">{r.impressions}</td>
+                  <td className="px-3 py-2 text-[11px]">{r.clicks}</td>
+                  <td className="px-3 py-2 text-[11px] text-[#5a4f48]">{r.position ?? "—"}</td>
+                  <td className="px-3 py-2">
+                    <div className="flex flex-col gap-1">
+                      <button
+                        onClick={() => submitOne(r.url)}
+                        disabled={submitting === r.url}
+                        className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44] disabled:opacity-50"
                       >
-                        {ins.verdict}
-                      </span>
-                      <div className="text-[#5a4f48]">{ins.coverageState}</div>
-                      {ins.lastCrawlTime && (
-                        <div className="text-[#7a6e65]">crawl: {new Date(ins.lastCrawlTime).toLocaleDateString("he-IL")}</div>
-                      )}
+                        {submitting === r.url ? "שולח..." : "הגש לאינדוקס"}
+                      </button>
+                      <button
+                        onClick={() => inspectOne(r.url)}
+                        disabled={inspecting === r.url}
+                        className="border border-[#2a4a6a] bg-[#0a1a2a] px-2 py-1 text-[10px] font-bold uppercase text-[#7aa7e8] disabled:opacity-50"
+                      >
+                        {inspecting === r.url ? "בודק..." : "🔍 בדוק במציאות"}
+                      </button>
+                      <a
+                        href={r.inspectionLink}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="border border-[#c9b8a3] px-2 py-1 text-center text-[10px] font-bold uppercase text-[#5a4f48] hover:bg-[#ede2d4]"
+                      >
+                        פתח ב-GSC ↗
+                      </a>
                     </div>
-                  ) : (
-                    <span className="text-[#7a6e65]">—</span>
-                  )}
-                </td>
-                <td className="px-3 py-2 text-[11px]">{r.impressions}</td>
-                <td className="px-3 py-2 text-[11px]">{r.clicks}</td>
-                <td className="px-3 py-2 text-[11px] text-[#5a4f48]">
-                  {r.position ?? "—"}
-                </td>
-                <td className="px-3 py-2">
-                  <div className="flex flex-col gap-1">
-                    <button
-                      onClick={() => submitOne(r.url)}
-                      disabled={submitting === r.url}
-                      className="border border-[#444] px-2 py-1 text-[10px] font-bold uppercase text-[#2d4a44] disabled:opacity-50"
-                    >
-                      {submitting === r.url ? "שולח..." : "הגש לאינדוקס"}
-                    </button>
-                    <button
-                      onClick={() => inspectOne(r.url)}
-                      disabled={inspecting === r.url}
-                      className="border border-[#2a4a6a] bg-[#0a1a2a] px-2 py-1 text-[10px] font-bold uppercase text-[#7aa7e8] disabled:opacity-50"
-                    >
-                      {inspecting === r.url ? "בודק..." : "🔍 בדוק במציאות"}
-                    </button>
-                    <a
-                      href={r.inspectionLink}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="border border-[#c9b8a3] px-2 py-1 text-center text-[10px] font-bold uppercase text-[#5a4f48] hover:bg-[#ede2d4]"
-                    >
-                      פתח ב-GSC ↗
-                    </a>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
               );
             })}
             {!q.isLoading && !rows.length && (
@@ -1760,7 +1977,11 @@ function AutopilotHistoryTab() {
   const trigger = useMutation({
     mutationFn: () => triggerFn(),
     onSuccess: (r) => {
-      toast.success(r.alreadyRunning ? "יש כבר ריצת אוטופיילוט פעילה" : "האוטופיילוט התחיל. מייל יישלח בסיום כל השלבים.");
+      toast.success(
+        r.alreadyRunning
+          ? "יש כבר ריצת אוטופיילוט פעילה"
+          : "האוטופיילוט התחיל. מייל יישלח בסיום כל השלבים.",
+      );
       qc.invalidateQueries({ queryKey: ["autopilot-runs"] });
     },
     onError: (e: Error) => toast.error(`שגיאה: ${e.message}`),
@@ -1772,12 +1993,14 @@ function AutopilotHistoryTab() {
         <div>
           <div className="font-semibold text-[#1d3a35]">תזמון אוטומטי: כל יום ב-10:00 בבוקר</div>
           <div className="mt-1 text-xs text-[#888]">
-            דו"ח נשלח אוטומטית אל <span className="text-[#c9a84c]">naomi.digital101@gmail.com</span> עם הלינקים והסטטוס של כל מאמר.
+            דו"ח נשלח אוטומטית אל <span className="text-[#c9a84c]">naomi.digital101@gmail.com</span>{" "}
+            עם הלינקים והסטטוס של כל מאמר.
           </div>
         </div>
         <button
           onClick={() => {
-            if (!confirm("להפעיל אוטופיילוט עכשיו? מייל יישלח אוטומטית אחרי שכל השלבים יסתיימו.")) return;
+            if (!confirm("להפעיל אוטופיילוט עכשיו? מייל יישלח אוטומטית אחרי שכל השלבים יסתיימו."))
+              return;
             trigger.mutate();
           }}
           disabled={trigger.isPending}
@@ -1790,25 +2013,52 @@ function AutopilotHistoryTab() {
       {isLoading ? (
         <div className="p-4 text-sm text-[#888]">טוען היסטוריה...</div>
       ) : !data || data.length === 0 ? (
-        <div className="p-4 text-sm text-[#888]">עדיין לא הייתה ריצה. הריצה הבאה תתרחש מחר בבוקר ב-10:00.</div>
+        <div className="p-4 text-sm text-[#888]">
+          עדיין לא הייתה ריצה. הריצה הבאה תתרחש מחר בבוקר ב-10:00.
+        </div>
       ) : (
         <div className="space-y-3">
           {data.map((run) => {
             const rawResults = run.results as
               | {
-                  items?: Array<{ topicTitle: string; slug: string | null; passed: boolean; published: boolean; publishedAt: string | null; error?: string }>;
-                  progress?: { step: number; label: string; detail: string; current: number; total: number };
+                  items?: Array<{
+                    topicTitle: string;
+                    slug: string | null;
+                    passed: boolean;
+                    published: boolean;
+                    publishedAt: string | null;
+                    error?: string;
+                  }>;
+                  progress?: {
+                    step: number;
+                    label: string;
+                    detail: string;
+                    current: number;
+                    total: number;
+                  };
                   log?: string[];
                 }
-              | Array<{ topicTitle: string; slug: string | null; passed: boolean; published: boolean; publishedAt: string | null; error?: string }>;
+              | Array<{
+                  topicTitle: string;
+                  slug: string | null;
+                  passed: boolean;
+                  published: boolean;
+                  publishedAt: string | null;
+                  error?: string;
+                }>;
             const results = Array.isArray(rawResults) ? rawResults : (rawResults?.items ?? []);
             const progress = Array.isArray(rawResults) ? null : (rawResults?.progress ?? null);
             const log = Array.isArray(rawResults) ? [] : (rawResults?.log ?? []);
             return (
-              <details key={run.id} className="rounded border border-[#b8dcd4] bg-[#fdfbf7] p-3 text-sm">
+              <details
+                key={run.id}
+                className="rounded border border-[#b8dcd4] bg-[#fdfbf7] p-3 text-sm"
+              >
                 <summary className="flex cursor-pointer flex-wrap items-center gap-3 text-[#1d3a35]">
                   <span className="text-xs text-[#888]">
-                    {new Date(run.started_at).toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" })}
+                    {new Date(run.started_at).toLocaleString("he-IL", {
+                      timeZone: "Asia/Jerusalem",
+                    })}
                   </span>
                   <span
                     className={`rounded px-2 py-0.5 text-xs font-bold ${
@@ -1819,16 +2069,32 @@ function AutopilotHistoryTab() {
                           : "bg-yellow-900/40 text-yellow-300"
                     }`}
                   >
-                    {run.status === "completed" ? "הסתיים" : run.status === "failed" ? "נכשל" : "רץ"}
+                    {run.status === "completed"
+                      ? "הסתיים"
+                      : run.status === "failed"
+                        ? "נכשל"
+                        : "רץ"}
                   </span>
                   <span className="text-xs text-[#5a4f48]">מקור: {run.trigger}</span>
                   <span className="ml-auto flex gap-2 text-xs">
-                    <span className="text-[#888]">נושאים: <b className="text-[#2d4a44]">{run.suggested}</b></span>
-                    <span className="text-[#888]">נוצרו: <b className="text-[#2d4a44]">{run.generated}</b></span>
-                    <span className="text-[#888]">QA: <b className="text-[#2d4a44]">{run.passed}</b></span>
-                    <span className="text-[#888]">פורסמו: <b className="text-green-400">{run.published}</b></span>
+                    <span className="text-[#888]">
+                      נושאים: <b className="text-[#2d4a44]">{run.suggested}</b>
+                    </span>
+                    <span className="text-[#888]">
+                      נוצרו: <b className="text-[#2d4a44]">{run.generated}</b>
+                    </span>
+                    <span className="text-[#888]">
+                      QA: <b className="text-[#2d4a44]">{run.passed}</b>
+                    </span>
+                    <span className="text-[#888]">
+                      פורסמו: <b className="text-green-400">{run.published}</b>
+                    </span>
                     {run.email_status && (
-                      <span className={run.email_status.startsWith("queued") ? "text-green-500" : "text-red-400"}>
+                      <span
+                        className={
+                          run.email_status.startsWith("queued") ? "text-green-500" : "text-red-400"
+                        }
+                      >
                         ✉ {run.email_status.startsWith("queued") ? "נשלח" : "נכשל"}
                       </span>
                     )}
@@ -1836,18 +2102,27 @@ function AutopilotHistoryTab() {
                 </summary>
                 <div className="mt-3 space-y-2 border-t border-[#b8dcd4] pt-3">
                   {run.error_message && (
-                    <div className="rounded bg-red-900/30 p-2 text-xs text-red-300">שגיאה: {run.error_message}</div>
+                    <div className="rounded bg-red-900/30 p-2 text-xs text-red-300">
+                      שגיאה: {run.error_message}
+                    </div>
                   )}
                   {progress && run.status !== "completed" && run.status !== "failed" && (
                     <div className="rounded border border-[#b8dcd4] bg-[#e9f4f1] p-3 text-xs text-[#2d4a44]">
                       <div className="mb-2 flex items-center justify-between gap-3">
-                        <span className="font-bold text-[#1d3a35]">שלב {progress.step}/5 — {progress.label}</span>
-                        <span>{progress.current}{progress.total > 0 ? ` / ${progress.total}` : ""}</span>
+                        <span className="font-bold text-[#1d3a35]">
+                          שלב {progress.step}/5 — {progress.label}
+                        </span>
+                        <span>
+                          {progress.current}
+                          {progress.total > 0 ? ` / ${progress.total}` : ""}
+                        </span>
                       </div>
                       <div className="mb-2 h-2 overflow-hidden bg-[#b8dcd4]">
                         <div
                           className="h-full bg-[#5fa898] transition-all duration-300"
-                          style={{ width: `${progress.total > 0 ? Math.min(100, Math.round((progress.current / progress.total) * 100)) : ((progress.step - 1) / 5) * 100}%` }}
+                          style={{
+                            width: `${progress.total > 0 ? Math.min(100, Math.round((progress.current / progress.total) * 100)) : ((progress.step - 1) / 5) * 100}%`,
+                          }}
                         />
                       </div>
                       <div>{progress.detail}</div>
@@ -1858,7 +2133,10 @@ function AutopilotHistoryTab() {
                   ) : (
                     <ul className="space-y-2">
                       {results.map((r, i) => (
-                        <li key={i} className="flex flex-wrap items-center gap-2 rounded bg-[#e9f4f1] p-2 text-xs">
+                        <li
+                          key={i}
+                          className="flex flex-wrap items-center gap-2 rounded bg-[#e9f4f1] p-2 text-xs"
+                        >
                           <span>
                             {r.error ? "❌" : r.published ? "✅" : r.passed ? "🟡" : "⚠️"}
                           </span>
@@ -1880,7 +2158,9 @@ function AutopilotHistoryTab() {
                   )}
                   {log.length > 0 && (
                     <details className="rounded border border-[#b8dcd4] bg-[#e9f4f1] p-2 text-[10px] text-[#5a4f48]">
-                      <summary className="cursor-pointer font-bold uppercase tracking-wider">יומן ריצה</summary>
+                      <summary className="cursor-pointer font-bold uppercase tracking-wider">
+                        יומן ריצה
+                      </summary>
                       <div className="mt-2 space-y-1 font-mono">
                         {log.map((line, index) => (
                           <div key={index}>{line}</div>

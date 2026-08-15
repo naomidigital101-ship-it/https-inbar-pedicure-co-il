@@ -10,15 +10,12 @@ export const Route = createFileRoute("/admin/homepage")({
 function HomepageSettings() {
   return (
     <>
-      <PageHeader
-        title="דף הבית"
-        description="הטקסטים והמספרים שרואים בכניסה לאתר."
-      />
+      <PageHeader title="דף הבית" description="הטקסטים והמספרים שרואים בכניסה לאתר." />
 
       <Card title="שלושת כרטיסי תחומי הליבה">
         <p className="text-[14px] leading-relaxed" style={{ color: "var(--ink-600)" }}>
-          הכרטיסים בדף הבית נשלפים מהטיפולים עצמם, כדי שלא יהיו שני מקומות עם אותו
-          מידע. כדי להחליף איזה טיפול מופיע שם, היכנסי ל
+          הכרטיסים בדף הבית נשלפים מהטיפולים עצמם, כדי שלא יהיו שני מקומות עם אותו מידע. כדי להחליף
+          איזה טיפול מופיע שם, היכנסי ל
           <Link
             to="/admin/services"
             className="underline"

@@ -51,9 +51,7 @@ function MediaAdmin() {
             try {
               await upload.mutateAsync(file);
             } catch (err) {
-              toast.error(
-                `${file.name}: ${err instanceof Error ? err.message : "ההעלאה נכשלה"}`,
-              );
+              toast.error(`${file.name}: ${err instanceof Error ? err.message : "ההעלאה נכשלה"}`);
             }
           }
           if (files.length) toast.success("ההעלאה הסתיימה");
@@ -63,10 +61,7 @@ function MediaAdmin() {
       {query.isLoading && <p style={{ color: "var(--ink-600)" }}>טוענת...</p>}
 
       {!query.isLoading && items.length === 0 && (
-        <EmptyState
-          title="הספרייה ריקה"
-          hint="תמונות שיועלו מתוך עמודי העריכה יופיעו גם כאן."
-        />
+        <EmptyState title="הספרייה ריקה" hint="תמונות שיועלו מתוך עמודי העריכה יופיעו גם כאן." />
       )}
 
       {items.length > 0 && (

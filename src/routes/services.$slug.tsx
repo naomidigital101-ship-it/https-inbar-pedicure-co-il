@@ -4,27 +4,37 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
-import { SERVICES_BY_SLUG, SERVICES, type ServicePage } from "@/lib/services-content";
+import { type ServicePage } from "@/lib/services-content";
+import { getService, listServices, type ServiceCard } from "@/lib/cms.functions";
+import { useSite } from "@/lib/use-site";
 import { OnycholysisVisuals } from "@/components/services/OnycholysisVisuals";
 
 export const Route = createFileRoute("/services/$slug")({
-  loader: ({ params }) => {
-    const service = SERVICES_BY_SLUG[params.slug];
-    if (!service) throw notFound();
-    return { service };
+  loader: async ({ params }) => {
+    // התוכן מגיע ממערכת הניהול; אם העמוד עדיין לא יובא לשם,
+    // getService מחזיר את התוכן שבקוד כדי שהעמוד לא ייפגע.
+    const [detail, all] = await Promise.all([
+      getService({ data: { slug: params.slug } }),
+      listServices().catch(() => ({ services: [] as ServiceCard[] })),
+    ]);
+    if (!detail) throw notFound();
+    return { ...detail, related: all.services.filter((x) => x.slug !== params.slug).slice(0, 3) };
   },
   head: ({ loaderData }) => {
     const s = loaderData?.service;
-    if (!s) return {};
-    const url = `${SITE.url}/services/${s.slug}`;
+    const seo = loaderData?.seo;
+    if (!s || !seo) return {};
+    const url = seo.canonical || `${SITE.url}/services/${s.slug}`;
     return {
       meta: [
-        { title: s.metaTitle },
-        { name: "description", content: s.metaDescription },
-        { property: "og:title", content: s.metaTitle },
-        { property: "og:description", content: s.metaDescription },
+        { title: seo.metaTitle },
+        { name: "description", content: seo.metaDescription },
+        { property: "og:title", content: seo.metaTitle },
+        { property: "og:description", content: seo.metaDescription },
         { property: "og:url", content: url },
         { property: "og:type", content: "article" },
+        ...(seo.ogImage ? [{ property: "og:image", content: seo.ogImage }] : []),
+        ...(seo.noindex ? [{ name: "robots", content: "noindex, follow" }] : []),
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
@@ -36,8 +46,12 @@ export const Route = createFileRoute("/services/$slug")({
             inLanguage: "he-IL",
             url,
             name: s.title,
-            description: s.metaDescription,
-            citation: s.sources.map((src) => ({ "@type": "CreativeWork", name: src.label, url: src.url })),
+            description: seo.metaDescription,
+            citation: s.sources.map((src) => ({
+              "@type": "CreativeWork",
+              name: src.label,
+              url: src.url,
+            })),
             mainEntity: {
               "@type": "FAQPage",
               mainEntity: s.faqs.map((f) => ({
@@ -54,7 +68,7 @@ export const Route = createFileRoute("/services/$slug")({
             "@context": "https://schema.org",
             "@type": "MedicalProcedure",
             name: s.title,
-            description: s.metaDescription,
+            description: seo.metaDescription,
             url,
             inLanguage: "he-IL",
             bodyLocation: "כף רגל",
@@ -91,8 +105,23 @@ export const Route = createFileRoute("/services/$slug")({
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main className="flex-1 py-24 text-center">
-        <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "2rem", color: "var(--green-700)" }}>השירות לא נמצא</h1>
-        <Link to="/services" className="mt-6 inline-block underline" style={{ color: "var(--green-700)" }}>חזרה לכל השירותים</Link>
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 300,
+            fontSize: "2rem",
+            color: "var(--green-700)",
+          }}
+        >
+          השירות לא נמצא
+        </h1>
+        <Link
+          to="/services"
+          className="mt-6 inline-block underline"
+          style={{ color: "var(--green-700)" }}
+        >
+          חזרה לכל השירותים
+        </Link>
       </main>
       <SiteFooter />
     </div>
@@ -101,9 +130,31 @@ export const Route = createFileRoute("/services/$slug")({
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main className="flex-1 py-24 text-center">
-        <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 300, fontSize: "1.6rem", color: "var(--ink-900)" }}>אירעה שגיאה</h1>
-        <p className="mt-3" style={{ color: "var(--ink-600)", fontSize: 14 }}>{error.message}</p>
-        <button onClick={reset} className="mt-6 inline-flex h-11 items-center px-6" style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700 }}>נסה שוב</button>
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 300,
+            fontSize: "1.6rem",
+            color: "var(--ink-900)",
+          }}
+        >
+          אירעה שגיאה
+        </h1>
+        <p className="mt-3" style={{ color: "var(--ink-600)", fontSize: 14 }}>
+          {error.message}
+        </p>
+        <button
+          onClick={reset}
+          className="mt-6 inline-flex h-11 items-center px-6"
+          style={{
+            background: "var(--green-600)",
+            color: "var(--paper)",
+            borderRadius: 999,
+            fontWeight: 700,
+          }}
+        >
+          נסה שוב
+        </button>
       </main>
       <SiteFooter />
     </div>
@@ -112,8 +163,18 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServicePage() {
-  const { service: s } = Route.useLoaderData() as { service: ServicePage };
-  const related = SERVICES.filter((x) => x.slug !== s.slug).slice(0, 3);
+  const {
+    service: s,
+    related,
+    priceText,
+    priceVisible,
+  } = Route.useLoaderData() as {
+    service: ServicePage;
+    related: ServiceCard[];
+    priceText: string | null;
+    priceVisible: boolean;
+  };
+  const site = useSite();
 
   const heading = (size: string) => ({
     fontFamily: "var(--font-display)",
@@ -143,7 +204,7 @@ function ServicePage() {
         >
           <BrandHeroBackdrop label={`SERVICE · ${s.navLabel}`} />
           <div className="relative mx-auto max-w-[1100px] px-6 py-12 md:px-10 md:py-20">
-            <BrandEyebrow withRule>פדיקור טיפולי · {SITE.city}</BrandEyebrow>
+            <BrandEyebrow withRule>פדיקור טיפולי · {site.city}</BrandEyebrow>
             <h1
               className="mt-5 mb-4"
               style={{
@@ -157,10 +218,12 @@ function ServicePage() {
             >
               {s.title}
             </h1>
-            <p style={{ color: "var(--ink-600)", fontSize: "1.1rem", lineHeight: 1.7 }}>{s.subtitle}</p>
+            <p style={{ color: "var(--ink-600)", fontSize: "1.1rem", lineHeight: 1.7 }}>
+              {s.subtitle}
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href={SITE.whatsappUrl}
+                href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener nofollow"
                 className="inline-flex h-12 items-center px-7"
@@ -176,7 +239,7 @@ function ServicePage() {
                 קביעת תור בוואטסאפ
               </a>
               <a
-                href={SITE.telUrl}
+                href={site.telUrl}
                 className="inline-flex h-12 items-center px-6"
                 style={{
                   background: "transparent",
@@ -187,7 +250,7 @@ function ServicePage() {
                   fontSize: 15,
                 }}
               >
-                {SITE.phoneDisplay}
+                {site.phoneDisplay}
               </a>
             </div>
           </div>
@@ -198,20 +261,56 @@ function ServicePage() {
           <div className="mx-auto max-w-[820px] px-6">
             <div
               className="mb-8 p-6"
-              style={{ background: "var(--green-50)", borderInlineStart: "3px solid var(--green-600)", borderRadius: 16 }}
+              style={{
+                background: "var(--green-50)",
+                borderInlineStart: "3px solid var(--green-600)",
+                borderRadius: 16,
+              }}
             >
               <BrandEyebrow style={{ fontSize: 11 }}>בקצרה</BrandEyebrow>
-              <p className="mt-2" style={{ color: "var(--ink-900)", fontSize: 15.5, lineHeight: 1.7 }}>{s.tldr}</p>
+              <p
+                className="mt-2"
+                style={{ color: "var(--ink-900)", fontSize: 15.5, lineHeight: 1.7 }}
+              >
+                {s.tldr}
+              </p>
             </div>
             <div className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {/* מחיר מוצג רק אם ענבר הפעילה אותו לטיפול הזה */}
+              {priceVisible && priceText && (
+                <div
+                  className="p-4 text-center"
+                  style={{
+                    background: "var(--cream-50)",
+                    border: "1px solid var(--gold-ring)",
+                    borderRadius: 14,
+                  }}
+                >
+                  <p style={{ fontSize: 12, color: "var(--gold-ink)", fontWeight: 700 }}>מחיר</p>
+                  <p
+                    style={{ fontSize: 15, color: "var(--ink-900)", fontWeight: 700, marginTop: 4 }}
+                  >
+                    {priceText}
+                  </p>
+                </div>
+              )}
               {s.quickFacts.map((f) => (
                 <div
                   key={f.label}
                   className="p-4 text-center"
-                  style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 14 }}
+                  style={{
+                    background: "var(--paper)",
+                    border: "1px solid var(--stone-100)",
+                    borderRadius: 14,
+                  }}
                 >
                   <BrandEyebrow style={{ fontSize: 10 }}>{f.label}</BrandEyebrow>
-                  <p className="mt-1.5" style={{ color: "var(--ink-900)", fontSize: 14, fontWeight: 600 }}>{f.value}</p>
+                  <p
+                    className="mt-1.5"
+                    style={{ color: "var(--ink-900)", fontSize: 14, fontWeight: 600 }}
+                  >
+                    {f.value}
+                  </p>
                 </div>
               ))}
             </div>
@@ -229,15 +328,30 @@ function ServicePage() {
                 className="mb-10 pb-10 last:border-b-0 last:mb-0 last:pb-0"
                 style={{ borderBottom: "1px solid var(--stone-100)" }}
               >
-                <h2 className="mb-4" style={heading("clamp(1.4rem, 2.6vw, 1.9rem)")}>{sec.heading}</h2>
+                <h2 className="mb-4" style={heading("clamp(1.4rem, 2.6vw, 1.9rem)")}>
+                  {sec.heading}
+                </h2>
                 {sec.body && (
-                  <p className="mb-4" style={{ color: "var(--ink-600)", fontSize: 16, lineHeight: 1.75 }}>{sec.body}</p>
+                  <p
+                    className="mb-4"
+                    style={{ color: "var(--ink-600)", fontSize: 16, lineHeight: 1.75 }}
+                  >
+                    {sec.body}
+                  </p>
                 )}
                 {sec.bullets && (
                   <ul className="space-y-2.5">
                     {sec.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-3" style={{ color: "var(--ink-600)", fontSize: 16, lineHeight: 1.7 }}>
-                        <span aria-hidden className="mt-2 h-2 w-2 flex-shrink-0 rounded-full" style={{ background: "var(--green-600)" }} />
+                      <li
+                        key={b}
+                        className="flex items-start gap-3"
+                        style={{ color: "var(--ink-600)", fontSize: 16, lineHeight: 1.7 }}
+                      >
+                        <span
+                          aria-hidden
+                          className="mt-2 h-2 w-2 flex-shrink-0 rounded-full"
+                          style={{ background: "var(--green-600)" }}
+                        />
                         <span>{b}</span>
                       </li>
                     ))}
@@ -252,7 +366,11 @@ function ServicePage() {
                             <th
                               key={h}
                               className="p-3 text-right"
-                              style={{ border: "1px solid var(--stone-100)", color: "var(--ink-900)", fontWeight: 600 }}
+                              style={{
+                                border: "1px solid var(--stone-100)",
+                                color: "var(--ink-900)",
+                                fontWeight: 600,
+                              }}
                             >
                               {h}
                             </th>
@@ -263,7 +381,14 @@ function ServicePage() {
                         {sec.table.rows.map((row, ri) => (
                           <tr key={ri} style={{ background: "var(--paper)" }}>
                             {row.map((c, ci) => (
-                              <td key={ci} className="p-3" style={{ border: "1px solid var(--stone-100)", color: "var(--ink-600)" }}>
+                              <td
+                                key={ci}
+                                className="p-3"
+                                style={{
+                                  border: "1px solid var(--stone-100)",
+                                  color: "var(--ink-600)",
+                                }}
+                              >
                                 {c}
                               </td>
                             ))}
@@ -282,8 +407,15 @@ function ServicePage() {
                       borderRadius: 16,
                     }}
                   >
-                    <BrandEyebrow style={{ fontSize: 11, color: "var(--gold-ink)" }}>מהקליניקה שלי</BrandEyebrow>
-                    <p className="mt-2" style={{ color: "var(--ink-900)", fontSize: 14.5, lineHeight: 1.7 }}>{sec.fromClinic}</p>
+                    <BrandEyebrow style={{ fontSize: 11, color: "var(--gold-ink)" }}>
+                      מהקליניקה שלי
+                    </BrandEyebrow>
+                    <p
+                      className="mt-2"
+                      style={{ color: "var(--ink-900)", fontSize: 14.5, lineHeight: 1.7 }}
+                    >
+                      {sec.fromClinic}
+                    </p>
                   </div>
                 )}
                 {sec.cites && sec.cites.length > 0 && (
@@ -315,16 +447,34 @@ function ServicePage() {
         </section>
 
         {/* Red flags */}
-        <section className="py-12" style={{ background: "color-mix(in oklab, #C4634F 10%, var(--paper))", borderTop: "1px solid var(--stone-100)", borderBottom: "1px solid var(--stone-100)" }}>
+        <section
+          className="py-12"
+          style={{
+            background: "color-mix(in oklab, #C4634F 10%, var(--paper))",
+            borderTop: "1px solid var(--stone-100)",
+            borderBottom: "1px solid var(--stone-100)",
+          }}
+        >
           <div className="mx-auto max-w-[820px] px-6">
             <BrandEyebrow style={{ color: "#9B3A28" }}>אזהרה</BrandEyebrow>
-            <h2 className="mt-3 mb-4" style={{ ...heading("clamp(1.5rem, 2.8vw, 2rem)"), color: "#7A2A1B" }}>
+            <h2
+              className="mt-3 mb-4"
+              style={{ ...heading("clamp(1.5rem, 2.8vw, 2rem)"), color: "#7A2A1B" }}
+            >
               מתי לפנות מיידית לרופא
             </h2>
             <ul className="space-y-2.5">
               {s.redFlags.map((r) => (
-                <li key={r} className="flex items-start gap-3" style={{ color: "#5A2E22", fontSize: 16, lineHeight: 1.7 }}>
-                  <span aria-hidden className="mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full" style={{ background: "#C4634F" }} />
+                <li
+                  key={r}
+                  className="flex items-start gap-3"
+                  style={{ color: "#5A2E22", fontSize: 16, lineHeight: 1.7 }}
+                >
+                  <span
+                    aria-hidden
+                    className="mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full"
+                    style={{ background: "#C4634F" }}
+                  />
                   <span>{r}</span>
                 </li>
               ))}
@@ -336,13 +486,19 @@ function ServicePage() {
         <section className="py-14" style={{ background: "var(--paper)" }}>
           <div className="mx-auto max-w-[820px] px-6">
             <BrandEyebrow>FAQ</BrandEyebrow>
-            <h2 className="mt-3 mb-6" style={heading("clamp(1.6rem, 3vw, 2.2rem)")}>שאלות נפוצות</h2>
+            <h2 className="mt-3 mb-6" style={heading("clamp(1.6rem, 3vw, 2.2rem)")}>
+              שאלות נפוצות
+            </h2>
             <div className="space-y-3">
               {s.faqs.map((f) => (
                 <details
                   key={f.q}
                   className="group p-5"
-                  style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 16 }}
+                  style={{
+                    background: "var(--paper)",
+                    border: "1px solid var(--stone-100)",
+                    borderRadius: 16,
+                  }}
                 >
                   <summary
                     className="cursor-pointer list-none marker:hidden"
@@ -353,13 +509,22 @@ function ServicePage() {
                       <span
                         aria-hidden
                         className="flex h-7 w-7 flex-shrink-0 items-center justify-center transition-transform group-open:rotate-45"
-                        style={{ background: "var(--green-50)", color: "var(--green-700)", borderRadius: 999 }}
+                        style={{
+                          background: "var(--green-50)",
+                          color: "var(--green-700)",
+                          borderRadius: 999,
+                        }}
                       >
                         +
                       </span>
                     </span>
                   </summary>
-                  <p className="mt-3" style={{ color: "var(--ink-600)", fontSize: 14.5, lineHeight: 1.7 }}>{f.a}</p>
+                  <p
+                    className="mt-3"
+                    style={{ color: "var(--ink-600)", fontSize: 14.5, lineHeight: 1.7 }}
+                  >
+                    {f.a}
+                  </p>
                 </details>
               ))}
             </div>
@@ -367,22 +532,38 @@ function ServicePage() {
         </section>
 
         {/* Sources */}
-        <section className="py-10" style={{ background: "var(--green-50)", borderTop: "1px solid var(--green-100)", borderBottom: "1px solid var(--green-100)" }}>
+        <section
+          className="py-10"
+          style={{
+            background: "var(--green-50)",
+            borderTop: "1px solid var(--green-100)",
+            borderBottom: "1px solid var(--green-100)",
+          }}
+        >
           <div className="mx-auto max-w-[820px] px-6">
             <BrandEyebrow>References</BrandEyebrow>
-            <h2 className="mt-3 mb-4" style={{ ...heading("1.2rem"), fontWeight: 600 }}>מקורות חיצוניים סמכותיים</h2>
+            <h2 className="mt-3 mb-4" style={{ ...heading("1.2rem"), fontWeight: 600 }}>
+              מקורות חיצוניים סמכותיים
+            </h2>
             <ol className="space-y-2" style={{ fontSize: 14, color: "var(--ink-600)" }}>
               {s.sources.map((src, i) => (
                 <li key={src.url}>
                   <span style={{ color: "var(--green-700)", fontWeight: 700 }}>[{i + 1}]</span>{" "}
-                  <a href={src.url} target="_blank" rel="noopener noreferrer nofollow" className="underline" style={{ color: "var(--ink-900)" }}>
+                  <a
+                    href={src.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="underline"
+                    style={{ color: "var(--ink-900)" }}
+                  >
                     {src.label}
                   </a>
                 </li>
               ))}
             </ol>
             <p className="mt-4" style={{ color: "var(--ink-600)", fontSize: 12 }}>
-              התוכן בעמוד זה מבוסס על מקורות קליניים מוכרים (NHS, Mayo Clinic, AAD, APMA, אגודת אייל). הוא אינו תחליף לייעוץ מקצועי אישי.
+              התוכן בעמוד זה מבוסס על מקורות קליניים מוכרים (NHS, Mayo Clinic, AAD, APMA, אגודת
+              אייל). הוא אינו תחליף לייעוץ מקצועי אישי.
             </p>
           </div>
         </section>
@@ -391,7 +572,9 @@ function ServicePage() {
         <section className="py-14" style={{ background: "var(--paper)" }}>
           <div className="mx-auto max-w-[1100px] px-6">
             <BrandEyebrow>גם אלה</BrandEyebrow>
-            <h2 className="mt-3 mb-6" style={heading("clamp(1.5rem, 2.8vw, 2rem)")}>שירותים נוספים</h2>
+            <h2 className="mt-3 mb-6" style={heading("clamp(1.5rem, 2.8vw, 2rem)")}>
+              שירותים נוספים
+            </h2>
             <div className="grid gap-4 md:grid-cols-3">
               {related.map((r) => (
                 <Link
@@ -399,10 +582,18 @@ function ServicePage() {
                   to="/services/$slug"
                   params={{ slug: r.slug }}
                   className="p-5 transition-colors"
-                  style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 16 }}
+                  style={{
+                    background: "var(--paper)",
+                    border: "1px solid var(--stone-100)",
+                    borderRadius: 16,
+                  }}
                 >
-                  <h3 className="mb-2" style={{ ...heading("1.05rem"), fontWeight: 600 }}>{r.title}</h3>
-                  <p style={{ color: "var(--ink-600)", fontSize: 14, lineHeight: 1.65 }}>{r.subtitle}</p>
+                  <h3 className="mb-2" style={{ ...heading("1.05rem"), fontWeight: 600 }}>
+                    {r.title}
+                  </h3>
+                  <p style={{ color: "var(--ink-600)", fontSize: 14, lineHeight: 1.65 }}>
+                    {r.subtitle}
+                  </p>
                 </Link>
               ))}
             </div>
@@ -413,25 +604,37 @@ function ServicePage() {
         <section className="py-16" style={{ background: "var(--paper)" }}>
           <div
             className="mx-auto max-w-[820px] px-6 py-12 text-center md:px-12"
-            style={{ background: "var(--green-50)", border: "1px solid var(--green-100)", borderRadius: 24 }}
+            style={{
+              background: "var(--green-50)",
+              border: "1px solid var(--green-100)",
+              borderRadius: 24,
+            }}
           >
             <BrandEyebrow>קביעת תור</BrandEyebrow>
-            <h2 className="mt-3 mb-3" style={heading("clamp(1.6rem, 3vw, 2.2rem)")}>מוכנים לחזור ללכת בלי כאב?</h2>
+            <h2 className="mt-3 mb-3" style={heading("clamp(1.6rem, 3vw, 2.2rem)")}>
+              מוכנים לחזור ללכת בלי כאב?
+            </h2>
             <p className="mb-6" style={{ color: "var(--ink-600)", fontSize: 15 }}>
-              {SITE.hoursDisplay} · {SITE.city}
+              {site.hoursDisplay} · {site.city}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <a
-                href={SITE.whatsappUrl}
+                href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener nofollow"
                 className="inline-flex h-12 items-center px-7"
-                style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
+                style={{
+                  background: "var(--green-600)",
+                  color: "var(--paper)",
+                  borderRadius: 999,
+                  fontWeight: 700,
+                  fontSize: 15,
+                }}
               >
                 וואטסאפ
               </a>
               <a
-                href={SITE.telUrl}
+                href={site.telUrl}
                 className="inline-flex h-12 items-center px-6"
                 style={{
                   background: "transparent",
@@ -442,7 +645,7 @@ function ServicePage() {
                   fontSize: 15,
                 }}
               >
-                {SITE.phoneDisplay}
+                {site.phoneDisplay}
               </a>
             </div>
           </div>

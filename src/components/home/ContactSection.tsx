@@ -1,5 +1,5 @@
 ﻿import { useState } from "react";
-import { SITE } from "@/lib/site-config";
+import { useSite, waHref } from "@/lib/use-site";
 
 type Audience = "patient" | "pedicurist";
 
@@ -8,6 +8,7 @@ type Audience = "patient" | "pedicurist";
  * אין שמירת נתונים בשרת, ולכן אין כאן מסלול דליפה של פרטים אישיים.
  */
 export function ContactSection() {
+  const site = useSite();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ export function ContactSection() {
     .filter(Boolean)
     .join("\n");
 
-  const waHref = `${SITE.whatsappUrl}?text=${encodeURIComponent(message)}`;
+  const waLink = waHref(site, message);
 
   const fieldStyle = {
     border: "1.5px solid var(--green-200)",
@@ -58,12 +59,12 @@ export function ContactSection() {
             מוכנים לחזור ללכת בלי כאב?
           </h2>
           <p className="mb-8 mt-4 text-[17px] leading-relaxed text-white/80 md:text-[18.5px]">
-            השאירו פרטים ואחזור אליכם עוד היום — או שפשוט תתקשרו. מטופלים לקביעת אבחון,
-            פדיקוריסטיות לשיחת התאמה על ההכשרה.
+            השאירו פרטים ואחזור אליכם עוד היום — או שפשוט תתקשרו. מטופלים לקביעת אבחון, פדיקוריסטיות
+            לשיחת התאמה על ההכשרה.
           </p>
           <div className="grid gap-3.5">
             <a
-              href={SITE.telUrl}
+              href={site.telUrl}
               className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.08] px-5 py-4 text-white transition-colors hover:bg-white/15"
             >
               <span
@@ -71,12 +72,12 @@ export function ContactSection() {
                 className="text-[20px]"
                 style={{ fontFamily: "var(--font-display)", fontWeight: 800 }}
               >
-                {SITE.phoneDisplay}
+                {site.phoneDisplay}
               </span>
               <span className="text-[15px] text-white/65">· מעדיפים לדבר בטלפון?</span>
             </a>
             <a
-              href={SITE.whatsappUrl}
+              href={waLink}
               target="_blank"
               rel="noopener nofollow"
               className="flex flex-wrap items-center gap-3 rounded-2xl px-5 py-4 text-white transition-colors"
@@ -93,7 +94,7 @@ export function ContactSection() {
               <span className="text-[15px] text-white/85">· מענה מהיר</span>
             </a>
             <p className="m-0 text-[15px] text-white/60">
-              הקליניקה: {SITE.city}, {SITE.region} · {SITE.hoursDisplay}
+              הקליניקה: {site.city}, {site.region} · {site.hoursDisplay}
             </p>
           </div>
         </div>
@@ -106,7 +107,9 @@ export function ContactSection() {
             השאירו פרטים ואחזור אליכם
           </h3>
           <div className="grid gap-3.5">
-            <label className="sr-only" htmlFor="contact-name">שם מלא</label>
+            <label className="sr-only" htmlFor="contact-name">
+              שם מלא
+            </label>
             <input
               id="contact-name"
               type="text"
@@ -118,7 +121,9 @@ export function ContactSection() {
               style={fieldStyle}
             />
             <div className="flex gap-2.5">
-              <label className="sr-only" htmlFor="contact-phone">טלפון</label>
+              <label className="sr-only" htmlFor="contact-phone">
+                טלפון
+              </label>
               <input
                 id="contact-phone"
                 type="tel"
@@ -129,7 +134,9 @@ export function ContactSection() {
                 className="min-w-0 flex-1"
                 style={fieldStyle}
               />
-              <label className="sr-only" htmlFor="contact-email">אימייל</label>
+              <label className="sr-only" htmlFor="contact-email">
+                אימייל
+              </label>
               <input
                 id="contact-email"
                 type="email"
@@ -169,7 +176,9 @@ export function ContactSection() {
                 </label>
               ))}
             </fieldset>
-            <label className="sr-only" htmlFor="contact-note">מה מטריד אותך</label>
+            <label className="sr-only" htmlFor="contact-note">
+              מה מטריד אותך
+            </label>
             <input
               id="contact-note"
               type="text"
@@ -181,7 +190,7 @@ export function ContactSection() {
               style={fieldStyle}
             />
             <a
-              href={waHref}
+              href={waLink}
               target="_blank"
               rel="noopener nofollow"
               className="btn-cta w-full py-4 text-[17px]"

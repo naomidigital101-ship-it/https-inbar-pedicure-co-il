@@ -253,7 +253,11 @@ function GalleryForm({
 
       <div
         className="mb-4 px-4 py-3"
-        style={{ background: "var(--cream-50)", borderRadius: 10, border: "1px solid var(--gold-ring)" }}
+        style={{
+          background: "var(--cream-50)",
+          borderRadius: 10,
+          border: "1px solid var(--gold-ring)",
+        }}
       >
         <Toggle
           label="קיבלתי מהמטופלת אישור לפרסם את התמונות"

@@ -10,10 +10,7 @@ import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import {
-  adminListSettings,
-  adminSaveSettings,
-} from "@/lib/admin-cms.functions";
+import { adminListSettings, adminSaveSettings } from "@/lib/admin-cms.functions";
 import type { SettingRow } from "@/lib/cms-types";
 import {
   Card,
@@ -78,8 +75,7 @@ export function SettingsForm({
     onError: (e) => toast.error(e instanceof Error ? e.message : "השמירה נכשלה"),
   });
 
-  const set = (key: string, value: string) =>
-    setDraft({ ...values, [key]: value });
+  const set = (key: string, value: string) => setDraft({ ...values, [key]: value });
 
   if (query.isLoading) {
     return <p style={{ color: "var(--ink-600)" }}>טוענת...</p>;
@@ -156,12 +152,7 @@ function SettingField({
 
   if (row.input_type === "image") {
     return (
-      <MediaPickerField
-        label={row.label}
-        hint={row.help_text}
-        value={value}
-        onChange={onChange}
-      />
+      <MediaPickerField label={row.label} hint={row.help_text} value={value} onChange={onChange} />
     );
   }
 

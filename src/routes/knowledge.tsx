@@ -5,6 +5,7 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { LeadMagnet } from "@/components/shared/LeadMagnet";
 import { BrandHeroBackdrop, BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
+import { useSite } from "@/lib/use-site";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
 import type { ArticleCard } from "@/lib/article-cards";
 
@@ -14,12 +15,16 @@ const DESCRIPTION =
   "מרכז הידע של ענבר פרחי: מאמרים ומדריכים על יבלות, פטרת, ציפורן חודרנית, סוכרת, סדקים בעקב, מניעה ותחזוקה — בשפה ברורה ומבוססת ניסיון קליני.";
 
 const CATEGORY_DESCRIPTIONS: Record<string, string> = {
-  "foot-care": "שגרת טיפוח יומית, גזירת ציפורניים נכונה, סדקים בעקב ועור יבש — מה עובד ומה רק נשמע טוב.",
-  conditions: "פטרת ציפורן, יבלות ויראליות, ציפורן חודרנית, דורבן וכאבי עקב — זיהוי מבדל ופרוטוקולי טיפול.",
+  "foot-care":
+    "שגרת טיפוח יומית, גזירת ציפורניים נכונה, סדקים בעקב ועור יבש — מה עובד ומה רק נשמע טוב.",
+  conditions:
+    "פטרת ציפורן, יבלות ויראליות, ציפורן חודרנית, דורבן וכאבי עקב — זיהוי מבדל ופרוטוקולי טיפול.",
   "diabetic-foot": "פדיקור בטוח לחולי סוכרת — סטריליות, בדיקה יומית וזיהוי סימני אזהרה בזמן.",
-  treatments: "אורטוניקסיה, שיקום ציפורן BIO, הסרת יבלות והביקור הראשון בקליניקה — מה באמת קורה בטיפול.",
+  treatments:
+    "אורטוניקסיה, שיקום ציפורן BIO, הסרת יבלות והביקור הראשון בקליניקה — מה באמת קורה בטיפול.",
   footwear: "איך לבחור נעליים, מתי צריך מדרסים, נעלי ריצה ונעליים לעבודה ממושכת — בלי שיווק.",
-  "sports-feet": "ספורטאים, רצים, חיילים ומילואימניקים — שלפוחיות, שין ספלינטס וטיפול בכף רגל בעומס.",
+  "sports-feet":
+    "ספורטאים, רצים, חיילים ומילואימניקים — שלפוחיות, שין ספלינטס וטיפול בכף רגל בעומס.",
 };
 
 export const Route = createFileRoute("/knowledge")({
@@ -66,6 +71,7 @@ export const Route = createFileRoute("/knowledge")({
 });
 
 function KnowledgeIndex() {
+  const site = useSite();
   const { articles } = Route.useLoaderData();
   return (
     <div style={{ background: "var(--paper)" }}>
@@ -76,7 +82,7 @@ function KnowledgeIndex() {
           <div className="relative mx-auto max-w-[1200px] px-6 pt-10 pb-16 md:pt-14 md:pb-24">
             <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "מרכז הידע" }]} />
             <div className="mt-8 max-w-3xl">
-              <BrandEyebrow>מרכז הידע · {SITE.brand}</BrandEyebrow>
+              <BrandEyebrow>מרכז הידע · {site.brand}</BrandEyebrow>
               <h1
                 className="mt-4 text-balance"
                 style={{
@@ -95,8 +101,9 @@ function KnowledgeIndex() {
                 className="mt-6 max-w-2xl"
                 style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.75 }}
               >
-                מאמרים, מדריכים ותשובות לשאלות הנפוצות שמטופלים שואלים אותי בקליניקה — מבוסס {SITE.yearsExperience} שנות
-                ניסיון, פרוטוקולים סטריליים ומקורות קליניים. בחרו קטגוריה כדי להתחיל.
+                מאמרים, מדריכים ותשובות לשאלות הנפוצות שמטופלים שואלים אותי בקליניקה — מבוסס{" "}
+                {site.yearsExperience} שנות ניסיון, פרוטוקולים סטריליים ומקורות קליניים. בחרו
+                קטגוריה כדי להתחיל.
               </p>
             </div>
           </div>
@@ -122,7 +129,11 @@ function KnowledgeIndex() {
 
           <div
             className="grid grid-cols-1 gap-px overflow-hidden sm:grid-cols-2 lg:grid-cols-3"
-            style={{ background: "var(--stone-100)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+            style={{
+              background: "var(--stone-100)",
+              border: "1px solid var(--stone-100)",
+              borderRadius: 20,
+            }}
           >
             {KNOWLEDGE_CATEGORIES_NAV.map((c, idx) => (
               <Link
@@ -169,7 +180,11 @@ function KnowledgeIndex() {
                 </p>
                 <span
                   className="mt-auto inline-flex items-center gap-2 pt-4 text-sm"
-                  style={{ color: "var(--green-700)", fontWeight: 500, borderTop: "1px solid var(--stone-100)" }}
+                  style={{
+                    color: "var(--green-700)",
+                    fontWeight: 500,
+                    borderTop: "1px solid var(--stone-100)",
+                  }}
                 >
                   כל המאמרים בקטגוריה
                 </span>
@@ -195,7 +210,7 @@ function KnowledgeIndex() {
                   color: "var(--ink-900)",
                 }}
               >
-                מאמרים אחרונים ב{SITE.brand}
+                מאמרים אחרונים ב{site.brand}
               </h2>
             </div>
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -208,7 +223,10 @@ function KnowledgeIndex() {
                     style={{ background: "var(--paper)", borderColor: "var(--stone-100)" }}
                     aria-label={a.title}
                   >
-                    <div className="aspect-[16/10] overflow-hidden" style={{ background: "var(--stone-50)" }}>
+                    <div
+                      className="aspect-[16/10] overflow-hidden"
+                      style={{ background: "var(--stone-50)" }}
+                    >
                       <img
                         src={a.heroImage}
                         alt={a.heroAlt}
@@ -232,7 +250,10 @@ function KnowledgeIndex() {
                       >
                         {a.title}
                       </h3>
-                      <p className="mt-3 text-sm" style={{ color: "var(--ink-600)", lineHeight: 1.7 }}>
+                      <p
+                        className="mt-3 text-sm"
+                        style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
+                      >
                         {a.excerpt}
                       </p>
                       <p className="mt-4 text-xs" style={{ color: "var(--ink-600)" }}>

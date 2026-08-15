@@ -3,13 +3,7 @@
  * עמוד ההתחברות נשאר בלי המעטפת, אחרת היה נוצר לולאת הפניה.
  */
 
-import {
-  createFileRoute,
-  Outlet,
-  useNavigate,
-  useRouterState,
-  Link,
-} from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate, useRouterState, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -66,9 +60,7 @@ function AdminLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isLogin = pathname.startsWith("/admin/login");
 
-  const [authState, setAuthState] = useState<"checking" | "ready" | "blocked">(
-    "checking",
-  );
+  const [authState, setAuthState] = useState<"checking" | "ready" | "blocked">("checking");
   const [menuOpen, setMenuOpen] = useState(false);
   const isAdminFn = useServerFn(checkIsAdmin);
 

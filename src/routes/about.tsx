@@ -3,12 +3,9 @@ import { Mail, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
-import {
-  BrandHeroBackdrop,
-  BrandEyebrow,
-  SerifNumber,
-} from "@/components/brand/BrandPrimitives";
+import { BrandHeroBackdrop, BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
+import { useSite } from "@/lib/use-site";
 import heroAsset from "@/assets/inbar-farchi.jpg.asset.json";
 
 const PAGE_URL = `${SITE.url}/about`;
@@ -28,8 +25,21 @@ const personSchema = {
     jobTitle: "פדיקוריסטית טיפולית",
     description: DESCRIPTION,
     image: HERO_ABS,
-    address: { "@type": "PostalAddress", addressLocality: SITE.city, addressRegion: SITE.region, addressCountry: "IL" },
-    knowsAbout: ["פדיקור טיפולי", "טיפול ביבלות", "פטרת כף הרגל", "ציפורן חודרנית", "אורטוניקסיה", "טיפול בחולי סוכרת", "שיטת BIO"],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: SITE.city,
+      addressRegion: SITE.region,
+      addressCountry: "IL",
+    },
+    knowsAbout: [
+      "פדיקור טיפולי",
+      "טיפול ביבלות",
+      "פטרת כף הרגל",
+      "ציפורן חודרנית",
+      "אורטוניקסיה",
+      "טיפול בחולי סוכרת",
+      "שיטת BIO",
+    ],
   },
 };
 
@@ -111,6 +121,7 @@ const credentials = [
 ];
 
 function AboutPage() {
+  const site = useSite();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
@@ -118,23 +129,21 @@ function AboutPage() {
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "אודות" }]} />
 
         <article className="bg-background">
-          <section
-            className="relative overflow-hidden"
-            style={{ background: "var(--paper)" }}
-          >
+          <section className="relative overflow-hidden" style={{ background: "var(--paper)" }}>
             <BrandHeroBackdrop label="ABOUT · 00" />
             <div className="relative mx-auto grid max-w-[1320px] gap-14 px-6 py-20 md:grid-cols-[1fr_1.1fr] md:items-center md:px-10 md:py-24">
               <div className="order-2 md:order-1">
                 <img
                   src={heroAsset.url}
-                  alt={`${SITE.brand} – פדיקוריסטית טיפולית בקליניקה`}
+                  alt={`${site.brand} – פדיקוריסטית טיפולית בקליניקה`}
                   width={720}
                   height={900}
                   className="relative aspect-[4/5] w-full object-cover"
                   style={{
                     borderRadius: 20,
                     border: "1px solid var(--stone-100)",
-                    boxShadow: "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)",
+                    boxShadow:
+                      "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)",
                   }}
                 />
               </div>
@@ -160,8 +169,14 @@ function AboutPage() {
             </div>
           </section>
 
-          <section style={{ background: "var(--stone-50)", borderTop: "1px solid var(--stone-100)" }} className="py-20">
-            <div className="mx-auto max-w-[760px] space-y-6 px-6" style={{ color: "var(--ink-900)", fontSize: "1.05rem", lineHeight: 1.85 }}>
+          <section
+            style={{ background: "var(--stone-50)", borderTop: "1px solid var(--stone-100)" }}
+            className="py-20"
+          >
+            <div
+              className="mx-auto max-w-[760px] space-y-6 px-6"
+              style={{ color: "var(--ink-900)", fontSize: "1.05rem", lineHeight: 1.85 }}
+            >
               {paragraphs.slice(1).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
@@ -169,7 +184,10 @@ function AboutPage() {
           </section>
 
           {/* The journey */}
-          <section className="py-20" style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}>
+          <section
+            className="py-20"
+            style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}
+          >
             <div className="mx-auto max-w-[1320px] px-6 md:px-10">
               <header className="mb-12 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
                 <SerifNumber>01</SerifNumber>
@@ -214,7 +232,12 @@ function AboutPage() {
                     </span>
                     <div
                       className="mt-4"
-                      style={{ color: "var(--green-700)", fontSize: 12, fontWeight: 700, letterSpacing: "0.12em" }}
+                      style={{
+                        color: "var(--green-700)",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        letterSpacing: "0.12em",
+                      }}
                     >
                       {j.age.toUpperCase()}
                     </div>
@@ -266,9 +289,9 @@ function AboutPage() {
                 className="mb-10 max-w-2xl"
                 style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.85 }}
               >
-                מעבר לקליניקה, אני קודם כל אמא לשלוש בנות מקסימות – אגם, אביגיל ואודיה. הן המורות הכי טובות שלי
-                לסבלנות, לקשב ולנוכחות אמיתית. מה שאני לומדת מהן בבית, אני מביאה גם לכיסא הטיפול:
-                להקשיב באמת, להסביר לאט, ולהיות שם עד שהכאב נגמר.
+                מעבר לקליניקה, אני קודם כל אמא לשלוש בנות מקסימות – אגם, אביגיל ואודיה. הן המורות
+                הכי טובות שלי לסבלנות, לקשב ולנוכחות אמיתית. מה שאני לומדת מהן בבית, אני מביאה גם
+                לכיסא הטיפול: להקשיב באמת, להסביר לאט, ולהיות שם עד שהכאב נגמר.
               </p>
               <ul className="grid gap-4 sm:grid-cols-3">
                 {daughters.map((d, i) => (
@@ -315,7 +338,10 @@ function AboutPage() {
             </div>
           </section>
 
-          <section className="py-20" style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}>
+          <section
+            className="py-20"
+            style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}
+          >
             <div className="mx-auto max-w-[1320px] px-6 md:px-10">
               <header className="mb-12 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
                 <SerifNumber>03</SerifNumber>
@@ -337,7 +363,11 @@ function AboutPage() {
               </header>
               <ul
                 className="grid gap-px overflow-hidden md:grid-cols-2"
-                style={{ background: "var(--stone-100)", borderRadius: 20, border: "1px solid var(--stone-100)" }}
+                style={{
+                  background: "var(--stone-100)",
+                  borderRadius: 20,
+                  border: "1px solid var(--stone-100)",
+                }}
               >
                 {credentials.map((c, i) => (
                   <li
@@ -356,7 +386,9 @@ function AboutPage() {
                     >
                       0{i + 1}
                     </span>
-                    <span style={{ color: "var(--ink-900)", fontSize: "0.98rem", lineHeight: 1.6 }}>{c}</span>
+                    <span style={{ color: "var(--ink-900)", fontSize: "0.98rem", lineHeight: 1.6 }}>
+                      {c}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -366,16 +398,23 @@ function AboutPage() {
                 style={{ borderTop: "1px solid var(--stone-100)" }}
               >
                 <a
-                  href={SITE.whatsappUrl}
+                  href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener nofollow"
                   className="inline-flex h-12 items-center gap-2.5 px-7"
-                  style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
+                  style={{
+                    background: "var(--green-600)",
+                    color: "var(--paper)",
+                    borderRadius: 999,
+                    fontWeight: 700,
+                    fontSize: 15,
+                  }}
                 >
-                  <Phone className="h-[16px] w-[16px]" strokeWidth={1.5} aria-hidden /> קביעת תור בוואטסאפ
+                  <Phone className="h-[16px] w-[16px]" strokeWidth={1.5} aria-hidden /> קביעת תור
+                  בוואטסאפ
                 </a>
                 <a
-                  href={`mailto:${SITE.email}`}
+                  href={`mailto:${site.email}`}
                   className="inline-flex h-12 items-center gap-2.5 px-6"
                   style={{
                     background: "transparent",

@@ -1,10 +1,13 @@
 import { MessageCircle, MapPin } from "lucide-react";
-import { SITE } from "@/lib/site-config";
+import { useSite, waHref } from "@/lib/use-site";
 
 /**
  * וואטסאפ קבוע: סרגל תחתון במובייל, ו-pill ירוק צף בפינה שמאל-תחתונה בדסקטופ.
  */
 export function StickyWhatsApp() {
+  const site = useSite();
+  const wa = waHref(site);
+
   return (
     <>
       {/* מובייל — סרגל תחתון */}
@@ -16,7 +19,7 @@ export function StickyWhatsApp() {
       >
         <div className="flex items-center gap-2">
           <a
-            href={SITE.whatsappUrl}
+            href={wa}
             target="_blank"
             rel="noopener nofollow"
             className="flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-bold text-white"
@@ -26,7 +29,7 @@ export function StickyWhatsApp() {
             וואטסאפ לקביעת טיפול
           </a>
           <a
-            href={SITE.wazeUrl}
+            href={site.wazeUrl}
             target="_blank"
             rel="noopener nofollow"
             aria-label="ניווט לקליניקה"
@@ -40,7 +43,7 @@ export function StickyWhatsApp() {
 
       {/* דסקטופ — pill צף */}
       <a
-        href={SITE.whatsappUrl}
+        href={wa}
         target="_blank"
         rel="noopener nofollow"
         className="fixed bottom-6 left-6 z-[100] hidden items-center gap-2 rounded-full px-6 py-3.5 text-[16.5px] font-bold text-white transition-colors md:inline-flex"

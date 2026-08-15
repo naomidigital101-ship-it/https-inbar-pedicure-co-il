@@ -11,7 +11,8 @@ import {
   HeartPulse,
   Award,
 } from "lucide-react";
-import { SITE, SERVICES_NAV } from "@/lib/site-config";
+import { SERVICES_NAV } from "@/lib/site-config";
+import { useSite, waHref } from "@/lib/use-site";
 import { BrandLogo } from "./BrandLogo";
 
 const navLinks = [
@@ -43,6 +44,7 @@ const SERVICE_DESCRIPTIONS: Record<string, string> = {
 };
 
 export function SiteHeader() {
+  const site = useSite();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -72,14 +74,14 @@ export function SiteHeader() {
         style={{ background: "var(--primary)", color: "var(--green-200)" }}
       >
         <span className="font-semibold">
-          הקליניקה ב{SITE.city} · {SITE.hoursDisplay} · הכשרות בכל הארץ
+          הקליניקה ב{site.city} · {site.hoursDisplay} · הכשרות בכל הארץ
         </span>
         <div className="flex items-center gap-4">
-          <a href={SITE.telUrl} className="font-bold text-white" dir="ltr">
-            {SITE.phoneDisplay}
+          <a href={site.telUrl} className="font-bold text-white" dir="ltr">
+            {site.phoneDisplay}
           </a>
           <a
-            href={SITE.whatsappUrl}
+            href={waHref(site)}
             target="_blank"
             rel="noopener nofollow"
             className="rounded-full px-3.5 py-1 font-bold text-white transition-colors"
@@ -95,15 +97,13 @@ export function SiteHeader() {
       <header
         style={{
           background: "var(--paper)",
-          boxShadow: scrolled
-            ? "0 2px 18px rgba(15,76,74,0.10)"
-            : "0 1px 0 var(--border)",
+          boxShadow: scrolled ? "0 2px 18px rgba(15,76,74,0.10)" : "0 1px 0 var(--border)",
           transition: "box-shadow 240ms ease",
         }}
       >
         <div className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-3">
           {/* שורה מקוצרת בהדר — השורה המלאה דורשת wordmark של ~65px כדי לשמור על הפרופורציה */}
-          <a href="/" className="transition-opacity hover:opacity-80" aria-label={SITE.brand}>
+          <a href="/" className="transition-opacity hover:opacity-80" aria-label={site.brand}>
             <BrandLogo tone="ink" wordSize={31} tagline="short" />
           </a>
 
@@ -139,7 +139,9 @@ export function SiteHeader() {
                         e.currentTarget.style.color = "var(--primary)";
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = active ? "var(--primary-soft)" : "transparent";
+                        e.currentTarget.style.background = active
+                          ? "var(--primary-soft)"
+                          : "transparent";
                         e.currentTarget.style.color = active ? "var(--primary)" : "var(--ink)";
                       }}
                     >
@@ -178,7 +180,10 @@ export function SiteHeader() {
                                 <span
                                   aria-hidden
                                   className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
-                                  style={{ background: "var(--primary-soft)", color: "var(--primary)" }}
+                                  style={{
+                                    background: "var(--primary-soft)",
+                                    color: "var(--primary)",
+                                  }}
                                 >
                                   <Icon className="h-5 w-5" strokeWidth={1.6} />
                                 </span>
@@ -212,7 +217,9 @@ export function SiteHeader() {
                     e.currentTarget.style.color = "var(--primary)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = active ? "var(--primary-soft)" : "transparent";
+                    e.currentTarget.style.background = active
+                      ? "var(--primary-soft)"
+                      : "transparent";
                     e.currentTarget.style.color = active ? "var(--primary)" : "var(--ink)";
                   }}
                 >
@@ -223,7 +230,7 @@ export function SiteHeader() {
           </nav>
 
           <a
-            href={`${SITE.whatsappUrl}?text=${encodeURIComponent("שלום ענבר, אשמח לתאם טיפול")}`}
+            href={waHref(site)}
             target="_blank"
             rel="noopener nofollow"
             className="hidden px-6 py-3 text-[16px] lg:inline-flex"
@@ -276,7 +283,11 @@ export function SiteHeader() {
             ))}
             <div
               className="px-6 py-3 text-[11px] font-bold uppercase"
-              style={{ background: "var(--primary-soft)", color: "var(--primary)", letterSpacing: "0.22em" }}
+              style={{
+                background: "var(--primary-soft)",
+                color: "var(--primary)",
+                letterSpacing: "0.22em",
+              }}
             >
               שירותים
             </div>

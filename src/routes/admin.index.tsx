@@ -46,12 +46,10 @@ function AdminDashboard() {
         <Card>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p style={{ fontWeight: 700, color: "var(--ink-900)" }}>
-                יש להשלים ייבוא תוכן
-              </p>
+              <p style={{ fontWeight: 700, color: "var(--ink-900)" }}>יש להשלים ייבוא תוכן</p>
               <p className="mt-1 text-[14px]" style={{ color: "var(--ink-600)" }}>
-                {missingBody.length} עמודי טיפול עדיין לא נטענו למערכת הניהול. העמודים
-                מוצגים באתר כרגיל, אבל אי אפשר לערוך אותם עד שמריצים ייבוא.
+                {missingBody.length} עמודי טיפול עדיין לא נטענו למערכת הניהול. העמודים מוצגים באתר
+                כרגיל, אבל אי אפשר לערוך אותם עד שמריצים ייבוא.
               </p>
             </div>
             <Link
@@ -87,12 +85,7 @@ function AdminDashboard() {
           value={publishedServices.length}
           note={`${allServices.length} בסך הכל`}
         />
-        <Stat
-          to="/admin/reviews"
-          icon={Star}
-          label="המלצות באתר"
-          value={publishedReviews.length}
-        />
+        <Stat to="/admin/reviews" icon={Star} label="המלצות באתר" value={publishedReviews.length} />
         <Stat
           to="/admin/gallery"
           icon={Images}
@@ -102,10 +95,7 @@ function AdminDashboard() {
       </div>
 
       {newLeads.length > 0 && (
-        <Card
-          title="פניות שממתינות לך"
-          actions={<Badge tone="warn">{newLeads.length}</Badge>}
-        >
+        <Card title="פניות שממתינות לך" actions={<Badge tone="warn">{newLeads.length}</Badge>}>
           <ul className="divide-y" style={{ borderColor: "var(--stone-100)" }}>
             {newLeads.slice(0, 5).map((l) => (
               <li key={l.id} className="flex flex-wrap items-center gap-3 py-3 first:pt-0">
@@ -139,22 +129,25 @@ function AdminDashboard() {
       )}
 
       <Card title="מה אפשר לעשות כאן">
-        <ul className="space-y-2.5 text-[14.5px] leading-relaxed" style={{ color: "var(--ink-600)" }}>
+        <ul
+          className="space-y-2.5 text-[14.5px] leading-relaxed"
+          style={{ color: "var(--ink-600)" }}
+        >
           <li>
-            <strong style={{ color: "var(--ink-900)" }}>טיפולים</strong> — לערוך כל עמוד
-            טיפול: פרקים, טבלאות, שאלות ותשובות, דגלים אדומים ומקורות.
+            <strong style={{ color: "var(--ink-900)" }}>טיפולים</strong> — לערוך כל עמוד טיפול:
+            פרקים, טבלאות, שאלות ותשובות, דגלים אדומים ומקורות.
           </li>
           <li>
-            <strong style={{ color: "var(--ink-900)" }}>פרטי העסק</strong> — טלפון,
-            וואטסאפ, שעות פעילות. שינוי אחד מתעדכן בכל האתר.
+            <strong style={{ color: "var(--ink-900)" }}>פרטי העסק</strong> — טלפון, וואטסאפ, שעות
+            פעילות. שינוי אחד מתעדכן בכל האתר.
           </li>
           <li>
-            <strong style={{ color: "var(--ink-900)" }}>הודעה זמנית</strong> — פס עליון
-            להודעה על חופשה או תורים שהתפנו. נמצא תחת פרטי העסק.
+            <strong style={{ color: "var(--ink-900)" }}>הודעה זמנית</strong> — פס עליון להודעה על
+            חופשה או תורים שהתפנו. נמצא תחת פרטי העסק.
           </li>
           <li>
-            <strong style={{ color: "var(--ink-900)" }}>המלצות ולפני/אחרי</strong> —
-            ההוכחה שהכי משכנעת מטופלות חדשות.
+            <strong style={{ color: "var(--ink-900)" }}>המלצות ולפני/אחרי</strong> — ההוכחה שהכי
+            משכנעת מטופלות חדשות.
           </li>
         </ul>
       </Card>
