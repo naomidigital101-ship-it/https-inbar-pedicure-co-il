@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
+import { useSite } from "@/lib/use-site";
 
 const PAGE_URL = `${SITE.url}/terms`;
 const TITLE = `תנאי שימוש ותקנון האתר | ${SITE.brand}`;
@@ -94,15 +95,13 @@ const sections: { title: string; body: string[] }[] = [
 ];
 
 function TermsPage() {
+  const site = useSite();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main id="main-content" className="flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "תנאי שימוש" }]} />
-        <article
-          className="relative overflow-hidden"
-          style={{ background: "var(--paper)" }}
-        >
+        <article className="relative overflow-hidden" style={{ background: "var(--paper)" }}>
           <BrandHeroBackdrop label="LEGAL · 00" showHalftone={false} />
           <div className="relative mx-auto max-w-[820px] px-6 py-14 md:px-10 md:py-20">
             <div className="mb-6 flex items-center gap-3">
@@ -125,7 +124,10 @@ function TermsPage() {
             <p className="mb-10" style={{ color: "var(--ink-600)", fontSize: 13 }}>
               עודכן לאחרונה: מאי 2026
             </p>
-            <div className="space-y-10" style={{ color: "var(--ink-900)", fontSize: "1rem", lineHeight: 1.85 }}>
+            <div
+              className="space-y-10"
+              style={{ color: "var(--ink-900)", fontSize: "1rem", lineHeight: 1.85 }}
+            >
               {sections.map((s) => (
                 <section key={s.title}>
                   <h2

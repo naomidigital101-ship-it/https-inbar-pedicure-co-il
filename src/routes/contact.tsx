@@ -5,6 +5,8 @@ import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
+import { useSite } from "@/lib/use-site";
+import { ContactForm } from "@/components/shared/ContactForm";
 
 const PAGE_URL = `${SITE.url}/contact`;
 const TITLE = `צרו קשר | ${SITE.brand} – פדיקור טיפולי ב${SITE.city}`;
@@ -48,6 +50,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const site = useSite();
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
@@ -78,28 +81,36 @@ function ContactPage() {
               נשמח לשמוע מכם
             </h1>
 
-            <p className="mb-12 max-w-2xl" style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}>
-              מלאו פרטים בוואטסאפ או התקשרו, ואחזור אליכם בהקדם לתיאום פגישת אבחון.
-              כל פנייה מטופלת באופן אישי, ללא שיפוטיות.
+            <p
+              className="mb-12 max-w-2xl"
+              style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}
+            >
+              מלאו פרטים בוואטסאפ או התקשרו, ואחזור אליכם בהקדם לתיאום פגישת אבחון. כל פנייה מטופלת
+              באופן אישי, ללא שיפוטיות.
             </p>
 
-            <div className="mb-12 max-w-3xl space-y-4" style={{ color: "var(--ink-900)", fontSize: "1rem", lineHeight: 1.85 }}>
+            <div
+              className="mb-12 max-w-3xl space-y-4"
+              style={{ color: "var(--ink-900)", fontSize: "1rem", lineHeight: 1.85 }}
+            >
               <p>
-                הקליניקה של {SITE.brand} ממוקמת ב{SITE.city} שב{SITE.region} ומשרתת את כל היישובים בסביבה –
-                בית אל, עפרה, פסגות, כוכב יעקב, גבעת אסף, רימונים, ירושלים וגוש בנימין כולו. לקליניקה הגעה נוחה
-                ברכב, חניה חופשית בסמוך, וגישה למבוגרים ולמטופלים עם ניידות מוגבלת. בכל פגישה אני מקדישה זמן
-                מלא לאבחון, להסבר ולטיפול – בלי תורים כפולים ובלי לחץ של זמן.
+                הקליניקה של {site.brand} ממוקמת ב{site.city} שב{site.region} ומשרתת את כל היישובים
+                בסביבה – בית אל, עפרה, פסגות, כוכב יעקב, גבעת אסף, רימונים, ירושלים וגוש בנימין
+                כולו. לקליניקה הגעה נוחה ברכב, חניה חופשית בסמוך, וגישה למבוגרים ולמטופלים עם ניידות
+                מוגבלת. בכל פגישה אני מקדישה זמן מלא לאבחון, להסבר ולטיפול – בלי תורים כפולים ובלי
+                לחץ של זמן.
               </p>
               <p>
-                מטפלת בילדים מגיל 6 ומעלה, בנשים בהריון (כולל טיפולים מותאמים בטוחים לעיבור), במבוגרים ובאנשי
-                גיל הזהב. מתמחה במצבים הדורשים תשומת לב מיוחדת: כף רגל סוכרתית, חולי כליות, נטילת מדללי דם,
-                לאחר ניתוחים אורתופדיים, מצבי סיכון לזיהום ועוד. כל הציוד עובר חיטוי ועיקור באוטוקלאב לפי
-                תקני משרד הבריאות, וחלק גדול מהפריטים הוא חד-פעמי.
+                מטפלת בילדים מגיל 6 ומעלה, בנשים בהריון (כולל טיפולים מותאמים בטוחים לעיבור),
+                במבוגרים ובאנשי גיל הזהב. מתמחה במצבים הדורשים תשומת לב מיוחדת: כף רגל סוכרתית, חולי
+                כליות, נטילת מדללי דם, לאחר ניתוחים אורתופדיים, מצבי סיכון לזיהום ועוד. כל הציוד
+                עובר חיטוי ועיקור באוטוקלאב לפי תקני משרד הבריאות, וחלק גדול מהפריטים הוא חד-פעמי.
               </p>
               <p>
-                לפני הפגישה הראשונה ארצה לדעת אם יש לכם רגישות לחומרים, אם אתם נוטלים תרופות קבועות, ואם יש
-                לכם מחלות רקע. אפשר לשלוח את המידע מראש בוואטסאפ – זה חוסך זמן בקליניקה ומאפשר לי להגיע
-                מוכנה. ביטול תור: אנא הודיעו לפחות 24 שעות מראש כדי שאוכל לפנות את המקום למטופל אחר שמחכה.
+                לפני הפגישה הראשונה ארצה לדעת אם יש לכם רגישות לחומרים, אם אתם נוטלים תרופות קבועות,
+                ואם יש לכם מחלות רקע. אפשר לשלוח את המידע מראש בוואטסאפ – זה חוסך זמן בקליניקה
+                ומאפשר לי להגיע מוכנה. ביטול תור: אנא הודיעו לפחות 24 שעות מראש כדי שאוכל לפנות את
+                המקום למטופל אחר שמחכה.
               </p>
             </div>
 
@@ -115,7 +126,8 @@ function ContactPage() {
                 <strong style={{ color: "var(--green-700)" }}>מילה אישית ממני –</strong> מעבר להיותי
                 פדיקוריסטית, אני אמא לשלוש בנות: אגם, אביגיל ואודיה. לכן אני מקפידה על שעות קבועות
                 בקליניקה, מתחייבת לזמן הטיפול שלכם בלי הפרעות, וזמינה בוואטסאפ למענה אישי גם בין
-                המטופלים. אם אני לא עונה ברגע זה – זה כי אני באמצע טיפול, ואחזור אליכם תוך שעות ספורות.
+                המטופלים. אם אני לא עונה ברגע זה – זה כי אני באמצע טיפול, ואחזור אליכם תוך שעות
+                ספורות.
               </p>
               <span
                 aria-hidden
@@ -125,12 +137,42 @@ function ContactPage() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-              <ContactCard href={SITE.whatsappUrl} external eyebrow="וואטסאפ" title={SITE.phoneDisplay} sub="הדרך המהירה ביותר לקבוע תור" icon={<MessageCircle className="h-6 w-6" strokeWidth={1.5} aria-hidden />} />
-              <ContactCard href={SITE.telUrl} eyebrow="טלפון" title={SITE.phoneDisplay} sub="חיוג ישיר" icon={<Phone className="h-6 w-6" strokeWidth={1.5} aria-hidden />} />
-              <ContactCard href={`mailto:${SITE.email}`} eyebrow="דוא״ל" title={SITE.email} sub="לפניות שאינן דחופות" icon={<Mail className="h-6 w-6" strokeWidth={1.5} aria-hidden />} />
-              <ContactCard eyebrow="מיקום" title={`${SITE.city}, ${SITE.region}`} sub="ניווט ב-Waze ←" subHref={SITE.wazeUrl} icon={<MapPin className="h-6 w-6" strokeWidth={1.5} aria-hidden />} />
+              <ContactCard
+                href={site.whatsappUrl}
+                external
+                eyebrow="וואטסאפ"
+                title={site.phoneDisplay}
+                sub="הדרך המהירה ביותר לקבוע תור"
+                icon={<MessageCircle className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
+              />
+              <ContactCard
+                href={site.telUrl}
+                eyebrow="טלפון"
+                title={site.phoneDisplay}
+                sub="חיוג ישיר"
+                icon={<Phone className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
+              />
+              <ContactCard
+                href={`mailto:${site.email}`}
+                eyebrow="דוא״ל"
+                title={site.email}
+                sub="לפניות שאינן דחופות"
+                icon={<Mail className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
+              />
+              <ContactCard
+                eyebrow="מיקום"
+                title={`${site.city}, ${site.region}`}
+                sub="ניווט ב-Waze ←"
+                subHref={site.wazeUrl}
+                icon={<MapPin className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
+              />
               <div className="md:col-span-2">
-                <ContactCard eyebrow="שעות פעילות" title={SITE.hoursDisplay} sub="בשישי-שבת לא זמינה" icon={<Clock className="h-6 w-6" strokeWidth={1.5} aria-hidden />} />
+                <ContactCard
+                  eyebrow="שעות פעילות"
+                  title={site.hoursDisplay}
+                  sub="בשישי-שבת לא זמינה"
+                  icon={<Clock className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
+                />
               </div>
             </div>
 
@@ -155,11 +197,15 @@ function ContactPage() {
               >
                 בואו נבדוק יחד
               </h2>
-              <p className="mx-auto mb-6 max-w-xl" style={{ color: "var(--ink-600)", lineHeight: 1.7 }}>
-                לא צריך לדעת מראש. הגיעו לפגישה, אבדוק את כף הרגל, אבצע אבחנה ואסביר מה הבעיה ואיך לטפל בה.
+              <p
+                className="mx-auto mb-6 max-w-xl"
+                style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
+              >
+                לא צריך לדעת מראש. הגיעו לפגישה, אבדוק את כף הרגל, אבצע אבחנה ואסביר מה הבעיה ואיך
+                לטפל בה.
               </p>
               <a
-                href={SITE.whatsappUrl}
+                href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener nofollow"
                 className="inline-flex h-12 items-center gap-2.5 px-7"
@@ -177,6 +223,12 @@ function ContactPage() {
             </div>
 
             <section className="mt-16 max-w-3xl">
+              <div
+                className="mb-14 p-7 md:p-9"
+                style={{ background: "var(--surface-soft)", borderRadius: 18 }}
+              >
+                <ContactForm note="אפשר גם להתקשר או לשלוח וואטסאפ — מה שנוח לך." />
+              </div>
               <h2
                 className="mb-6"
                 style={{
@@ -212,9 +264,19 @@ function ContactPage() {
                     a: "כן, ודאי. אני מתמחה בכף רגל סוכרתית לפי קנון אגודת אייל, כולל בדיקת מוניטרינג סיכון שנתית, טיפול במניעת פצעים, וייעוץ לבחירת נעליים מתאימות. חשוב להזכיר את אבחנת הסוכרת בעת קביעת התור.",
                   },
                 ].map((f, i) => (
-                  <div key={i} className="rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-5">
-                    <dt className="mb-2 text-base font-semibold" style={{ color: "var(--ink-900)" }}>{f.q}</dt>
-                    <dd className="text-sm" style={{ color: "var(--ink-900)", lineHeight: 1.85 }}>{f.a}</dd>
+                  <div
+                    key={i}
+                    className="rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-5"
+                  >
+                    <dt
+                      className="mb-2 text-base font-semibold"
+                      style={{ color: "var(--ink-900)" }}
+                    >
+                      {f.q}
+                    </dt>
+                    <dd className="text-sm" style={{ color: "var(--ink-900)", lineHeight: 1.85 }}>
+                      {f.a}
+                    </dd>
                   </div>
                 ))}
               </dl>

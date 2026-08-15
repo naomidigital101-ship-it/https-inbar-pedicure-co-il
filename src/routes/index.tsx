@@ -8,9 +8,12 @@ import { PartnersStrip } from "@/components/shared/PartnersStrip";
 import { PremiumHero } from "@/components/home/PremiumHero";
 import { TrustBand } from "@/components/home/TrustBand";
 import { ContactSection } from "@/components/home/ContactSection";
+import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE } from "@/lib/site-config";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
+import { listReviews, listServices, type ServiceCard } from "@/lib/cms.functions";
+import { useSite, waHref } from "@/lib/use-site";
 import type { ArticleCard } from "@/lib/article-cards";
 import inbarPhotoAsset from "@/assets/inbar-hero-editorial.webp.asset.json";
 import inbarPortraitAsset from "@/assets/inbar-farchi.jpg.asset.json";
@@ -32,12 +35,36 @@ const TINTS = [
 ] as const;
 
 const SERVICES = [
-  { slug: "corns", title: "יבלות וקאלוסים", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות." },
-  { slug: "ingrown-nails", title: "ציפורן חודרנית", desc: "אורתוניקסיה — תיקון מבני ללא ניתוח, ללא כאב." },
-  { slug: "fungus", title: "פטרת עור וציפורן", desc: "אבחנה, טיפול יסודי והדרכה ביתית עד החלמה מלאה." },
-  { slug: "diabetic-feet", title: "פדיקור לחולי סוכרת", desc: "טיפול בטוח לכף רגל סוכרתית: בלי חתכים, בלי השרייה, בלי סיכונים." },
-  { slug: "cracked-heels", title: "עור סדוק ועקבים", desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל." },
-  { slug: "onycholysis", title: "שיקום ציפורן BIO", desc: "שיקום ציפורן שהתנתקה ממיטת הציפורן — עד תוצאה מושלמת." },
+  {
+    slug: "corns",
+    title: "יבלות וקאלוסים",
+    desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.",
+  },
+  {
+    slug: "ingrown-nails",
+    title: "ציפורן חודרנית",
+    desc: "אורתוניקסיה — תיקון מבני ללא ניתוח, ללא כאב.",
+  },
+  {
+    slug: "fungus",
+    title: "פטרת עור וציפורן",
+    desc: "אבחנה, טיפול יסודי והדרכה ביתית עד החלמה מלאה.",
+  },
+  {
+    slug: "diabetic-feet",
+    title: "פדיקור לחולי סוכרת",
+    desc: "טיפול בטוח לכף רגל סוכרתית: בלי חתכים, בלי השרייה, בלי סיכונים.",
+  },
+  {
+    slug: "cracked-heels",
+    title: "עור סדוק ועקבים",
+    desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.",
+  },
+  {
+    slug: "onycholysis",
+    title: "שיקום ציפורן BIO",
+    desc: "שיקום ציפורן שהתנתקה ממיטת הציפורן — עד תוצאה מושלמת.",
+  },
 ] as const;
 
 const CHIPS = [
@@ -51,10 +78,26 @@ const CHIPS = [
 ] as const;
 
 const PROCESS = [
-  { num: "01", title: "בואו נכיר", desc: "שיחה קצרה בטלפון או בוואטסאפ — מה מטריד, ממתי, ומה כבר ניסית." },
-  { num: "02", title: "אבחון בקליניקה", desc: "בדיקה מעמיקה של כף הרגל, הנעליים ותבנית ההליכה — ואבחנה ברורה." },
-  { num: "03", title: "תוכנית טיפול", desc: "פרוטוקול טיפול אישי, מותאם למצב כף הרגל ולאורח החיים שלך." },
-  { num: "04", title: "טיפול קליני", desc: "סטריליות מלאה, כלים חד־פעמיים, בלי דם ובלי כאב מיותר." },
+  {
+    num: "01",
+    title: "בואו נכיר",
+    desc: "שיחה קצרה בטלפון או בוואטסאפ — מה מטריד, ממתי, ומה כבר ניסית.",
+  },
+  {
+    num: "02",
+    title: "אבחון בקליניקה",
+    desc: "בדיקה מעמיקה של כף הרגל, הנעליים ותבנית ההליכה — ואבחנה ברורה.",
+  },
+  {
+    num: "03",
+    title: "תוכנית טיפול",
+    desc: "פרוטוקול טיפול אישי, מותאם למצב כף הרגל ולאורח החיים שלך.",
+  },
+  {
+    num: "04",
+    title: "טיפול קליני",
+    desc: "סטריליות מלאה, כלים חד־פעמיים, בלי דם ובלי כאב מיותר.",
+  },
   { num: "05", title: "ליווי עד החלמה", desc: "הדרכה ביתית, מעקב בוואטסאפ ומפגשי המשך לפי הצורך." },
 ] as const;
 
@@ -95,10 +138,34 @@ const CREDENTIALS = [
 ] as const;
 
 const BEFORE_AFTER = [
-  { title: "ציפורן חודרנית", desc: "אורתוניקסיה ושיקום מבנה הציפורן ללא ניתוח, ללא כאב.", slug: "ingrown-nails", img: baIngrown.url, alt: "תמונת לפני ואחרי טיפול בציפורן חודרנית בכף הרגל" },
-  { title: "יבלה עמוקה", desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.", slug: "corns", img: baWarts.url, alt: "תמונת לפני ואחרי טיפול ביבלות בכף הרגל" },
-  { title: "עור סדוק בעקב", desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.", slug: "cracked-heels", img: baCracked.url, alt: "תמונת לפני ואחרי טיפול בעור סדוק בעקב" },
-  { title: "שיקום ציפורן BIO", desc: "מילוי וטיפוח ציפורן שהתנתקה ממיטת הציפורן.", slug: "onycholysis", img: baOnycho.url, alt: "תמונת לפני ואחרי שיקום ציפורן מנותקת אונכילוזיס" },
+  {
+    title: "ציפורן חודרנית",
+    desc: "אורתוניקסיה ושיקום מבנה הציפורן ללא ניתוח, ללא כאב.",
+    slug: "ingrown-nails",
+    img: baIngrown.url,
+    alt: "תמונת לפני ואחרי טיפול בציפורן חודרנית בכף הרגל",
+  },
+  {
+    title: "יבלה עמוקה",
+    desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.",
+    slug: "corns",
+    img: baWarts.url,
+    alt: "תמונת לפני ואחרי טיפול ביבלות בכף הרגל",
+  },
+  {
+    title: "עור סדוק בעקב",
+    desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.",
+    slug: "cracked-heels",
+    img: baCracked.url,
+    alt: "תמונת לפני ואחרי טיפול בעור סדוק בעקב",
+  },
+  {
+    title: "שיקום ציפורן BIO",
+    desc: "מילוי וטיפוח ציפורן שהתנתקה ממיטת הציפורן.",
+    slug: "onycholysis",
+    img: baOnycho.url,
+    alt: "תמונת לפני ואחרי שיקום ציפורן מנותקת אונכילוזיס",
+  },
 ] as const;
 
 const RED_FLAGS = [
@@ -113,37 +180,80 @@ const RED_FLAGS = [
 ] as const;
 
 const FAQS = [
-  { q: "האם הטיפול מתאים גם לגברים?", a: "בהחלט. הטיפולים מתאימים לגברים ולנשים כאחד. גברים רבים סובלים מעור קשה, פטרת, סדקים ויבלות ויכולים ליהנות מטיפול מקצועי, סטרילי ולא פולשני שמחזיר את הנוחות וההקלה באופן מיידי." },
-  { q: "איך אדע אם אני זקוק/ה לפדיקור טיפולי?", a: "אם את או אתה מרגישים כאב בהליכה, סובלים מעור קשה, ציפורניים עבות או מתפוררות, סדקים בכפות הרגליים, או פטרת שחוזרת, זה סימן שהגיע הזמן לפדיקוריסטית טיפולית. ככל שמטפלים מוקדם יותר, ניתן למנוע סיבוכים." },
-  { q: "איך אוכל לדעת שהטיפול נעשה בסטריליות מלאה?", a: "בקליניקה כל כלי עובר חיטוי ועיקור מלא במכשור ייעודי (אוטוקלאב), וכל טיפול מתבצע בתנאים נקיים לחלוטין. הסטריליות היא חלק בלתי נפרד מהטיפול הקליני ומהבטיחות שלך." },
-  { q: "האם זה בטוח לחולי סוכרת?", a: "בהחלט. אני מתמחה בטיפול בכף הרגל של חולי סוכרת לפי פרוטוקולים קליניים מאושרים, עם חומרים עדינים, סטריליות מלאה וציוד חד־פעמי. המטרה: טיפול בטוח, מדויק ורגוע, עם תשומת לב לכל פרט." },
-  { q: "אני מתביישת מהיבלות שלי, לא בא לי להגיע", a: "אין שום סיבה להתבייש. אני רואה מדי יום מקרים מורכבים וזה בדיוק התחום שבו אני מתמחה. היבלות נובעות מעומס, חיכוך או טיפול לא נכון בעבר. הטיפול נעשה באווירה רגועה, בלי שיפוט, עם הקשבה ופתרון אמיתי שיחזיר לך הליכה קלה כבר מהפגישה הראשונה." },
-  { q: "אני פדיקוריסטית מתחילה — ההכשרה מתאימה לי?", a: "כן. מסלול היסודות בנוי בדיוק בשבילך: אנטומיה, אבחון, סטריליות ועבודה בטוחה. ותיקות ממשיכות להתמחויות מתקדמות ולליווי אישי בקליניקה." },
-  { q: "איפה מתקיימות ההכשרות?", a: "במיקומים משתנים בכל הארץ — ענבר מגיעה אלייך לקליניקה לליווי אישי, או מרכזת קבוצה אזורית לסדנאות מעשיות." },
-  { q: "כמה זמן לוקח לראות תוצאות?", a: "במקרים רבים כבר אחרי טיפול אחד מרגישים הקלה משמעותית. בטיפולים שיקומיים (פטרת, שיקום ציפורן) נדרש תהליך של מספר מפגשים, ואני מלווה אותך באופן צמוד עד שהתוצאה מושלמת." },
+  {
+    q: "האם הטיפול מתאים גם לגברים?",
+    a: "בהחלט. הטיפולים מתאימים לגברים ולנשים כאחד. גברים רבים סובלים מעור קשה, פטרת, סדקים ויבלות ויכולים ליהנות מטיפול מקצועי, סטרילי ולא פולשני שמחזיר את הנוחות וההקלה באופן מיידי.",
+  },
+  {
+    q: "איך אדע אם אני זקוק/ה לפדיקור טיפולי?",
+    a: "אם את או אתה מרגישים כאב בהליכה, סובלים מעור קשה, ציפורניים עבות או מתפוררות, סדקים בכפות הרגליים, או פטרת שחוזרת, זה סימן שהגיע הזמן לפדיקוריסטית טיפולית. ככל שמטפלים מוקדם יותר, ניתן למנוע סיבוכים.",
+  },
+  {
+    q: "איך אוכל לדעת שהטיפול נעשה בסטריליות מלאה?",
+    a: "בקליניקה כל כלי עובר חיטוי ועיקור מלא במכשור ייעודי (אוטוקלאב), וכל טיפול מתבצע בתנאים נקיים לחלוטין. הסטריליות היא חלק בלתי נפרד מהטיפול הקליני ומהבטיחות שלך.",
+  },
+  {
+    q: "האם זה בטוח לחולי סוכרת?",
+    a: "בהחלט. אני מתמחה בטיפול בכף הרגל של חולי סוכרת לפי פרוטוקולים קליניים מאושרים, עם חומרים עדינים, סטריליות מלאה וציוד חד־פעמי. המטרה: טיפול בטוח, מדויק ורגוע, עם תשומת לב לכל פרט.",
+  },
+  {
+    q: "אני מתביישת מהיבלות שלי, לא בא לי להגיע",
+    a: "אין שום סיבה להתבייש. אני רואה מדי יום מקרים מורכבים וזה בדיוק התחום שבו אני מתמחה. היבלות נובעות מעומס, חיכוך או טיפול לא נכון בעבר. הטיפול נעשה באווירה רגועה, בלי שיפוט, עם הקשבה ופתרון אמיתי שיחזיר לך הליכה קלה כבר מהפגישה הראשונה.",
+  },
+  {
+    q: "אני פדיקוריסטית מתחילה — ההכשרה מתאימה לי?",
+    a: "כן. מסלול היסודות בנוי בדיוק בשבילך: אנטומיה, אבחון, סטריליות ועבודה בטוחה. ותיקות ממשיכות להתמחויות מתקדמות ולליווי אישי בקליניקה.",
+  },
+  {
+    q: "איפה מתקיימות ההכשרות?",
+    a: "במיקומים משתנים בכל הארץ — ענבר מגיעה אלייך לקליניקה לליווי אישי, או מרכזת קבוצה אזורית לסדנאות מעשיות.",
+  },
+  {
+    q: "כמה זמן לוקח לראות תוצאות?",
+    a: "במקרים רבים כבר אחרי טיפול אחד מרגישים הקלה משמעותית. בטיפולים שיקומיים (פטרת, שיקום ציפורן) נדרש תהליך של מספר מפגשים, ואני מלווה אותך באופן צמוד עד שהתוצאה מושלמת.",
+  },
 ] as const;
 
-const wa = (text: string) => `${SITE.whatsappUrl}?text=${encodeURIComponent(text)}`;
+// נשמר כמעטפת דקה כדי שכל קריאות ה-wa() בעמוד ימשיכו לעבוד כרגיל
 
 export const Route = createFileRoute("/")({
   loader: async () => {
     // סקשן המדריכים הוא תוספת — כשל בשליפה לא אמור להפיל את כל דף הבית.
-    try {
-      const articles = await listPublishedAiArticleCards();
-      return { latestArticles: articles.slice(0, 6) };
-    } catch {
-      return { latestArticles: [] as ArticleCard[] };
-    }
+    const articles = await listPublishedAiArticleCards().catch(() => [] as ArticleCard[]);
+    // כרטיסי "תחומי הליבה" וההמלצות מגיעים ממערכת הניהול.
+    const [services, reviews] = await Promise.all([
+      listServices().catch(() => ({ services: [] as ServiceCard[] })),
+      listReviews().catch(() => ({ reviews: [], average: null, count: 0 })),
+    ]);
+    return {
+      latestArticles: articles.slice(0, 6),
+      flagships: services.services.filter((x) => x.isFlagship).slice(0, 3),
+      reviews: reviews.reviews.slice(0, 6),
+      rating: { average: reviews.average, count: reviews.count },
+    };
   },
-  head: () => ({
+  head: ({ loaderData }) => ({
     meta: [
       { title: `${SITE.brand} | פדיקור טיפולי בבית אל · הכשרות לפדיקוריסטיות` },
-      { name: "description", content: `${SITE.brand} — פדיקוריסטית טיפולית ומרצה לבריאות כף הרגל. קליניקה בבית אל לטיפול ביבלות, פטרת, ציפורן חודרנית וכף רגל סוכרתית, והכשרות מקצועיות לפדיקוריסטיות בכל הארץ.` },
-      { name: "keywords", content: "פדיקור טיפולי בית אל, פדיקור טיפולי אזור בנימין, פדיקור ירושלים, הכשרת פדיקוריסטיות, יבלות, פטרת בציפורן, ציפורן חודרנית, פדיקור לחולי סוכרת, ענבר פרחי" },
+      {
+        name: "description",
+        content: `${SITE.brand} — פדיקוריסטית טיפולית ומרצה לבריאות כף הרגל. קליניקה בבית אל לטיפול ביבלות, פטרת, ציפורן חודרנית וכף רגל סוכרתית, והכשרות מקצועיות לפדיקוריסטיות בכל הארץ.`,
+      },
+      {
+        name: "keywords",
+        content:
+          "פדיקור טיפולי בית אל, פדיקור טיפולי אזור בנימין, פדיקור ירושלים, הכשרת פדיקוריסטיות, יבלות, פטרת בציפורן, ציפורן חודרנית, פדיקור לחולי סוכרת, ענבר פרחי",
+      },
       { name: "geo.region", content: "IL" },
       { name: "geo.placename", content: "בית אל, אזור בנימין" },
-      { property: "og:title", content: `${SITE.brand} | פדיקור טיפולי בבית אל · הכשרות לפדיקוריסטיות` },
-      { property: "og:description", content: `קליניקה טיפולית לכף הרגל בבית אל, והכשרות לפדיקוריסטיות בכל הארץ. טיפול ביבלות, פטרת, ציפורן חודרנית וסוכרת.` },
+      {
+        property: "og:title",
+        content: `${SITE.brand} | פדיקור טיפולי בבית אל · הכשרות לפדיקוריסטיות`,
+      },
+      {
+        property: "og:description",
+        content: `קליניקה טיפולית לכף הרגל בבית אל, והכשרות לפדיקוריסטיות בכל הארץ. טיפול ביבלות, פטרת, ציפורן חודרנית וסוכרת.`,
+      },
       { property: "og:locale", content: "he_IL" },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE.url + "/" },
@@ -210,7 +320,15 @@ export const Route = createFileRoute("/")({
           image: SITE.url + inbarPhoto,
           url: SITE.url,
           worksFor: { "@type": "LocalBusiness", name: SITE.brand },
-          knowsAbout: ["פדיקור טיפולי", "טיפול ביבלות", "פטרת ציפורן", "ציפורן חודרנית", "אורטוניקסיה", "שיקום ציפורן BIO", "כף הרגל הסוכרתית"],
+          knowsAbout: [
+            "פדיקור טיפולי",
+            "טיפול ביבלות",
+            "פטרת ציפורן",
+            "ציפורן חודרנית",
+            "אורטוניקסיה",
+            "שיקום ציפורן BIO",
+            "כף הרגל הסוכרתית",
+          ],
           areaServed: "בית אל, אזור בנימין, ירושלים",
           description:
             "פדיקוריסטית טיפולית עם 12+ שנות ניסיון קליני, מרצה ארצית להכשרת פדיקוריסטיות, מתמחה בכף הרגל הסוכרתית, אורטוניקסיה ושיקום ציפורן BIO.",
@@ -273,10 +391,7 @@ function SectionHead({
 }) {
   return (
     <div className={align === "center" ? "mb-11 text-center" : "mb-11"}>
-      <h2
-        className="m-0 text-ink"
-        style={{ fontSize: "clamp(1.75rem, 3.6vw, 2.375rem)" }}
-      >
+      <h2 className="m-0 text-ink" style={{ fontSize: "clamp(1.75rem, 3.6vw, 2.375rem)" }}>
         {title}
       </h2>
       {sub ? (
@@ -292,7 +407,9 @@ function SectionHead({
 }
 
 function Home() {
-  const { latestArticles } = Route.useLoaderData();
+  const { latestArticles, reviews, rating } = Route.useLoaderData();
+  const site = useSite();
+  const wa = (text: string) => waHref(site, text);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -303,7 +420,10 @@ function Home() {
         <TrustBand />
 
         {/* בועות מצבים — אבחון מהיר */}
-        <section className="bg-background px-6 pb-8 pt-14 md:pt-16" aria-labelledby="concerns-heading">
+        <section
+          className="bg-background px-6 pb-8 pt-14 md:pt-16"
+          aria-labelledby="concerns-heading"
+        >
           <div className="mx-auto max-w-[1100px]">
             <h2
               id="concerns-heading"
@@ -349,7 +469,10 @@ function Home() {
         </section>
 
         {/* שני קהלים */}
-        <section className="mx-auto max-w-[1200px] px-6 py-14 md:py-20" aria-labelledby="audiences-heading">
+        <section
+          className="mx-auto max-w-[1200px] px-6 py-14 md:py-20"
+          aria-labelledby="audiences-heading"
+        >
           <SectionHead
             title={<span id="audiences-heading">במה אפשר לעזור לך?</span>}
             sub="קליניקה למטופלים, הכשרות מקצועיות לפדיקוריסטיות — סטנדרט אחד לשניהם"
@@ -406,7 +529,9 @@ function Home() {
                   >
                     {card.badge}
                   </span>
-                  <h3 className="mb-2 mt-3.5 text-[23px] text-white md:text-[27px]">{card.title}</h3>
+                  <h3 className="mb-2 mt-3.5 text-[23px] text-white md:text-[27px]">
+                    {card.title}
+                  </h3>
                   <p className="mb-3.5 text-[16px] leading-relaxed text-white/85 md:text-[16.5px]">
                     {card.desc}
                   </p>
@@ -423,7 +548,11 @@ function Home() {
         </section>
 
         {/* טיפולים */}
-        <section id="clinic" className="mx-auto max-w-[1200px] px-6 py-14 md:py-[70px]" aria-labelledby="clinic-heading">
+        <section
+          id="clinic"
+          className="mx-auto max-w-[1200px] px-6 py-14 md:py-[70px]"
+          aria-labelledby="clinic-heading"
+        >
           <SectionHead
             title={<span id="clinic-heading">הטיפולים בקליניקה</span>}
             sub="כל טיפול מבוסס פרוטוקול קליני מתועד, סטריליות מלאה וכלים חד־פעמיים. אבחון מדויק, טיפול עדין, בלי כאב מיותר."
@@ -446,10 +575,16 @@ function Home() {
                     className="mb-[18px] flex h-[52px] w-[52px] items-center justify-center rounded-2xl"
                     style={{ background: tint.bg }}
                   >
-                    <span className="block h-[18px] w-[18px] rounded-full" style={{ background: tint.dot }} />
+                    <span
+                      className="block h-[18px] w-[18px] rounded-full"
+                      style={{ background: tint.dot }}
+                    />
                   </span>
                   <h3 className="m-0 mb-2 text-[20px] text-ink md:text-[21px]">{svc.title}</h3>
-                  <p className="m-0 mb-3.5 text-[15.5px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  <p
+                    className="m-0 mb-3.5 text-[15.5px] leading-relaxed"
+                    style={{ color: "var(--text-muted)" }}
+                  >
                     {svc.desc}
                   </p>
                   <span
@@ -457,7 +592,10 @@ function Home() {
                     style={{ color: "var(--accent-ink)" }}
                   >
                     לפרטים ולפרוטוקול
-                    <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden />
+                    <ArrowLeft
+                      className="h-4 w-4 transition-transform group-hover:-translate-x-1"
+                      aria-hidden
+                    />
                   </span>
                 </Link>
               );
@@ -538,7 +676,11 @@ function Home() {
                     <span
                       aria-hidden
                       className="min-w-9 text-[22px]"
-                      style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: "var(--gold-bright)" }}
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 800,
+                        color: "var(--gold-bright)",
+                      }}
                     >
                       {t.num}
                     </span>
@@ -585,7 +727,11 @@ function Home() {
               >
                 <p
                   className="m-0 text-[22px] md:text-[24px]"
-                  style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: "var(--primary)" }}
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    color: "var(--primary)",
+                  }}
                 >
                   20+ בוגרות
                 </p>
@@ -598,7 +744,11 @@ function Home() {
         </section>
 
         {/* תהליך */}
-        <section id="process" className="mx-auto max-w-[1200px] px-6 py-16 md:py-[90px]" aria-labelledby="process-heading">
+        <section
+          id="process"
+          className="mx-auto max-w-[1200px] px-6 py-16 md:py-[90px]"
+          aria-labelledby="process-heading"
+        >
           <SectionHead
             title={<span id="process-heading">איך נראה טיפול אצל ענבר?</span>}
             sub="מהשיחה הראשונה ועד הליכה בלי כאב — צעד אחר צעד"
@@ -629,7 +779,10 @@ function Home() {
                   {step.num}
                 </span>
                 <h3 className="m-0 mb-2 text-[19px] text-ink">{step.title}</h3>
-                <p className="m-0 text-[15px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                <p
+                  className="m-0 text-[15px] leading-relaxed"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   {step.desc}
                 </p>
               </div>
@@ -648,7 +801,11 @@ function Home() {
         </section>
 
         {/* למה ענבר */}
-        <section className="px-6 py-16 md:py-[84px]" style={{ background: "var(--primary)" }} aria-labelledby="why-heading">
+        <section
+          className="px-6 py-16 md:py-[84px]"
+          style={{ background: "var(--primary)" }}
+          aria-labelledby="why-heading"
+        >
           <div className="mx-auto max-w-[1200px]">
             <h2
               id="why-heading"
@@ -683,7 +840,10 @@ function Home() {
         </section>
 
         {/* לפני ואחרי */}
-        <section className="mx-auto max-w-[1200px] px-6 py-16 md:py-20" aria-labelledby="ba-heading">
+        <section
+          className="mx-auto max-w-[1200px] px-6 py-16 md:py-20"
+          aria-labelledby="ba-heading"
+        >
           <SectionHead
             title={<span id="ba-heading">לפני ואחרי — תיעוד אמיתי</span>}
             sub="מקרים אמיתיים מהקליניקה: מציפורן חודרנית כרונית, דרך פטרת עיקשת ויבלות עמוקות, ועד שיקום ציפורן בשיטת BIO."
@@ -699,7 +859,10 @@ function Home() {
                 onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-lift)")}
                 onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "var(--shadow-soft)")}
               >
-                <div className="relative aspect-[3/2] overflow-hidden" style={{ background: "var(--surface-soft)" }}>
+                <div
+                  className="relative aspect-[3/2] overflow-hidden"
+                  style={{ background: "var(--surface-soft)" }}
+                >
                   <img
                     src={c.img}
                     alt={c.alt}
@@ -710,7 +873,10 @@ function Home() {
                 <div className="p-5">
                   <p className="kicker m-0 mb-2">מקרה {String(i + 1).padStart(2, "0")}</p>
                   <h3 className="m-0 text-[18px] text-ink">{c.title}</h3>
-                  <p className="m-0 mt-2 text-[14.5px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  <p
+                    className="m-0 mt-2 text-[14.5px] leading-relaxed"
+                    style={{ color: "var(--text-muted)" }}
+                  >
                     {c.desc}
                   </p>
                   <span
@@ -718,7 +884,10 @@ function Home() {
                     style={{ color: "var(--accent-ink)" }}
                   >
                     לפרטים
-                    <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" aria-hidden />
+                    <ArrowLeft
+                      className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1"
+                      aria-hidden
+                    />
                   </span>
                 </div>
               </Link>
@@ -730,7 +899,11 @@ function Home() {
         </section>
 
         {/* אודות */}
-        <section id="about" className="mx-auto max-w-[1200px] px-6 pb-16 pt-6 md:pb-[90px]" aria-labelledby="about-heading">
+        <section
+          id="about"
+          className="mx-auto max-w-[1200px] px-6 pb-16 pt-6 md:pb-[90px]"
+          aria-labelledby="about-heading"
+        >
           <div className="grid items-center gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
             <div className="relative">
               <img
@@ -758,14 +931,20 @@ function Home() {
                 className="mb-4 mt-4 text-ink"
                 style={{ fontSize: "clamp(1.75rem, 3.6vw, 2.375rem)" }}
               >
-                אני {SITE.brand}
+                אני {site.brand}
               </h2>
-              <p className="mb-3.5 text-[17px] leading-[1.75] md:text-[18px]" style={{ color: "var(--ink-soft)" }}>
+              <p
+                className="mb-3.5 text-[17px] leading-[1.75] md:text-[18px]"
+                style={{ color: "var(--ink-soft)" }}
+              >
                 במשך יותר מ-12 שנה אני מטפלת בכף הרגל בגישה הקלינית הקפדנית ביותר — ובשנים האחרונות
                 גם מלמדת אותה. הקליניקה שלי אינה מכון יופי: כל החלטה מתבססת על ראיות, פרוטוקולים
                 בינלאומיים והבנה עמוקה של הפיזיולוגיה של כף הרגל.
               </p>
-              <p className="mb-7 text-[17px] leading-[1.75] md:text-[18px]" style={{ color: "var(--ink-soft)" }}>
+              <p
+                className="mb-7 text-[17px] leading-[1.75] md:text-[18px]"
+                style={{ color: "var(--ink-soft)" }}
+              >
                 אני מתמחה במקרים שאחרים מהססים לקבל — כף רגל סוכרתית, ציפורן חודרנית כרונית, פטרת
                 עיקשת — ומכשירה פדיקוריסטיות לעבוד באותו סטנדרט בדיוק. מטופלים מגיעים אליי מבית אל,
                 עפרה, פסגות, כוכב יעקב וירושלים.
@@ -786,45 +965,76 @@ function Home() {
                 className="mt-7 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-[15px] font-bold text-ink transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]"
               >
                 הסיפור המלא
-                <ArrowLeft className="h-4 w-4" style={{ color: "var(--accent-gold)" }} aria-hidden />
+                <ArrowLeft
+                  className="h-4 w-4"
+                  style={{ color: "var(--accent-gold)" }}
+                  aria-hidden
+                />
               </a>
             </div>
           </div>
         </section>
 
         {/* דגלים אדומים */}
-        <section className="px-6 py-16 md:py-20" style={{ background: "var(--surface-warm)" }} aria-labelledby="flags-heading">
+        <section
+          className="px-6 py-16 md:py-20"
+          style={{ background: "var(--surface-warm)" }}
+          aria-labelledby="flags-heading"
+        >
           <div className="mx-auto grid max-w-[1100px] items-start gap-10 md:grid-cols-[1fr_1.4fr]">
             <div>
               <p className="kicker m-0 mb-3">חשוב לדעת</p>
-              <h2 id="flags-heading" className="m-0 text-ink" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.125rem)" }}>
+              <h2
+                id="flags-heading"
+                className="m-0 text-ink"
+                style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.125rem)" }}
+              >
                 מתי נכון לפנות לרופא לפני טיפול
               </h2>
-              <p className="mt-4 text-[16px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+              <p
+                className="mt-4 text-[16px] leading-relaxed"
+                style={{ color: "var(--text-muted)" }}
+              >
                 פדיקור טיפולי הוא כלי חזק, אבל יש סימנים שמחייבים בדיקה קלינית מקדימה. אם את/ה מזהה
                 אחד מאלה, אשמח להפנות לרופא המתאים לפני שנמשיך.
               </p>
             </div>
-            <div className="rounded-3xl border bg-surface p-6 md:p-8" style={{ borderColor: "color-mix(in oklab, var(--destructive) 25%, transparent)" }}>
+            <div
+              className="rounded-3xl border bg-surface p-6 md:p-8"
+              style={{ borderColor: "color-mix(in oklab, var(--destructive) 25%, transparent)" }}
+            >
               <div className="mb-4 flex items-center gap-3">
                 <span
                   aria-hidden
                   className="flex h-10 w-10 items-center justify-center rounded-full"
-                  style={{ background: "color-mix(in oklab, var(--destructive) 10%, transparent)", color: "var(--destructive)" }}
+                  style={{
+                    background: "color-mix(in oklab, var(--destructive) 10%, transparent)",
+                    color: "var(--destructive)",
+                  }}
                 >
                   <AlertTriangle className="h-5 w-5" strokeWidth={1.8} />
                 </span>
                 <h3 className="m-0 text-[19px] text-ink">דגלים אדומים</h3>
               </div>
-              <ul className="m-0 grid list-none gap-3 p-0 text-[15px] leading-relaxed sm:grid-cols-2" style={{ color: "var(--ink-soft)" }}>
+              <ul
+                className="m-0 grid list-none gap-3 p-0 text-[15px] leading-relaxed sm:grid-cols-2"
+                style={{ color: "var(--ink-soft)" }}
+              >
                 {RED_FLAGS.map((flag) => (
                   <li key={flag} className="flex items-start gap-2.5">
-                    <span aria-hidden className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ background: "var(--destructive)" }} />
+                    <span
+                      aria-hidden
+                      className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                      style={{ background: "var(--destructive)" }}
+                    />
                     <span>{flag}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-5 border-t border-border pt-4 text-[13px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+              <p
+                className="mt-5 border-t border-border pt-4 text-[13px] leading-relaxed"
+                style={{ color: "var(--text-muted)" }}
+              >
                 בכל ספק, אשמח לבחון, להגיד מה אני רואה ולהפנות אם צריך. אין דבר כזה "שאלה מיותרת".
               </p>
             </div>
@@ -833,11 +1043,20 @@ function Home() {
 
         {/* מדריכים */}
         {latestArticles.length > 0 ? (
-          <section id="knowledge" className="px-6 py-16 md:py-20" style={{ background: "var(--stone-50)" }} aria-labelledby="knowledge-heading">
+          <section
+            id="knowledge"
+            className="px-6 py-16 md:py-20"
+            style={{ background: "var(--stone-50)" }}
+            aria-labelledby="knowledge-heading"
+          >
             <div className="mx-auto max-w-[1200px]">
               <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <h2 id="knowledge-heading" className="m-0 mb-2.5 text-ink" style={{ fontSize: "clamp(1.75rem, 3.6vw, 2.25rem)" }}>
+                  <h2
+                    id="knowledge-heading"
+                    className="m-0 mb-2.5 text-ink"
+                    style={{ fontSize: "clamp(1.75rem, 3.6vw, 2.25rem)" }}
+                  >
                     מדריכים לבריאות כף הרגל
                   </h2>
                   <p className="m-0 text-[17px]" style={{ color: "var(--text-muted)" }}>
@@ -871,8 +1090,13 @@ function Home() {
                     >
                       {a.category}
                     </span>
-                    <h3 className="mb-2 mt-3.5 text-[18px] leading-snug text-ink md:text-[19px]">{a.title}</h3>
-                    <p className="m-0 mb-3 text-[15px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                    <h3 className="mb-2 mt-3.5 text-[18px] leading-snug text-ink md:text-[19px]">
+                      {a.title}
+                    </h3>
+                    <p
+                      className="m-0 mb-3 text-[15px] leading-relaxed"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       {a.excerpt}
                     </p>
                     <span
@@ -880,7 +1104,10 @@ function Home() {
                       style={{ color: "var(--accent-ink)" }}
                     >
                       לקריאה
-                      <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" aria-hidden />
+                      <ArrowLeft
+                        className="h-4 w-4 transition-transform group-hover:-translate-x-1"
+                        aria-hidden
+                      />
                     </span>
                   </Link>
                 ))}
@@ -890,7 +1117,10 @@ function Home() {
         ) : null}
 
         {/* שאלות נפוצות */}
-        <section className="mx-auto max-w-[840px] px-6 py-16 md:py-20" aria-labelledby="faq-heading">
+        <section
+          className="mx-auto max-w-[840px] px-6 py-16 md:py-20"
+          aria-labelledby="faq-heading"
+        >
           <SectionHead
             title={<span id="faq-heading">לשאלות שמתביישים לשאול</span>}
             sub="תשובות כנות, בלי שיפוט"
@@ -915,13 +1145,18 @@ function Home() {
                     +
                   </span>
                 </summary>
-                <p className="mb-0 mt-3.5 text-[16px] leading-[1.7]" style={{ color: "var(--text-muted)" }}>
+                <p
+                  className="mb-0 mt-3.5 text-[16px] leading-[1.7]"
+                  style={{ color: "var(--text-muted)" }}
+                >
                   {f.a}
                 </p>
               </details>
             ))}
           </div>
         </section>
+
+        <ReviewsSection reviews={reviews} average={rating.average} count={rating.count} />
 
         <ContactSection />
 

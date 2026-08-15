@@ -129,7 +129,12 @@ function AdminInstagram() {
   };
 
   const startFromIdea = (idea: Idea) => {
-    const pt: PostType = idea.post_type === "before-after" ? "before-after" : idea.post_type === "product" ? "product" : "tip";
+    const pt: PostType =
+      idea.post_type === "before-after"
+        ? "before-after"
+        : idea.post_type === "product"
+          ? "product"
+          : "tip";
     setCompose({ ...blankCompose, idea, post_type: pt });
     setTab("compose");
   };
@@ -265,31 +270,23 @@ function AdminInstagram() {
   const igConfigured = statusQ.data?.configured ?? false;
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7]" dir="rtl">
-      <header className="border-b border-[#b8dcd4] bg-[#e9f4f1]">
-        <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-4 py-4 md:px-8">
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#5fa898]">
-              [ SYS // INSTAGRAM ]
-            </span>
-            <h1 className="text-lg font-black text-[#1d3a35]">מנוע תוכן אינסטגרם</h1>
-          </div>
-          <button
-            onClick={() => navigate({ to: "/admin" })}
-            className="border border-[#b8dcd4] px-4 py-2 text-xs font-black uppercase tracking-wider text-[#5a4f48] transition-colors hover:border-[#5fa898] hover:text-[#5fa898]"
-          >
-            ← חזרה לאדמין
-          </button>
-        </div>
-      </header>
+    // הכותרת והניווט מגיעים ממעטפת האדמין (routes/admin.tsx)
+    <div dir="rtl">
+      <h1
+        className="mb-6 text-[26px]"
+        style={{ fontFamily: "var(--font-display)", fontWeight: 800, color: "var(--ink-900)" }}
+      >
+        מנוע תוכן אינסטגרם
+      </h1>
 
-      <main className="mx-auto max-w-[1400px] px-4 py-6 md:px-8">
+      <div>
         {!igConfigured && (
           <div className="mb-6 border border-[#5fa898] bg-[#e9f4f1] p-4">
             <p className="text-sm font-black text-[#1d3a35]">חיבור אינסטגרם לא מוגדר</p>
             <p className="mt-1 text-xs text-[#5a4f48]">
-              ניתן ליצור, לערוך ולשמור פוסטים. כדי לפרסם ישירות לאינסטגרם, יש להוסיף שני סודות בהגדרות הפרויקט →
-              Secrets: <strong>INSTAGRAM_ACCESS_TOKEN</strong> ו-<strong>IG_BUSINESS_ACCOUNT_ID</strong>.
+              ניתן ליצור, לערוך ולשמור פוסטים. כדי לפרסם ישירות לאינסטגרם, יש להוסיף שני סודות
+              בהגדרות הפרויקט → Secrets: <strong>INSTAGRAM_ACCESS_TOKEN</strong> ו-
+              <strong>IG_BUSINESS_ACCOUNT_ID</strong>.
             </p>
           </div>
         )}
@@ -351,7 +348,7 @@ function AdminInstagram() {
             igConfigured={igConfigured}
           />
         )}
-      </main>
+      </div>
     </div>
   );
 }
@@ -396,7 +393,9 @@ function IdeasTab({
       </div>
 
       {ideas.length === 0 ? (
-        <p className="text-sm text-[#6b5f55]">לחצי על "ייצרי רעיונות" כדי להתחיל. התוצאות יופיעו ככרטיסים.</p>
+        <p className="text-sm text-[#6b5f55]">
+          לחצי על "ייצרי רעיונות" כדי להתחיל. התוצאות יופיעו ככרטיסים.
+        </p>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {ideas.map((i, idx) => (
@@ -431,14 +430,16 @@ function IdeasTab({
 
 function labelForType(t: string): string {
   return (
-    {
-      tip: "טיפ",
-      product: "מוצר",
-      "before-after": "לפני/אחרי",
-      myth: "מיתוס",
-      story: "סיפור",
-    } as Record<string, string>
-  )[t] ?? t;
+    (
+      {
+        tip: "טיפ",
+        product: "מוצר",
+        "before-after": "לפני/אחרי",
+        myth: "מיתוס",
+        story: "סיפור",
+      } as Record<string, string>
+    )[t] ?? t
+  );
 }
 
 /* ---------- Compose Tab ---------- */
@@ -486,7 +487,9 @@ function ComposeTab({
 
         {compose.idea && (
           <div className="border border-[#b8dcd4] bg-[#e9f4f1] p-4">
-            <p className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">בסיס הרעיון</p>
+            <p className="text-[10px] font-black uppercase tracking-wider text-[#5fa898]">
+              בסיס הרעיון
+            </p>
             <p className="mt-1 text-sm font-black text-[#1d3a35]">{compose.idea.hook}</p>
             <p className="mt-1 text-xs text-[#5a4f48]">{compose.idea.angle}</p>
           </div>
@@ -495,7 +498,9 @@ function ComposeTab({
         {/* Caption editor */}
         <div className="border border-[#b8dcd4] bg-white p-4">
           <div className="mb-2 flex items-center justify-between">
-            <label className="text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">כיתוב</label>
+            <label className="text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
+              כיתוב
+            </label>
             <button
               onClick={onGenCaption}
               disabled={busy === "caption"}
@@ -525,7 +530,9 @@ function ComposeTab({
 
         {/* Image */}
         <div className="border border-[#b8dcd4] bg-white p-4">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">תמונה</p>
+          <p className="mb-3 text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
+            תמונה
+          </p>
           {compose.post_type === "before-after" ? (
             <div className="grid grid-cols-2 gap-3">
               <UploadSlot
@@ -541,7 +548,8 @@ function ComposeTab({
                 onPick={(f) => onUpload(f, "after")}
               />
               <p className="col-span-2 text-[11px] text-[#6b5f55]">
-                לפוסטים לפני/אחרי: יש להעלות תמונות אמיתיות. תמונת "אחרי" תפורסם כתמונה הראשית; תמונת "לפני" נשמרת לצורך הצגה משולבת בפוסטים מרובי-תמונות בעתיד.
+                לפוסטים לפני/אחרי: יש להעלות תמונות אמיתיות. תמונת "אחרי" תפורסם כתמונה הראשית;
+                תמונת "לפני" נשמרת לצורך הצגה משולבת בפוסטים מרובי-תמונות בעתיד.
               </p>
             </div>
           ) : (
@@ -554,11 +562,18 @@ function ComposeTab({
                 >
                   {busy === "image" ? "מייצרת תמונה..." : "✨ ייצרי תמונה"}
                 </button>
-                <UploadInline busy={busy === "upload-single"} onPick={(f) => onUpload(f, "single")} />
+                <UploadInline
+                  busy={busy === "upload-single"}
+                  onPick={(f) => onUpload(f, "single")}
+                />
               </div>
               {compose.image_url && (
                 <div className="aspect-square w-full max-w-md overflow-hidden border border-[#b8dcd4] bg-[#fdfbf7]">
-                  <img src={compose.image_url} alt="תצוגה מקדימה" className="h-full w-full object-cover" />
+                  <img
+                    src={compose.image_url}
+                    alt="תצוגה מקדימה"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               )}
             </div>
@@ -586,7 +601,9 @@ function ComposeTab({
 
       {/* IG-style preview */}
       <div className="lg:sticky lg:top-6 lg:self-start">
-        <p className="mb-2 text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">תצוגה מקדימה</p>
+        <p className="mb-2 text-[10px] font-black uppercase tracking-wider text-[#5a4f48]">
+          תצוגה מקדימה
+        </p>
         <InstagramPreview compose={compose} />
       </div>
     </div>
@@ -691,7 +708,9 @@ function ManageTab({
   busy: string | null;
   igConfigured: boolean;
 }) {
-  const [filter, setFilter] = useState<"all" | "draft" | "scheduled" | "published" | "failed">("all");
+  const [filter, setFilter] = useState<"all" | "draft" | "scheduled" | "published" | "failed">(
+    "all",
+  );
   const filtered = useMemo(
     () => (filter === "all" ? posts : posts.filter((p) => p.status === filter)),
     [posts, filter],
@@ -705,7 +724,9 @@ function ManageTab({
             key={s}
             onClick={() => setFilter(s)}
             className={`px-4 py-2 text-xs font-black uppercase tracking-wider transition-colors ${
-              filter === s ? "bg-[#5fa898] text-[#fdfbf7]" : "border border-[#b8dcd4] text-[#5a4f48]"
+              filter === s
+                ? "bg-[#5fa898] text-[#fdfbf7]"
+                : "border border-[#b8dcd4] text-[#5a4f48]"
             }`}
           >
             {statusLabel(s)}
@@ -735,7 +756,9 @@ function ManageTab({
                 >
                   {statusLabel(p.status)}
                 </span>
-                <p className="line-clamp-3 flex-1 text-xs text-[#1d3a35]">{p.caption || "(ללא כיתוב)"}</p>
+                <p className="line-clamp-3 flex-1 text-xs text-[#1d3a35]">
+                  {p.caption || "(ללא כיתוב)"}
+                </p>
                 {p.publish_error && (
                   <p className="mt-2 text-[10px] text-red-600">שגיאה: {p.publish_error}</p>
                 )}
@@ -774,25 +797,29 @@ function ManageTab({
 
 function statusLabel(s: string): string {
   return (
-    {
-      all: "הכל",
-      draft: "טיוטות",
-      scheduled: "מתוזמנים",
-      published: "פורסמו",
-      failed: "נכשלו",
-    } as Record<string, string>
-  )[s] ?? s;
+    (
+      {
+        all: "הכל",
+        draft: "טיוטות",
+        scheduled: "מתוזמנים",
+        published: "פורסמו",
+        failed: "נכשלו",
+      } as Record<string, string>
+    )[s] ?? s
+  );
 }
 
 function badgeClass(s: string): string {
   return (
-    {
-      draft: "bg-[#e9f4f1] text-[#5a4f48]",
-      scheduled: "bg-[#fff3cd] text-[#856404]",
-      published: "bg-[#5fa898] text-[#fdfbf7]",
-      failed: "bg-red-100 text-red-700",
-    } as Record<string, string>
-  )[s] ?? "bg-gray-100 text-gray-700";
+    (
+      {
+        draft: "bg-[#e9f4f1] text-[#5a4f48]",
+        scheduled: "bg-[#fff3cd] text-[#856404]",
+        published: "bg-[#5fa898] text-[#fdfbf7]",
+        failed: "bg-red-100 text-red-700",
+      } as Record<string, string>
+    )[s] ?? "bg-gray-100 text-gray-700"
+  );
 }
 
 /* ---------- helpers ---------- */

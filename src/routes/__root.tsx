@@ -12,7 +12,11 @@ import appCss from "../styles.css?url";
 import { AccessibilityMenu } from "@/components/shared/AccessibilityMenu";
 import { CookieConsent } from "@/components/shared/CookieConsent";
 import { StickyWhatsApp } from "@/components/shared/StickyWhatsApp";
+import { SiteBanner } from "@/components/shared/SiteBanner";
 import { SITE } from "@/lib/site-config";
+import { getSiteValues, listReviews } from "@/lib/cms.functions";
+import { SITE_DEFAULTS } from "@/lib/site-values";
+import { SiteProvider } from "@/lib/use-site";
 
 function NotFoundComponent() {
   return (
@@ -72,88 +76,121 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: SITE.brand },
-      { name: "google-site-verification", content: "qrCeqz9Z18M-JRIpuVm-5R53R53QUDUpuGPFt0h3mq8" },
-      { property: "og:type", content: "website" },
-      { property: "og:site_name", content: SITE.brand },
-      { property: "og:locale", content: "he_IL" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { title: `${SITE.brand} | ${SITE.tagline}` },
-      { property: "og:title", content: `${SITE.brand} | ${SITE.tagline}` },
-      { name: "twitter:title", content: `${SITE.brand} | ${SITE.tagline}` },
-      { name: "description", content: SITE.shortDescription },
-      { property: "og:description", content: SITE.shortDescription },
-      { name: "twitter:description", content: SITE.shortDescription },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "icon", href: "/favicon.ico", sizes: "any" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16.png" },
-      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
-      {
-        rel: "alternate",
-        type: "application/rss+xml",
-        title: `${SITE.brand} — מאמרים חדשים (RSS)`,
-        href: "/rss.xml",
-      },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": ["LocalBusiness", "HealthAndBeautyBusiness"],
-          "@id": SITE.url + "/#business",
-          name: SITE.brand,
-          url: SITE.url,
-          description: SITE.shortDescription,
-          telephone: SITE.phoneIntl,
-          email: SITE.email,
-          priceRange: "₪₪",
-          image: SITE.url + "/apple-touch-icon.png",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: SITE.city,
-            addressRegion: SITE.region,
-            addressCountry: "IL",
-          },
-          areaServed: [
-            { "@type": "City", name: SITE.city },
-            { "@type": "AdministrativeArea", name: SITE.region },
-            { "@type": "City", name: "ירושלים" },
-            { "@type": "City", name: "רמאללה" },
-          ],
-          openingHoursSpecification: SITE.hoursOpeningSpec,
-          knowsAbout: [
-            "פדיקור טיפולי",
-            "טיפול ביבלות",
-            "טיפול בפטרת",
-            "ציפורן חודרנית",
-            "סדקים בעקב",
-            "פדיקור לחולי סוכרת",
-            "אורטוניקסיה",
-            "שיקום ציפורן BIO",
-          ],
-          founder: {
-            "@type": "Person",
-            name: SITE.brand,
-            jobTitle: "פדיקוריסטית טיפולית",
-            description: "פדיקוריסטית טיפולית עם מעל 12 שנות ניסיון, מרצה לפדיקוריסטיות, מתמחה בטיפול בכף הרגל של חולי סוכרת.",
-          },
-        }),
-      },
-    ],
-  }),
+  // ערכי האתר נטענים פעם אחת כאן ומשמשים גם את תגיות ה-head וגם את כל
+  // הקומפוננטות דרך SiteProvider — מקור אמת אחד לכל האתר.
+  loader: async () => {
+    const [site, reviews] = await Promise.all([
+      getSiteValues(),
+      listReviews().catch(() => ({ reviews: [], average: null, count: 0 })),
+    ]);
+    return { site, rating: { average: reviews.average, count: reviews.count } };
+  },
+  head: ({ loaderData }) => {
+    const site = loaderData?.site ?? SITE_DEFAULTS;
+    const rating = loaderData?.rating;
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "author", content: site.brand },
+        {
+          name: "google-site-verification",
+          content: "qrCeqz9Z18M-JRIpuVm-5R53R53QUDUpuGPFt0h3mq8",
+        },
+        { property: "og:type", content: "website" },
+        { property: "og:site_name", content: site.brand },
+        { property: "og:locale", content: "he_IL" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { title: `${site.brand} | ${site.tagline}` },
+        { property: "og:title", content: `${site.brand} | ${site.tagline}` },
+        { name: "twitter:title", content: `${site.brand} | ${site.tagline}` },
+        { name: "description", content: site.shortDescription },
+        { property: "og:description", content: site.shortDescription },
+        { name: "twitter:description", content: site.shortDescription },
+        ...(site.defaultOgImage
+          ? [
+              { property: "og:image", content: site.defaultOgImage },
+              { name: "twitter:image", content: site.defaultOgImage },
+            ]
+          : []),
+      ],
+      links: [
+        {
+          rel: "stylesheet",
+          href: appCss,
+        },
+        { rel: "icon", href: "/favicon.ico", sizes: "any" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+        { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16.png" },
+        { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+        {
+          rel: "alternate",
+          type: "application/rss+xml",
+          title: `${site.brand} — מאמרים חדשים (RSS)`,
+          href: "/rss.xml",
+        },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": ["LocalBusiness", "HealthAndBeautyBusiness"],
+            "@id": site.url + "/#business",
+            name: site.brand,
+            url: site.url,
+            description: site.shortDescription,
+            telephone: site.phoneIntl,
+            email: site.email,
+            priceRange: "₪₪",
+            image: site.defaultOgImage || site.url + "/apple-touch-icon.png",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: site.city,
+              addressRegion: site.region,
+              addressCountry: "IL",
+            },
+            areaServed: [
+              { "@type": "City", name: site.city },
+              { "@type": "AdministrativeArea", name: site.region },
+              { "@type": "City", name: "ירושלים" },
+              { "@type": "City", name: "רמאללה" },
+            ],
+            openingHoursSpecification: SITE.hoursOpeningSpec,
+            knowsAbout: [
+              "פדיקור טיפולי",
+              "טיפול ביבלות",
+              "טיפול בפטרת",
+              "ציפורן חודרנית",
+              "סדקים בעקב",
+              "פדיקור לחולי סוכרת",
+              "אורטוניקסיה",
+              "שיקום ציפורן BIO",
+            ],
+            ...(rating?.average && rating.count
+              ? {
+                  aggregateRating: {
+                    "@type": "AggregateRating",
+                    ratingValue: rating.average,
+                    reviewCount: rating.count,
+                    bestRating: 5,
+                    worstRating: 1,
+                  },
+                }
+              : {}),
+            founder: {
+              "@type": "Person",
+              name: site.brand,
+              jobTitle: "פדיקוריסטית טיפולית",
+              description: `פדיקוריסטית טיפולית עם מעל ${site.yearsExperience} שנות ניסיון, מרצה לפדיקוריסטיות, מתמחה בטיפול בכף הרגל של חולי סוכרת.`,
+            },
+          }),
+        },
+      ],
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -176,16 +213,20 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const data = Route.useLoaderData();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <a href="#main-content" className="skip-link">
-        דלג לתוכן הראשי
-      </a>
-      <Outlet />
-      <AccessibilityMenu />
-      <CookieConsent />
-      <StickyWhatsApp />
+      <SiteProvider value={data?.site ?? SITE_DEFAULTS}>
+        <a href="#main-content" className="skip-link">
+          דלג לתוכן הראשי
+        </a>
+        <SiteBanner />
+        <Outlet />
+        <AccessibilityMenu />
+        <CookieConsent />
+        <StickyWhatsApp />
+      </SiteProvider>
     </QueryClientProvider>
   );
 }

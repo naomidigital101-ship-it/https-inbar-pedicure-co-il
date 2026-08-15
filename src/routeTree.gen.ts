@@ -17,6 +17,7 @@ import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -27,10 +28,20 @@ import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as BrandingLogoSketchesRouteImport } from './routes/branding.logo-sketches'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
+import { Route as AdminToolsRouteImport } from './routes/admin.tools'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
+import { Route as AdminMediaRouteImport } from './routes/admin.media'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 import { Route as AdminInstagramRouteImport } from './routes/admin.instagram'
+import { Route as AdminHomepageRouteImport } from './routes/admin.homepage'
+import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as AdminContentRouteImport } from './routes/admin.content'
+import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
+import { Route as AdminBusinessRouteImport } from './routes/admin.business'
+import { Route as AdminServicesIndexRouteImport } from './routes/admin.services.index'
 import { Route as ApiPublicIndexnowRouteImport } from './routes/api/public/indexnow'
+import { Route as AdminServicesSlugRouteImport } from './routes/admin.services.$slug'
 import { Route as AdminPreviewSlugRouteImport } from './routes/admin.preview.$slug'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicHooksAutopilotDailyRouteImport } from './routes/api/public/hooks/autopilot-daily'
@@ -75,6 +86,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
   id: '/accessibility',
   path: '/accessibility',
@@ -101,9 +117,9 @@ const BrandingIndexRoute = BrandingIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/services/$slug',
@@ -125,30 +141,80 @@ const ArticleSlugRoute = ArticleSlugRouteImport.update({
   path: '/article/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminToolsRoute = AdminToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMediaRoute = AdminMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
-  id: '/admin/login',
-  path: '/admin/login',
-  getParentRoute: () => rootRouteImport,
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminInstagramRoute = AdminInstagramRouteImport.update({
-  id: '/admin/instagram',
-  path: '/admin/instagram',
-  getParentRoute: () => rootRouteImport,
+  id: '/instagram',
+  path: '/instagram',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHomepageRoute = AdminHomepageRouteImport.update({
+  id: '/homepage',
+  path: '/homepage',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminGalleryRoute = AdminGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminContentRoute = AdminContentRouteImport.update({
-  id: '/admin/content',
-  path: '/admin/content',
-  getParentRoute: () => rootRouteImport,
+  id: '/content',
+  path: '/content',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBusinessRoute = AdminBusinessRouteImport.update({
+  id: '/business',
+  path: '/business',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServicesIndexRoute = AdminServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const ApiPublicIndexnowRoute = ApiPublicIndexnowRouteImport.update({
   id: '/api/public/indexnow',
   path: '/api/public/indexnow',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminServicesSlugRoute = AdminServicesSlugRouteImport.update({
+  id: '/services/$slug',
+  path: '/services/$slug',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPreviewSlugRoute = AdminPreviewSlugRouteImport.update({
-  id: '/admin/preview/$slug',
-  path: '/admin/preview/$slug',
-  getParentRoute: () => rootRouteImport,
+  id: '/preview/$slug',
+  path: '/preview/$slug',
+  getParentRoute: () => AdminRoute,
 } as any)
 const LovableEmailQueueProcessRoute =
   LovableEmailQueueProcessRouteImport.update({
@@ -167,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/privacy': typeof PrivacyRoute
@@ -175,9 +242,17 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
+  '/admin/business': typeof AdminBusinessRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/homepage': typeof AdminHomepageRoute
   '/admin/instagram': typeof AdminInstagramRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/tools': typeof AdminToolsRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -186,7 +261,9 @@ export interface FileRoutesByFullPath {
   '/branding/': typeof BrandingIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
+  '/admin/services/$slug': typeof AdminServicesSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
+  '/admin/services/': typeof AdminServicesIndexRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -202,9 +279,17 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
+  '/admin/business': typeof AdminBusinessRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/homepage': typeof AdminHomepageRoute
   '/admin/instagram': typeof AdminInstagramRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/tools': typeof AdminToolsRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -213,7 +298,9 @@ export interface FileRoutesByTo {
   '/branding': typeof BrandingIndexRoute
   '/services': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
+  '/admin/services/$slug': typeof AdminServicesSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
+  '/admin/services': typeof AdminServicesIndexRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -222,6 +309,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
+  '/admin': typeof AdminRouteWithChildren
   '/contact': typeof ContactRoute
   '/knowledge': typeof KnowledgeRoute
   '/privacy': typeof PrivacyRoute
@@ -230,9 +318,17 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
+  '/admin/business': typeof AdminBusinessRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/homepage': typeof AdminHomepageRoute
   '/admin/instagram': typeof AdminInstagramRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/media': typeof AdminMediaRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/tools': typeof AdminToolsRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/branding/logo-sketches': typeof BrandingLogoSketchesRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -241,7 +337,9 @@ export interface FileRoutesById {
   '/branding/': typeof BrandingIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/admin/preview/$slug': typeof AdminPreviewSlugRoute
+  '/admin/services/$slug': typeof AdminServicesSlugRoute
   '/api/public/indexnow': typeof ApiPublicIndexnowRoute
+  '/admin/services/': typeof AdminServicesIndexRoute
   '/api/public/hooks/autopilot-daily': typeof ApiPublicHooksAutopilotDailyRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -251,6 +349,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
+    | '/admin'
     | '/contact'
     | '/knowledge'
     | '/privacy'
@@ -259,9 +358,17 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/thank-you'
+    | '/admin/business'
+    | '/admin/categories'
     | '/admin/content'
+    | '/admin/gallery'
+    | '/admin/homepage'
     | '/admin/instagram'
+    | '/admin/leads'
     | '/admin/login'
+    | '/admin/media'
+    | '/admin/reviews'
+    | '/admin/tools'
     | '/article/$slug'
     | '/branding/logo-sketches'
     | '/category/$slug'
@@ -270,7 +377,9 @@ export interface FileRouteTypes {
     | '/branding/'
     | '/services/'
     | '/admin/preview/$slug'
+    | '/admin/services/$slug'
     | '/api/public/indexnow'
+    | '/admin/services/'
     | '/api/public/hooks/autopilot-daily'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
@@ -286,9 +395,17 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/thank-you'
+    | '/admin/business'
+    | '/admin/categories'
     | '/admin/content'
+    | '/admin/gallery'
+    | '/admin/homepage'
     | '/admin/instagram'
+    | '/admin/leads'
     | '/admin/login'
+    | '/admin/media'
+    | '/admin/reviews'
+    | '/admin/tools'
     | '/article/$slug'
     | '/branding/logo-sketches'
     | '/category/$slug'
@@ -297,7 +414,9 @@ export interface FileRouteTypes {
     | '/branding'
     | '/services'
     | '/admin/preview/$slug'
+    | '/admin/services/$slug'
     | '/api/public/indexnow'
+    | '/admin/services'
     | '/api/public/hooks/autopilot-daily'
     | '/lovable/email/queue/process'
   id:
@@ -305,6 +424,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
+    | '/admin'
     | '/contact'
     | '/knowledge'
     | '/privacy'
@@ -313,9 +433,17 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/thank-you'
+    | '/admin/business'
+    | '/admin/categories'
     | '/admin/content'
+    | '/admin/gallery'
+    | '/admin/homepage'
     | '/admin/instagram'
+    | '/admin/leads'
     | '/admin/login'
+    | '/admin/media'
+    | '/admin/reviews'
+    | '/admin/tools'
     | '/article/$slug'
     | '/branding/logo-sketches'
     | '/category/$slug'
@@ -324,7 +452,9 @@ export interface FileRouteTypes {
     | '/branding/'
     | '/services/'
     | '/admin/preview/$slug'
+    | '/admin/services/$slug'
     | '/api/public/indexnow'
+    | '/admin/services/'
     | '/api/public/hooks/autopilot-daily'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
@@ -333,6 +463,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ContactRoute: typeof ContactRoute
   KnowledgeRoute: typeof KnowledgeRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -341,17 +472,12 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
-  AdminContentRoute: typeof AdminContentRoute
-  AdminInstagramRoute: typeof AdminInstagramRoute
-  AdminLoginRoute: typeof AdminLoginRoute
   ArticleSlugRoute: typeof ArticleSlugRoute
   BrandingLogoSketchesRoute: typeof BrandingLogoSketchesRoute
   CategorySlugRoute: typeof CategorySlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
-  AdminIndexRoute: typeof AdminIndexRoute
   BrandingIndexRoute: typeof BrandingIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
-  AdminPreviewSlugRoute: typeof AdminPreviewSlugRoute
   ApiPublicIndexnowRoute: typeof ApiPublicIndexnowRoute
   ApiPublicHooksAutopilotDailyRoute: typeof ApiPublicHooksAutopilotDailyRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -415,6 +541,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/accessibility': {
       id: '/accessibility'
       path: '/accessibility'
@@ -452,10 +585,10 @@ declare module '@tanstack/react-router' {
     }
     '/admin/': {
       id: '/admin/'
-      path: '/admin'
+      path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/services/$slug': {
       id: '/services/$slug'
@@ -485,26 +618,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArticleSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/tools': {
+      id: '/admin/tools'
+      path: '/tools'
+      fullPath: '/admin/tools'
+      preLoaderRoute: typeof AdminToolsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/media': {
+      id: '/admin/media'
+      path: '/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AdminMediaRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
-      path: '/admin/login'
+      path: '/login'
       fullPath: '/admin/login'
       preLoaderRoute: typeof AdminLoginRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/instagram': {
       id: '/admin/instagram'
-      path: '/admin/instagram'
+      path: '/instagram'
       fullPath: '/admin/instagram'
       preLoaderRoute: typeof AdminInstagramRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/homepage': {
+      id: '/admin/homepage'
+      path: '/homepage'
+      fullPath: '/admin/homepage'
+      preLoaderRoute: typeof AdminHomepageRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/gallery': {
+      id: '/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AdminGalleryRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/content': {
       id: '/admin/content'
-      path: '/admin/content'
+      path: '/content'
       fullPath: '/admin/content'
       preLoaderRoute: typeof AdminContentRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/business': {
+      id: '/admin/business'
+      path: '/business'
+      fullPath: '/admin/business'
+      preLoaderRoute: typeof AdminBusinessRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/services/': {
+      id: '/admin/services/'
+      path: '/services'
+      fullPath: '/admin/services/'
+      preLoaderRoute: typeof AdminServicesIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/api/public/indexnow': {
       id: '/api/public/indexnow'
@@ -513,12 +709,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicIndexnowRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/services/$slug': {
+      id: '/admin/services/$slug'
+      path: '/services/$slug'
+      fullPath: '/admin/services/$slug'
+      preLoaderRoute: typeof AdminServicesSlugRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/preview/$slug': {
       id: '/admin/preview/$slug'
-      path: '/admin/preview/$slug'
+      path: '/preview/$slug'
       fullPath: '/admin/preview/$slug'
       preLoaderRoute: typeof AdminPreviewSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/lovable/email/queue/process': {
       id: '/lovable/email/queue/process'
@@ -537,10 +740,49 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminBusinessRoute: typeof AdminBusinessRoute
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminContentRoute: typeof AdminContentRoute
+  AdminGalleryRoute: typeof AdminGalleryRoute
+  AdminHomepageRoute: typeof AdminHomepageRoute
+  AdminInstagramRoute: typeof AdminInstagramRoute
+  AdminLeadsRoute: typeof AdminLeadsRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminMediaRoute: typeof AdminMediaRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
+  AdminToolsRoute: typeof AdminToolsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminPreviewSlugRoute: typeof AdminPreviewSlugRoute
+  AdminServicesSlugRoute: typeof AdminServicesSlugRoute
+  AdminServicesIndexRoute: typeof AdminServicesIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBusinessRoute: AdminBusinessRoute,
+  AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminContentRoute: AdminContentRoute,
+  AdminGalleryRoute: AdminGalleryRoute,
+  AdminHomepageRoute: AdminHomepageRoute,
+  AdminInstagramRoute: AdminInstagramRoute,
+  AdminLeadsRoute: AdminLeadsRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminMediaRoute: AdminMediaRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
+  AdminToolsRoute: AdminToolsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminPreviewSlugRoute: AdminPreviewSlugRoute,
+  AdminServicesSlugRoute: AdminServicesSlugRoute,
+  AdminServicesIndexRoute: AdminServicesIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
+  AdminRoute: AdminRouteWithChildren,
   ContactRoute: ContactRoute,
   KnowledgeRoute: KnowledgeRoute,
   PrivacyRoute: PrivacyRoute,
@@ -549,17 +791,12 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
-  AdminContentRoute: AdminContentRoute,
-  AdminInstagramRoute: AdminInstagramRoute,
-  AdminLoginRoute: AdminLoginRoute,
   ArticleSlugRoute: ArticleSlugRoute,
   BrandingLogoSketchesRoute: BrandingLogoSketchesRoute,
   CategorySlugRoute: CategorySlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
-  AdminIndexRoute: AdminIndexRoute,
   BrandingIndexRoute: BrandingIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
-  AdminPreviewSlugRoute: AdminPreviewSlugRoute,
   ApiPublicIndexnowRoute: ApiPublicIndexnowRoute,
   ApiPublicHooksAutopilotDailyRoute: ApiPublicHooksAutopilotDailyRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,

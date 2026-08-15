@@ -1,14 +1,5 @@
-import { SITE } from "@/lib/site-config";
+import { useSite, waHref } from "@/lib/use-site";
 import footModelAsset from "@/assets/inbar-foot-model.webp.asset.json";
-
-const HERO_STATS = [
-  { num: "12+", label: "שנות ניסיון קליני" },
-  { num: "200+", label: "מטופלים בשנה" },
-  { num: "20+", label: "פדיקוריסטיות הוכשרו" },
-  { num: "150+", label: "שעות השתלמות בשנה" },
-] as const;
-
-const HERO_WA_HREF = `${SITE.whatsappUrl}?text=${encodeURIComponent("שלום ענבר, אשמח לתאם טיפול")}`;
 
 /**
  * הירו הראשי — דיוקן ענבר עם מודל שכבות העור של כף הרגל.
@@ -16,6 +7,11 @@ const HERO_WA_HREF = `${SITE.whatsappUrl}?text=${encodeURIComponent("שלום ע
  * ולא משמשת כתמונת רקע full-bleed.
  */
 export function PremiumHero() {
+  const site = useSite();
+  const heroStats = site.homeHeroStats;
+  // תמונת הירו ניתנת להחלפה מהאדמין; בהיעדר בחירה נשארת התמונה שבקוד.
+  const heroImage = site.homeHeroImage || footModelAsset.url;
+
   return (
     <section
       dir="rtl"
@@ -45,7 +41,7 @@ export function PremiumHero() {
               className="text-[12.5px] font-semibold text-white md:text-[15px]"
               style={{ letterSpacing: "0.2em" }}
             >
-              מטפלת · מרצה · מכשירה פדיקוריסטיות
+              {site.homeHeroKicker}
             </span>
             <span aria-hidden className="h-px w-8 bg-white/55 md:hidden" />
           </div>
@@ -61,7 +57,7 @@ export function PremiumHero() {
               textWrap: "balance",
             }}
           >
-            הליכה בלי כאב מתחילה כאן
+            {site.homeHeroTitle}
           </h1>
 
           <p
@@ -73,24 +69,24 @@ export function PremiumHero() {
               lineHeight: 1.5,
             }}
           >
-            הקליניקה של {SITE.brand} לפדיקור טיפולי — מרצה ומכשירה פדיקוריסטיות בכל הארץ
+            {site.homeHeroSubtitle}
           </p>
 
           <p className="mx-auto mt-3.5 max-w-[560px] text-[16px] leading-relaxed text-white/85 md:mx-0 md:text-[18px]">
-            12+ שנות ניסיון קליני, אבחון מדויק וטיפול סטרילי — ומאות מטופלים שחזרו ללכת בלי כאב.
+            {site.homeHeroLede}
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-3.5 md:justify-start">
             <a
-              href={HERO_WA_HREF}
+              href={waHref(site)}
               target="_blank"
               rel="noopener nofollow"
               className="btn-cta text-[16px] md:text-[17px]"
             >
-              לתיאום טיפול בקליניקה
+              {site.homeHeroCtaPrimary}
             </a>
             <a href="#academy" className="btn-glass text-[16px] md:text-[17px]">
-              אני פדיקוריסטית — להכשרות
+              {site.homeHeroCtaSecondary}
             </a>
           </div>
 
@@ -104,7 +100,7 @@ export function PremiumHero() {
               borderRadius: 20,
             }}
           >
-            {HERO_STATS.map((s, i) => (
+            {heroStats.map((s, i) => (
               <div
                 key={s.label}
                 className={[
@@ -132,8 +128,8 @@ export function PremiumHero() {
         {/* דיוקן — cutout, מיושר לתחתית הסקשן */}
         <figure className="fade-up-delayed relative m-0 flex items-end justify-center self-end">
           <img
-            src={footModelAsset.url}
-            alt={`${SITE.brand} מחזיקה מודל אנטומי של שכבות העור וכף הרגל`}
+            src={heroImage}
+            alt={`${site.brand} מחזיקה מודל אנטומי של שכבות העור וכף הרגל`}
             width={896}
             height={1200}
             loading="eager"

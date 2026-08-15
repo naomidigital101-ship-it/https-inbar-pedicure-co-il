@@ -78,7 +78,8 @@ export const checkIsAdmin = createServerFn({ method: "GET" })
 
 export type LeadRow = {
   id: string;
-  email: string;
+  // ליד יכול להגיע מטופס טלפוני בלי אימייל
+  email: string | null;
   source_page: string | null;
   created_at: string;
 };

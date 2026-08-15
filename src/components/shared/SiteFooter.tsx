@@ -1,4 +1,5 @@
-import { SITE, SERVICES_NAV } from "@/lib/site-config";
+import { SERVICES_NAV } from "@/lib/site-config";
+import { useSite } from "@/lib/use-site";
 import { BrandLogo } from "./BrandLogo";
 
 const academyLinks = [
@@ -24,6 +25,7 @@ const legalLinks = [
 const MUTED = "var(--text-dim)";
 
 export function SiteFooter() {
+  const site = useSite();
   const year = new Date().getFullYear();
 
   return (
@@ -36,10 +38,12 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1280px] px-6 pb-14 pt-14 md:pb-24 md:pt-16">
         <div className="grid gap-11 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <section aria-labelledby="footer-brand" className="space-y-4">
-            <h2 id="footer-brand" className="sr-only">{SITE.brand}</h2>
+            <h2 id="footer-brand" className="sr-only">
+              {site.brand}
+            </h2>
             <BrandLogo tone="paper" wordSize={65} />
             <p className="m-0 max-w-md text-[15px] leading-[1.7]">
-              פדיקור טיפולי ב{SITE.city} ו{SITE.region}, והכשרות מקצועיות לפדיקוריסטיות בכל הארץ.
+              פדיקור טיפולי ב{site.city} ו{site.region}, והכשרות מקצועיות לפדיקוריסטיות בכל הארץ.
               סטריליות מלאה, פרוטוקולים קליניים וליווי אישי עד החלמה.
             </p>
           </section>
@@ -78,7 +82,11 @@ export function SiteFooter() {
             <ul className="m-0 grid list-none gap-2.5 p-0 text-[15px]">
               {academyLinks.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="transition-colors hover:text-white" style={{ color: MUTED }}>
+                  <a
+                    href={l.href}
+                    className="transition-colors hover:text-white"
+                    style={{ color: MUTED }}
+                  >
                     {l.label}
                   </a>
                 </li>
@@ -96,22 +104,37 @@ export function SiteFooter() {
             </h2>
             <ul className="m-0 grid list-none gap-2.5 p-0 text-[15px]">
               <li>
-                <a href={SITE.telUrl} className="transition-colors hover:text-white" style={{ color: MUTED }} dir="ltr">
-                  {SITE.phoneDisplay}
+                <a
+                  href={site.telUrl}
+                  className="transition-colors hover:text-white"
+                  style={{ color: MUTED }}
+                  dir="ltr"
+                >
+                  {site.phoneDisplay}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${SITE.email}`} className="transition-colors hover:text-white" style={{ color: MUTED }}>
-                  {SITE.email}
+                <a
+                  href={`mailto:${site.email}`}
+                  className="transition-colors hover:text-white"
+                  style={{ color: MUTED }}
+                >
+                  {site.email}
                 </a>
               </li>
-              <li>{SITE.city}, {SITE.region}</li>
-              <li>{SITE.hoursDisplay}</li>
+              <li>
+                {site.city}, {site.region}
+              </li>
+              <li>{site.hoursDisplay}</li>
             </ul>
             <ul className="m-0 grid list-none gap-2.5 p-0 pt-2 text-[14px]">
               {siteLinks.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="transition-colors hover:text-white" style={{ color: MUTED }}>
+                  <a
+                    href={l.href}
+                    className="transition-colors hover:text-white"
+                    style={{ color: MUTED }}
+                  >
                     {l.label}
                   </a>
                 </li>
@@ -124,10 +147,17 @@ export function SiteFooter() {
           className="mt-9 flex flex-col gap-3 pt-5 text-[13px] md:flex-row md:items-center md:justify-between"
           style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
         >
-          <span>© {year} {SITE.brand} · כל הזכויות שמורות</span>
+          <span>
+            © {year} {site.brand} · כל הזכויות שמורות
+          </span>
           <nav aria-label="קישורים משפטיים" className="flex flex-wrap gap-x-5 gap-y-2">
             {legalLinks.map((l) => (
-              <a key={l.href} href={l.href} className="transition-colors hover:text-white" style={{ color: MUTED }}>
+              <a
+                key={l.href}
+                href={l.href}
+                className="transition-colors hover:text-white"
+                style={{ color: MUTED }}
+              >
                 {l.label}
               </a>
             ))}
