@@ -12,16 +12,19 @@ import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { ConsultationTab } from "@/components/shared/ConsultationTab";
 import { SITE } from "@/lib/site-config";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
-import { listReviews, listServices, type ServiceCard } from "@/lib/cms.functions";
+import {
+  listBeforeAfter,
+  listContentBlocks,
+  listReviews,
+  listServices,
+  type ServiceCard,
+} from "@/lib/cms.functions";
 import { useSite, waHref } from "@/lib/use-site";
+import { HOME_BEFORE_AFTER } from "@/lib/home-content";
 import type { ArticleCard } from "@/lib/article-cards";
 import inbarPhotoAsset from "@/assets/inbar-hero-editorial.webp.asset.json";
 import inbarPortraitAsset from "@/assets/inbar-farchi.jpg.asset.json";
 import sterileTools from "@/assets/treatment-diabetic.jpg";
-import baWarts from "@/assets/before-after/warts.webp.asset.json";
-import baCracked from "@/assets/before-after/cracked.webp.asset.json";
-import baIngrown from "@/assets/before-after/ingrown.webp.asset.json";
-import baOnycho from "@/assets/before-after/onycho.webp.asset.json";
 
 /* מודל שכבות העור שמור להירו בלבד — הוא cutout שקוף ונשבר בכרטיסים עם object-cover. */
 const inbarPhoto = inbarPhotoAsset.url;
@@ -34,186 +37,6 @@ const TINTS = [
   { bg: "var(--accent-soft)", ring: "var(--blush-200)", dot: "var(--accent)" },
 ] as const;
 
-const SERVICES = [
-  {
-    slug: "corns",
-    title: "יבלות וקאלוסים",
-    desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.",
-  },
-  {
-    slug: "ingrown-nails",
-    title: "ציפורן חודרנית",
-    desc: "אורתוניקסיה — תיקון מבני ללא ניתוח, ללא כאב.",
-  },
-  {
-    slug: "fungus",
-    title: "פטרת עור וציפורן",
-    desc: "אבחנה, טיפול יסודי והדרכה ביתית עד החלמה מלאה.",
-  },
-  {
-    slug: "diabetic-feet",
-    title: "פדיקור לחולי סוכרת",
-    desc: "טיפול בטוח לכף רגל סוכרתית: בלי חתכים, בלי השרייה, בלי סיכונים.",
-  },
-  {
-    slug: "cracked-heels",
-    title: "עור סדוק ועקבים",
-    desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.",
-  },
-  {
-    slug: "onycholysis",
-    title: "שיקום ציפורן BIO",
-    desc: "שיקום ציפורן שהתנתקה ממיטת הציפורן — עד תוצאה מושלמת.",
-  },
-] as const;
-
-const CHIPS = [
-  { slug: "corns", glyph: "יב", label: "יבלות וקאלוסים" },
-  { slug: "fungus", glyph: "פט", label: "פטרת עור וציפורן" },
-  { slug: "ingrown-nails", glyph: "צח", label: "ציפורן חודרנית" },
-  { slug: "cracked-heels", glyph: "סד", label: "סדקים בעקב" },
-  { slug: "diabetic-feet", glyph: "סכ", label: "כף רגל סוכרתית" },
-  { slug: "onycholysis", glyph: "BIO", label: "שיקום ציפורן BIO" },
-  { slug: "sports-feet", glyph: "ספ", label: "ספורטאים וחיילים" },
-] as const;
-
-const PROCESS = [
-  {
-    num: "01",
-    title: "בואו נכיר",
-    desc: "שיחה קצרה בטלפון או בוואטסאפ — מה מטריד, ממתי, ומה כבר ניסית.",
-  },
-  {
-    num: "02",
-    title: "אבחון בקליניקה",
-    desc: "בדיקה מעמיקה של כף הרגל, הנעליים ותבנית ההליכה — ואבחנה ברורה.",
-  },
-  {
-    num: "03",
-    title: "תוכנית טיפול",
-    desc: "פרוטוקול טיפול אישי, מותאם למצב כף הרגל ולאורח החיים שלך.",
-  },
-  {
-    num: "04",
-    title: "טיפול קליני",
-    desc: "סטריליות מלאה, כלים חד־פעמיים, בלי דם ובלי כאב מיותר.",
-  },
-  { num: "05", title: "ליווי עד החלמה", desc: "הדרכה ביתית, מעקב בוואטסאפ ומפגשי המשך לפי הצורך." },
-] as const;
-
-const ACADEMY_TRACKS = [
-  {
-    num: "01",
-    title: "יסודות הפדיקור הטיפולי",
-    desc: "אנטומיה, אבחון קליני, פרוטוקול סטריליות ועבודה בטוחה",
-  },
-  {
-    num: "02",
-    title: "התמחויות מתקדמות",
-    desc: "אורתוניקסיה, שיקום ציפורן BIO וטיפול בכף רגל סוכרתית",
-  },
-  {
-    num: "03",
-    title: "ליווי אישי בקליניקה שלך",
-    desc: "שדרוג פרוטוקול העבודה וליווי במקרים מורכבים — עד שהסטנדרט אצלך",
-  },
-] as const;
-
-const WHY_ITEMS = [
-  "12+ שנות ניסיון קליני מוכח",
-  "עבודה לפי פרוטוקולים קליניים מתועדים",
-  "סטריליות מלאה — כלים חד־פעמיים",
-  "התמחות בכף רגל סוכרתית",
-  "טיפול אישי 1:1 בלבד, בלי שיפוט",
-  "מרצה ומכשירה פדיקוריסטיות",
-  "ליווי צמוד בוואטסאפ עד החלמה",
-  "150+ שעות השתלמות בכל שנה",
-] as const;
-
-const CREDENTIALS = [
-  "בוגרת קורסים בינלאומיים",
-  "התמחות בכף רגל סוכרתית",
-  "מוסמכת שיקום BIO",
-  "150+ שעות השתלמות בשנה",
-] as const;
-
-const BEFORE_AFTER = [
-  {
-    title: "ציפורן חודרנית",
-    desc: "אורתוניקסיה ושיקום מבנה הציפורן ללא ניתוח, ללא כאב.",
-    slug: "ingrown-nails",
-    img: baIngrown.url,
-    alt: "תמונת לפני ואחרי טיפול בציפורן חודרנית בכף הרגל",
-  },
-  {
-    title: "יבלה עמוקה",
-    desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.",
-    slug: "corns",
-    img: baWarts.url,
-    alt: "תמונת לפני ואחרי טיפול ביבלות בכף הרגל",
-  },
-  {
-    title: "עור סדוק בעקב",
-    desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.",
-    slug: "cracked-heels",
-    img: baCracked.url,
-    alt: "תמונת לפני ואחרי טיפול בעור סדוק בעקב",
-  },
-  {
-    title: "שיקום ציפורן BIO",
-    desc: "מילוי וטיפוח ציפורן שהתנתקה ממיטת הציפורן.",
-    slug: "onycholysis",
-    img: baOnycho.url,
-    alt: "תמונת לפני ואחרי שיקום ציפורן מנותקת אונכילוזיס",
-  },
-] as const;
-
-const RED_FLAGS = [
-  "פצע פתוח, דימום או הפרשה מכף הרגל",
-  "כאב חד שלא מתפוגג גם במנוחה",
-  "נפיחות משמעותית או חום מקומי",
-  "חשד לזיהום (אדמומיות מתפשטת, ריח חזק)",
-  "פצע ברגל אצל חולה סוכרת (דחוף)",
-  "תחושת נימול או חוסר תחושה ברגל",
-  "שינוי צבע חד של ציפורן או עור",
-  "שטף דם תת־צפורני אחרי חבלה",
-] as const;
-
-const FAQS = [
-  {
-    q: "האם הטיפול מתאים גם לגברים?",
-    a: "בהחלט. הטיפולים מתאימים לגברים ולנשים כאחד. גברים רבים סובלים מעור קשה, פטרת, סדקים ויבלות ויכולים ליהנות מטיפול מקצועי, סטרילי ולא פולשני שמחזיר את הנוחות וההקלה באופן מיידי.",
-  },
-  {
-    q: "איך אדע אם אני זקוק/ה לפדיקור טיפולי?",
-    a: "אם את או אתה מרגישים כאב בהליכה, סובלים מעור קשה, ציפורניים עבות או מתפוררות, סדקים בכפות הרגליים, או פטרת שחוזרת, זה סימן שהגיע הזמן לפדיקוריסטית טיפולית. ככל שמטפלים מוקדם יותר, ניתן למנוע סיבוכים.",
-  },
-  {
-    q: "איך אוכל לדעת שהטיפול נעשה בסטריליות מלאה?",
-    a: "בקליניקה כל כלי עובר חיטוי ועיקור מלא במכשור ייעודי (אוטוקלאב), וכל טיפול מתבצע בתנאים נקיים לחלוטין. הסטריליות היא חלק בלתי נפרד מהטיפול הקליני ומהבטיחות שלך.",
-  },
-  {
-    q: "האם זה בטוח לחולי סוכרת?",
-    a: "בהחלט. אני מתמחה בטיפול בכף הרגל של חולי סוכרת לפי פרוטוקולים קליניים מאושרים, עם חומרים עדינים, סטריליות מלאה וציוד חד־פעמי. המטרה: טיפול בטוח, מדויק ורגוע, עם תשומת לב לכל פרט.",
-  },
-  {
-    q: "אני מתביישת מהיבלות שלי, לא בא לי להגיע",
-    a: "אין שום סיבה להתבייש. אני רואה מדי יום מקרים מורכבים וזה בדיוק התחום שבו אני מתמחה. היבלות נובעות מעומס, חיכוך או טיפול לא נכון בעבר. הטיפול נעשה באווירה רגועה, בלי שיפוט, עם הקשבה ופתרון אמיתי שיחזיר לך הליכה קלה כבר מהפגישה הראשונה.",
-  },
-  {
-    q: "אני פדיקוריסטית מתחילה — ההכשרה מתאימה לי?",
-    a: "כן. מסלול היסודות בנוי בדיוק בשבילך: אנטומיה, אבחון, סטריליות ועבודה בטוחה. ותיקות ממשיכות להתמחויות מתקדמות ולליווי אישי בקליניקה.",
-  },
-  {
-    q: "איפה מתקיימות ההכשרות?",
-    a: "במיקומים משתנים בכל הארץ — ענבר מגיעה אלייך לקליניקה לליווי אישי, או מרכזת קבוצה אזורית לסדנאות מעשיות.",
-  },
-  {
-    q: "כמה זמן לוקח לראות תוצאות?",
-    a: "במקרים רבים כבר אחרי טיפול אחד מרגישים הקלה משמעותית. בטיפולים שיקומיים (פטרת, שיקום ציפורן) נדרש תהליך של מספר מפגשים, ואני מלווה אותך באופן צמוד עד שהתוצאה מושלמת.",
-  },
-] as const;
-
 // נשמר כמעטפת דקה כדי שכל קריאות ה-wa() בעמוד ימשיכו לעבוד כרגיל
 
 export const Route = createFileRoute("/")({
@@ -221,15 +44,19 @@ export const Route = createFileRoute("/")({
     // סקשן המדריכים הוא תוספת — כשל בשליפה לא אמור להפיל את כל דף הבית.
     const articles = await listPublishedAiArticleCards().catch(() => [] as ArticleCard[]);
     // כרטיסי "תחומי הליבה" וההמלצות מגיעים ממערכת הניהול.
-    const [services, reviews] = await Promise.all([
+    const [services, reviews, blocks, gallery] = await Promise.all([
       listServices().catch(() => ({ services: [] as ServiceCard[] })),
       listReviews().catch(() => ({ reviews: [], average: null, count: 0 })),
+      listContentBlocks(),
+      listBeforeAfter().catch(() => ({ items: [] })),
     ]);
     return {
       latestArticles: articles.slice(0, 6),
       flagships: services.services.filter((x) => x.isFlagship).slice(0, 3),
       reviews: reviews.reviews.slice(0, 6),
       rating: { average: reviews.average, count: reviews.count },
+      blocks: blocks.blocks,
+      gallery: gallery.items,
     };
   },
   head: ({ loaderData }) => ({
@@ -267,7 +94,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          mainEntity: FAQS.map((f) => ({
+          mainEntity: (loaderData?.blocks?.home_faqs?.items ?? []).map((f) => ({
             "@type": "Question",
             name: f.q,
             acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -355,7 +182,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "ItemList",
           name: "שירותי פדיקור טיפולי",
-          itemListElement: SERVICES.map((s, i) => ({
+          itemListElement: (loaderData?.blocks?.home_services?.items ?? []).map((s, i) => ({
             "@type": "ListItem",
             position: i + 1,
             item: {
@@ -407,9 +234,43 @@ function SectionHead({
 }
 
 function Home() {
-  const { latestArticles, reviews, rating } = Route.useLoaderData();
+  const { latestArticles, reviews, rating, blocks, gallery } = Route.useLoaderData();
   const site = useSite();
   const wa = (text: string) => waHref(site, text);
+
+  // המקטעים מגיעים ממערכת הניהול; הצורות זהות לאלה שהיו קשיחות בקוד,
+  // כך שהרינדור למטה לא השתנה.
+  const items = (key: string) => blocks[key]?.items ?? [];
+  const texts = (key: string) =>
+    items(key)
+      .map((i) => i.text)
+      .filter(Boolean);
+
+  const SERVICES = items("home_services");
+  const CHIPS = items("home_chips");
+  const PROCESS = items("home_process");
+  const ACADEMY_TRACKS = items("home_academy");
+  const WHY_ITEMS = texts("home_why");
+  const CREDENTIALS = texts("home_credentials");
+  const RED_FLAGS = texts("home_red_flags");
+  const FAQS = items("home_faqs");
+  // כל עוד הגלריה טרם יובאה לטבלה, מוצגים הפריטים שבקוד — אותם ארבעה
+  // שמופיעים באתר היום. כך הייבוא לא משנה את מה שהמבקרים רואים.
+  const BEFORE_AFTER = gallery.length
+    ? gallery.map((g) => ({
+        title: g.title,
+        desc: g.description ?? "",
+        slug: g.service_slug ?? "",
+        img: g.before_image,
+        alt: g.before_alt ?? g.title,
+      }))
+    : HOME_BEFORE_AFTER.map((b) => ({
+        title: b.title,
+        desc: b.desc,
+        slug: b.slug,
+        img: b.img,
+        alt: b.alt,
+      }));
 
   return (
     <div className="flex min-h-screen flex-col bg-background">

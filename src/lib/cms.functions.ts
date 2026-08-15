@@ -13,6 +13,8 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { buildSiteValues, SITE_DEFAULTS } from "@/lib/site-values";
 import { SERVICES, SERVICES_BY_SLUG } from "@/lib/services-content";
 import { categories as CODE_CATEGORIES } from "@/lib/categories";
+import { BLOCK_DEFS } from "@/lib/content-blocks";
+import type { ContentBlockRow } from "@/lib/cms-types";
 import {
   isServiceRowEmpty,
   rowToServicePage,
@@ -318,6 +320,49 @@ export const listBeforeAfter = createServerFn({ method: "GET" }).handler(
     } catch (err) {
       console.error("[cms] listBeforeAfter failed:", err);
       return { items: [] };
+    }
+  },
+);
+
+// ---------------------------------------------------------------------------
+// מקטעי דף הבית
+// ---------------------------------------------------------------------------
+
+const FALLBACK_BLOCKS: ContentBlockRow[] = BLOCK_DEFS.map((b, i) => ({
+  block_key: b.blockKey,
+  label: b.label,
+  description: b.description,
+  heading: null,
+  subheading: null,
+  items: b.items,
+  item_schema: b.itemSchema,
+  is_published: true,
+  sort_order: (i + 1) * 10,
+}));
+
+export const listContentBlocks = createServerFn({ method: "GET" }).handler(
+  async (): Promise<{ blocks: Record<string, ContentBlockRow> }> => {
+    const toMap = (rows: ContentBlockRow[]) =>
+      Object.fromEntries(rows.map((b) => [b.block_key, b]));
+    try {
+      const { data, error } = await supabaseAdmin
+        .from("content_blocks")
+        .select("*")
+        .eq("is_published", true)
+        .order("sort_order", { ascending: true });
+      if (error) throw error;
+      if (!data?.length) return { blocks: toMap(FALLBACK_BLOCKS) };
+
+      // מקטע שקיים ב-DB גובר; מקטע שטרם יובא מוגש מהקוד, כדי שלא
+      // ייווצר אזור ריק בדף הבית.
+      const merged = new Map(FALLBACK_BLOCKS.map((b) => [b.block_key, b]));
+      for (const row of data as unknown as ContentBlockRow[]) {
+        if (row.items?.length) merged.set(row.block_key, row);
+      }
+      return { blocks: toMap([...merged.values()]) };
+    } catch (err) {
+      console.error("[cms] listContentBlocks failed, using code fallback:", err);
+      return { blocks: toMap(FALLBACK_BLOCKS) };
     }
   },
 );
