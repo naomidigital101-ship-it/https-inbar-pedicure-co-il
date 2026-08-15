@@ -14,6 +14,348 @@ export type Database = {
   }
   public: {
     Tables: {
+      before_after: {
+        Row: {
+          id: string
+          service_slug: string | null
+          title: string
+          description: string | null
+          before_image: string
+          before_alt: string | null
+          after_image: string
+          after_alt: string | null
+          sessions_count: number | null
+          timeframe: string | null
+          consent_confirmed: boolean
+          is_published: boolean
+          sort_order: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          service_slug?: string | null
+          title: string
+          description?: string | null
+          before_image: string
+          before_alt?: string | null
+          after_image: string
+          after_alt?: string | null
+          sessions_count?: number | null
+          timeframe?: string | null
+          consent_confirmed?: boolean
+          is_published?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          service_slug?: string | null
+          title?: string
+          description?: string | null
+          before_image?: string
+          before_alt?: string | null
+          after_image?: string
+          after_alt?: string | null
+          sessions_count?: number | null
+          timeframe?: string | null
+          consent_confirmed?: boolean
+          is_published?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      knowledge_categories: {
+        Row: {
+          id: string
+          slug: string
+          label: string
+          title: string | null
+          description: string | null
+          meta_title: string | null
+          meta_description: string | null
+          hero_image: string | null
+          is_published: boolean
+          sort_order: number
+          created_at: string
+          updated_at: string
+          short_name: string | null
+          mod_code: string | null
+        }
+        Insert: {
+          id?: string
+          slug: string
+          label: string
+          title?: string | null
+          description?: string | null
+          meta_title?: string | null
+          meta_description?: string | null
+          hero_image?: string | null
+          is_published?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+          short_name?: string | null
+          mod_code?: string | null
+        }
+        Update: {
+          id?: string
+          slug?: string
+          label?: string
+          title?: string | null
+          description?: string | null
+          meta_title?: string | null
+          meta_description?: string | null
+          hero_image?: string | null
+          is_published?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+          short_name?: string | null
+          mod_code?: string | null
+        }
+        Relationships: []
+      }
+      media: {
+        Row: {
+          id: string
+          path: string
+          url: string
+          alt: string | null
+          title: string | null
+          mime_type: string | null
+          size_bytes: number | null
+          width: number | null
+          height: number | null
+          folder: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          path: string
+          url: string
+          alt?: string | null
+          title?: string | null
+          mime_type?: string | null
+          size_bytes?: number | null
+          width?: number | null
+          height?: number | null
+          folder?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          path?: string
+          url?: string
+          alt?: string | null
+          title?: string | null
+          mime_type?: string | null
+          size_bytes?: number | null
+          width?: number | null
+          height?: number | null
+          folder?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          id: string
+          author_name: string
+          author_area: string | null
+          rating: number
+          body: string
+          service_slug: string | null
+          source: string
+          source_url: string | null
+          review_date: string
+          is_published: boolean
+          is_featured: boolean
+          sort_order: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          author_name: string
+          author_area?: string | null
+          rating?: number
+          body: string
+          service_slug?: string | null
+          source?: string
+          source_url?: string | null
+          review_date?: string
+          is_published?: boolean
+          is_featured?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          author_name?: string
+          author_area?: string | null
+          rating?: number
+          body?: string
+          service_slug?: string | null
+          source?: string
+          source_url?: string | null
+          review_date?: string
+          is_published?: boolean
+          is_featured?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          id: string
+          slug: string
+          nav_label: string
+          title: string
+          subtitle: string | null
+          meta_title: string | null
+          meta_description: string | null
+          h1: string | null
+          canonical: string | null
+          og_image: string | null
+          noindex: boolean
+          tldr: string | null
+          intro: string | null
+          quick_facts: Json
+          sections: Json
+          red_flags: Json
+          faqs: Json
+          sources: Json
+          hero_image: string | null
+          card_image: string | null
+          card_alt: string | null
+          price_text: string | null
+          price_visible: boolean
+          is_flagship: boolean
+          flagship_tag: string | null
+          flagship_sub: string | null
+          flagship_icon: string | null
+          flagship_accent: string | null
+          schema_type: string
+          is_published: boolean
+          sort_order: number
+          created_at: string
+          updated_at: string
+          flagship_title: string | null
+        }
+        Insert: {
+          id?: string
+          slug: string
+          nav_label: string
+          title: string
+          subtitle?: string | null
+          meta_title?: string | null
+          meta_description?: string | null
+          h1?: string | null
+          canonical?: string | null
+          og_image?: string | null
+          noindex?: boolean
+          tldr?: string | null
+          intro?: string | null
+          quick_facts?: Json
+          sections?: Json
+          red_flags?: Json
+          faqs?: Json
+          sources?: Json
+          hero_image?: string | null
+          card_image?: string | null
+          card_alt?: string | null
+          price_text?: string | null
+          price_visible?: boolean
+          is_flagship?: boolean
+          flagship_tag?: string | null
+          flagship_sub?: string | null
+          flagship_icon?: string | null
+          flagship_accent?: string | null
+          schema_type?: string
+          is_published?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+          flagship_title?: string | null
+        }
+        Update: {
+          id?: string
+          slug?: string
+          nav_label?: string
+          title?: string
+          subtitle?: string | null
+          meta_title?: string | null
+          meta_description?: string | null
+          h1?: string | null
+          canonical?: string | null
+          og_image?: string | null
+          noindex?: boolean
+          tldr?: string | null
+          intro?: string | null
+          quick_facts?: Json
+          sections?: Json
+          red_flags?: Json
+          faqs?: Json
+          sources?: Json
+          hero_image?: string | null
+          card_image?: string | null
+          card_alt?: string | null
+          price_text?: string | null
+          price_visible?: boolean
+          is_flagship?: boolean
+          flagship_tag?: string | null
+          flagship_sub?: string | null
+          flagship_icon?: string | null
+          flagship_accent?: string | null
+          schema_type?: string
+          is_published?: boolean
+          sort_order?: number
+          created_at?: string
+          updated_at?: string
+          flagship_title?: string | null
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          value: string | null
+          group_key: string
+          label: string
+          input_type: string
+          help_text: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          key: string
+          value?: string | null
+          group_key?: string
+          label: string
+          input_type?: string
+          help_text?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          key?: string
+          value?: string | null
+          group_key?: string
+          label?: string
+          input_type?: string
+          help_text?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       ai_articles: {
         Row: {
           category_slug: string
@@ -390,21 +732,42 @@ export type Database = {
       leads: {
         Row: {
           created_at: string
-          email: string
+          email: string | null
+          handled_at: string | null
           id: string
+          message: string | null
+          name: string | null
+          notes: string | null
+          phone: string | null
+          service_slug: string | null
           source_page: string | null
+          status: string
         }
         Insert: {
           created_at?: string
-          email: string
+          email?: string | null
+          handled_at?: string | null
           id?: string
+          message?: string | null
+          name?: string | null
+          notes?: string | null
+          phone?: string | null
+          service_slug?: string | null
           source_page?: string | null
+          status?: string
         }
         Update: {
           created_at?: string
-          email?: string
+          email?: string | null
+          handled_at?: string | null
           id?: string
+          message?: string | null
+          name?: string | null
+          notes?: string | null
+          phone?: string | null
+          service_slug?: string | null
           source_page?: string | null
+          status?: string
         }
         Relationships: []
       }

@@ -94,7 +94,7 @@ function AdminDashboard() {
     const header = ["email", "source_page", "created_at"];
     const rows = leads.map((l: LeadRow) =>
       [
-        escapeCSV(l.email),
+        escapeCSV(l.email ?? ""),
         escapeCSV(l.source_page ?? ""),
         escapeCSV(l.created_at),
       ].join(","),
