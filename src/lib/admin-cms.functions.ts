@@ -10,8 +10,10 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { SERVICES } from "@/lib/services-content";
 import { categories as CODE_CATEGORIES } from "@/lib/categories";
+import { BLOCK_DEFS, HOME_GALLERY_SEED } from "@/lib/content-blocks";
 import type {
   BeforeAfterRow,
+  ContentBlockRow,
   CategoryRow,
   LeadRow,
   ReviewRow,
@@ -238,7 +240,90 @@ export const adminImportContentFromSource = createServerFn({ method: "POST" })
       if (error) throw new Error(`category ${c.slug}: ${error.message}`);
     }
 
+    // מקטעי דף הבית — אותו כלל: מקטע שכבר יש בו פריטים לא נדרס.
+    for (const [i, b] of BLOCK_DEFS.entries()) {
+      const { data: existingBlock } = await supabaseAdmin
+        .from("content_blocks")
+        .select("block_key, items")
+        .eq("block_key", b.blockKey)
+        .maybeSingle();
+
+      const blockHasItems = Boolean((existingBlock?.items as unknown[])?.length);
+      if (blockHasItems && !data.overwrite) continue;
+
+      const { error } = await supabaseAdmin.from("content_blocks").upsert(
+        {
+          block_key: b.blockKey,
+          label: b.label,
+          description: b.description,
+          items: b.items,
+          item_schema: b.itemSchema,
+          sort_order: (i + 1) * 10,
+        },
+        { onConflict: "block_key" },
+      );
+      if (error) throw new Error(`block ${b.blockKey}: ${error.message}`);
+    }
+
+    // גלריית לפני/אחרי — מיובאת רק אם הטבלה ריקה לגמרי, כדי לא לשכפל.
+    // הפריטים האלה כבר מוצגים באתר החי, ולכן הם מיובאים במצב מפורסם:
+    // הייבוא לא אמור לשנות את מה שהציבור רואה.
+    const { count: gallerySize } = await supabaseAdmin
+      .from("before_after")
+      .select("id", { count: "exact", head: true });
+    if (!gallerySize) {
+      for (const g of HOME_GALLERY_SEED) {
+        const { error } = await supabaseAdmin
+          .from("before_after")
+          .insert({ ...g, consent_confirmed: true, is_published: true });
+        if (error) throw new Error(`gallery ${g.title}: ${error.message}`);
+      }
+    }
+
     return { ok: true, imported, skipped };
+  });
+
+// ===========================================================================
+// מקטעי דף הבית
+// ===========================================================================
+
+export const adminListContentBlocks = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<{ blocks: ContentBlockRow[] }> => {
+    await requireAdmin(context.userId);
+    const { data, error } = await supabaseAdmin
+      .from("content_blocks")
+      .select("*")
+      .order("sort_order", { ascending: true });
+    if (error) throw new Error(error.message);
+    return { blocks: (data ?? []) as unknown as ContentBlockRow[] };
+  });
+
+const BlockInput = z.object({
+  block_key: z.string().min(1).max(80),
+  heading: z.string().max(300).nullable(),
+  subheading: z.string().max(600).nullable(),
+  items: z.array(z.record(z.string().max(60), z.string().max(4000))).max(40),
+  is_published: z.boolean(),
+});
+
+export const adminSaveContentBlock = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => BlockInput.parse(d))
+  .handler(async ({ context, data }) => {
+    await requireAdmin(context.userId);
+    // עדכון בלבד: label ו-item_schema מוגדרים בקוד ולא נערכים מהממשק.
+    const { error } = await supabaseAdmin
+      .from("content_blocks")
+      .update({
+        heading: data.heading,
+        subheading: data.subheading,
+        items: data.items,
+        is_published: data.is_published,
+      })
+      .eq("block_key", data.block_key);
+    if (error) throw new Error(error.message);
+    return { ok: true };
   });
 
 // ===========================================================================
@@ -319,7 +404,7 @@ const BeforeAfterInput = z
     description: z.string().max(2000).nullable(),
     before_image: z.string().min(1).max(1000),
     before_alt: z.string().max(500).nullable(),
-    after_image: z.string().min(1).max(1000),
+    after_image: z.string().max(1000).nullable(),
     after_alt: z.string().max(500).nullable(),
     sessions_count: z.number().int().min(0).max(200).nullable(),
     timeframe: z.string().max(120).nullable(),

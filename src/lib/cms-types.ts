@@ -112,7 +112,7 @@ export type BeforeAfterRow = {
   description: string | null;
   before_image: string;
   before_alt: string | null;
-  after_image: string;
+  after_image: string | null;
   after_alt: string | null;
   sessions_count: number | null;
   timeframe: string | null;
@@ -132,6 +132,18 @@ export type CategoryRow = {
   meta_title: string | null;
   meta_description: string | null;
   hero_image: string | null;
+  is_published: boolean;
+  sort_order: number;
+};
+
+export type ContentBlockRow = {
+  block_key: string;
+  label: string;
+  description: string | null;
+  heading: string | null;
+  subheading: string | null;
+  items: Record<string, string>[];
+  item_schema: { key: string; label: string; type: string; hint?: string }[];
   is_published: boolean;
   sort_order: number;
 };

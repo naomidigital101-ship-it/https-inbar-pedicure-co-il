@@ -8,6 +8,45 @@ export type Database = {
   };
   public: {
     Tables: {
+      content_blocks: {
+        Row: {
+          block_key: string
+          description: string | null
+          heading: string | null
+          is_published: boolean
+          item_schema: Json
+          items: Json
+          label: string
+          sort_order: number
+          subheading: string | null
+          updated_at: string
+        }
+        Insert: {
+          block_key: string
+          description?: string | null
+          heading?: string | null
+          is_published?: boolean
+          item_schema?: Json
+          items?: Json
+          label: string
+          sort_order?: number
+          subheading?: string | null
+          updated_at?: string
+        }
+        Update: {
+          block_key?: string
+          description?: string | null
+          heading?: string | null
+          is_published?: boolean
+          item_schema?: Json
+          items?: Json
+          label?: string
+          sort_order?: number
+          subheading?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       before_after: {
         Row: {
           id: string;
@@ -16,7 +55,7 @@ export type Database = {
           description: string | null;
           before_image: string;
           before_alt: string | null;
-          after_image: string;
+          after_image: string | null;
           after_alt: string | null;
           sessions_count: number | null;
           timeframe: string | null;
@@ -33,7 +72,7 @@ export type Database = {
           description?: string | null;
           before_image: string;
           before_alt?: string | null;
-          after_image: string;
+          after_image: string | null;
           after_alt?: string | null;
           sessions_count?: number | null;
           timeframe?: string | null;
@@ -50,7 +89,7 @@ export type Database = {
           description?: string | null;
           before_image?: string;
           before_alt?: string | null;
-          after_image?: string;
+          after_image?: string | null;
           after_alt?: string | null;
           sessions_count?: number | null;
           timeframe?: string | null;

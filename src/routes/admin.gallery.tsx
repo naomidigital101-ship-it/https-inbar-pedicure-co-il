@@ -119,8 +119,9 @@ function GalleryAdmin() {
         <Card key={item.id}>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="flex flex-wrap gap-3">
-              <Thumb src={item.before_image} caption="לפני" />
-              <Thumb src={item.after_image} caption="אחרי" />
+              {/* פריט עם תמונה אחת משולבת מציג רק אותה */}
+              <Thumb src={item.before_image} caption={item.after_image ? "לפני" : "לפני ואחרי"} />
+              {item.after_image && <Thumb src={item.after_image} caption="אחרי" />}
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   <span style={{ fontWeight: 700, color: "var(--ink-900)" }}>{item.title}</span>
@@ -189,7 +190,7 @@ function GalleryForm({
   onSave: () => void;
 }) {
   const set = (patch: Partial<BeforeAfterRow>) => onChange({ ...value, ...patch });
-  const ready = value.title.trim() && value.before_image && value.after_image;
+  const ready = Boolean(value.title.trim() && value.before_image);
 
   return (
     <Card title={value.id ? "עריכת פריט" : "פריט חדש"}>
@@ -199,16 +200,18 @@ function GalleryForm({
 
       <div className="grid gap-4 md:grid-cols-2">
         <MediaPickerField
-          label="תמונת לפני"
+          label={value.after_image === null ? "התמונה" : "תמונת לפני"}
+          hint={value.after_image === null ? "תמונה אחת שמראה גם לפני וגם אחרי" : undefined}
           folder="before-after"
           value={value.before_image}
           onChange={(before_image) => set({ before_image })}
         />
         <MediaPickerField
           label="תמונת אחרי"
+          hint="אפשר להשאיר ריק אם התמונה הראשונה כבר מראה לפני ואחרי"
           folder="before-after"
-          value={value.after_image}
-          onChange={(after_image) => set({ after_image })}
+          value={value.after_image ?? ""}
+          onChange={(after_image) => set({ after_image: after_image || null })}
         />
       </div>
 
@@ -290,7 +293,7 @@ function GalleryForm({
       </div>
       {!ready && (
         <p className="mt-2 text-[13px]" style={{ color: "var(--ink-600)" }}>
-          צריך כותרת ושתי תמונות כדי לשמור.
+          צריך כותרת ולפחות תמונה אחת כדי לשמור.
         </p>
       )}
     </Card>
