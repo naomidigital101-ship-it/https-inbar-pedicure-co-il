@@ -6,11 +6,20 @@
  * מהדאטאבייס בזמן אמת ונופלות לערכים כאן כשאין נתונים.
  */
 
+import imgCorns from "@/assets/treatments/corns.webp";
+import imgIngrown from "@/assets/treatments/ingrown-nails.webp";
+import imgFungus from "@/assets/treatments/fungus.webp";
+import imgDiabetic from "@/assets/treatments/diabetic-feet.webp";
+import imgCracked from "@/assets/treatments/cracked-heels.webp";
+import imgOnycho from "@/assets/treatments/onycholysis.webp";
+
 export type HomeService = {
   num: string;
   title: string;
   desc: string;
   href: string;
+  img: string;
+  alt: string;
 };
 
 export const DESIGN_SERVICES: readonly HomeService[] = [
@@ -19,36 +28,48 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     title: "יבלות וקאלוסים",
     desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.",
     href: "/services/corns",
+    img: imgCorns,
+    alt: "מכשיר פדיקור מקצועי מונח על מגבת לבנה בקליניקה",
   },
   {
     num: "02",
     title: "ציפורן חודרנית",
     desc: "אורתוניקסיה — תיקון מבני ללא ניתוח, ללא כאב.",
     href: "/services/ingrown-nails",
+    img: imgIngrown,
+    alt: "כלי פדיקור מנירוסטה וחוט אורתוניקסיה על מגש סטרילי",
   },
   {
     num: "03",
     title: "פטרת עור וציפורן",
     desc: "אבחנה, טיפול יסודי והדרכה ביתית עד החלמה מלאה.",
     href: "/services/fungus",
+    img: imgFungus,
+    alt: "בקבוקון טפטפת עם תמיסת טיפול ורפידת כותנה",
   },
   {
     num: "04",
     title: "כף רגל סוכרתית",
     desc: "פרוטוקול אגודת אייל: בלי חתכים, בלי השרייה, בלי סיכונים.",
     href: "/services/diabetic-feet",
+    img: imgDiabetic,
+    alt: "ידיים בכפפות סטריליות בודקות כף רגל על מגבת בקליניקה",
   },
   {
     num: "05",
     title: "עור סדוק ועקבים",
     desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.",
     href: "/services/cracked-heels",
+    img: imgCracked,
+    alt: "צנצנת קרם עשיר לכף הרגל לצד מגבת לבנה מקופלת",
   },
   {
     num: "06",
     title: "שיקום ציפורן BIO",
     desc: "שיקום ציפורן שהתנתקה ממיטת הציפורן — עד תוצאה מושלמת.",
     href: "/services/onycholysis",
+    img: imgOnycho,
+    alt: "צנצנת ג'ל שקוף ומכחול שיקום ציפורן על מגש סטרילי",
   },
 ] as const;
 

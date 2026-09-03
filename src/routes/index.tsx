@@ -821,19 +821,24 @@ function HomePage() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
+                      overflow: "hidden",
                       filter: "saturate(0.75)",
                     }}
                   >
-                    <span
+                    <img
+                      src={svc.img}
+                      alt={svc.alt}
+                      width={110}
+                      height={110}
+                      loading="lazy"
+                      decoding="async"
                       style={{
-                        fontFamily: BODONI,
-                        fontSize: "11px",
-                        letterSpacing: "0.2em",
-                        color: "#B9B4AA",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
                       }}
-                    >
-                      {svc.num}
-                    </span>
+                    />
                   </span>
                   <span
                     style={{
