@@ -29,7 +29,7 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     desc: "הסרה בכלים סטריליים, איתור מקור הלחץ ומניעת הישנות.",
     href: "/services/corns",
     img: imgCorns,
-    alt: "מכשיר פדיקור מקצועי מונח על מגבת לבנה בקליניקה",
+    alt: "קלוז-אפ של יבלת וקאלוס מעובה בכרית כף הרגל",
   },
   {
     num: "02",
@@ -37,7 +37,7 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     desc: "אורתוניקסיה — תיקון מבני ללא ניתוח, ללא כאב.",
     href: "/services/ingrown-nails",
     img: imgIngrown,
-    alt: "כלי פדיקור מנירוסטה וחוט אורתוניקסיה על מגש סטרילי",
+    alt: "ציפורן חודרנית בבוהן: קצה הציפורן נכנס לקפל עור אדום ונפוח",
   },
   {
     num: "03",
@@ -45,7 +45,7 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     desc: "אבחנה, טיפול יסודי והדרכה ביתית עד החלמה מלאה.",
     href: "/services/fungus",
     img: imgFungus,
-    alt: "בקבוקון טפטפת עם תמיסת טיפול ורפידת כותנה",
+    alt: "ציפורניים עם פטרת: לוחיות מעובות בגוון צהוב-חום ומתפוררות",
   },
   {
     num: "04",
@@ -53,7 +53,7 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     desc: "פרוטוקול אגודת אייל: בלי חתכים, בלי השרייה, בלי סיכונים.",
     href: "/services/diabetic-feet",
     img: imgDiabetic,
-    alt: "ידיים בכפפות סטריליות בודקות כף רגל על מגבת בקליניקה",
+    alt: "בדיקת כף רגל סוכרתית בידיים בכפפות: עור יבש ומתקלף בכרית כף הרגל",
   },
   {
     num: "05",
@@ -61,7 +61,7 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     desc: "הסרה עדינה, איחוי סדקים והחזרת רכות לכף הרגל.",
     href: "/services/cracked-heels",
     img: imgCracked,
-    alt: "צנצנת קרם עשיר לכף הרגל לצד מגבת לבנה מקופלת",
+    alt: "עקב עם סדקים עמוקים ועור קשה ויבש מסביב",
   },
   {
     num: "06",
@@ -69,7 +69,7 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     desc: "שיקום ציפורן שהתנתקה ממיטת הציפורן — עד תוצאה מושלמת.",
     href: "/services/onycholysis",
     img: imgOnycho,
-    alt: "צנצנת ג'ל שקוף ומכחול שיקום ציפורן על מגש סטרילי",
+    alt: "שיקום ציפורן BIO: ג'ל שקוף נמרח במכחול על ציפורן פגומה",
   },
 ] as const;
 

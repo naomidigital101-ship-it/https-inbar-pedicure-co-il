@@ -92,8 +92,7 @@ export function AccessibilityMenu() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const toggle = (k: keyof State) =>
-    setState((s) => ({ ...s, [k]: !s[k] } as State));
+  const toggle = (k: keyof State) => setState((s) => ({ ...s, [k]: !s[k] }) as State);
 
   const fontUp = () =>
     setState((s) => ({ ...s, fontStep: Math.min(4, s.fontStep + 1) as State["fontStep"] }));
@@ -119,7 +118,7 @@ export function AccessibilityMenu() {
       {open && (
         <>
           <div
-            className="fixed inset-0 z-[9998] bg-black/40"
+            className="fixed inset-0 z-[9997] bg-black/40"
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />

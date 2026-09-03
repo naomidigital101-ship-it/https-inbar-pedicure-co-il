@@ -27,7 +27,16 @@ const WA = "https://wa.me/972506668595";
 const BODONI = "'Bodoni Moda',serif";
 
 const HOME_CSS = `
-.ip-page { direction:rtl; font-family:'Assistant',sans-serif; color:#141414; background:#FFFFFF; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+.ip-page { direction:rtl; font-family:'Assistant',sans-serif; color:#141414; background:#FFFFFF; -webkit-font-smoothing:antialiased; overflow-x:clip; padding-bottom:80px; }
+/* clip ולא hidden: hidden מחשב overflow-y ל-auto, .ip-page הופך למכל גלילה
+   וכל position:sticky בתוכו (הניווט, עמודת THE CLINIC) מפסיק לעבוד. */
+.ip-page [id] { scroll-margin-top:124px; }
+.ip-page ::placeholder { color:#6B6B6B; opacity:1; }
+.ip-page .ip-circle-ring { max-width:180px; margin-inline:auto; }
+/* יעדי מגע: הקישורים האלה היו 18-20px גובה, מתחת למינימום הנגיש. */
+.ip-page .ip-nav-links a { padding:12px 0; }
+.ip-page .ip-footer-link { padding:12px 0; }
+.ip-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 .ip-page a { color:#141414; text-decoration:none; transition:color 0.2s, background 0.2s, border-color 0.2s, opacity 0.2s; }
 .ip-page a:hover { color:#0E3B2E; }
 .ip-page input, .ip-page select, .ip-page button, .ip-page textarea { font-family:'Assistant',sans-serif; }
@@ -62,8 +71,17 @@ const HOME_CSS = `
   .ip-clinic-aside { position:static !important; }
   .ip-about-grid, .ip-contact-grid { grid-template-columns:1fr !important; gap:60px !important; }
 }
+@media (max-width: 1100px) and (min-width: 901px) {
+  /* בטווח הזה גובה תמונת ההירו יורד ל-405-495px והטקסט ממלא 87% ממנה. */
+  .ip-hero-h1 { font-size:36px !important; }
+  .ip-hero-sub { font-size:18px !important; }
+  .ip-hero-overlay > div { padding-inline:24px !important; }
+}
 @media (max-width: 900px) {
   .ip-nav-links { display:none !important; }
+  .ip-page [id] { scroll-margin-top:100px; }
+  /* מרווח תחתון כדי שכפתור הנגישות הצף לא ישב על שורת הדיסקליימר. */
+  .ip-page { padding-bottom:88px; }
   .ip-nav-burger { display:inline-flex !important; }
   .ip-nav-panel.is-open { display:block !important; }
   /* במובייל אין מקום לכפתור "דברו איתנו" לצד הלוגו והתפריט; הקשר נשאר
@@ -72,7 +90,7 @@ const HOME_CSS = `
   .ip-nav-grid { padding:12px 5% !important; }
   .ip-nav-grid > a img { height:64px !important; margin:-6px 0 !important; }
   .ip-academy-grid { grid-template-columns:1fr !important; }
-  .ip-academy-img { min-height:420px !important; }
+  .ip-academy-img { min-height:260px !important; }
   .ip-pillars-grid, .ip-testi-grid, .ip-journal-grid { grid-template-columns:1fr !important; }
   .ip-pillars-grid > div, .ip-testi-grid > div { border-left:none !important; padding-bottom:48px !important; }
   .ip-hero-overlay { position:static !important; display:block !important; padding:56px 6% !important; }
@@ -85,7 +103,7 @@ const HOME_CSS = `
 }
 @media (max-width: 560px) {
   .ip-nav-grid { padding:10px 4% !important; }
-  .ip-nav-burger { padding:8px 11px !important; font-size:12px !important; }
+  .ip-nav-burger { padding:13px 12px !important; font-size:12px !important; }
   .ip-nav-grid > a img { height:54px !important; margin:-4px 0 !important; }
   .ip-hero-h1 { font-size:32px !important; }
   .ip-hero-sub { font-size:17px !important; }
@@ -117,6 +135,14 @@ const FOOTER_LINKS = [
   { label: "כף רגל סוכרתית", href: "/services/diabetic-feet" },
   { label: "הכשרות", href: "#academy" },
   { label: "יצירת קשר", href: "/contact" },
+];
+
+/* חובה בישראל: הצהרת נגישות ומדיניות פרטיות נגישות מכל עמוד. */
+const FOOTER_LEGAL = [
+  { label: "הצהרת נגישות", href: "/accessibility" },
+  { label: "מדיניות פרטיות", href: "/privacy" },
+  { label: "תנאי שימוש", href: "/terms" },
+  { label: "מפת האתר", href: "/sitemap" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -308,15 +334,16 @@ function HomePage() {
               <button
                 type="button"
                 className="ip-nav-burger"
-                aria-label="פתיחת תפריט הניווט"
+                aria-label="תפריט ניווט"
                 aria-expanded={menuOpen}
+                aria-controls="ip-nav-panel"
                 onClick={() => setMenuOpen((v) => !v)}
                 style={{
                   alignItems: "center",
                   gap: "10px",
                   background: "transparent",
-                  border: "1px solid #ECEAE6",
-                  padding: "9px 14px",
+                  border: "1px solid #8F8474",
+                  padding: "12px 16px",
                   cursor: "pointer",
                   fontSize: "13px",
                   letterSpacing: "0.14em",
@@ -391,6 +418,7 @@ function HomePage() {
             </div>
           </div>
           <div
+            id="ip-nav-panel"
             className={`ip-nav-panel${menuOpen ? " is-open" : ""}`}
             style={{ borderTop: "1px solid #ECEAE6", padding: "6px 4% 18px" }}
           >
@@ -414,774 +442,507 @@ function HomePage() {
           </div>
         </nav>
 
-        {/* Hero — התמונה כרקע מלא, גלויה במלואה */}
-        <header style={{ position: "relative", background: "#FFFFFF" }}>
-          <img
-            src={heroImage}
-            alt="ענבר פרחי בקליניקה עם מודל אנטומי של כף הרגל"
-            width={1870}
-            height={841}
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            style={{ width: "100%", height: "auto", display: "block" }}
-          />
-          <div
-            className="ip-hero-overlay"
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "grid",
-              gridTemplateColumns: "repeat(2,1fr)",
-              alignItems: "center",
-              direction: "ltr",
-            }}
-          >
+        <main id="main-content">
+          {/* Hero — התמונה כרקע מלא, גלויה במלואה */}
+          <header style={{ position: "relative", background: "#FFFFFF" }}>
+            <img
+              src={heroImage}
+              alt="ענבר פרחי בקליניקה עם מודל אנטומי של כף הרגל"
+              width={1870}
+              height={841}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
             <div
+              className="ip-hero-overlay"
               style={{
-                direction: "rtl",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                textAlign: "center",
+                position: "absolute",
+                inset: 0,
+                display: "grid",
+                gridTemplateColumns: "repeat(2,1fr)",
                 alignItems: "center",
-                width: "100%",
-                maxWidth: "520px",
-                margin: "0 auto",
+                direction: "ltr",
               }}
             >
               <div
                 style={{
-                  fontFamily: BODONI,
-                  fontSize: "14px",
-                  letterSpacing: "0.4em",
-                  color: "#6E6E6E",
-                  fontWeight: 400,
-                  marginBottom: "26px",
-                  marginLeft: "-0.4em",
-                }}
-              >
-                INBAR FARCHI · THE CLINICAL APPROACH
-              </div>
-              <h1
-                className="ip-hero-h1"
-                style={{
-                  fontWeight: 700,
-                  fontSize: "46px",
-                  lineHeight: 1.35,
-                  margin: "0 0 18px",
-                  color: "#141414",
-                }}
-              >
-                הבסיס לבריאות — כף הרגל
-              </h1>
-              <div
-                className="ip-hero-sub"
-                style={{
-                  fontWeight: 300,
-                  fontSize: "20px",
-                  color: "#333333",
-                  letterSpacing: "0.04em",
-                  marginBottom: "40px",
-                  lineHeight: 1.75,
-                }}
-              >
-                פדיקור טיפולי בגישה קלינית,
-                <br />
-                לטיפול נכון בכף הרגל ובמחלותיה
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "26px",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
-                }}
-              >
-                <a
-                  className="ip-btn-solid"
-                  href="#method"
-                  style={{
-                    background: "#0E3B2E",
-                    color: "#FFFFFF",
-                    padding: "16px 46px",
-                    fontWeight: 400,
-                    fontSize: "14.5px",
-                    letterSpacing: "0.2em",
-                  }}
-                >
-                  קראו על השיטה
-                </a>
-                <a
-                  href="#academy"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "14.5px",
-                    letterSpacing: "0.14em",
-                    borderBottom: "1px solid #141414",
-                    paddingBottom: "4px",
-                  }}
-                >
-                  אני פדיקוריסטית ←
-                </a>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Conditions — עיגולים */}
-        <section id="clinic" style={{ padding: "110px 6% 90px", textAlign: "center" }}>
-          <div
-            style={{
-              fontFamily: BODONI,
-              fontSize: "15px",
-              letterSpacing: "0.5em",
-              color: "#8C8C8C",
-              fontWeight: 400,
-              margin: "0 0 14px",
-              marginLeft: "-0.5em",
-            }}
-          >
-            FOOT CONCERNS
-          </div>
-          <h2 style={{ fontWeight: 700, fontSize: "28px", color: "#141414", margin: "0 0 10px" }}>
-            טיפול לפי מצב כף הרגל
-          </h2>
-          <p
-            style={{
-              fontSize: "15px",
-              letterSpacing: "0.1em",
-              color: "#8C8C8C",
-              fontWeight: 300,
-              margin: "0 0 64px",
-            }}
-          >
-            בחרו את מה שמטריד — ותגיעו לפרוטוקול הטיפול המלא
-          </p>
-          <div
-            className="ip-circles-grid"
-            style={{
-              maxWidth: "1240px",
-              margin: "0 auto",
-              display: "grid",
-              gridTemplateColumns: "repeat(6,1fr)",
-              gap: "34px",
-              alignItems: "start",
-            }}
-          >
-            {DESIGN_SERVICES.map((svc) => (
-              <a
-                key={svc.num}
-                className="ip-circle"
-                href={svc.href}
-                style={{
+                  direction: "rtl",
                   display: "flex",
                   flexDirection: "column",
+                  justifyContent: "center",
+                  textAlign: "center",
                   alignItems: "center",
-                  gap: "20px",
+                  width: "100%",
+                  maxWidth: "520px",
+                  margin: "0 auto",
                 }}
               >
-                <span
-                  className="ip-circle-ring"
+                <div
                   style={{
-                    width: "100%",
-                    aspectRatio: "1",
-                    borderRadius: "50%",
-                    border: "1px solid #DDD9D2",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    transition: "border-color 0.25s, background 0.25s",
+                    fontFamily: BODONI,
+                    fontSize: "14px",
+                    letterSpacing: "0.4em",
+                    color: "#6E6E6E",
+                    fontWeight: 400,
+                    marginBottom: "26px",
+                    marginLeft: "-0.4em",
                   }}
                 >
-                  <span
+                  INBAR FARCHI · THE CLINICAL APPROACH
+                </div>
+                <h1
+                  className="ip-hero-h1"
+                  style={{
+                    fontWeight: 700,
+                    fontSize: "46px",
+                    lineHeight: 1.35,
+                    margin: "0 0 18px",
+                    color: "#141414",
+                  }}
+                >
+                  הבסיס לבריאות — כף הרגל
+                </h1>
+                <div
+                  className="ip-hero-sub"
+                  style={{
+                    fontWeight: 300,
+                    fontSize: "20px",
+                    color: "#333333",
+                    letterSpacing: "0.04em",
+                    marginBottom: "40px",
+                    lineHeight: 1.75,
+                  }}
+                >
+                  פדיקור טיפולי בגישה קלינית,
+                  <br />
+                  לטיפול נכון בכף הרגל ובמחלותיה
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "26px",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <a
+                    className="ip-btn-solid"
+                    href="#method"
                     style={{
-                      fontFamily: BODONI,
+                      background: "#0E3B2E",
+                      color: "#FFFFFF",
+                      padding: "16px 46px",
                       fontWeight: 400,
-                      fontSize: "28px",
-                      color: "#0E3B2E",
+                      fontSize: "14.5px",
+                      letterSpacing: "0.2em",
                     }}
                   >
-                    {svc.num}
-                  </span>
-                </span>
-                <span
-                  style={{
-                    fontSize: "14.5px",
-                    letterSpacing: "0.12em",
-                    fontWeight: 400,
-                    color: "#141414",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {svc.title}
-                </span>
-              </a>
-            ))}
-          </div>
-        </section>
+                    קראו על השיטה
+                  </a>
+                  <a
+                    href="#academy"
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "14.5px",
+                      letterSpacing: "0.14em",
+                      borderBottom: "1px solid #141414",
+                      paddingBottom: "4px",
+                    }}
+                  >
+                    אני פדיקוריסטית ←
+                  </a>
+                </div>
+              </div>
+            </div>
+          </header>
 
-        {/* Method — פס ירוק עמוק */}
-        <section id="method" style={{ background: "#0C2B23", padding: "130px 6%" }}>
-          <div style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
+          {/* Conditions — עיגולים */}
+          <section id="clinic" style={{ padding: "110px 6% 90px", textAlign: "center" }}>
             <div
-              className="ip-display-xl"
               style={{
                 fontFamily: BODONI,
-                fontSize: "52px",
-                letterSpacing: "0.18em",
-                color: "#FFFFFF",
+                fontSize: "15px",
+                letterSpacing: "0.5em",
+                color: "#6B6B6B",
                 fontWeight: 400,
-                marginBottom: "36px",
-                marginLeft: "-0.18em",
-                lineHeight: 1.1,
+                margin: "0 0 14px",
+                marginLeft: "-0.5em",
               }}
             >
-              THE METHOD
+              FOOT CONCERNS
             </div>
-            <h2
-              style={{
-                fontWeight: 700,
-                fontSize: "30px",
-                lineHeight: 1.5,
-                margin: "0 0 8px",
-                color: "#FFFFFF",
-              }}
-            >
-              כף הרגל אינה סימפטום מקומי:
+            <h2 style={{ fontWeight: 700, fontSize: "28px", color: "#141414", margin: "0 0 10px" }}>
+              טיפול לפי מצב כף הרגל
             </h2>
-            <div
-              style={{ fontWeight: 300, fontSize: "24px", color: "#B9C9C0", marginBottom: "36px" }}
-            >
-              היא מערכת ביולוגית שלמה
-            </div>
             <p
               style={{
-                fontSize: "16px",
-                lineHeight: 2.15,
-                color: "#B9C9C0",
+                fontSize: "15px",
+                letterSpacing: "0.1em",
+                color: "#6B6B6B",
                 fontWeight: 300,
-                maxWidth: "640px",
-                margin: "0 auto 80px",
+                margin: "0 0 64px",
               }}
             >
-              יבלת שחוזרת, ציפורן שנכנסת שוב ושוב, עור שנסדק — אינם עומדים בפני עצמם. הם משקפים לחץ
-              מכני, הנעלה, תבנית הליכה ומצב בריאותי. לכן האבחון אצל ענבר מתחיל תמיד בשאלה למה — לא
-              רק במה.
+              בחרו את מה שמטריד — ותגיעו לפרוטוקול הטיפול המלא
             </p>
             <div
-              className="ip-pillars-grid"
+              className="ip-circles-grid"
               style={{
+                maxWidth: "1240px",
+                margin: "0 auto",
                 display: "grid",
-                gridTemplateColumns: "repeat(3,1fr)",
-                borderTop: "1px solid rgba(255,255,255,0.14)",
+                gridTemplateColumns: "repeat(6,1fr)",
+                gap: "34px",
+                alignItems: "start",
               }}
             >
-              {DESIGN_PILLARS.map((p) => (
-                <div
-                  key={p.num}
-                  style={{ padding: "48px 34px 0", borderLeft: "1px solid rgba(255,255,255,0.14)" }}
-                >
-                  <div
-                    style={{
-                      fontFamily: BODONI,
-                      fontWeight: 400,
-                      fontSize: "32px",
-                      color: "#7E9A8E",
-                      marginBottom: "18px",
-                    }}
-                  >
-                    {p.num}
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "16.5px",
-                      color: "#FFFFFF",
-                      marginBottom: "14px",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    {p.title}
-                  </div>
-                  <p
-                    style={{
-                      fontWeight: 300,
-                      fontSize: "14.5px",
-                      lineHeight: 2,
-                      color: "#B9C9C0",
-                      margin: 0,
-                    }}
-                  >
-                    {p.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Services list — עריכתי */}
-        <section style={{ padding: "110px 6%", maxWidth: "1150px", margin: "0 auto" }}>
-          <div
-            className="ip-clinic-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "0.8fr 1.2fr",
-              gap: "90px",
-              alignItems: "start",
-            }}
-          >
-            <div
-              className="ip-clinic-aside"
-              style={{ position: "sticky", top: "130px", textAlign: "center" }}
-            >
-              <div
-                style={{
-                  fontFamily: BODONI,
-                  fontSize: "14px",
-                  letterSpacing: "0.5em",
-                  color: "#8C8C8C",
-                  fontWeight: 400,
-                  marginBottom: "24px",
-                  marginLeft: "-0.5em",
-                }}
-              >
-                THE CLINIC
-              </div>
-              <h2
-                style={{
-                  fontWeight: 700,
-                  fontSize: "32px",
-                  lineHeight: 1.45,
-                  margin: "0 0 8px",
-                  color: "#141414",
-                }}
-              >
-                טיפול קליני,
-              </h2>
-              <div
-                style={{
-                  fontWeight: 300,
-                  fontSize: "26px",
-                  color: "#4E4E4E",
-                  marginBottom: "28px",
-                }}
-              >
-                לא קוסמטי
-              </div>
-              <p
-                style={{
-                  fontSize: "15.5px",
-                  lineHeight: 2.1,
-                  color: "#4E4E4E",
-                  fontWeight: 300,
-                  margin: "0 0 40px",
-                }}
-              >
-                כל טיפול מבוסס פרוטוקול מתועד — איכילוב, משרד הבריאות, אגודת אייל. כלים חד־פעמיים
-                נפתחים מול המטופל, אוטוקלאב לכל כלי רב־פעמי.
-              </p>
-              <a
-                className="ip-btn-outline"
-                href={`${WA}?text=${encodeURIComponent("שלום, נשמח לתאם אבחון")}`}
-                style={{
-                  border: "1px solid #141414",
-                  padding: "14px 40px",
-                  fontWeight: 400,
-                  fontSize: "13.5px",
-                  letterSpacing: "0.2em",
-                  display: "inline-block",
-                }}
-              >
-                לתיאום אבחון
-              </a>
-            </div>
-            <div style={{ borderTop: "1px solid #ECEAE6" }}>
               {DESIGN_SERVICES.map((svc) => (
                 <a
                   key={svc.num}
+                  className="ip-circle"
                   href={svc.href}
-                  className="ip-svc-row"
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "110px 64px 1fr auto",
-                    gap: "26px",
+                    display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
-                    padding: "22px 4px",
-                    borderBottom: "1px solid #ECEAE6",
+                    gap: "20px",
                   }}
                 >
                   <span
+                    className="ip-circle-ring"
                     style={{
-                      width: "110px",
-                      height: "110px",
-                      background: "#F2F0EB",
+                      width: "100%",
+                      aspectRatio: "1",
+                      borderRadius: "50%",
+                      border: "1px solid #8F8474",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      overflow: "hidden",
-                      filter: "saturate(0.75)",
+                      transition: "border-color 0.25s, background 0.25s",
                     }}
                   >
-                    <img
-                      src={svc.img}
-                      alt={svc.alt}
-                      width={110}
-                      height={110}
-                      loading="lazy"
-                      decoding="async"
+                    <span
                       style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        display: "block",
+                        fontFamily: BODONI,
+                        fontWeight: 400,
+                        fontSize: "28px",
+                        color: "#0E3B2E",
                       }}
-                    />
+                    >
+                      {svc.num}
+                    </span>
                   </span>
                   <span
                     style={{
-                      fontFamily: BODONI,
+                      fontSize: "14.5px",
+                      letterSpacing: "0.12em",
                       fontWeight: 400,
-                      fontSize: "22px",
-                      color: "#B9B4AA",
+                      color: "#141414",
+                      lineHeight: 1.6,
                     }}
                   >
-                    {svc.num}
+                    {svc.title}
                   </span>
-                  <span style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                    <span
-                      style={{
-                        fontWeight: 600,
-                        fontSize: "18px",
-                        letterSpacing: "0.04em",
-                        color: "#141414",
-                      }}
-                    >
-                      {svc.title}
-                    </span>
-                    <span
-                      style={{
-                        fontWeight: 300,
-                        fontSize: "15px",
-                        lineHeight: 1.95,
-                        color: "#6E6E6E",
-                      }}
-                    >
-                      {svc.desc}
-                    </span>
-                  </span>
-                  <span style={{ fontWeight: 200, fontSize: "20px", color: "#B9B4AA" }}>←</span>
                 </a>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Academy — split */}
-        <section
-          id="academy"
-          className="ip-academy-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            alignItems: "stretch",
-            borderTop: "1px solid #ECEAE6",
-          }}
-        >
-          <div
-            className="ip-academy-img"
-            style={{
-              position: "relative",
-              minHeight: "680px",
-              background: "#F7F5F1",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div style={{ textAlign: "center", padding: "40px" }}>
+          {/* Method — פס ירוק עמוק */}
+          <section id="method" style={{ background: "#0C2B23", padding: "130px 6%" }}>
+            <div style={{ maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
               <div
+                className="ip-display-xl"
                 style={{
                   fontFamily: BODONI,
-                  fontSize: "15px",
-                  letterSpacing: "0.5em",
-                  color: "#B9B4AA",
-                  marginLeft: "-0.5em",
-                  marginBottom: "18px",
+                  fontSize: "52px",
+                  letterSpacing: "0.18em",
+                  color: "#FFFFFF",
+                  fontWeight: 400,
+                  marginBottom: "36px",
+                  marginLeft: "-0.18em",
+                  lineHeight: 1.1,
                 }}
               >
-                INBAR FARHI
+                THE METHOD
               </div>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "30px",
+                  lineHeight: 1.5,
+                  margin: "0 0 8px",
+                  color: "#FFFFFF",
+                }}
+              >
+                כף הרגל אינה סימפטום מקומי:
+              </h2>
               <div
                 style={{
                   fontWeight: 300,
-                  fontSize: "14px",
-                  letterSpacing: "0.1em",
-                  color: "#8C8C8C",
+                  fontSize: "24px",
+                  color: "#B9C9C0",
+                  marginBottom: "36px",
                 }}
               >
-                כאן ישולב וידאו מההרצאות של ענבר
+                היא מערכת ביולוגית שלמה
               </div>
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "100px 7%",
-              textAlign: "center",
-              alignItems: "center",
-            }}
-          >
-            <div
-              className="ip-display-lg"
-              style={{
-                fontFamily: BODONI,
-                fontSize: "44px",
-                letterSpacing: "0.16em",
-                color: "#141414",
-                fontWeight: 400,
-                marginBottom: "30px",
-                marginLeft: "-0.16em",
-                lineHeight: 1.1,
-              }}
-            >
-              EDUCATION
-            </div>
-            <h2
-              style={{
-                fontWeight: 700,
-                fontSize: "30px",
-                lineHeight: 1.4,
-                margin: "0 0 6px",
-                color: "#141414",
-              }}
-            >
-              מרצה ומכשירה
-            </h2>
-            <div
-              style={{ fontWeight: 300, fontSize: "22px", color: "#0E3B2E", marginBottom: "30px" }}
-            >
-              את הדור הבא של המקצוע
-            </div>
-            <p
-              style={{
-                fontSize: "15.5px",
-                lineHeight: 2.1,
-                color: "#4E4E4E",
-                fontWeight: 300,
-                margin: "0 0 46px",
-                maxWidth: "460px",
-              }}
-            >
-              ענבר מרצה ומכשירה פדיקוריסטיות שרוצות לעבוד ברמה קלינית — לא קוסמטית. ההכשרות מתקיימות
-              בקליניקה של המשתלמת או בקבוצות אזוריות, בכל הארץ, ומבוססות על עבודה מעשית לצד תיאוריה.
-            </p>
-            <div
-              style={{
-                width: "100%",
-                maxWidth: "460px",
-                borderTop: "1px solid #ECEAE6",
-                marginBottom: "46px",
-              }}
-            >
-              {DESIGN_TRACKS.map((t) => (
-                <div
-                  key={t.num}
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "52px 1fr",
-                    gap: "22px",
-                    padding: "26px 2px",
-                    borderBottom: "1px solid #ECEAE6",
-                    textAlign: "right",
-                    alignItems: "baseline",
-                  }}
-                >
-                  <span
+              <p
+                style={{
+                  fontSize: "16px",
+                  lineHeight: 2.15,
+                  color: "#B9C9C0",
+                  fontWeight: 300,
+                  maxWidth: "640px",
+                  margin: "0 auto 80px",
+                }}
+              >
+                יבלת שחוזרת, ציפורן שנכנסת שוב ושוב, עור שנסדק — אינם עומדים בפני עצמם. הם משקפים
+                לחץ מכני, הנעלה, תבנית הליכה ומצב בריאותי. לכן האבחון אצל ענבר מתחיל תמיד בשאלה למה
+                — לא רק במה.
+              </p>
+              <div
+                className="ip-pillars-grid"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3,1fr)",
+                  borderTop: "1px solid rgba(255,255,255,0.14)",
+                }}
+              >
+                {DESIGN_PILLARS.map((p) => (
+                  <div
+                    key={p.num}
                     style={{
-                      fontFamily: BODONI,
-                      fontWeight: 400,
-                      fontSize: "20px",
-                      color: "#B9B4AA",
+                      padding: "48px 34px 0",
+                      borderLeft: "1px solid rgba(255,255,255,0.14)",
                     }}
                   >
-                    {t.num}
-                  </span>
-                  <span style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <span
+                    <div
+                      style={{
+                        fontFamily: BODONI,
+                        fontWeight: 400,
+                        fontSize: "32px",
+                        color: "#7E9A8E",
+                        marginBottom: "18px",
+                      }}
+                    >
+                      {p.num}
+                    </div>
+                    <div
                       style={{
                         fontWeight: 600,
                         fontSize: "16.5px",
-                        letterSpacing: "0.04em",
-                        color: "#141414",
+                        color: "#FFFFFF",
+                        marginBottom: "14px",
+                        letterSpacing: "0.08em",
                       }}
                     >
-                      {t.title}
-                    </span>
-                    <span
+                      {p.title}
+                    </div>
+                    <p
                       style={{
                         fontWeight: 300,
                         fontSize: "14.5px",
-                        lineHeight: 1.9,
-                        color: "#6E6E6E",
+                        lineHeight: 2,
+                        color: "#B9C9C0",
+                        margin: 0,
                       }}
                     >
-                      {t.desc}
-                    </span>
-                  </span>
-                </div>
-              ))}
+                      {p.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
+          </section>
+
+          {/* Services list — עריכתי */}
+          <section style={{ padding: "110px 6%", maxWidth: "1150px", margin: "0 auto" }}>
             <div
+              className="ip-clinic-grid"
               style={{
-                display: "flex",
-                gap: "26px",
-                alignItems: "center",
-                flexWrap: "wrap",
-                justifyContent: "center",
+                display: "grid",
+                gridTemplateColumns: "0.8fr 1.2fr",
+                gap: "90px",
+                alignItems: "start",
               }}
             >
-              <a
-                className="ip-btn-solid"
-                href={`${WA}?text=${encodeURIComponent("שלום, אנחנו מתעניינים בהכשרה מקצועית")}`}
-                style={{
-                  background: "#0E3B2E",
-                  color: "#FFFFFF",
-                  padding: "15px 44px",
-                  fontWeight: 400,
-                  fontSize: "14px",
-                  letterSpacing: "0.2em",
-                }}
+              <div
+                className="ip-clinic-aside"
+                style={{ position: "sticky", top: "130px", textAlign: "center" }}
               >
-                לבדיקת התאמה
-              </a>
-              <a
-                href={`${WA}?text=${encodeURIComponent("שלום, נשמח להזמין הרצאה")}`}
-                style={{
-                  fontWeight: 400,
-                  fontSize: "14px",
-                  letterSpacing: "0.14em",
-                  borderBottom: "1px solid #141414",
-                  paddingBottom: "4px",
-                }}
-              >
-                להזמנת הרצאה ←
-              </a>
+                <div
+                  style={{
+                    fontFamily: BODONI,
+                    fontSize: "14px",
+                    letterSpacing: "0.5em",
+                    color: "#6B6B6B",
+                    fontWeight: 400,
+                    marginBottom: "24px",
+                    marginLeft: "-0.5em",
+                  }}
+                >
+                  THE CLINIC
+                </div>
+                <h2
+                  style={{
+                    fontWeight: 700,
+                    fontSize: "32px",
+                    lineHeight: 1.45,
+                    margin: "0 0 8px",
+                    color: "#141414",
+                  }}
+                >
+                  טיפול קליני,
+                </h2>
+                <div
+                  style={{
+                    fontWeight: 300,
+                    fontSize: "26px",
+                    color: "#4E4E4E",
+                    marginBottom: "28px",
+                  }}
+                >
+                  לא קוסמטי
+                </div>
+                <p
+                  style={{
+                    fontSize: "15.5px",
+                    lineHeight: 2.1,
+                    color: "#4E4E4E",
+                    fontWeight: 300,
+                    margin: "0 0 40px",
+                  }}
+                >
+                  כל טיפול מבוסס פרוטוקול מתועד — איכילוב, משרד הבריאות, אגודת אייל. כלים חד־פעמיים
+                  נפתחים מול המטופל, אוטוקלאב לכל כלי רב־פעמי.
+                </p>
+                <a
+                  className="ip-btn-outline"
+                  href={`${WA}?text=${encodeURIComponent("שלום, נשמח לתאם אבחון")}`}
+                  style={{
+                    border: "1px solid #141414",
+                    padding: "14px 40px",
+                    fontWeight: 400,
+                    fontSize: "13.5px",
+                    letterSpacing: "0.2em",
+                    display: "inline-block",
+                  }}
+                >
+                  לתיאום אבחון
+                </a>
+              </div>
+              <div style={{ borderTop: "1px solid #ECEAE6" }}>
+                {DESIGN_SERVICES.map((svc) => (
+                  <a
+                    key={svc.num}
+                    href={svc.href}
+                    className="ip-svc-row"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "110px 64px 1fr auto",
+                      gap: "26px",
+                      alignItems: "center",
+                      padding: "22px 4px",
+                      borderBottom: "1px solid #ECEAE6",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: "110px",
+                        height: "110px",
+                        background: "#F2F0EB",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        filter: "saturate(0.75)",
+                      }}
+                    >
+                      <img
+                        src={svc.img}
+                        alt={svc.alt}
+                        width={110}
+                        height={110}
+                        loading="lazy"
+                        decoding="async"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                        }}
+                      />
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: BODONI,
+                        fontWeight: 400,
+                        fontSize: "22px",
+                        color: "#726B5E",
+                      }}
+                    >
+                      {svc.num}
+                    </span>
+                    <span style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          fontSize: "18px",
+                          letterSpacing: "0.04em",
+                          color: "#141414",
+                        }}
+                      >
+                        {svc.title}
+                      </span>
+                      <span
+                        style={{
+                          fontWeight: 300,
+                          fontSize: "15px",
+                          lineHeight: 1.95,
+                          color: "#6E6E6E",
+                        }}
+                      >
+                        {svc.desc}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden
+                      style={{ fontWeight: 200, fontSize: "20px", color: "#726B5E" }}
+                    >
+                      ←
+                    </span>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* About */}
-        <section id="about" style={{ background: "#F7F5F1", padding: "120px 6%" }}>
-          <div
-            className="ip-about-grid"
+          {/* Academy — split */}
+          <section
+            id="academy"
+            className="ip-academy-grid"
             style={{
-              maxWidth: "1150px",
-              margin: "0 auto",
               display: "grid",
-              gridTemplateColumns: "1fr 0.8fr",
-              gap: "90px",
-              alignItems: "center",
+              gridTemplateColumns: "1fr 1fr",
+              alignItems: "stretch",
+              borderTop: "1px solid #ECEAE6",
             }}
           >
-            <div style={{ textAlign: "center" }}>
-              <div
-                style={{
-                  fontFamily: BODONI,
-                  fontSize: "14px",
-                  letterSpacing: "0.5em",
-                  color: "#8C8C8C",
-                  fontWeight: 400,
-                  marginBottom: "24px",
-                  marginLeft: "-0.5em",
-                }}
-              >
-                ABOUT
-              </div>
-              <h2
-                style={{ fontWeight: 700, fontSize: "32px", margin: "0 0 28px", color: "#141414" }}
-              >
-                ענבר פרחי
-              </h2>
-              <p
-                style={{
-                  fontSize: "15.5px",
-                  lineHeight: 2.1,
-                  color: "#4E4E4E",
-                  fontWeight: 300,
-                  margin: "0 0 16px",
-                  textAlign: "right",
-                }}
-              >
-                יותר מ-12 שנה אני מטפלת בכף הרגל בגישה הקלינית הקפדנית ביותר — ובשנים האחרונות גם
-                מלמדת אותה. הקליניקה שלי אינה מכון יופי: כל החלטה מתבססת על ראיות, פרוטוקולים
-                בינלאומיים והבנה עמוקה של הפיזיולוגיה.
-              </p>
-              <p
-                style={{
-                  fontSize: "15.5px",
-                  lineHeight: 2.1,
-                  color: "#4E4E4E",
-                  fontWeight: 300,
-                  margin: "0 0 44px",
-                  textAlign: "right",
-                }}
-              >
-                אני מתמחה במקרים שאחרים מהססים לקבל — כף רגל סוכרתית, ציפורן חודרנית כרונית, פטרת
-                עיקשת — ומכשירה פדיקוריסטיות לעבוד באותו סטנדרט. מטופלים מגיעים אליי מעלי, אריאל,
-                שילה, עפרה וירושלים.
-              </p>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                  borderTop: "1px solid #E2DFD8",
-                }}
-              >
-                <span
-                  style={{
-                    padding: "18px 26px 0",
-                    fontSize: "13.5px",
-                    fontWeight: 400,
-                    letterSpacing: "0.08em",
-                    borderLeft: "1px solid #E2DFD8",
-                  }}
-                >
-                  בוגרת קורסים בינלאומיים
-                </span>
-                <span
-                  style={{
-                    padding: "18px 26px 0",
-                    fontSize: "13.5px",
-                    fontWeight: 400,
-                    letterSpacing: "0.08em",
-                    borderLeft: "1px solid #E2DFD8",
-                  }}
-                >
-                  פרוטוקול אגודת אייל
-                </span>
-                <span
-                  style={{
-                    padding: "18px 26px 0",
-                    fontSize: "13.5px",
-                    fontWeight: 400,
-                    letterSpacing: "0.08em",
-                  }}
-                >
-                  150+ שעות השתלמות בשנה
-                </span>
-              </div>
-            </div>
             <div
+              className="ip-academy-img"
               style={{
-                width: "100%",
-                aspectRatio: "4/5",
-                background: "#EFEDE8",
+                /* עמודת הטקסט גבוהה כ-980px. בלי alignSelf העמודה הזאת
+                   נמתחת איתה ומשאירה גוש בז' ריק בגובה מסך שלם. */
+                position: "sticky",
+                top: "124px",
+                alignSelf: "start",
+                minHeight: "520px",
+                maxHeight: "calc(100vh - 148px)",
+                background: "#F7F5F1",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1193,589 +954,914 @@ function HomePage() {
                     fontFamily: BODONI,
                     fontSize: "15px",
                     letterSpacing: "0.5em",
-                    color: "#B9B4AA",
+                    color: "#726B5E",
                     marginLeft: "-0.5em",
                     marginBottom: "18px",
                   }}
                 >
-                  PORTRAIT
+                  INBAR FARHI
                 </div>
                 <div
                   style={{
                     fontWeight: 300,
                     fontSize: "14px",
                     letterSpacing: "0.1em",
-                    color: "#8C8C8C",
+                    color: "#6B6B6B",
                   }}
                 >
-                  כאן תשולב תמונה אישית של ענבר
+                  כאן ישולב וידאו מההרצאות של ענבר
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section style={{ padding: "120px 6%", maxWidth: "1100px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "70px" }}>
-            <div
-              style={{
-                fontFamily: BODONI,
-                fontSize: "15px",
-                letterSpacing: "0.5em",
-                color: "#8C8C8C",
-                fontWeight: 400,
-                marginLeft: "-0.5em",
-              }}
-            >
-              GOOGLE REVIEWS
             </div>
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
+                flexDirection: "column",
                 justifyContent: "center",
-                gap: "10px",
-                marginTop: "22px",
+                padding: "100px 7%",
+                textAlign: "center",
+                alignItems: "center",
               }}
             >
-              <span style={{ color: "#E7B008", fontSize: "17px", letterSpacing: "0.2em" }}>
-                ★★★★★
-              </span>
-              <span style={{ fontWeight: 300, fontSize: "14px", color: "#4E4E4E" }}>
-                {ratingLabel} · ביקורות מאומתות מגוגל
-              </span>
-            </div>
-          </div>
-          <div
-            className="ip-testi-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3,1fr)",
-              borderTop: "1px solid #ECEAE6",
-              borderBottom: "1px solid #ECEAE6",
-            }}
-          >
-            {testimonials.map((t, i) => (
               <div
-                key={`${t.name}-${i}`}
-                style={{
-                  padding: "52px 40px",
-                  borderLeft: "1px solid #ECEAE6",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "26px",
-                  textAlign: "center",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: BODONI,
-                    fontSize: "40px",
-                    color: "#B9B4AA",
-                    lineHeight: 0.5,
-                    height: "20px",
-                  }}
-                >
-                  &quot;
-                </span>
-                <p
-                  style={{
-                    fontWeight: 300,
-                    fontSize: "15.5px",
-                    lineHeight: 2.05,
-                    color: "#4E4E4E",
-                    margin: 0,
-                    flex: 1,
-                  }}
-                >
-                  {t.quote}
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "6px",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ color: "#E7B008", fontSize: "13px", letterSpacing: "0.2em" }}>
-                    ★★★★★
-                  </span>
-                  <span
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "14.5px",
-                      color: "#141414",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    {t.name}
-                  </span>
-                  <span
-                    style={{
-                      fontWeight: 300,
-                      fontSize: "12.5px",
-                      color: "#8C8C8C",
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    ביקורת גוגל מאומתת
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Knowledge */}
-        <section
-          id="knowledge"
-          style={{ padding: "0 6% 120px", maxWidth: "1150px", margin: "0 auto" }}
-        >
-          <div style={{ textAlign: "center", marginBottom: "64px" }}>
-            <div
-              style={{
-                fontFamily: BODONI,
-                fontSize: "15px",
-                letterSpacing: "0.5em",
-                color: "#8C8C8C",
-                fontWeight: 400,
-                marginBottom: "14px",
-                marginLeft: "-0.5em",
-              }}
-            >
-              JOURNAL
-            </div>
-            <h2 style={{ fontWeight: 700, fontSize: "28px", margin: 0, color: "#141414" }}>
-              מאמרים מקצועיים
-            </h2>
-          </div>
-          <div
-            className="ip-journal-grid"
-            style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "60px" }}
-          >
-            {journal.map((art) => (
-              <a
-                key={art.href}
-                href={art.href}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "14px",
-                  textAlign: "center",
-                  alignItems: "center",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "12px",
-                    letterSpacing: "0.3em",
-                    color: "#8C8C8C",
-                    fontWeight: 400,
-                  }}
-                >
-                  {art.cat}
-                </span>
-                <span
-                  style={{ fontWeight: 600, fontSize: "18px", lineHeight: 1.6, color: "#141414" }}
-                >
-                  {art.title}
-                </span>
-                <span
-                  style={{
-                    fontWeight: 300,
-                    fontSize: "14.5px",
-                    lineHeight: 1.95,
-                    color: "#6E6E6E",
-                  }}
-                >
-                  {art.desc}
-                </span>
-                <span
-                  style={{
-                    fontSize: "13px",
-                    fontWeight: 400,
-                    letterSpacing: "0.2em",
-                    color: "#0E3B2E",
-                    borderBottom: "1px solid #0E3B2E",
-                    paddingBottom: "3px",
-                    marginTop: "8px",
-                  }}
-                >
-                  לקריאה
-                </span>
-              </a>
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: "64px" }}>
-            <a
-              className="ip-btn-outline"
-              href="/knowledge"
-              style={{
-                border: "1px solid #141414",
-                padding: "14px 44px",
-                fontWeight: 400,
-                fontSize: "13.5px",
-                letterSpacing: "0.2em",
-                display: "inline-block",
-              }}
-            >
-              לכל המאמרים
-            </a>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section style={{ padding: "0 6% 120px", maxWidth: "780px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "60px" }}>
-            <div
-              style={{
-                fontFamily: BODONI,
-                fontSize: "15px",
-                letterSpacing: "0.5em",
-                color: "#8C8C8C",
-                fontWeight: 400,
-                marginBottom: "14px",
-                marginLeft: "-0.5em",
-              }}
-            >
-              FAQ
-            </div>
-            <h2 style={{ fontWeight: 700, fontSize: "28px", margin: 0, color: "#141414" }}>
-              לשאלות שמתביישים לשאול
-            </h2>
-          </div>
-          <div style={{ borderTop: "1px solid #ECEAE6" }}>
-            {DESIGN_FAQS.map((faq) => (
-              <details
-                key={faq.q}
-                style={{ borderBottom: "1px solid #ECEAE6", padding: "28px 4px" }}
-              >
-                <summary
-                  style={{
-                    fontWeight: 400,
-                    fontSize: "17px",
-                    cursor: "pointer",
-                    listStyle: "none",
-                    color: "#141414",
-                    letterSpacing: "0.03em",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: "20px",
-                  }}
-                >
-                  {faq.q}
-                  <span
-                    style={{
-                      fontFamily: BODONI,
-                      fontWeight: 400,
-                      fontSize: "24px",
-                      color: "#B9B4AA",
-                      flexShrink: 0,
-                    }}
-                  >
-                    +
-                  </span>
-                </summary>
-                <p
-                  style={{
-                    fontSize: "15px",
-                    lineHeight: 2.05,
-                    color: "#6E6E6E",
-                    margin: "18px 0 0",
-                    fontWeight: 300,
-                    maxWidth: "640px",
-                  }}
-                >
-                  {faq.a}
-                </p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        {/* Contact */}
-        <section id="contact" style={{ background: "#0C2B23", padding: "130px 6%" }}>
-          <div
-            className="ip-contact-grid"
-            style={{
-              maxWidth: "1050px",
-              margin: "0 auto",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "100px",
-              alignItems: "center",
-            }}
-          >
-            <div style={{ textAlign: "center" }}>
-              <div
-                className="ip-display-md"
+                className="ip-display-lg"
                 style={{
                   fontFamily: BODONI,
-                  fontSize: "40px",
+                  fontSize: "44px",
                   letterSpacing: "0.16em",
-                  color: "#FFFFFF",
+                  color: "#141414",
                   fontWeight: 400,
-                  marginBottom: "28px",
+                  marginBottom: "30px",
                   marginLeft: "-0.16em",
-                  lineHeight: 1.15,
+                  lineHeight: 1.1,
                 }}
               >
-                CONTACT
+                EDUCATION
               </div>
               <h2
                 style={{
                   fontWeight: 700,
-                  fontSize: "26px",
-                  lineHeight: 1.5,
-                  margin: "0 0 24px",
-                  color: "#FFFFFF",
+                  fontSize: "30px",
+                  lineHeight: 1.4,
+                  margin: "0 0 6px",
+                  color: "#141414",
                 }}
               >
-                נתחיל בשיחה
+                מרצה ומכשירה
               </h2>
-              <p
-                style={{
-                  fontSize: "16px",
-                  lineHeight: 2.1,
-                  color: "#B9C9C0",
-                  fontWeight: 300,
-                  margin: "0 0 50px",
-                }}
-              >
-                מטופלים — לתיאום אבחון בקליניקה בעלי.
-                <br />
-                פדיקוריסטיות — לשיחת התאמה על ההכשרה הבאה.
-              </p>
-              <div style={{ display: "grid", gap: "24px", textAlign: "right" }}>
-                <a
-                  className="ip-contact-link"
-                  href="tel:+972506668595"
-                  style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    gap: "18px",
-                    color: "#FFFFFF",
-                    borderBottom: "1px solid rgba(255,255,255,0.22)",
-                    paddingBottom: "18px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      letterSpacing: "0.3em",
-                      color: "#7E9A8E",
-                      minWidth: "78px",
-                    }}
-                  >
-                    טלפון
-                  </span>
-                  <span style={{ fontWeight: 300, fontSize: "23px", letterSpacing: "0.06em" }}>
-                    050-666-8595
-                  </span>
-                </a>
-                <a
-                  className="ip-contact-link"
-                  href={WA}
-                  style={{
-                    display: "flex",
-                    alignItems: "baseline",
-                    gap: "18px",
-                    color: "#FFFFFF",
-                    borderBottom: "1px solid rgba(255,255,255,0.22)",
-                    paddingBottom: "18px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      letterSpacing: "0.3em",
-                      color: "#7E9A8E",
-                      minWidth: "78px",
-                    }}
-                  >
-                    וואטסאפ
-                  </span>
-                  <span style={{ fontWeight: 300, fontSize: "19px" }}>שיחה ישירה עם ענבר</span>
-                </a>
-                <div
-                  style={{ display: "flex", alignItems: "baseline", gap: "18px", color: "#B9C9C0" }}
-                >
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      letterSpacing: "0.3em",
-                      color: "#7E9A8E",
-                      minWidth: "78px",
-                    }}
-                  >
-                    קליניקה
-                  </span>
-                  <span style={{ fontWeight: 300, fontSize: "16px" }}>
-                    עלי, אזור בנימין · ראשון–חמישי 09:00–20:00
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              className="ip-form-card"
-              style={{ background: "#FFFFFF", padding: "56px 50px", textAlign: "center" }}
-            >
               <div
                 style={{
-                  fontFamily: BODONI,
-                  fontSize: "13px",
-                  letterSpacing: "0.4em",
-                  color: "#8C8C8C",
-                  fontWeight: 400,
-                  marginBottom: "12px",
-                  marginLeft: "-0.4em",
+                  fontWeight: 300,
+                  fontSize: "22px",
+                  color: "#0E3B2E",
+                  marginBottom: "30px",
                 }}
               >
-                GET IN TOUCH
+                את הדור הבא של המקצוע
               </div>
-              <h3
-                style={{ fontWeight: 700, fontSize: "22px", margin: "0 0 34px", color: "#141414" }}
+              <p
+                style={{
+                  fontSize: "15.5px",
+                  lineHeight: 2.1,
+                  color: "#4E4E4E",
+                  fontWeight: 300,
+                  margin: "0 0 46px",
+                  maxWidth: "460px",
+                }}
               >
-                השאירו פרטים ואחזור אליכם
-              </h3>
-              <div style={{ display: "grid", gap: "24px" }}>
-                <input
-                  className="ip-input"
-                  type="text"
-                  placeholder="שם מלא"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #D8D4CB",
-                    padding: "12px 2px",
-                    fontSize: "15.5px",
-                    outline: "none",
-                    fontWeight: 300,
-                    background: "transparent",
-                    textAlign: "right",
-                  }}
-                />
-                <div className="ip-field-row" style={{ display: "flex", gap: "28px" }}>
-                  <input
-                    className="ip-input"
-                    type="tel"
-                    placeholder="טלפון"
-                    value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                ענבר מרצה ומכשירה פדיקוריסטיות שרוצות לעבוד ברמה קלינית — לא קוסמטית. ההכשרות
+                מתקיימות בקליניקה של המשתלמת או בקבוצות אזוריות, בכל הארץ, ומבוססות על עבודה מעשית
+                לצד תיאוריה.
+              </p>
+              <div
+                style={{
+                  width: "100%",
+                  maxWidth: "460px",
+                  borderTop: "1px solid #ECEAE6",
+                  marginBottom: "46px",
+                }}
+              >
+                {DESIGN_TRACKS.map((t) => (
+                  <div
+                    key={t.num}
                     style={{
-                      flex: 1,
-                      minWidth: 0,
-                      border: "none",
-                      borderBottom: "1px solid #D8D4CB",
-                      padding: "12px 2px",
-                      fontSize: "15.5px",
-                      outline: "none",
-                      fontWeight: 300,
-                      background: "transparent",
+                      display: "grid",
+                      gridTemplateColumns: "52px 1fr",
+                      gap: "22px",
+                      padding: "26px 2px",
+                      borderBottom: "1px solid #ECEAE6",
                       textAlign: "right",
+                      alignItems: "baseline",
                     }}
-                  />
-                  <input
-                    className="ip-input"
-                    type="email"
-                    placeholder="אימייל"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    style={{
-                      flex: 1,
-                      minWidth: 0,
-                      border: "none",
-                      borderBottom: "1px solid #D8D4CB",
-                      padding: "12px 2px",
-                      fontSize: "15.5px",
-                      outline: "none",
-                      fontWeight: 300,
-                      background: "transparent",
-                      textAlign: "right",
-                    }}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "32px",
-                    padding: "4px 0",
-                    justifyContent: "center",
-                  }}
-                >
-                  {["אני מטופל/ת", "אני פדיקוריסטית"].map((label) => (
-                    <label
-                      key={label}
+                  >
+                    <span
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "9px",
-                        fontSize: "14.5px",
-                        fontWeight: 300,
-                        cursor: "pointer",
+                        fontFamily: BODONI,
+                        fontWeight: 400,
+                        fontSize: "20px",
+                        color: "#726B5E",
                       }}
                     >
-                      <input
-                        type="radio"
-                        name="aud"
-                        checked={form.audience === label}
-                        onChange={() => setForm({ ...form, audience: label })}
-                      />
-                      {label}
-                    </label>
-                  ))}
-                </div>
-                <input
-                  className="ip-input"
-                  type="text"
-                  placeholder="מה מטריד אתכם? (לא חובה)"
-                  value={form.concern}
-                  onChange={(e) => setForm({ ...form, concern: e.target.value })}
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #D8D4CB",
-                    padding: "12px 2px",
-                    fontSize: "15.5px",
-                    outline: "none",
-                    fontWeight: 300,
-                    background: "transparent",
-                    textAlign: "right",
-                  }}
-                />
+                      {t.num}
+                    </span>
+                    <span style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          fontSize: "16.5px",
+                          letterSpacing: "0.04em",
+                          color: "#141414",
+                        }}
+                      >
+                        {t.title}
+                      </span>
+                      <span
+                        style={{
+                          fontWeight: 300,
+                          fontSize: "14.5px",
+                          lineHeight: 1.9,
+                          color: "#6E6E6E",
+                        }}
+                      >
+                        {t.desc}
+                      </span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "26px",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
+              >
                 <a
                   className="ip-btn-solid"
-                  href={`${WA}?text=${encodeURIComponent(formMessage)}`}
+                  href={`${WA}?text=${encodeURIComponent("שלום, אנחנו מתעניינים בהכשרה מקצועית")}`}
                   style={{
                     background: "#0E3B2E",
                     color: "#FFFFFF",
-                    padding: "17px",
+                    padding: "15px 44px",
                     fontWeight: 400,
                     fontSize: "14px",
-                    textAlign: "center",
-                    letterSpacing: "0.24em",
-                    marginTop: "10px",
+                    letterSpacing: "0.2em",
                   }}
                 >
-                  שליחה
+                  לבדיקת התאמה
                 </a>
+                <a
+                  href={`${WA}?text=${encodeURIComponent("שלום, נשמח להזמין הרצאה")}`}
+                  style={{
+                    fontWeight: 400,
+                    fontSize: "14px",
+                    letterSpacing: "0.14em",
+                    borderBottom: "1px solid #141414",
+                    paddingBottom: "4px",
+                  }}
+                >
+                  להזמנת הרצאה ←
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* About */}
+          <section id="about" style={{ background: "#F7F5F1", padding: "120px 6%" }}>
+            <div
+              className="ip-about-grid"
+              style={{
+                maxWidth: "1150px",
+                margin: "0 auto",
+                display: "grid",
+                gridTemplateColumns: "1fr 0.8fr",
+                gap: "90px",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ textAlign: "center" }}>
                 <div
                   style={{
-                    fontSize: "12px",
-                    color: "#8C8C8C",
-                    fontWeight: 300,
-                    letterSpacing: "0.06em",
+                    fontFamily: BODONI,
+                    fontSize: "14px",
+                    letterSpacing: "0.5em",
+                    color: "#6B6B6B",
+                    fontWeight: 400,
+                    marginBottom: "24px",
+                    marginLeft: "-0.5em",
                   }}
                 >
-                  הפרטים נשמרים בדיסקרטיות מלאה
+                  ABOUT
+                </div>
+                <h2
+                  style={{
+                    fontWeight: 700,
+                    fontSize: "32px",
+                    margin: "0 0 28px",
+                    color: "#141414",
+                  }}
+                >
+                  ענבר פרחי
+                </h2>
+                <p
+                  style={{
+                    fontSize: "15.5px",
+                    lineHeight: 2.1,
+                    color: "#4E4E4E",
+                    fontWeight: 300,
+                    margin: "0 0 16px",
+                    textAlign: "right",
+                  }}
+                >
+                  יותר מ-12 שנה אני מטפלת בכף הרגל בגישה הקלינית הקפדנית ביותר — ובשנים האחרונות גם
+                  מלמדת אותה. הקליניקה שלי אינה מכון יופי: כל החלטה מתבססת על ראיות, פרוטוקולים
+                  בינלאומיים והבנה עמוקה של הפיזיולוגיה.
+                </p>
+                <p
+                  style={{
+                    fontSize: "15.5px",
+                    lineHeight: 2.1,
+                    color: "#4E4E4E",
+                    fontWeight: 300,
+                    margin: "0 0 44px",
+                    textAlign: "right",
+                  }}
+                >
+                  אני מתמחה במקרים שאחרים מהססים לקבל — כף רגל סוכרתית, ציפורן חודרנית כרונית, פטרת
+                  עיקשת — ומכשירה פדיקוריסטיות לעבוד באותו סטנדרט. מטופלים מגיעים אליי מעלי, אריאל,
+                  שילה, עפרה וירושלים.
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    borderTop: "1px solid #E2DFD8",
+                  }}
+                >
+                  <span
+                    style={{
+                      padding: "18px 26px 0",
+                      fontSize: "13.5px",
+                      fontWeight: 400,
+                      letterSpacing: "0.08em",
+                      borderLeft: "1px solid #E2DFD8",
+                    }}
+                  >
+                    בוגרת קורסים בינלאומיים
+                  </span>
+                  <span
+                    style={{
+                      padding: "18px 26px 0",
+                      fontSize: "13.5px",
+                      fontWeight: 400,
+                      letterSpacing: "0.08em",
+                      borderLeft: "1px solid #E2DFD8",
+                    }}
+                  >
+                    פרוטוקול אגודת אייל
+                  </span>
+                  <span
+                    style={{
+                      padding: "18px 26px 0",
+                      fontSize: "13.5px",
+                      fontWeight: 400,
+                      letterSpacing: "0.08em",
+                    }}
+                  >
+                    150+ שעות השתלמות בשנה
+                  </span>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  aspectRatio: "4/5",
+                  background: "#EFEDE8",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div style={{ textAlign: "center", padding: "40px" }}>
+                  <div
+                    style={{
+                      fontFamily: BODONI,
+                      fontSize: "15px",
+                      letterSpacing: "0.5em",
+                      color: "#726B5E",
+                      marginLeft: "-0.5em",
+                      marginBottom: "18px",
+                    }}
+                  >
+                    PORTRAIT
+                  </div>
+                  <div
+                    style={{
+                      fontWeight: 300,
+                      fontSize: "14px",
+                      letterSpacing: "0.1em",
+                      color: "#6B6B6B",
+                    }}
+                  >
+                    כאן תשולב תמונה אישית של ענבר
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+
+          {/* Testimonials */}
+          <section style={{ padding: "120px 6%", maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "70px" }}>
+              <div
+                style={{
+                  fontFamily: BODONI,
+                  fontSize: "15px",
+                  letterSpacing: "0.5em",
+                  color: "#6B6B6B",
+                  fontWeight: 400,
+                  marginLeft: "-0.5em",
+                }}
+              >
+                GOOGLE REVIEWS
+              </div>
+              <h2 className="ip-sr">ביקורות גוגל על הקליניקה</h2>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "10px",
+                  marginTop: "22px",
+                }}
+              >
+                <span style={{ color: "#947105", fontSize: "17px", letterSpacing: "0.2em" }}>
+                  ★★★★★
+                </span>
+                <span style={{ fontWeight: 300, fontSize: "14px", color: "#4E4E4E" }}>
+                  {ratingLabel} · ביקורות מאומתות מגוגל
+                </span>
+              </div>
+            </div>
+            <div
+              className="ip-testi-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3,1fr)",
+                borderTop: "1px solid #ECEAE6",
+                borderBottom: "1px solid #ECEAE6",
+              }}
+            >
+              {testimonials.map((t, i) => (
+                <div
+                  key={`${t.name}-${i}`}
+                  style={{
+                    padding: "52px 40px",
+                    borderLeft: "1px solid #ECEAE6",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "26px",
+                    textAlign: "center",
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    style={{
+                      fontFamily: BODONI,
+                      fontSize: "40px",
+                      color: "#726B5E",
+                      lineHeight: 0.5,
+                      height: "20px",
+                    }}
+                  >
+                    &quot;
+                  </span>
+                  <p
+                    style={{
+                      fontWeight: 300,
+                      fontSize: "15.5px",
+                      lineHeight: 2.05,
+                      color: "#4E4E4E",
+                      margin: 0,
+                      flex: 1,
+                    }}
+                  >
+                    {t.quote}
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "6px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{ color: "#947105", fontSize: "13px", letterSpacing: "0.2em" }}
+                    >
+                      ★★★★★
+                    </span>
+                    <span className="ip-sr">דירוג 5 מתוך 5 כוכבים</span>
+                    <span
+                      style={{
+                        fontWeight: 600,
+                        fontSize: "14.5px",
+                        color: "#141414",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      {t.name}
+                    </span>
+                    <span
+                      style={{
+                        fontWeight: 300,
+                        fontSize: "12.5px",
+                        color: "#6B6B6B",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      ביקורת גוגל מאומתת
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Knowledge */}
+          <section
+            id="knowledge"
+            style={{ padding: "0 6% 120px", maxWidth: "1150px", margin: "0 auto" }}
+          >
+            <div style={{ textAlign: "center", marginBottom: "64px" }}>
+              <div
+                style={{
+                  fontFamily: BODONI,
+                  fontSize: "15px",
+                  letterSpacing: "0.5em",
+                  color: "#6B6B6B",
+                  fontWeight: 400,
+                  marginBottom: "14px",
+                  marginLeft: "-0.5em",
+                }}
+              >
+                JOURNAL
+              </div>
+              <h2 style={{ fontWeight: 700, fontSize: "28px", margin: 0, color: "#141414" }}>
+                מאמרים מקצועיים
+              </h2>
+            </div>
+            <div
+              className="ip-journal-grid"
+              style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "60px" }}
+            >
+              {journal.map((art) => (
+                <a
+                  key={art.href}
+                  href={art.href}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                    textAlign: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      letterSpacing: "0.3em",
+                      color: "#6B6B6B",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {art.cat}
+                  </span>
+                  <span
+                    style={{ fontWeight: 600, fontSize: "18px", lineHeight: 1.6, color: "#141414" }}
+                  >
+                    {art.title}
+                  </span>
+                  <span
+                    style={{
+                      fontWeight: 300,
+                      fontSize: "14.5px",
+                      lineHeight: 1.95,
+                      color: "#6E6E6E",
+                    }}
+                  >
+                    {art.desc}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: 400,
+                      letterSpacing: "0.2em",
+                      color: "#0E3B2E",
+                      borderBottom: "1px solid #0E3B2E",
+                      paddingBottom: "3px",
+                      marginTop: "8px",
+                    }}
+                  >
+                    לקריאה
+                  </span>
+                </a>
+              ))}
+            </div>
+            <div style={{ textAlign: "center", marginTop: "64px" }}>
+              <a
+                className="ip-btn-outline"
+                href="/knowledge"
+                style={{
+                  border: "1px solid #141414",
+                  padding: "14px 44px",
+                  fontWeight: 400,
+                  fontSize: "13.5px",
+                  letterSpacing: "0.2em",
+                  display: "inline-block",
+                }}
+              >
+                לכל המאמרים
+              </a>
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section style={{ padding: "0 6% 120px", maxWidth: "780px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "60px" }}>
+              <div
+                style={{
+                  fontFamily: BODONI,
+                  fontSize: "15px",
+                  letterSpacing: "0.5em",
+                  color: "#6B6B6B",
+                  fontWeight: 400,
+                  marginBottom: "14px",
+                  marginLeft: "-0.5em",
+                }}
+              >
+                FAQ
+              </div>
+              <h2 style={{ fontWeight: 700, fontSize: "28px", margin: 0, color: "#141414" }}>
+                לשאלות שמתביישים לשאול
+              </h2>
+            </div>
+            <div style={{ borderTop: "1px solid #ECEAE6" }}>
+              {DESIGN_FAQS.map((faq) => (
+                <details
+                  key={faq.q}
+                  style={{ borderBottom: "1px solid #ECEAE6", padding: "28px 4px" }}
+                >
+                  <summary
+                    style={{
+                      fontWeight: 400,
+                      fontSize: "17px",
+                      cursor: "pointer",
+                      listStyle: "none",
+                      color: "#141414",
+                      letterSpacing: "0.03em",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "20px",
+                    }}
+                  >
+                    {faq.q}
+                    <span
+                      aria-hidden
+                      style={{
+                        fontFamily: BODONI,
+                        fontWeight: 400,
+                        fontSize: "24px",
+                        color: "#726B5E",
+                        flexShrink: 0,
+                      }}
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      lineHeight: 2.05,
+                      color: "#6E6E6E",
+                      margin: "18px 0 0",
+                      fontWeight: 300,
+                      maxWidth: "640px",
+                    }}
+                  >
+                    {faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          {/* Contact */}
+          <section id="contact" style={{ background: "#0C2B23", padding: "130px 6%" }}>
+            <div
+              className="ip-contact-grid"
+              style={{
+                maxWidth: "1050px",
+                margin: "0 auto",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "100px",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ textAlign: "center" }}>
+                <div
+                  className="ip-display-md"
+                  style={{
+                    fontFamily: BODONI,
+                    fontSize: "40px",
+                    letterSpacing: "0.16em",
+                    color: "#FFFFFF",
+                    fontWeight: 400,
+                    marginBottom: "28px",
+                    marginLeft: "-0.16em",
+                    lineHeight: 1.15,
+                  }}
+                >
+                  CONTACT
+                </div>
+                <h2
+                  style={{
+                    fontWeight: 700,
+                    fontSize: "26px",
+                    lineHeight: 1.5,
+                    margin: "0 0 24px",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  נתחיל בשיחה
+                </h2>
+                <p
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: 2.1,
+                    color: "#B9C9C0",
+                    fontWeight: 300,
+                    margin: "0 0 50px",
+                  }}
+                >
+                  מטופלים — לתיאום אבחון בקליניקה בעלי.
+                  <br />
+                  פדיקוריסטיות — לשיחת התאמה על ההכשרה הבאה.
+                </p>
+                <div style={{ display: "grid", gap: "24px", textAlign: "right" }}>
+                  <a
+                    className="ip-contact-link"
+                    href="tel:+972506668595"
+                    style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: "18px",
+                      color: "#FFFFFF",
+                      borderBottom: "1px solid rgba(255,255,255,0.34)",
+                      paddingBottom: "18px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        letterSpacing: "0.3em",
+                        color: "#7E9A8E",
+                        minWidth: "78px",
+                      }}
+                    >
+                      טלפון
+                    </span>
+                    <span style={{ fontWeight: 300, fontSize: "23px", letterSpacing: "0.06em" }}>
+                      050-666-8595
+                    </span>
+                  </a>
+                  <a
+                    className="ip-contact-link"
+                    href={WA}
+                    style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: "18px",
+                      color: "#FFFFFF",
+                      borderBottom: "1px solid rgba(255,255,255,0.34)",
+                      paddingBottom: "18px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        letterSpacing: "0.3em",
+                        color: "#7E9A8E",
+                        minWidth: "78px",
+                      }}
+                    >
+                      וואטסאפ
+                    </span>
+                    <span style={{ fontWeight: 300, fontSize: "19px" }}>שיחה ישירה עם ענבר</span>
+                  </a>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: "18px",
+                      color: "#B9C9C0",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        letterSpacing: "0.3em",
+                        color: "#7E9A8E",
+                        minWidth: "78px",
+                      }}
+                    >
+                      קליניקה
+                    </span>
+                    <span style={{ fontWeight: 300, fontSize: "16px" }}>
+                      עלי, אזור בנימין · ראשון–חמישי 09:00–20:00
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="ip-form-card"
+                style={{ background: "#FFFFFF", padding: "56px 50px", textAlign: "center" }}
+              >
+                <div
+                  style={{
+                    fontFamily: BODONI,
+                    fontSize: "13px",
+                    letterSpacing: "0.4em",
+                    color: "#6B6B6B",
+                    fontWeight: 400,
+                    marginBottom: "12px",
+                    marginLeft: "-0.4em",
+                  }}
+                >
+                  GET IN TOUCH
+                </div>
+                <h3
+                  style={{
+                    fontWeight: 700,
+                    fontSize: "22px",
+                    margin: "0 0 34px",
+                    color: "#141414",
+                  }}
+                >
+                  השאירו פרטים ואחזור אליכם
+                </h3>
+                <div style={{ display: "grid", gap: "24px" }}>
+                  <input
+                    className="ip-input"
+                    type="text"
+                    aria-label="שם מלא"
+                    autoComplete="name"
+                    placeholder="שם מלא"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    style={{
+                      border: "none",
+                      borderBottom: "1px solid #8F8474",
+                      padding: "12px 2px",
+                      fontSize: "15.5px",
+                      outline: "none",
+                      fontWeight: 300,
+                      background: "transparent",
+                      textAlign: "right",
+                    }}
+                  />
+                  <div className="ip-field-row" style={{ display: "flex", gap: "28px" }}>
+                    <input
+                      className="ip-input"
+                      type="tel"
+                      aria-label="טלפון"
+                      autoComplete="tel"
+                      placeholder="טלפון"
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      style={{
+                        flex: 1,
+                        minWidth: 0,
+                        border: "none",
+                        borderBottom: "1px solid #8F8474",
+                        padding: "12px 2px",
+                        fontSize: "15.5px",
+                        outline: "none",
+                        fontWeight: 300,
+                        background: "transparent",
+                        textAlign: "right",
+                      }}
+                    />
+                    <input
+                      className="ip-input"
+                      type="email"
+                      aria-label="אימייל"
+                      autoComplete="email"
+                      placeholder="אימייל"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      style={{
+                        flex: 1,
+                        minWidth: 0,
+                        border: "none",
+                        borderBottom: "1px solid #8F8474",
+                        padding: "12px 2px",
+                        fontSize: "15.5px",
+                        outline: "none",
+                        fontWeight: 300,
+                        background: "transparent",
+                        textAlign: "right",
+                      }}
+                    />
+                  </div>
+                  <fieldset
+                    style={{
+                      border: "none",
+                      margin: 0,
+                      display: "flex",
+                      gap: "32px",
+                      padding: "4px 0",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <legend className="ip-sr">סוג הפנייה</legend>
+                    {["אני מטופל/ת", "אני פדיקוריסטית"].map((label) => (
+                      <label
+                        key={label}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "9px",
+                          fontSize: "14.5px",
+                          fontWeight: 300,
+                          cursor: "pointer",
+                        }}
+                      >
+                        <input
+                          type="radio"
+                          name="aud"
+                          checked={form.audience === label}
+                          onChange={() => setForm({ ...form, audience: label })}
+                        />
+                        {label}
+                      </label>
+                    ))}
+                  </fieldset>
+                  <input
+                    className="ip-input"
+                    type="text"
+                    aria-label="מה מטריד אתכם (לא חובה)"
+                    placeholder="מה מטריד אתכם? (לא חובה)"
+                    value={form.concern}
+                    onChange={(e) => setForm({ ...form, concern: e.target.value })}
+                    style={{
+                      border: "none",
+                      borderBottom: "1px solid #8F8474",
+                      padding: "12px 2px",
+                      fontSize: "15.5px",
+                      outline: "none",
+                      fontWeight: 300,
+                      background: "transparent",
+                      textAlign: "right",
+                    }}
+                  />
+                  <a
+                    className="ip-btn-solid"
+                    href={`${WA}?text=${encodeURIComponent(formMessage)}`}
+                    style={{
+                      background: "#0E3B2E",
+                      color: "#FFFFFF",
+                      padding: "17px",
+                      fontWeight: 400,
+                      fontSize: "14px",
+                      textAlign: "center",
+                      letterSpacing: "0.24em",
+                      marginTop: "10px",
+                    }}
+                  >
+                    שליחה
+                  </a>
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#6B6B6B",
+                      fontWeight: 300,
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    הפרטים נשמרים בדיסקרטיות מלאה
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
 
         {/* Footer */}
         <footer style={{ background: "#FFFFFF", padding: "80px 6% 40px" }}>
@@ -1800,7 +1886,12 @@ function HomePage() {
               }}
             >
               {FOOTER_LINKS.map((l) => (
-                <a key={l.label} href={l.href} style={{ color: "#4E4E4E" }}>
+                <a
+                  key={l.label}
+                  className="ip-footer-link"
+                  href={l.href}
+                  style={{ color: "#4E4E4E" }}
+                >
                   {l.label}
                 </a>
               ))}
@@ -1818,15 +1909,37 @@ function HomePage() {
                 flexWrap: "wrap",
               }}
             >
-              <a href="tel:+972506668595" style={{ color: "#141414" }}>
+              <a className="ip-footer-link" href="tel:+972506668595" style={{ color: "#141414" }}>
                 050-666-8595
               </a>
               <span>·</span>
-              <a href="mailto:inbar.pedicure@gmail.com" style={{ color: "#141414" }}>
+              <a
+                className="ip-footer-link"
+                href="mailto:inbar.pedicure@gmail.com"
+                style={{ color: "#141414" }}
+              >
                 inbar.pedicure@gmail.com
               </a>
               <span>·</span>
               <span>עלי, אזור בנימין</span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "24px",
+                justifyContent: "center",
+                flexWrap: "wrap",
+                fontSize: "13px",
+                fontWeight: 300,
+                letterSpacing: "0.08em",
+                marginBottom: "28px",
+              }}
+            >
+              {FOOTER_LEGAL.map((l) => (
+                <a key={l.label} href={l.href} style={{ color: "#4E4E4E", padding: "8px 0" }}>
+                  {l.label}
+                </a>
+              ))}
             </div>
             <div
               style={{
@@ -1835,13 +1948,13 @@ function HomePage() {
                 display: "flex",
                 justifyContent: "space-between",
                 fontSize: "12px",
-                color: "#8C8C8C",
+                color: "#6B6B6B",
                 fontWeight: 300,
                 flexWrap: "wrap",
                 gap: "10px",
               }}
             >
-              <span>© 2026 ענבר פרחי · כל הזכויות שמורות</span>
+              <span>© {new Date().getFullYear()} ענבר פרחי · כל הזכויות שמורות</span>
               <span>המידע באתר אינו תחליף לייעוץ רפואי מקצועי</span>
             </div>
           </div>
