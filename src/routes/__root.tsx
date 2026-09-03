@@ -11,7 +11,6 @@ import {
 import appCss from "../styles.css?url";
 import { AccessibilityMenu } from "@/components/shared/AccessibilityMenu";
 import { CookieConsent } from "@/components/shared/CookieConsent";
-import { StickyWhatsApp } from "@/components/shared/StickyWhatsApp";
 import { SiteBanner } from "@/components/shared/SiteBanner";
 import { SITE } from "@/lib/site-config";
 import { getSiteValues, listReviews } from "@/lib/cms.functions";
@@ -225,7 +224,6 @@ function RootComponent() {
         <Outlet />
         <AccessibilityMenu />
         <CookieConsent />
-        <StickyWhatsApp />
       </SiteProvider>
     </QueryClientProvider>
   );

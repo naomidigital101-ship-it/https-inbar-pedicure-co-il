@@ -110,7 +110,7 @@ export function AccessibilityMenu() {
         aria-label={open ? "סגור תפריט נגישות" : "פתח תפריט נגישות"}
         aria-expanded={open}
         aria-controls="a11y-panel"
-        className="fixed bottom-4 right-4 z-[9998] flex h-14 w-14 items-center justify-center rounded-full bg-[#0066cc] text-white shadow-lg ring-2 ring-white hover:bg-[#0052a3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0066cc]"
+        className="fixed bottom-4 left-4 z-[9998] flex h-14 w-14 items-center justify-center rounded-full bg-[#0066cc] text-white shadow-lg ring-2 ring-white hover:bg-[#0052a3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0066cc]"
         style={{ fontFamily: "Heebo, sans-serif" }}
       >
         <Accessibility className="h-7 w-7" aria-hidden="true" />
@@ -129,7 +129,7 @@ export function AccessibilityMenu() {
             aria-modal="true"
             aria-labelledby="a11y-title"
             dir="rtl"
-            className="fixed bottom-20 right-4 z-[9999] max-h-[80vh] w-[min(360px,calc(100vw-2rem))] overflow-y-auto rounded-xl border border-foreground/20 bg-white text-black shadow-2xl"
+            className="fixed bottom-20 left-4 z-[9999] max-h-[80vh] w-[min(360px,calc(100vw-2rem))] overflow-y-auto rounded-xl border border-foreground/20 bg-white text-black shadow-2xl"
             style={{ fontFamily: "Heebo, sans-serif" }}
           >
             <div className="flex items-center justify-between border-b border-black/10 bg-[#0066cc] px-4 py-3 text-white">

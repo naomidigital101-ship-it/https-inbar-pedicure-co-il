@@ -12,7 +12,9 @@ import {
   DESIGN_TESTIMONIALS,
   DESIGN_TRACKS,
 } from "@/lib/home-design";
-import heroImage from "@/assets/inbar-hero-clinical.png";
+import heroAsset from "@/assets/inbar-hero-clinical.webp.asset.json";
+
+const heroImage = heroAsset.url;
 import logoImage from "@/assets/inbar-logo-farhi.png";
 
 /*
@@ -409,6 +411,11 @@ function HomePage() {
           <img
             src={heroImage}
             alt="ענבר פרחי בקליניקה עם מודל אנטומי של כף הרגל"
+            width={1870}
+            height={841}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             style={{ width: "100%", height: "auto", display: "block" }}
           />
           <div
