@@ -66,6 +66,10 @@ const HOME_CSS = `
   .ip-nav-links { display:none !important; }
   .ip-nav-burger { display:inline-flex !important; }
   .ip-nav-panel.is-open { display:block !important; }
+  /* במובייל אין מקום לכפתור "דברו איתנו" לצד הלוגו והתפריט; הקשר נשאר
+     דרך פריטי התפריט ועמוד צור קשר. */
+  .ip-nav-cta { display:none !important; }
+  .ip-nav-grid { padding:12px 5% !important; }
   .ip-nav-grid > a img { height:64px !important; margin:-6px 0 !important; }
   .ip-academy-grid { grid-template-columns:1fr !important; }
   .ip-academy-img { min-height:420px !important; }
@@ -80,6 +84,9 @@ const HOME_CSS = `
   .ip-svc-row > span:nth-child(2) { display:none !important; }
 }
 @media (max-width: 560px) {
+  .ip-nav-grid { padding:10px 4% !important; }
+  .ip-nav-burger { padding:8px 11px !important; font-size:12px !important; }
+  .ip-nav-grid > a img { height:54px !important; margin:-4px 0 !important; }
   .ip-hero-h1 { font-size:32px !important; }
   .ip-hero-sub { font-size:17px !important; }
   .ip-circles-grid { grid-template-columns:repeat(2,1fr) !important; gap:24px !important; }
@@ -354,6 +361,7 @@ function HomePage() {
               />
             </a>
             <div
+              className="ip-nav-cta"
               style={{
                 display: "flex",
                 gap: "22px",
