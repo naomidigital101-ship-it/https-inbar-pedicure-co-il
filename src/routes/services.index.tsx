@@ -2,15 +2,28 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
-import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
 import { listServices, type ServiceCard } from "@/lib/cms.functions";
 import { useSite } from "@/lib/use-site";
+import { DisplayEyebrow, SectionLabel, ServicesStyles } from "@/components/services/service-ui";
+import {
+  BODONI,
+  CREAM,
+  FONTS_STYLESHEET,
+  GREEN,
+  HAIRLINE,
+  MUTED,
+  TAUPE,
+  btnOutline,
+  btnSolid,
+  headingStyle,
+  subheadingStyle,
+} from "@/components/services/service-tokens";
 
 const PAGE_URL = `${SITE.url}/services`;
 const TITLE = `שירותי פדיקור טיפולי | ${SITE.brand}`;
 const DESCRIPTION =
-  "כל שירותי הפדיקור הטיפולי של ענבר פרחי — יבלות, פטרת, ציפורן חודרנית, אוניכוליזיס, סדקים, סוכרת וספורטאים. תוכן מבוסס מקורות קליניים סמכותיים.";
+  "כל שירותי הפדיקור הטיפולי של ענבר פרחי — יבלות, פטרת, ציפורן חודרנית, אוניכוליזיס, סדקים, סוכרת וספורטאים.";
 
 export const Route = createFileRoute("/services/")({
   loader: async () => {
@@ -25,7 +38,10 @@ export const Route = createFileRoute("/services/")({
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: PAGE_URL },
     ],
-    links: [{ rel: "canonical", href: PAGE_URL }],
+    links: [
+      { rel: "canonical", href: PAGE_URL },
+      { rel: "stylesheet", href: FONTS_STYLESHEET },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -60,48 +76,45 @@ export const Route = createFileRoute("/services/")({
 function ServicesIndex() {
   const { services } = Route.useLoaderData() as { services: ServiceCard[] };
   const site = useSite();
+
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col" style={{ background: "#FFFFFF" }}>
+      <ServicesStyles />
       <SiteHeader />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="svc-scope flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "שירותים" }]} />
-        <section
-          className="relative overflow-hidden"
-          style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
-        >
-          <BrandHeroBackdrop label="SERVICES · 00" />
-          <div className="relative mx-auto max-w-[1320px] px-6 py-16 md:px-10 md:py-20">
-            <BrandEyebrow withRule>קליניקה לפדיקור טיפולי</BrandEyebrow>
+
+        {/* Hero — כותרת מקטע בסגנון דף הבית */}
+        <section style={{ background: "#FFFFFF", padding: "100px 6% 76px", textAlign: "center" }}>
+          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <DisplayEyebrow size={15}>Services</DisplayEyebrow>
             <h1
-              className="mt-5 max-w-3xl"
               style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 300,
-                fontSize: "clamp(2.4rem, 5.6vw, 4.4rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                color: "var(--green-700)",
+                ...headingStyle("clamp(30px, 4.4vw, 40px)"),
+                margin: "22px 0 14px",
               }}
             >
               שירותים לכל כף רגל
             </h1>
-            <p
-              className="mt-6 max-w-2xl"
-              style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}
-            >
+            <p style={{ ...subheadingStyle("19px"), lineHeight: 1.85 }}>
               לכל טיפול יש עמוד ייעודי עם רקע קליני, פרוטוקול הטיפול בקליניקה, המלצות מניעה ותשובות
               לשאלות שחוזרות אצל מטופלים.
             </p>
           </div>
         </section>
-        <section className="pb-24 pt-16" style={{ background: "var(--paper)" }}>
+
+        {/* רשימת הטיפולים — מלבנים המופרדים ב-hairline בלבד */}
+        <section style={{ background: "#FFFFFF", padding: "0 6% 110px" }}>
           <div
-            className="mx-auto grid max-w-[1320px] gap-px overflow-hidden md:grid-cols-2"
+            className="svc-grid-2"
             style={{
-              background: "var(--stone-100)",
-              border: "1px solid var(--stone-100)",
-              borderRadius: 20,
-              marginInline: "1.5rem",
+              maxWidth: "1240px",
+              margin: "0 auto",
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+              gap: "1px",
+              background: HAIRLINE,
+              border: `1px solid ${HAIRLINE}`,
             }}
           >
             {services.map((s, i) => (
@@ -109,40 +122,52 @@ function ServicesIndex() {
                 key={s.slug}
                 to="/services/$slug"
                 params={{ slug: s.slug }}
-                className="group relative flex flex-col gap-4 p-10 transition-colors"
-                style={{ background: "var(--paper)" }}
+                className="svc-card"
+                style={{
+                  background: "#FFFFFF",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                  padding: "46px 40px",
+                  transition: "background 0.25s",
+                }}
               >
-                <div className="flex items-center justify-between">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                  }}
+                >
                   <span
                     style={{
-                      fontFamily: "var(--font-serif)",
-                      fontWeight: 700,
-                      fontSize: "2.4rem",
-                      color: "var(--green-700)",
+                      fontFamily: BODONI,
+                      fontWeight: 400,
+                      fontSize: "26px",
+                      color: TAUPE,
                       lineHeight: 1,
                     }}
                   >
-                    0{i + 1}
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <BrandEyebrow style={{ fontSize: 11 }}>טיפול</BrandEyebrow>
+                  <SectionLabel size={11}>טיפול</SectionLabel>
                 </div>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 300,
-                    fontSize: "1.6rem",
-                    letterSpacing: "-0.01em",
-                    color: "var(--ink-900)",
-                  }}
-                >
-                  {s.title}
-                </h2>
-                <p style={{ color: "var(--ink-600)", fontSize: "0.98rem", lineHeight: 1.65 }}>
+                <h2 style={headingStyle("20px")}>{s.title}</h2>
+                <p style={{ ...subheadingStyle("15px", "#6E6E6E"), lineHeight: 1.95, flex: 1 }}>
                   {s.subtitle}
                 </p>
                 <span
-                  className="mt-2 inline-flex items-center gap-2"
-                  style={{ color: "var(--green-700)", fontSize: 13, fontWeight: 600 }}
+                  style={{
+                    alignSelf: "flex-start",
+                    marginTop: "8px",
+                    fontSize: "13px",
+                    fontWeight: 400,
+                    letterSpacing: "0.2em",
+                    color: GREEN,
+                    borderBottom: `1px solid ${GREEN}`,
+                    paddingBottom: "3px",
+                  }}
                 >
                   קראו עוד ←
                 </span>
@@ -150,58 +175,52 @@ function ServicesIndex() {
             ))}
           </div>
         </section>
+
+        {/* CTA */}
         <section
-          className="py-20"
-          style={{ background: "var(--green-50)", borderTop: "1px solid var(--green-100)" }}
+          style={{
+            background: CREAM,
+            padding: "110px 6%",
+            textAlign: "center",
+            borderTop: `1px solid ${HAIRLINE}`,
+          }}
         >
-          <div className="mx-auto max-w-[900px] px-6 text-center">
-            <BrandEyebrow>לא בטוחים?</BrandEyebrow>
-            <h2
-              className="mt-3"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 300,
-                fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
-                letterSpacing: "-0.02em",
-                color: "var(--ink-900)",
-              }}
-            >
+          <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <DisplayEyebrow size={14} color={TAUPE}>
+              Get in touch
+            </DisplayEyebrow>
+            <h2 style={{ ...headingStyle("28px"), margin: "22px 0 10px" }}>
               נשמע יחד מה הכי מתאים לכם
             </h2>
             <p
-              className="mx-auto mt-5 max-w-lg"
-              style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
+              style={{
+                ...subheadingStyle("16px", MUTED),
+                lineHeight: 2.1,
+                margin: "0 auto 46px",
+                maxWidth: "520px",
+              }}
             >
               תתקשרו או תשלחו וואטסאפ — אבחן את המצב ואסביר את האפשרויות.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div
+              style={{
+                display: "flex",
+                gap: "26px",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <a
+                className="svc-btn-solid"
                 href={site.whatsappUrl}
                 target="_blank"
                 rel="noopener nofollow"
-                className="inline-flex h-12 items-center px-7"
-                style={{
-                  background: "var(--green-600)",
-                  color: "var(--paper)",
-                  borderRadius: 999,
-                  fontWeight: 700,
-                  fontSize: 15,
-                }}
+                style={btnSolid}
               >
                 וואטסאפ
               </a>
-              <a
-                href={site.telUrl}
-                className="inline-flex h-12 items-center px-6"
-                style={{
-                  background: "transparent",
-                  color: "var(--green-700)",
-                  border: "1.5px solid var(--green-600)",
-                  borderRadius: 999,
-                  fontWeight: 600,
-                  fontSize: 15,
-                }}
-              >
+              <a className="svc-btn-outline" href={site.telUrl} style={btnOutline}>
                 {site.phoneDisplay}
               </a>
             </div>

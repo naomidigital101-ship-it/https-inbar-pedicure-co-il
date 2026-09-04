@@ -1,27 +1,45 @@
 import anatomyAsset from "@/assets/onycholysis/anatomy.webp.asset.json";
 import clinicalAsset from "@/assets/onycholysis/clinical.webp.asset.json";
-import { BrandEyebrow } from "@/components/brand/BrandPrimitives";
-import { AlertTriangle, Droplet, Footprints, Sparkles, Activity, Pill, Check, X } from "lucide-react";
+import { AlertTriangle, Droplet, Footprints, Sparkles, Activity, Pill } from "lucide-react";
+import { Dash, DisplayEyebrow, SectionLabel } from "@/components/services/service-ui";
+import {
+  ALERT,
+  BODONI,
+  CREAM,
+  GREEN,
+  HAIRLINE,
+  INK,
+  MUTED,
+  TAUPE,
+  headingStyle,
+} from "@/components/services/service-tokens";
 
-const heading = (size: string) => ({
-  fontFamily: "var(--font-display)",
+/*
+ * החומרים הוויזואליים של עמוד האוניכוליזיס, בשפת דף הבית:
+ * מלבנים עם מסגרת hairline, בלי עיגול פינות ובלי צל.
+ */
+
+const box: React.CSSProperties = {
+  background: "#FFFFFF",
+  border: `1px solid ${HAIRLINE}`,
+};
+
+const caption: React.CSSProperties = {
   fontWeight: 300,
-  fontSize: size,
-  letterSpacing: "-0.02em",
-  color: "var(--ink-900)",
-  lineHeight: 1.15,
-});
-
-const card: React.CSSProperties = {
-  background: "var(--paper)",
-  border: "1px solid var(--stone-100)",
-  borderRadius: 16,
+  fontSize: "13px",
+  lineHeight: 1.8,
+  color: "#6B6B6B",
+  textAlign: "center",
+  marginTop: "12px",
 };
 
 export function OnycholysisAnatomy() {
   return (
-    <figure className="my-8" aria-label="איור אנטומי המשווה ציפורן בריאה לציפורן עם אוניכוליזיס">
-      <div className="overflow-hidden" style={{ ...card, padding: 16 }}>
+    <figure
+      aria-label="איור אנטומי המשווה ציפורן בריאה לציפורן עם אוניכוליזיס"
+      style={{ margin: "40px 0" }}
+    >
+      <div style={{ ...box, padding: "18px" }}>
         <img
           src={anatomyAsset.url}
           alt="חתך אנטומי של בוהן — מימין ציפורן בריאה צמודה למיטה, משמאל ציפורן עם אוניכוליזיס שמתרוממת ומתנתקת מהמיטה"
@@ -29,34 +47,45 @@ export function OnycholysisAnatomy() {
           height={798}
           loading="lazy"
           decoding="async"
-          className="w-full h-auto rounded-xl"
+          style={{ width: "100%", height: "auto", display: "block" }}
         />
-        <div className="mt-4 grid grid-cols-2 gap-3 text-center">
-          <div className="p-3" style={{ background: "var(--green-50)", borderRadius: 12 }}>
-            <BrandEyebrow style={{ fontSize: 10, color: "var(--green-700)" }}>בריאה</BrandEyebrow>
-            <p className="mt-1" style={{ color: "var(--ink-900)", fontSize: 13, fontWeight: 600 }}>
+        <div
+          style={{
+            marginTop: "18px",
+            display: "grid",
+            gridTemplateColumns: "repeat(2,1fr)",
+            gap: "1px",
+            background: HAIRLINE,
+            border: `1px solid ${HAIRLINE}`,
+          }}
+        >
+          <div style={{ background: CREAM, padding: "18px 16px", textAlign: "center" }}>
+            <SectionLabel size={10} color={GREEN}>
+              בריאה
+            </SectionLabel>
+            <p style={{ margin: "10px 0 0", fontSize: "13.5px", fontWeight: 600, color: INK }}>
               לוחית צמודה לחלוטין למיטת הציפורן
             </p>
           </div>
-          <div className="p-3" style={{ background: "color-mix(in oklab, #C4634F 10%, var(--paper))", borderRadius: 12 }}>
-            <BrandEyebrow style={{ fontSize: 10, color: "#9B3A28" }}>אוניכוליזיס</BrandEyebrow>
-            <p className="mt-1" style={{ color: "var(--ink-900)", fontSize: 13, fontWeight: 600 }}>
+          <div style={{ background: "#FFFFFF", padding: "18px 16px", textAlign: "center" }}>
+            <SectionLabel size={10} color={ALERT}>
+              אוניכוליזיס
+            </SectionLabel>
+            <p style={{ margin: "10px 0 0", fontSize: "13.5px", fontWeight: 600, color: INK }}>
               קצה הלוחית מתרומם — נוצר חלל פגיע לזיהום
             </p>
           </div>
         </div>
       </div>
-      <figcaption className="mt-2 text-center" style={{ color: "var(--ink-600)", fontSize: 12 }}>
-        איור קליני: השוואה בין מבנה תקין למצב של אוניכוליזיס
-      </figcaption>
+      <figcaption style={caption}>איור קליני: השוואה בין מבנה תקין למצב של אוניכוליזיס</figcaption>
     </figure>
   );
 }
 
 export function OnycholysisClinical() {
   return (
-    <figure className="my-8" aria-label="תצלום קליני של בוהן עם אוניכוליזיס">
-      <div className="overflow-hidden" style={card}>
+    <figure aria-label="תצלום קליני של בוהן עם אוניכוליזיס" style={{ margin: "40px 0" }}>
+      <div style={box}>
         <img
           src={clinicalAsset.url}
           alt="תצלום קליני של ציפורן בוהן עם אוניכוליזיס — חצי הציפורן הקדמי לבן-צהבהב ומנותק, חצי הבסיס ורוד ובריא"
@@ -64,10 +93,10 @@ export function OnycholysisClinical() {
           height={937}
           loading="lazy"
           decoding="async"
-          className="w-full h-auto"
+          style={{ width: "100%", height: "auto", display: "block" }}
         />
       </div>
-      <figcaption className="mt-2 text-center" style={{ color: "var(--ink-600)", fontSize: 12 }}>
+      <figcaption style={caption}>
         מראה אופייני: גבול ברור בין החלק המנותק (לבן-אטום) לחלק הבריא (ורוד)
       </figcaption>
     </figure>
@@ -85,24 +114,56 @@ const CAUSES = [
 
 export function OnycholysisCauses() {
   return (
-    <section className="my-10" aria-labelledby="onycho-causes-h">
-      <BrandEyebrow>אינפוגרפיקה</BrandEyebrow>
-      <h3 id="onycho-causes-h" className="mt-2 mb-5" style={heading("1.4rem")}>
-        6 הגורמים השכיחים לאוניכוליזיס
-      </h3>
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+    <section aria-labelledby="onycho-causes-h" style={{ margin: "56px 0" }}>
+      <div style={{ textAlign: "center", marginBottom: "34px" }}>
+        <DisplayEyebrow size={13} tracking={0.4}>
+          Causes
+        </DisplayEyebrow>
+        <h3 id="onycho-causes-h" style={{ ...headingStyle("22px"), marginTop: "14px" }}>
+          6 הגורמים השכיחים לאוניכוליזיס
+        </h3>
+      </div>
+      <div
+        className="svc-causes"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3,1fr)",
+          gap: "1px",
+          background: HAIRLINE,
+          border: `1px solid ${HAIRLINE}`,
+        }}
+      >
         {CAUSES.map((c) => {
           const Icon = c.icon;
           return (
-            <div key={c.label} className="p-4" style={card}>
-              <div
-                className="mb-3 flex h-10 w-10 items-center justify-center"
-                style={{ background: "var(--green-50)", color: "var(--green-700)", borderRadius: 999 }}
+            <div key={c.label} style={{ background: "#FFFFFF", padding: "28px 24px" }}>
+              <span
+                aria-hidden
+                style={{
+                  display: "flex",
+                  width: "38px",
+                  height: "38px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  border: `1px solid ${TAUPE}`,
+                  color: GREEN,
+                  marginBottom: "18px",
+                }}
               >
-                <Icon size={18} strokeWidth={1.6} aria-hidden />
-              </div>
-              <p style={{ color: "var(--ink-900)", fontSize: 14.5, fontWeight: 600 }}>{c.label}</p>
-              <p className="mt-1" style={{ color: "var(--ink-600)", fontSize: 12.5, lineHeight: 1.55 }}>{c.note}</p>
+                <Icon size={18} strokeWidth={1.4} />
+              </span>
+              <p style={{ margin: 0, fontSize: "15px", fontWeight: 600, color: INK }}>{c.label}</p>
+              <p
+                style={{
+                  margin: "8px 0 0",
+                  fontWeight: 300,
+                  fontSize: "13.5px",
+                  lineHeight: 1.8,
+                  color: "#6E6E6E",
+                }}
+              >
+                {c.note}
+              </p>
             </div>
           );
         })}
@@ -122,32 +183,68 @@ const TIMELINE = [
 
 export function OnycholysisTimeline() {
   return (
-    <section className="my-10" aria-labelledby="onycho-timeline-h">
-      <BrandEyebrow>ציר זמן</BrandEyebrow>
-      <h3 id="onycho-timeline-h" className="mt-2 mb-5" style={heading("1.4rem")}>
-        כמה זמן לוקח לציפורן חדשה לצמוח?
-      </h3>
-      <ol className="relative space-y-4">
-        {TIMELINE.map((s, i) => (
-          <li key={s.when} className="flex gap-4 p-4" style={card}>
-            <div className="flex flex-col items-center" aria-hidden>
-              <div
-                className="flex h-9 w-9 items-center justify-center"
-                style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 13 }}
+    <section aria-labelledby="onycho-timeline-h" style={{ margin: "56px 0" }}>
+      <div style={{ textAlign: "center", marginBottom: "34px" }}>
+        <DisplayEyebrow size={13} tracking={0.4}>
+          Timeline
+        </DisplayEyebrow>
+        <h3 id="onycho-timeline-h" style={{ ...headingStyle("22px"), marginTop: "14px" }}>
+          כמה זמן לוקח לציפורן חדשה לצמוח?
+        </h3>
+      </div>
+      <ol
+        style={{
+          margin: 0,
+          padding: 0,
+          listStyle: "none",
+          borderTop: `1px solid ${HAIRLINE}`,
+        }}
+      >
+        {TIMELINE.map((step, i) => (
+          <li
+            key={step.when}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "52px 1fr",
+              gap: "22px",
+              padding: "26px 4px",
+              borderBottom: `1px solid ${HAIRLINE}`,
+              alignItems: "baseline",
+            }}
+          >
+            <span
+              aria-hidden
+              style={{ fontFamily: BODONI, fontWeight: 400, fontSize: "22px", color: TAUPE }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <SectionLabel size={11}>{step.when}</SectionLabel>
+              <span style={{ fontSize: "16px", fontWeight: 600, color: INK }}>{step.title}</span>
+              <span
+                style={{
+                  fontWeight: 300,
+                  fontSize: "14.5px",
+                  lineHeight: 1.9,
+                  color: "#6E6E6E",
+                }}
               >
-                {i + 1}
-              </div>
-            </div>
-            <div className="flex-1">
-              <p style={{ color: "var(--green-700)", fontSize: 12, fontWeight: 700, letterSpacing: "0.06em" }}>{s.when}</p>
-              <p className="mt-0.5" style={{ color: "var(--ink-900)", fontSize: 15, fontWeight: 600 }}>{s.title}</p>
-              <p className="mt-1" style={{ color: "var(--ink-600)", fontSize: 13.5, lineHeight: 1.65 }}>{s.note}</p>
-            </div>
+                {step.note}
+              </span>
+            </span>
           </li>
         ))}
       </ol>
-      <p className="mt-3" style={{ color: "var(--ink-600)", fontSize: 12 }}>
-        * זמני צמיחה אופייניים על פי Mayo Clinic. הקצב משתנה בין אנשים, גיל ועונת השנה.
+      <p
+        style={{
+          marginTop: "16px",
+          fontWeight: 300,
+          fontSize: "13px",
+          lineHeight: 1.8,
+          color: "#6B6B6B",
+        }}
+      >
+        * זמני צמיחה אופייניים. הקצב משתנה בין אנשים, לפי גיל ולפי עונת השנה.
       </p>
     </section>
   );
@@ -168,57 +265,77 @@ const DONT_LIST = [
   "להשרות ידיים או רגליים זמן ממושך",
 ];
 
+function AdviceList({
+  label,
+  items,
+  accent,
+  background,
+}: {
+  label: string;
+  items: string[];
+  accent: string;
+  background: string;
+}) {
+  return (
+    <div style={{ background, padding: "34px 30px" }}>
+      <SectionLabel size={11} color={accent}>
+        {label}
+      </SectionLabel>
+      <ul
+        style={{
+          margin: "20px 0 0",
+          padding: 0,
+          listStyle: "none",
+          borderTop: `1px solid ${HAIRLINE}`,
+        }}
+      >
+        {items.map((t) => (
+          <li
+            key={t}
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: "14px",
+              fontWeight: 300,
+              fontSize: "15px",
+              lineHeight: 1.85,
+              color: MUTED,
+              padding: "14px 0",
+              borderBottom: `1px solid ${HAIRLINE}`,
+            }}
+          >
+            <Dash color={accent} />
+            <span>{t}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function OnycholysisDoDont() {
   return (
-    <section className="my-10" aria-labelledby="onycho-dodont-h">
-      <BrandEyebrow>מותר ואסור</BrandEyebrow>
-      <h3 id="onycho-dodont-h" className="mt-2 mb-5" style={heading("1.4rem")}>
-        מה לעשות ומה להימנע בבית
-      </h3>
-      <div className="grid gap-3 md:grid-cols-2">
-        <div className="p-5" style={{ ...card, background: "var(--green-50)", borderColor: "var(--green-100)" }}>
-          <div className="mb-3 flex items-center gap-2">
-            <span
-              className="flex h-7 w-7 items-center justify-center"
-              style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999 }}
-              aria-hidden
-            >
-              <Check size={15} strokeWidth={2.4} />
-            </span>
-            <p style={{ color: "var(--green-700)", fontWeight: 700, fontSize: 14 }}>כן לעשות</p>
-          </div>
-          <ul className="space-y-2">
-            {DO_LIST.map((t) => (
-              <li key={t} className="flex items-start gap-2" style={{ color: "var(--ink-900)", fontSize: 14, lineHeight: 1.65 }}>
-                <span aria-hidden style={{ color: "var(--green-700)", fontWeight: 700 }}>✓</span>
-                <span>{t}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div
-          className="p-5"
-          style={{ ...card, background: "color-mix(in oklab, #C4634F 8%, var(--paper))", borderColor: "color-mix(in oklab, #C4634F 25%, var(--paper))" }}
-        >
-          <div className="mb-3 flex items-center gap-2">
-            <span
-              className="flex h-7 w-7 items-center justify-center"
-              style={{ background: "#C4634F", color: "var(--paper)", borderRadius: 999 }}
-              aria-hidden
-            >
-              <X size={15} strokeWidth={2.4} />
-            </span>
-            <p style={{ color: "#9B3A28", fontWeight: 700, fontSize: 14 }}>להימנע</p>
-          </div>
-          <ul className="space-y-2">
-            {DONT_LIST.map((t) => (
-              <li key={t} className="flex items-start gap-2" style={{ color: "var(--ink-900)", fontSize: 14, lineHeight: 1.65 }}>
-                <span aria-hidden style={{ color: "#9B3A28", fontWeight: 700 }}>✕</span>
-                <span>{t}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <section aria-labelledby="onycho-dodont-h" style={{ margin: "56px 0" }}>
+      <div style={{ textAlign: "center", marginBottom: "34px" }}>
+        <DisplayEyebrow size={13} tracking={0.4}>
+          Do &amp; don&apos;t
+        </DisplayEyebrow>
+        <h3 id="onycho-dodont-h" style={{ ...headingStyle("22px"), marginTop: "14px" }}>
+          מה לעשות ומה להימנע בבית
+        </h3>
+      </div>
+      <div
+        className="svc-grid-2"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2,1fr)",
+          gap: "1px",
+          background: HAIRLINE,
+          border: `1px solid ${HAIRLINE}`,
+        }}
+      >
+        <AdviceList label="כן לעשות" items={DO_LIST} accent={GREEN} background={CREAM} />
+        <AdviceList label="להימנע" items={DONT_LIST} accent={ALERT} background="#FFFFFF" />
       </div>
     </section>
   );
@@ -226,7 +343,7 @@ export function OnycholysisDoDont() {
 
 export function OnycholysisVisuals() {
   return (
-    <div className="mx-auto max-w-[820px] px-6">
+    <div style={{ maxWidth: "820px", margin: "0 auto", padding: "0 0 20px" }}>
       <OnycholysisClinical />
       <OnycholysisAnatomy />
       <OnycholysisCauses />
