@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/shared/SiteHeader";
+import { SiteFooter } from "@/components/shared/SiteFooter";
 import { SITE } from "@/lib/site-config";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
 import { listReviews } from "@/lib/cms.functions";
@@ -15,7 +17,6 @@ import {
 import heroAsset from "@/assets/inbar-hero-clinical.webp.asset.json";
 
 const heroImage = heroAsset.url;
-import logoImage from "@/assets/inbar-logo-farhi.png";
 
 /*
  * דף הבית מיושם אחד לאחד מקובץ העיצוב "Inbar Homepage.dc.html":
@@ -33,9 +34,6 @@ const HOME_CSS = `
 .ip-page [id] { scroll-margin-top:124px; }
 .ip-page ::placeholder { color:#6B6B6B; opacity:1; }
 .ip-page .ip-circle-ring { max-width:180px; margin-inline:auto; }
-/* יעדי מגע: הקישורים האלה היו 18-20px גובה, מתחת למינימום הנגיש. */
-.ip-page .ip-nav-links a { padding:12px 0; }
-.ip-page .ip-footer-link { padding:12px 0; }
 .ip-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 .ip-page a { color:#141414; text-decoration:none; transition:color 0.2s, background 0.2s, border-color 0.2s, opacity 0.2s; }
 .ip-page a:hover { color:#0E3B2E; }
@@ -62,8 +60,6 @@ const HOME_CSS = `
 .ip-contact-link:hover { color:#FFFFFF; border-color:#FFFFFF; }
 .ip-input:focus { border-color:#0E3B2E; }
 
-.ip-nav-burger { display:none; }
-.ip-nav-panel { display:none; }
 
 @media (max-width: 1100px) {
   .ip-circles-grid { grid-template-columns:repeat(3,1fr) !important; }
@@ -78,17 +74,9 @@ const HOME_CSS = `
   .ip-hero-overlay > div { padding-inline:24px !important; }
 }
 @media (max-width: 900px) {
-  .ip-nav-links { display:none !important; }
   .ip-page [id] { scroll-margin-top:100px; }
   /* מרווח תחתון כדי שכפתור הנגישות הצף לא ישב על שורת הדיסקליימר. */
   .ip-page { padding-bottom:88px; }
-  .ip-nav-burger { display:inline-flex !important; }
-  .ip-nav-panel.is-open { display:block !important; }
-  /* במובייל אין מקום לכפתור "דברו איתנו" לצד הלוגו והתפריט; הקשר נשאר
-     דרך פריטי התפריט ועמוד צור קשר. */
-  .ip-nav-cta { display:none !important; }
-  .ip-nav-grid { padding:12px 5% !important; }
-  .ip-nav-grid > a img { height:64px !important; margin:-6px 0 !important; }
   .ip-academy-grid { grid-template-columns:1fr !important; }
   .ip-academy-img { min-height:260px !important; }
   .ip-pillars-grid, .ip-testi-grid, .ip-journal-grid { grid-template-columns:1fr !important; }
@@ -102,8 +90,6 @@ const HOME_CSS = `
   .ip-svc-row > span:nth-child(2) { display:none !important; }
 }
 @media (max-width: 560px) {
-  .ip-nav-grid { padding:10px 4% !important; }
-  .ip-nav-burger { padding:13px 12px !important; font-size:12px !important; }
   .ip-nav-grid > a img { height:54px !important; margin:-4px 0 !important; }
   .ip-hero-h1 { font-size:32px !important; }
   .ip-hero-sub { font-size:17px !important; }
@@ -119,31 +105,6 @@ const HOME_CSS = `
   .ip-field-row { flex-direction:column !important; gap:24px !important; }
 }
 `;
-
-const NAV_LINKS = [
-  { label: "טיפולים", href: "/services" },
-  { label: "הכשרות", href: "#academy" },
-  { label: "השיטה", href: "#method" },
-  { label: "מאמרים", href: "/knowledge" },
-  { label: "אודות", href: "/about" },
-];
-
-const FOOTER_LINKS = [
-  { label: "יבלות", href: "/services/corns" },
-  { label: "פטרת", href: "/services/fungus" },
-  { label: "ציפורן חודרנית", href: "/services/ingrown-nails" },
-  { label: "כף רגל סוכרתית", href: "/services/diabetic-feet" },
-  { label: "הכשרות", href: "#academy" },
-  { label: "יצירת קשר", href: "/contact" },
-];
-
-/* חובה בישראל: הצהרת נגישות ומדיניות פרטיות נגישות מכל עמוד. */
-const FOOTER_LEGAL = [
-  { label: "הצהרת נגישות", href: "/accessibility" },
-  { label: "מדיניות פרטיות", href: "/privacy" },
-  { label: "תנאי שימוש", href: "/terms" },
-  { label: "מפת האתר", href: "/sitemap" },
-];
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -186,10 +147,6 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: SITE.url + "/" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Assistant:wght@200;300;400;600;700&display=swap",
-      },
     ],
     scripts: [
       {
@@ -246,17 +203,8 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-function WhatsAppIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M12 2a9.9 9.9 0 0 0-8.5 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.2-.7l.4-.5c.1-.2.2-.3.3-.5v-.5c0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.4-.3z" />
-    </svg>
-  );
-}
-
 function HomePage() {
   const { articles, reviews, rating } = Route.useLoaderData();
-  const [menuOpen, setMenuOpen] = useState(false);
 
   /*
    * כפתור "שליחה" בעיצוב הוא קישור לוואטסאפ. כדי שמה שהמבקר הקליד
@@ -294,153 +242,7 @@ function HomePage() {
     <>
       <style dangerouslySetInnerHTML={{ __html: HOME_CSS }} />
       <div className="ip-page" style={{ minHeight: "100vh", background: "#FFFFFF" }}>
-        {/* Nav — לוגו ממורכז שפורץ את קו ההדר */}
-        <nav
-          style={{
-            background: "#FFFFFF",
-            borderBottom: "1px solid #ECEAE6",
-            position: "sticky",
-            top: 0,
-            zIndex: 60,
-          }}
-        >
-          <div
-            className="ip-nav-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr auto 1fr",
-              alignItems: "center",
-              padding: "16px 4%",
-              minHeight: "58px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <div
-                className="ip-nav-links"
-                style={{
-                  display: "flex",
-                  gap: "30px",
-                  fontWeight: 300,
-                  fontSize: "14.5px",
-                  letterSpacing: "0.12em",
-                }}
-              >
-                {NAV_LINKS.map((l) => (
-                  <a key={l.label} href={l.href}>
-                    {l.label}
-                  </a>
-                ))}
-              </div>
-              <button
-                type="button"
-                className="ip-nav-burger"
-                aria-label="תפריט ניווט"
-                aria-expanded={menuOpen}
-                aria-controls="ip-nav-panel"
-                onClick={() => setMenuOpen((v) => !v)}
-                style={{
-                  alignItems: "center",
-                  gap: "10px",
-                  background: "transparent",
-                  border: "1px solid #8F8474",
-                  padding: "12px 16px",
-                  cursor: "pointer",
-                  fontSize: "13px",
-                  letterSpacing: "0.14em",
-                  fontWeight: 300,
-                  color: "#141414",
-                }}
-              >
-                <span aria-hidden style={{ display: "grid", gap: "4px" }}>
-                  <span
-                    style={{
-                      display: "block",
-                      width: "16px",
-                      height: "1px",
-                      background: "#141414",
-                    }}
-                  />
-                  <span
-                    style={{
-                      display: "block",
-                      width: "16px",
-                      height: "1px",
-                      background: "#141414",
-                    }}
-                  />
-                  <span
-                    style={{
-                      display: "block",
-                      width: "16px",
-                      height: "1px",
-                      background: "#141414",
-                    }}
-                  />
-                </span>
-                תפריט
-              </button>
-            </div>
-            <a href="/" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <img
-                src={logoImage}
-                alt="INBAR FARHI — פדיקור טיפולי · הכשרות מקצועיות"
-                style={{ height: "96px", display: "block", margin: "-10px 0" }}
-              />
-            </a>
-            <div
-              className="ip-nav-cta"
-              style={{
-                display: "flex",
-                gap: "22px",
-                justifyContent: "left",
-                alignItems: "center",
-                fontWeight: 300,
-                fontSize: "14.5px",
-                letterSpacing: "0.1em",
-              }}
-            >
-              <a
-                className="ip-wa-btn"
-                href={WA}
-                style={{
-                  border: "1px solid #141414",
-                  padding: "10px 26px",
-                  letterSpacing: "0.16em",
-                  fontSize: "13px",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "9px",
-                }}
-              >
-                <WhatsAppIcon />
-                דברו איתנו
-              </a>
-            </div>
-          </div>
-          <div
-            id="ip-nav-panel"
-            className={`ip-nav-panel${menuOpen ? " is-open" : ""}`}
-            style={{ borderTop: "1px solid #ECEAE6", padding: "6px 4% 18px" }}
-          >
-            {NAV_LINKS.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  display: "block",
-                  padding: "14px 2px",
-                  borderBottom: "1px solid #ECEAE6",
-                  fontWeight: 300,
-                  fontSize: "15px",
-                  letterSpacing: "0.12em",
-                }}
-              >
-                {l.label}
-              </a>
-            ))}
-          </div>
-        </nav>
+        <SiteHeader />
 
         <main id="main-content">
           {/* Hero — התמונה כרקע מלא, גלויה במלואה */}
@@ -1863,102 +1665,7 @@ function HomePage() {
           </section>
         </main>
 
-        {/* Footer */}
-        <footer style={{ background: "#FFFFFF", padding: "80px 6% 40px" }}>
-          <div style={{ maxWidth: "1150px", margin: "0 auto", textAlign: "center" }}>
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "26px" }}>
-              <img
-                src={logoImage}
-                alt="INBAR FARHI — פדיקור טיפולי · הכשרות מקצועיות"
-                style={{ height: "76px", display: "block" }}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: "34px",
-                justifyContent: "center",
-                flexWrap: "wrap",
-                fontSize: "13.5px",
-                fontWeight: 300,
-                letterSpacing: "0.14em",
-                marginBottom: "34px",
-              }}
-            >
-              {FOOTER_LINKS.map((l) => (
-                <a
-                  key={l.label}
-                  className="ip-footer-link"
-                  href={l.href}
-                  style={{ color: "#4E4E4E" }}
-                >
-                  {l.label}
-                </a>
-              ))}
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: "26px",
-                justifyContent: "center",
-                fontSize: "13.5px",
-                fontWeight: 300,
-                letterSpacing: "0.06em",
-                marginBottom: "44px",
-                color: "#6E6E6E",
-                flexWrap: "wrap",
-              }}
-            >
-              <a className="ip-footer-link" href="tel:+972506668595" style={{ color: "#141414" }}>
-                050-666-8595
-              </a>
-              <span>·</span>
-              <a
-                className="ip-footer-link"
-                href="mailto:inbar.pedicure@gmail.com"
-                style={{ color: "#141414" }}
-              >
-                inbar.pedicure@gmail.com
-              </a>
-              <span>·</span>
-              <span>עלי, אזור בנימין</span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: "24px",
-                justifyContent: "center",
-                flexWrap: "wrap",
-                fontSize: "13px",
-                fontWeight: 300,
-                letterSpacing: "0.08em",
-                marginBottom: "28px",
-              }}
-            >
-              {FOOTER_LEGAL.map((l) => (
-                <a key={l.label} href={l.href} style={{ color: "#4E4E4E", padding: "8px 0" }}>
-                  {l.label}
-                </a>
-              ))}
-            </div>
-            <div
-              style={{
-                borderTop: "1px solid #ECEAE6",
-                paddingTop: "24px",
-                display: "flex",
-                justifyContent: "space-between",
-                fontSize: "12px",
-                color: "#6B6B6B",
-                fontWeight: 300,
-                flexWrap: "wrap",
-                gap: "10px",
-              }}
-            >
-              <span>© {new Date().getFullYear()} ענבר פרחי · כל הזכויות שמורות</span>
-              <span>המידע באתר אינו תחליף לייעוץ רפואי מקצועי</span>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
       </div>
     </>
   );

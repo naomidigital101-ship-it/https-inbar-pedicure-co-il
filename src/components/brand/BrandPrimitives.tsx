@@ -68,7 +68,11 @@ export function Halftone({ className = "", size = 220 }: { className?: string; s
   );
 }
 
-/** תווית eyebrow אחידה בעמודים — text-[12px], letter-spacing 0.22em, ירוק עמוק. */
+/**
+ * תווית eyebrow אחידה בעמודים. במערכת המיתוג החדשה זו מילת תצוגה לטינית
+ * ב-Bodoni Moda עם tracking של 0.4em; המרג'ין השלילי מקזז את הרווח
+ * שה-tracking מוסיף אחרי האות האחרונה, כדי שהטקסט יישאר ממורכז.
+ */
 export function BrandEyebrow({
   children,
   withRule = false,
@@ -83,15 +87,16 @@ export function BrandEyebrow({
   if (withRule) {
     return (
       <div className={`flex items-center gap-3 ${className}`}>
-        <span aria-hidden className="h-px w-10" style={{ background: "var(--green-400)" }} />
+        <span aria-hidden className="h-px w-10" style={{ background: "#ECEAE6" }} />
         <span
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: "0.22em",
+            fontFamily: "var(--font-serif)",
+            fontSize: 13,
+            fontWeight: 400,
+            letterSpacing: "0.4em",
+            marginInlineEnd: "-0.4em",
             textTransform: "uppercase",
-            color: "var(--green-700)",
+            color: "#6B6B6B",
             ...style,
           }}
         >
@@ -104,12 +109,13 @@ export function BrandEyebrow({
     <span
       className={`inline-block ${className}`}
       style={{
-        fontFamily: "var(--font-body)",
-        fontSize: 12,
-        fontWeight: 600,
-        letterSpacing: "0.22em",
+        fontFamily: "var(--font-serif)",
+        fontSize: 13,
+        fontWeight: 400,
+        letterSpacing: "0.4em",
+        marginInlineEnd: "-0.4em",
         textTransform: "uppercase",
-        color: "var(--green-700)",
+        color: "#6B6B6B",
         ...style,
       }}
     >
@@ -147,7 +153,7 @@ export function VerticalSerifLabel({
   );
 }
 
-/** מספר סריף גדול (Frank Ruhl) לקטגוריזציית סקשנים. */
+/** מספר תצוגה ב-Bodoni Moda לקטגוריזציית סקשנים. */
 export function SerifNumber({
   children,
   className = "",
@@ -162,11 +168,11 @@ export function SerifNumber({
       className={className}
       style={{
         fontFamily: "var(--font-serif)",
-        fontWeight: 700,
-        fontSize: "2.2rem",
-        color: "var(--green-700)",
+        fontWeight: 400,
+        fontSize: "2rem",
+        color: "#726B5E",
         lineHeight: 1,
-        letterSpacing: "-0.01em",
+        letterSpacing: "normal",
         ...style,
       }}
     >
@@ -175,37 +181,17 @@ export function SerifNumber({
   );
 }
 
-/** רקע hero מותגי — קשת + halftone + label אנכי. */
-export function BrandHeroBackdrop({
-  label,
-  showHalftone = true,
-  showArc = true,
-}: {
+/**
+ * במערכת המיתוג החדשה אין שכבת קישוט מאחורי ההירו — לא קשת, לא halftone
+ * ולא תווית אנכית. הקומפוננטה נשארת כדי שקריאות קיימות לא יישברו, ומחזירה
+ * null. הפרדה נעשית בקווי hairline ובאוויר בלבד.
+ */
+export function BrandHeroBackdrop(_props: {
   label?: string;
   showHalftone?: boolean;
   showArc?: boolean;
 }) {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      {showArc ? <OrganicArc /> : null}
-      {label ? (
-        <>
-          <span
-            aria-hidden
-            className="absolute hidden md:block"
-            style={{ top: "14%", right: "5%", width: 1, height: 56, background: "rgba(30,36,34,0.12)" }}
-          />
-          <VerticalSerifLabel style={{ top: "12%", right: "4.2%" }}>{label}</VerticalSerifLabel>
-        </>
-      ) : null}
-      <span
-        aria-hidden
-        className="absolute hidden md:block"
-        style={{ bottom: "12%", left: "8%", width: 110, height: 1, background: "rgba(30,36,34,0.10)" }}
-      />
-      {showHalftone ? <Halftone className="absolute -bottom-12 -left-12 hidden sm:block" /> : null}
-    </div>
-  );
+  return null;
 }
 
 /** כותרת סקשן דו-עמודתית: מספר סריף + eyebrow + h2 + תיאור. */

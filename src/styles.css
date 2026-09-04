@@ -107,23 +107,23 @@
   --color-terracotta-ink: var(--accent-ink);
   --color-terracotta-light: var(--accent-light);
   --color-whatsapp: var(--whatsapp);
-  --font-heading: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-body: "Assistant", "Heebo Variable", system-ui, sans-serif;
-  --font-display: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-serif: "Frank Ruhl Libre", "Rubik", "Assistant", serif;
+  --font-heading: "Assistant", system-ui, sans-serif;
+  --font-body: "Assistant", system-ui, sans-serif;
+  --font-display: "Assistant", system-ui, sans-serif;
+  --font-serif: "Bodoni Moda", Georgia, serif;
   /* Shadows — derived from the brand green #0F4C4A */
-  --shadow-soft: 0 6px 22px rgb(15 76 74 / 0.08);
-  --shadow-elegant: 0 10px 30px rgb(15 76 74 / 0.09);
-  --shadow-lift: 0 22px 50px rgb(15 76 74 / 0.16);
-  --shadow-clinical: 0 0 0 1px rgb(15 76 74 / 0.06);
-  --shadow-ring: 0 0 0 1px rgb(15 76 74 / 0.06);
-  --shadow-cta: 0 10px 26px rgb(226 114 91 / 0.40);
+  --shadow-soft: none;
+  --shadow-elegant: none;
+  --shadow-lift: none;
+  --shadow-clinical: none;
+  --shadow-ring: none;
+  --shadow-cta: none;
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0px;
   /* Radius scale — generous, friendly */
-  --radius-pill: 999px;
+  --radius-pill: 0px;
   /* Spacing scale (4/8/12/16/24/32/48/64/96) */
   --space-1: 4px;
   --space-2: 8px;
@@ -134,68 +134,68 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
-  --font-heading: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-body: "Assistant", "Heebo Variable", system-ui, sans-serif;
-  --font-display: "Rubik", "Heebo Variable", "Assistant", system-ui, sans-serif;
-  --font-serif: "Frank Ruhl Libre", "Rubik", "Assistant", serif;
+  --font-heading: "Assistant", system-ui, sans-serif;
+  --font-body: "Assistant", system-ui, sans-serif;
+  --font-display: "Assistant", system-ui, sans-serif;
+  --font-serif: "Bodoni Moda", Georgia, serif;
   /*
    * Inbar Farchi — Foot Care Academy palette
    * ירוק מותג #0F4C4A · טרקוטה CTA #E2725B · זהב אקדמיה #C9A227 / #F4C95D
    * דיו #15302E · טקסט משני #5E7A73 · רקע לבן
    */
-  --paper: #FFFFFF;
-  --stone-50: #F5F9F6;
-  --stone-100: #EAF2ED;
-  --stone-300: #BCD9CB;
-  --ink-900: #15302E;
+  --paper: #ffffff;
+  --stone-50: #f7f5f1;
+  --stone-100: #eceae6;
+  --stone-300: #8f8474;
+  --ink-900: #141414;
   /* #59736C במקום #5E7A73 שברפרנס — כהה במעט כדי לעבור WCAG AA גם על רקעים גוונים */
-  --ink-600: #59736C;
-  --green-50: #F5F9F6;
-  --green-100: #EFF6F1;
-  --green-200: #DCEBE4;
-  --green-300: #BCD9CB;
-  --green-400: #7BD8A0;
-  --green-500: #2E7D74;
-  --green-600: #17635F;
-  --green-700: #0F4C4A;
-  --green-800: #0D403E;
-  --green-900: #0A2826;
-  --green-950: #071E1C;
-  --accent-gold: #C9A227;
-  --gold-bright: #F4C95D;
+  --ink-600: #4e4e4e;
+  --green-50: #f7f5f1;
+  --green-100: #f5f7f4;
+  --green-200: #b9c9c0;
+  --green-300: #7e9a8e;
+  --green-400: #7e9a8e;
+  --green-500: #1e5a46;
+  --green-600: #145039;
+  --green-700: #0e3b2e;
+  --green-800: #0e3b2e;
+  --green-900: #0c2b23;
+  --green-950: #0c2b23;
+  --accent-gold: #947105;
+  --gold-bright: #e7b008;
   /* זהב לטקסט על רקע בהיר. #8A7A45 שברפרנס נותן 4.24:1 — הוכהה מעט ל-AA. */
-  --gold-ink: #7E6F3E;
-  --cream-50: #FBF7EF;
-  --cream-100: #FBF4E3;
-  --gold-ring: #EAD9AC;
-  --blush-50: #FDF0EC;
-  --blush-200: #F2C4B7;
-  --whatsapp: #25D366;
-  --whatsapp-hover: #1FB457;
+  --gold-ink: #947105;
+  --cream-50: #f7f5f1;
+  --cream-100: #efede8;
+  --gold-ring: #eceae6;
+  --blush-50: #f7f5f1;
+  --blush-200: #eceae6;
+  --whatsapp: #0e3b2e;
+  --whatsapp-hover: #141414;
 
-  --background: #FFFFFF;
-  --surface: #FFFFFF;
-  --surface-soft: #EFF6F1;
-  --surface-warm: #FBF7EF;
-  --foreground: #15302E;
-  --ink: #15302E;
-  --ink-soft: #3D5A54;
-  --text-muted: #59736C;
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-soft: #f7f5f1;
+  --surface-warm: #f7f5f1;
+  --foreground: #141414;
+  --ink: #141414;
+  --ink-soft: #4e4e4e;
+  --text-muted: #4e4e4e;
   /* #8FA69F — מיועד לרקעים כהים (פוטר). על רקע בהיר יש להשתמש ב---text-muted. */
-  --text-dim: #8FA69F;
-  --card: #FFFFFF;
-  --card-foreground: #15302E;
-  --popover: #FFFFFF;
-  --popover-foreground: #15302E;
-  --primary: #0F4C4A;
-  --primary-hover: #17635F;
-  --primary-soft: #EFF6F1;
-  --primary-deep: #0A2826;
-  --primary-foreground: #FFFFFF;
-  --secondary: #EFF6F1;
-  --secondary-foreground: #15302E;
-  --muted: #F5F9F6;
-  --muted-foreground: #5E7A73;
+  --text-dim: #b9c9c0;
+  --card: #ffffff;
+  --card-foreground: #141414;
+  --popover: #ffffff;
+  --popover-foreground: #141414;
+  --primary: #0e3b2e;
+  --primary-hover: #141414;
+  --primary-soft: #f5f7f4;
+  --primary-deep: #0c2b23;
+  --primary-foreground: #ffffff;
+  --secondary: #f7f5f1;
+  --secondary-foreground: #141414;
+  --muted: #f7f5f1;
+  --muted-foreground: #6b6b6b;
   /*
    * accent = טרקוטה, צבע ה-CTA הראשי.
    * הרפרנס נותן #E2725B, אבל טקסט לבן עליו הוא 3.09:1 ונופל ב-WCAG AA
@@ -203,34 +203,34 @@
    * הגוון המקורי שמור ב---accent-light לשימוש דקורטיבי בלבד (נקודות, קווי הדגשה),
    * שם אין דרישת ניגודיות. להחזרת הגוון המקורי: להחליף את שני הערכים כאן.
    */
-  --accent: #B84A34;
-  --accent-hover: #9E3A26;
-  --accent-light: #E2725B;
-  --accent-soft: #FDF0EC;
-  --accent-ink: #B84A34;
-  --accent-foreground: #FFFFFF;
+  --accent: #0e3b2e;
+  --accent-hover: #141414;
+  --accent-light: #0e3b2e;
+  --accent-soft: #f7f5f1;
+  --accent-ink: #0e3b2e;
+  --accent-foreground: #ffffff;
   /* Legacy "copper" tokens — remapped to the brand gold */
-  --copper: #C9A227;
-  --copper-soft: #FBF4E3;
-  --footer-bg: #071E1C;
+  --copper: #947105;
+  --copper-soft: #efede8;
+  --footer-bg: #0c2b23;
   --destructive: oklch(0.55 0.18 28);
   --destructive-foreground: oklch(1 0 0);
-  --border: #EAF2ED;
-  --input: #FFFFFF;
-  --ring: #0F4C4A;
-  --chart-1: #0F4C4A;
-  --chart-2: #E2725B;
-  --chart-3: #F4C95D;
-  --chart-4: #7BD8A0;
-  --chart-5: #5E7A73;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #15302E;
-  --sidebar-primary: #0F4C4A;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #EFF6F1;
-  --sidebar-accent-foreground: #15302E;
-  --sidebar-border: #EAF2ED;
-  --sidebar-ring: #0F4C4A;
+  --border: #eceae6;
+  --input: #ffffff;
+  --ring: #0e3b2e;
+  --chart-1: #0e3b2e;
+  --chart-2: #7e9a8e;
+  --chart-3: #947105;
+  --chart-4: #b9c9c0;
+  --chart-5: #6b6b6b;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #141414;
+  --sidebar-primary: #0e3b2e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f7f5f1;
+  --sidebar-accent-foreground: #141414;
+  --sidebar-border: #eceae6;
+  --sidebar-ring: #0e3b2e;
 }
 
 .dark {
@@ -283,23 +283,28 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4,
+  h1,
+  h2,
+  h3,
+  h4,
   .font-heading,
   .display,
   .display-italic,
   .heading {
     font-family: var(--font-display) !important;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    line-height: 1.18;
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 1.3;
   }
 
   h1 {
-    font-weight: 900;
-    line-height: 1.14;
+    font-weight: 700;
+    line-height: 1.35;
   }
 
-  h3, h4, .heading-strong {
+  h3,
+  h4,
+  .heading-strong {
     font-weight: 700;
     letter-spacing: -0.005em;
     line-height: 1.35;
@@ -329,10 +334,15 @@
   }
 
   /* Smooth, restrained transitions on interactive surfaces */
-  a, button, [role="button"] {
-    transition: color 200ms ease, background-color 200ms ease,
-                border-color 200ms ease, box-shadow 200ms ease,
-                transform 200ms ease;
+  a,
+  button,
+  [role="button"] {
+    transition:
+      color 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease,
+      transform 200ms ease;
   }
 
   .kicker {
@@ -395,19 +405,24 @@
     background: rgb(255 255 255 / 0.14);
     backdrop-filter: blur(6px);
     border: 1.5px solid rgb(255 255 255 / 0.5);
-    color: #FFFFFF;
+    color: #ffffff;
     border-radius: var(--radius-pill);
     padding: 16px 32px;
     font-weight: 700;
   }
   .btn-glass:hover {
-    background: #FFFFFF;
+    background: #ffffff;
     color: var(--primary);
   }
 
   @keyframes floaty {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
   }
   .animate-floaty {
     animation: floaty 4s ease-in-out infinite;
@@ -419,8 +434,14 @@
    * שגיאה בעץ). אנימציית CSS רצה גם בלי JS, ובלי JS בכלל התוכן פשוט גלוי.
    */
   @keyframes fade-up {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .fade-up {
     animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -520,10 +541,18 @@
    ============================================================ */
 
 /* Font scaling */
-html.a11y-font-110 { font-size: 110%; }
-html.a11y-font-120 { font-size: 120%; }
-html.a11y-font-135 { font-size: 135%; }
-html.a11y-font-150 { font-size: 150%; }
+html.a11y-font-110 {
+  font-size: 110%;
+}
+html.a11y-font-120 {
+  font-size: 120%;
+}
+html.a11y-font-135 {
+  font-size: 135%;
+}
+html.a11y-font-150 {
+  font-size: 150%;
+}
 
 /* High contrast (black/yellow) */
 html.a11y-contrast,
@@ -537,18 +566,29 @@ html.a11y-contrast *:not(svg):not(path) {
   border-color: #ffff00 !important;
 }
 html.a11y-contrast a,
-html.a11y-contrast a * { color: #00ffff !important; text-decoration: underline !important; }
+html.a11y-contrast a * {
+  color: #00ffff !important;
+  text-decoration: underline !important;
+}
 html.a11y-contrast img,
-html.a11y-contrast video { filter: grayscale(1) contrast(1.1); }
+html.a11y-contrast video {
+  filter: grayscale(1) contrast(1.1);
+}
 
 /* Inverted colors */
-html.a11y-invert { filter: invert(1) hue-rotate(180deg); }
+html.a11y-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
 html.a11y-invert img,
 html.a11y-invert video,
-html.a11y-invert picture { filter: invert(1) hue-rotate(180deg); }
+html.a11y-invert picture {
+  filter: invert(1) hue-rotate(180deg);
+}
 
 /* Monochrome / grayscale */
-html.a11y-grayscale { filter: grayscale(1); }
+html.a11y-grayscale {
+  filter: grayscale(1);
+}
 
 /* Highlight links */
 html.a11y-links a {
@@ -574,7 +614,9 @@ html.a11y-readable * {
 }
 
 html.a11y-readable :is(h1, h2, h3, h4, h5, h6, .font-heading, .display, .display-italic, .heading),
-html.a11y-readable :is(h1, h2, h3, h4, h5, h6, .font-heading, .display, .display-italic, .heading) * {
+html.a11y-readable
+  :is(h1, h2, h3, h4, h5, h6, .font-heading, .display, .display-italic, .heading)
+  * {
   font-family: var(--font-display) !important;
   letter-spacing: 0 !important;
 }
@@ -591,5 +633,90 @@ html.a11y-no-motion *::after {
 /* Big cursor */
 html.a11y-cursor,
 html.a11y-cursor * {
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='black' stroke='white' stroke-width='1.5'><path d='M3 2l7 18 2-7 7-2z'/></svg>") 0 0, auto !important;
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='black' stroke='white' stroke-width='1.5'><path d='M3 2l7 18 2-7 7-2z'/></svg>")
+      0 0,
+    auto !important;
+}
+
+/* ===========================================================================
+ * ענבר פרחי — מערכת המיתוג 2026 (עריכתי-קליני)
+ *
+ * מלבנים חדים, אפס צללים, הפרדה בקווי hairline ובאוויר. הסחיפה למטה
+ * מיישרת גם עמודים שעדיין נושאים ערכים קשיחים מהמערכת הישנה, כך שאין
+ * שני מיתוגים באתר אחד. ממשק הניהול (main[data-admin]) מוחרג.
+ * ========================================================================= */
+
+/* .ip-circle-ring — העיגולים של "טיפול לפי מצב כף הרגל" — הם החריג
+   המכוון היחיד, ולכן הם מוחרגים כאן ולא נדרסים בכלל נגדי. */
+main:not([data-admin]) *:not(.keep-round):not(.ip-circle-ring):not(svg):not(svg *) {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* מילות תצוגה לטיניות — Bodoni Moda, uppercase, tracking רחב. */
+.brand-eyebrow {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  margin-inline-end: -0.4em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+}
+
+/* כפתור ראשי: מלבן ירוק חד. */
+.brand-btn {
+  display: inline-block;
+  background: #0e3b2e;
+  color: #ffffff;
+  padding: 16px 46px;
+  font-weight: 400;
+  font-size: 14.5px;
+  letter-spacing: 0.2em;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.brand-btn:hover {
+  background: #141414;
+  color: #ffffff;
+}
+
+/* כפתור מסגרת: מתמלא בירוק ב-hover. */
+.brand-btn-outline {
+  display: inline-block;
+  border: 1px solid #141414;
+  padding: 14px 40px;
+  font-weight: 400;
+  font-size: 13.5px;
+  letter-spacing: 0.2em;
+  color: #141414;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+.brand-btn-outline:hover {
+  background: #0e3b2e;
+  border-color: #0e3b2e;
+  color: #ffffff;
+}
+
+/* קישור משני: טקסט עם קו תחתון דק. */
+.brand-link {
+  border-bottom: 1px solid #141414;
+  padding-bottom: 4px;
+  letter-spacing: 0.14em;
+}
+
+/* .btn-cta הישן היה גלולת טרקוטה עם צל — מיושר עכשיו לכפתור הראשי. */
+.btn-cta {
+  background: #0e3b2e !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  letter-spacing: 0.2em;
+}
+.btn-cta:hover {
+  background: #141414 !important;
 }
