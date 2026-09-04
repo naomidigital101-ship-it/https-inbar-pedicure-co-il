@@ -1,10 +1,23 @@
+/**
+ * הרשמה לצ׳קליסט — כותבת ישירות לטבלת leads.
+ *
+ * העיצוב לפי מערכת המותג של דף הבית: פס כהה, ללא רדיוס וללא צל,
+ * שדה עם קו תחתון וכפתור מלבני.
+ */
+
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
+const BODONI = "'Bodoni Moda',serif";
 const CHECKLIST_PDF_URL = "/downloads/checklist-47.pdf";
+
+const LEAD_CSS = `
+.iplm input:focus { border-bottom-color:#FFFFFF; }
+.iplm-btn:hover:not(:disabled) { background:#FFFFFF; color:#0C2B23; }
+`;
 
 function triggerChecklistDownload() {
   if (typeof document === "undefined") return;
@@ -43,8 +56,7 @@ export function LeadMagnet() {
     }
 
     setStatus("loading");
-    const sourcePage =
-      typeof window !== "undefined" ? window.location.pathname : null;
+    const sourcePage = typeof window !== "undefined" ? window.location.pathname : null;
 
     const { error } = await supabase
       .from("leads")
@@ -59,7 +71,7 @@ export function LeadMagnet() {
         return;
       }
       setStatus("error");
-      const msg = "משהו השתבש, נסה שוב בעוד רגע";
+      const msg = "משהו השתבש, נסו שוב בעוד רגע";
       setErrorMsg(msg);
       toast.error(msg);
       return;
@@ -75,41 +87,61 @@ export function LeadMagnet() {
   return (
     <section
       id="lead-magnet"
-      className="flex flex-col items-start justify-between gap-8 p-8 md:flex-row md:items-center md:p-12"
-      style={{ background: "var(--green-700)", color: "var(--paper)" }}
+      dir="rtl"
+      className="iplm flex flex-col items-start justify-between gap-12 md:flex-row md:items-center"
+      style={{
+        background: "#0C2B23",
+        color: "#FFFFFF",
+        padding: "90px 6%",
+        fontFamily: "'Assistant',sans-serif",
+      }}
     >
-      <div>
-        <span
-          className="block mb-3"
-          style={{ fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--green-200)", fontWeight: 600 }}
-        >
-          הצ׳קליסט החינמי
-        </span>
-        <h2
-          className="mb-2"
+      <style dangerouslySetInnerHTML={{ __html: LEAD_CSS }} />
+      <div style={{ maxWidth: "560px" }}>
+        <div
           style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 300,
-            fontSize: "clamp(1.8rem, 4vw, 3rem)",
-            color: "var(--paper)",
-            letterSpacing: "-0.02em",
-            lineHeight: 1.1,
+            fontFamily: BODONI,
+            fontSize: "13px",
+            letterSpacing: "0.4em",
+            color: "#7E9A8E",
+            fontWeight: 400,
+            marginBottom: "20px",
+            marginLeft: "-0.4em",
+          }}
+        >
+          FREE GUIDE
+        </div>
+        <h2
+          style={{
+            fontWeight: 700,
+            fontSize: "30px",
+            lineHeight: 1.4,
+            margin: "0 0 16px",
+            color: "#FFFFFF",
           }}
         >
           המדריך לבריאות כף הרגל
         </h2>
-        <p style={{ color: "color-mix(in oklab, var(--paper) 80%, transparent)", fontSize: 15.5, lineHeight: 1.65 }}>
-          טיפים יומיומיים, סימני אזהרה ושגרת טיפוח שכל פדיקוריסטית טיפולית ממליצה. חינם במייל.
+        <p
+          style={{
+            fontSize: "15.5px",
+            lineHeight: 2,
+            color: "#B9C9C0",
+            fontWeight: 300,
+            margin: 0,
+          }}
+        >
+          שגרת טיפוח יומיומית, סימני אזהרה שכדאי להכיר, ומתי כדאי לפנות לבדיקה. חינם במייל.
         </p>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="flex w-full flex-col gap-2 md:w-auto"
+        className="w-full md:w-auto"
         aria-label="הרשמה לקבלת הצ׳קליסט"
         noValidate
       >
-        <div className="flex w-full overflow-hidden" style={{ borderRadius: 999 }}>
+        <div className="flex w-full flex-col gap-6 sm:flex-row sm:items-end">
           <input
             type="email"
             required
@@ -125,23 +157,45 @@ export function LeadMagnet() {
             aria-invalid={errorMsg ? true : undefined}
             aria-describedby={errorMsg ? "lead-magnet-error" : undefined}
             maxLength={255}
-            className="w-full px-6 py-4 focus:outline-none disabled:opacity-60 md:w-80"
-            style={{ background: "var(--paper)", color: "var(--ink-900)", fontSize: 15 }}
+            className="w-full sm:w-80"
+            style={{
+              border: "none",
+              borderBottom: "1px solid #7E9A8E",
+              background: "transparent",
+              color: "#FFFFFF",
+              padding: "12px 2px",
+              fontSize: "15.5px",
+              fontWeight: 300,
+              outline: "none",
+              fontFamily: "'Assistant',sans-serif",
+            }}
           />
           <button
             type="submit"
             disabled={isLoading}
-            className="whitespace-nowrap px-8 py-4 disabled:cursor-not-allowed disabled:opacity-60"
-            style={{ background: "var(--ink-900)", color: "var(--paper)", fontWeight: 700, fontSize: 14 }}
+            className="iplm-btn whitespace-nowrap"
+            style={{
+              background: "#0E3B2E",
+              color: "#FFFFFF",
+              border: "1px solid #FFFFFF",
+              padding: "16px 40px",
+              fontWeight: 400,
+              fontSize: "14px",
+              letterSpacing: "0.2em",
+              cursor: isLoading ? "not-allowed" : "pointer",
+              opacity: isLoading ? 0.6 : 1,
+              transition: "background 0.2s, color 0.2s",
+              fontFamily: "'Assistant',sans-serif",
+            }}
           >
-            {isLoading ? "שולח..." : "קבלת הצ׳קליסט"}
+            {isLoading ? "שולחת..." : "קבלת הצ׳קליסט"}
           </button>
         </div>
         {errorMsg && (
           <p
             id="lead-magnet-error"
             role="alert"
-            style={{ fontSize: 12, color: "var(--paper)", fontWeight: 600 }}
+            style={{ marginTop: "14px", fontSize: "13px", color: "#FFFFFF", fontWeight: 400 }}
           >
             {errorMsg}
           </p>

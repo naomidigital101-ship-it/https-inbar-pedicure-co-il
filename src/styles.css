@@ -4,45 +4,26 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Rubik — display/headings (700–900). Hebrew + Latin. */
-@import "@fontsource/rubik/500.css";
-@import "@fontsource/rubik/600.css";
-@import "@fontsource/rubik/700.css";
-@import "@fontsource/rubik/800.css";
-@import "@fontsource/rubik/900.css";
-@import "@fontsource/rubik/hebrew-500.css";
-@import "@fontsource/rubik/hebrew-600.css";
-@import "@fontsource/rubik/hebrew-700.css";
-@import "@fontsource/rubik/hebrew-800.css";
-@import "@fontsource/rubik/hebrew-900.css";
-
-/* Heebo — secondary UI font. Hebrew + Latin. */
-@import "@fontsource-variable/heebo";
-
-/* Assistant — body copy. Hebrew + Latin. */
+/* Assistant — הפונט היחיד לעברית במערכת המיתוג. Bodoni Moda
+   למילות תצוגה לטיניות נטען מ-Google Fonts ב-__root. */
+@import "@fontsource/assistant/200.css";
 @import "@fontsource/assistant/300.css";
 @import "@fontsource/assistant/400.css";
 @import "@fontsource/assistant/500.css";
 @import "@fontsource/assistant/600.css";
 @import "@fontsource/assistant/700.css";
+@import "@fontsource/assistant/hebrew-200.css";
 @import "@fontsource/assistant/hebrew-300.css";
 @import "@fontsource/assistant/hebrew-400.css";
 @import "@fontsource/assistant/hebrew-500.css";
 @import "@fontsource/assistant/hebrew-600.css";
 @import "@fontsource/assistant/hebrew-700.css";
 
-/* Frank Ruhl Libre — serif accents (pull-quotes, catalogue numbers). */
-@import "@fontsource/frank-ruhl-libre/400.css";
-@import "@fontsource/frank-ruhl-libre/500.css";
-@import "@fontsource/frank-ruhl-libre/700.css";
-@import "@fontsource/frank-ruhl-libre/hebrew-400.css";
-@import "@fontsource/frank-ruhl-libre/hebrew-500.css";
-@import "@fontsource/frank-ruhl-libre/hebrew-700.css";
-
 /*
- * ענבר פרחי — Foot Care Academy design system
- * ירוק כהה #0F4C4A כצבע מותג · טרקוטה #E2725B ל-CTA · זהב #C9A227/#F4C95D לאקדמיה.
- * כותרות Rubik 700–900, גוף Assistant. הוספת צבע: עדכן :root + רישום ב-@theme inline.
+ * ענבר פרחי — מערכת עיצוב עריכתית-קלינית (מיתוג 2026)
+ * ירוק מותג #0E3B2E · פס כהה #0C2B23 · שמנת #F7F5F1 · hairline #ECEAE6.
+ * Assistant לכל העברית, Bodoni Moda למילות תצוגה לטיניות. אפס radius,
+ * אפס צללים. הוספת צבע: עדכן :root + רישום ב-@theme inline.
  */
 
 @theme inline {

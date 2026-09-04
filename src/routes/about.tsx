@@ -1,18 +1,45 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
-import { BrandHeroBackdrop, BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
 import { useSite } from "@/lib/use-site";
 import heroAsset from "@/assets/inbar-farchi.jpg.asset.json";
 
+/*
+ * העמוד בנוי על מערכת המיתוג של דף הבית (src/routes/index.tsx):
+ * ללא רדיוס, ללא צל, הפרדה בקווי שיער בלבד, Assistant לעברית
+ * ו-Bodoni Moda לתוויות הלטיניות. הערכים נשמרים אינליין כמו שם.
+ */
+
+const BODONI = "'Bodoni Moda',serif";
+const FONTS_HREF =
+  "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Assistant:wght@200;300;400;600;700&display=swap";
+
 const PAGE_URL = `${SITE.url}/about`;
 const HERO_ABS = `${SITE.url}${heroAsset.url}`;
-const TITLE = `אודות ${SITE.brand} | פדיקוריסטית טיפולית`;
+const TITLE = `אודות ${SITE.brand} | פדיקוריסטית טיפולית בעלי`;
 const DESCRIPTION =
-  "ענבר פרחי, פדיקוריסטית טיפולית מבית אל עם 12+ שנות ניסיון. מתמחה בטיפול ביבלות, פטרת, ציפורן חודרנית וטיפול עדין לחולי סוכרת. השתלמויות באיכילוב, מרצה ומכשירה.";
+  "ענבר פרחי, פדיקוריסטית טיפולית בעלי, אזור בנימין. 12+ שנות ניסיון בטיפול קליני ביבלות, פטרת, ציפורן חודרנית וכף רגל סוכרתית. מרצה ומכשירה פדיקוריסטיות בכל הארץ.";
+
+const ABOUT_CSS = `
+.ipa { direction:rtl; font-family:'Assistant',sans-serif; color:#141414; background:#FFFFFF; }
+.ipa a { transition:color 0.2s, background 0.2s, border-color 0.2s; }
+.ipa-btn-solid:hover { background:#141414; color:#FFFFFF; }
+.ipa-btn-ghost:hover { color:#FFFFFF; border-color:#FFFFFF; }
+@media (max-width: 900px) {
+  .ipa-hero-grid { grid-template-columns:1fr !important; gap:48px !important; }
+  .ipa-cred-grid { grid-template-columns:1fr !important; }
+  .ipa-daughters { grid-template-columns:1fr !important; }
+  .ipa-daughters > div { border-left:none !important; border-top:1px solid #E2DFD8; }
+  .ipa-section { padding-top:80px !important; padding-bottom:80px !important; }
+}
+@media (max-width: 560px) {
+  .ipa-display { font-size:30px !important; }
+  .ipa-h1 { font-size:34px !important; }
+  .ipa-row { grid-template-columns:1fr !important; gap:10px !important; }
+}
+`;
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -48,6 +75,8 @@ export const Route = createFileRoute("/about")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
+      { name: "geo.placename", content: "עלי, אזור בנימין" },
+      { name: "geo.region", content: "IL" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: PAGE_URL },
@@ -55,7 +84,10 @@ export const Route = createFileRoute("/about")({
       { property: "og:image", content: HERO_ABS },
       { name: "twitter:image", content: HERO_ABS },
     ],
-    links: [{ rel: "canonical", href: PAGE_URL }],
+    links: [
+      { rel: "canonical", href: PAGE_URL },
+      { rel: "stylesheet", href: FONTS_HREF },
+    ],
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(personSchema) },
       {
@@ -74,34 +106,40 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
 });
 
+const lead =
+  "אני ענבר פרחי, פדיקוריסטית טיפולית. אני מטפלת בכף הרגל בגישה קלינית — אבחון לפני טיפול, סטריליות מוחלטת וליווי עד החלמה.";
+
 const paragraphs = [
-  "נעים מאוד, אני ענבר פרחי – פדיקוריסטית טיפולית המתמחה בטיפול במחלות רגליים, יבלות, פטרת ושיקום ציפורניים בשיטת BIO.",
-  "בעיניי טיפול בכף הרגל הוא הרבה מעבר לפינוק. הוא חלק בלתי נפרד מהבריאות הכללית ומאיכות החיים היומיומית. מגיע לכל אדם ללכת בלי כאב, להרגיש נוחות וביטחון בכל צעד.",
-  "כל רגל מספרת סיפור אחר, והשליחות שלי היא להבין את מקור הבעיה ולטפל בה מהשורש – לא רק לשפר את המראה, אלא את איכות החיים. אני משלבת ידע קליני, דיוק ואמפתיה, מתוך משיכה אמיתית לעולם הטיפול ורצון לעזור לאנשים.",
-  "אני עוברת השתלמויות קבועות בבית החולים איכילוב, מתמחה בטיפול בחולי סוכרת לפי פרוטוקולים קליניים מאושרים, ומרצה לפדיקוריסטיות טיפוליות ברחבי הארץ – להעלות מודעות לכאב שכל כך הרבה אנשים סובלים ממנו בשתיקה.",
-  "המטרה שלי פשוטה – להחזיר לכם את הבריאות, הנוחות והקלות בכל צעד.",
+  "בעיניי כף הרגל אינה עניין קוסמטי. היא מערכת נושאת משקל שמושפעת מהנעלה, מתבנית הליכה וממצב בריאותי, וכל שינוי בה מספר משהו על הגוף כולו. לכן כל פגישה אצלי מתחילה בשאלה למה — ולא רק במה.",
+  "כל רגל מספרת סיפור אחר. התפקיד שלי הוא לאתר את מקור הבעיה ולטפל בו, לא רק לשפר את המראה. אני משלבת ידע קליני, דיוק וקשב, ומסבירה כל שלב לפני שאני מבצעת אותו.",
+  "אני עוברת השתלמויות קבועות בבית החולים איכילוב, מטפלת בכף רגל סוכרתית לפי פרוטוקול אגודת אייל, ומרצה לפדיקוריסטיות טיפוליות בכל הארץ. מטופלים מגיעים אליי מעלי, אריאל, שילה, עפרה וירושלים.",
+  "המטרה שלי מדודה וברורה: להחזיר לכם הליכה בלי כאב, ולתת לכם את הידע לשמור עליה.",
 ];
 
 const journey = [
   {
-    age: "בת 14",
-    title: "ההתאהבות הראשונה",
-    body: "התאהבתי בציפורניים – בפרטים הקטנים, בדיוק, ביופי שנמצא בעבודת יד סבלנית. ידעתי כבר אז שזה העולם שלי.",
+    num: "01",
+    age: "גיל 14",
+    title: "ההתחלה",
+    body: "התחלתי לעבוד על ציפורניים בגיל 14. מה שמשך אותי היה הדיוק — עבודת יד סבלנית שבה כל פרט קטן משנה את התוצאה.",
   },
   {
+    num: "02",
     age: "שנות העשרים",
     title: "התמחות בשיטת BIO",
-    body: "עברתי דרך עולם הביוטי והתמקצעתי בשיטת BIO לשיקום ציפורניים. חשבתי ששם הסיפור שלי מסתיים – אבל הוא רק התחיל.",
+    body: "עברתי דרך עולם הביוטי והתמקצעתי בשיקום ציפורניים בשיטת BIO — עבודה על לוחית פגומה בלי לפגוע במיטת הציפורן שמתחתיה.",
   },
   {
+    num: "03",
     age: "נקודת המפנה",
     title: "פדיקור טיפולי",
-    body: "כשגיליתי את הפדיקור הטיפולי הבנתי – אני לא עוסקת ביופי, אני עוזרת לאנשים ללכת בלי כאב. זה שינה לי את הכל.",
+    body: "כשהגעתי לפדיקור הטיפולי הבנתי שהעיסוק שלי אינו יופי אלא תפקוד: לאפשר לאנשים ללכת בלי כאב. משם הכיוון היה ברור.",
   },
   {
+    num: "04",
     age: "היום",
     title: "מרצה ומכשירה",
-    body: "מעבירה השתלמויות באיכילוב, מרצה לפדיקוריסטיות בכל הארץ, ומלווה מטופלים מורכבים שעברו עשר קליניקות לפניי.",
+    body: "אני משתלמת באיכילוב, מרצה לפדיקוריסטיות בכל הארץ, ומלווה מקרים מורכבים שעברו כמה קליניקות לפניי.",
   },
 ];
 
@@ -114,320 +152,474 @@ const daughters = [
 const credentials = [
   "12+ שנות ניסיון בטיפול קליני בכף הרגל",
   "השתלמויות קבועות בבית החולים איכילוב",
-  "התמחות בטיפול בחולי סוכרת לפי פרוטוקולים קליניים",
+  "כף רגל סוכרתית לפי פרוטוקול אגודת אייל",
   "התמחות בשיטת BIO לשיקום ציפורניים",
   "מרצה ומכשירה פדיקוריסטיות טיפוליות",
-  "200+ טיפולים מוצלחים מסוגים שונים",
+  "200+ מטופלים בשנה במגוון מצבי כף רגל",
 ];
+
+function Eyebrow({ children, dark = false }: { children: string; dark?: boolean }) {
+  return (
+    <div
+      style={{
+        fontFamily: BODONI,
+        fontSize: "14px",
+        letterSpacing: "0.5em",
+        color: dark ? "#7E9A8E" : "#6B6B6B",
+        fontWeight: 400,
+        marginBottom: "22px",
+        marginLeft: "-0.5em",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 function AboutPage() {
   const site = useSite();
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col" style={{ background: "#FFFFFF" }}>
+      <style dangerouslySetInnerHTML={{ __html: ABOUT_CSS }} />
       <SiteHeader />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="ipa flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "אודות" }]} />
 
-        <article className="bg-background">
-          <section className="relative overflow-hidden" style={{ background: "var(--paper)" }}>
-            <BrandHeroBackdrop label="ABOUT · 00" />
-            <div className="relative mx-auto grid max-w-[1320px] gap-14 px-6 py-20 md:grid-cols-[1fr_1.1fr] md:items-center md:px-10 md:py-24">
-              <div className="order-2 md:order-1">
+        <article>
+          {/* Hero */}
+          <section className="ipa-section" style={{ background: "#FFFFFF", padding: "90px 6%" }}>
+            <div
+              className="ipa-hero-grid"
+              style={{
+                maxWidth: "1150px",
+                margin: "0 auto",
+                display: "grid",
+                gridTemplateColumns: "0.85fr 1.15fr",
+                gap: "80px",
+                alignItems: "center",
+              }}
+            >
+              <div>
                 <img
                   src={heroAsset.url}
-                  alt={`${site.brand} – פדיקוריסטית טיפולית בקליניקה`}
+                  alt={`${site.brand} — פדיקוריסטית טיפולית בקליניקה בעלי`}
                   width={720}
                   height={900}
-                  className="relative aspect-[4/5] w-full object-cover"
                   style={{
-                    borderRadius: 20,
-                    border: "1px solid var(--stone-100)",
-                    boxShadow:
-                      "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)",
+                    width: "100%",
+                    aspectRatio: "4/5",
+                    objectFit: "cover",
+                    display: "block",
+                    border: "1px solid #ECEAE6",
                   }}
                 />
               </div>
-              <div className="order-1 md:order-2">
-                <BrandEyebrow withRule>אודות</BrandEyebrow>
+              <div>
+                <Eyebrow>ABOUT</Eyebrow>
                 <h1
-                  className="mt-5 mb-6"
+                  className="ipa-h1"
                   style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 300,
-                    fontSize: "clamp(2.4rem, 5.6vw, 4.4rem)",
-                    lineHeight: 1.05,
-                    letterSpacing: "-0.03em",
-                    color: "var(--green-700)",
+                    fontWeight: 700,
+                    fontSize: "44px",
+                    lineHeight: 1.3,
+                    margin: "0 0 24px",
+                    color: "#141414",
                   }}
                 >
                   היי, אני ענבר
                 </h1>
-                <p style={{ color: "var(--ink-600)", fontSize: "1.15rem", lineHeight: 1.7 }}>
-                  {paragraphs[0]}
+                <p
+                  style={{
+                    fontSize: "17px",
+                    lineHeight: 2,
+                    color: "#4E4E4E",
+                    fontWeight: 300,
+                    margin: 0,
+                  }}
+                >
+                  {lead}
                 </p>
               </div>
             </div>
           </section>
 
+          {/* Manifesto */}
           <section
-            style={{ background: "var(--stone-50)", borderTop: "1px solid var(--stone-100)" }}
-            className="py-20"
+            className="ipa-section"
+            style={{ background: "#F7F5F1", padding: "110px 6%", borderTop: "1px solid #ECEAE6" }}
           >
-            <div
-              className="mx-auto max-w-[760px] space-y-6 px-6"
-              style={{ color: "var(--ink-900)", fontSize: "1.05rem", lineHeight: 1.85 }}
-            >
-              {paragraphs.slice(1).map((p, i) => (
-                <p key={i}>{p}</p>
+            <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+              <Eyebrow>THE APPROACH</Eyebrow>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "30px",
+                  lineHeight: 1.45,
+                  margin: "0 0 8px",
+                  color: "#141414",
+                }}
+              >
+                טיפול קליני,
+              </h2>
+              <div
+                style={{
+                  fontWeight: 300,
+                  fontSize: "24px",
+                  color: "#4E4E4E",
+                  marginBottom: "36px",
+                }}
+              >
+                לא קוסמטי
+              </div>
+              {paragraphs.map((p) => (
+                <p
+                  key={p.slice(0, 24)}
+                  style={{
+                    fontSize: "15.5px",
+                    lineHeight: 2.1,
+                    color: "#4E4E4E",
+                    fontWeight: 300,
+                    margin: "0 0 20px",
+                  }}
+                >
+                  {p}
+                </p>
               ))}
             </div>
           </section>
 
-          {/* The journey */}
+          {/* Journey */}
           <section
-            className="py-20"
-            style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}
+            className="ipa-section"
+            style={{ background: "#FFFFFF", padding: "110px 6%", borderTop: "1px solid #ECEAE6" }}
           >
-            <div className="mx-auto max-w-[1320px] px-6 md:px-10">
-              <header className="mb-12 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
-                <SerifNumber>01</SerifNumber>
-                <div>
-                  <BrandEyebrow className="mb-3 block">המסע המקצועי</BrandEyebrow>
-                  <h2
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 300,
-                      fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
-                      lineHeight: 1.1,
-                      letterSpacing: "-0.02em",
-                      color: "var(--ink-900)",
-                    }}
-                  >
-                    איך הגעתי לכאן
-                  </h2>
-                </div>
-              </header>
-              <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                {journey.map((j, i) => (
+            <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+              <Eyebrow>THE PATH</Eyebrow>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "28px",
+                  margin: "0 0 48px",
+                  color: "#141414",
+                }}
+              >
+                איך הגעתי לכאן
+              </h2>
+              <ol
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  borderTop: "1px solid #ECEAE6",
+                }}
+              >
+                {journey.map((j) => (
                   <li
                     key={j.title}
-                    className="relative p-7"
+                    className="ipa-row"
                     style={{
-                      background: "var(--stone-50)",
-                      border: "1px solid var(--stone-100)",
-                      borderRadius: 20,
+                      display: "grid",
+                      gridTemplateColumns: "56px 160px 1fr",
+                      gap: "26px",
+                      padding: "30px 2px",
+                      borderBottom: "1px solid #ECEAE6",
+                      alignItems: "baseline",
                     }}
                   >
                     <span
                       aria-hidden
                       style={{
-                        fontFamily: "var(--font-serif)",
-                        fontWeight: 700,
-                        fontSize: "2rem",
-                        color: "var(--green-600)",
-                        lineHeight: 1,
-                      }}
-                    >
-                      0{i + 1}
-                    </span>
-                    <div
-                      className="mt-4"
-                      style={{
-                        color: "var(--green-700)",
-                        fontSize: 12,
-                        fontWeight: 700,
-                        letterSpacing: "0.12em",
-                      }}
-                    >
-                      {j.age.toUpperCase()}
-                    </div>
-                    <h3
-                      className="mt-2 mb-3"
-                      style={{
-                        fontFamily: "var(--font-display)",
+                        fontFamily: BODONI,
                         fontWeight: 400,
-                        fontSize: "1.25rem",
-                        color: "var(--ink-900)",
+                        fontSize: "22px",
+                        color: "#726B5E",
                       }}
                     >
-                      {j.title}
-                    </h3>
-                    <p style={{ color: "var(--ink-600)", fontSize: "0.95rem", lineHeight: 1.7 }}>
+                      {j.num}
+                    </span>
+                    <span style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                      <span
+                        style={{
+                          fontSize: "12px",
+                          letterSpacing: "0.24em",
+                          color: "#726B5E",
+                          fontWeight: 400,
+                        }}
+                      >
+                        {j.age}
+                      </span>
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          fontSize: "17px",
+                          letterSpacing: "0.04em",
+                          color: "#141414",
+                        }}
+                      >
+                        {j.title}
+                      </span>
+                    </span>
+                    <span
+                      style={{
+                        fontWeight: 300,
+                        fontSize: "15px",
+                        lineHeight: 2,
+                        color: "#6E6E6E",
+                      }}
+                    >
                       {j.body}
-                    </p>
+                    </span>
                   </li>
                 ))}
               </ol>
             </div>
           </section>
 
-          {/* Personal — family */}
+          {/* Behind the clinic */}
           <section
-            className="py-20"
-            style={{ background: "var(--green-50)", borderTop: "1px solid var(--green-100)" }}
+            className="ipa-section"
+            style={{ background: "#F7F5F1", padding: "110px 6%", borderTop: "1px solid #ECEAE6" }}
           >
-            <div className="mx-auto max-w-[1100px] px-6 md:px-10">
-              <header className="mb-10 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
-                <SerifNumber>02</SerifNumber>
-                <div>
-                  <BrandEyebrow className="mb-3 block">מאחורי הקליניקה</BrandEyebrow>
-                  <h2
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 300,
-                      fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
-                      lineHeight: 1.1,
-                      letterSpacing: "-0.02em",
-                      color: "var(--green-700)",
-                    }}
-                  >
-                    אמא של שלוש בנות
-                  </h2>
-                </div>
-              </header>
-              <p
-                className="mb-10 max-w-2xl"
-                style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.85 }}
+            <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+              <Eyebrow>OFF THE CHAIR</Eyebrow>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "28px",
+                  margin: "0 0 26px",
+                  color: "#141414",
+                }}
               >
-                מעבר לקליניקה, אני קודם כל אמא לשלוש בנות מקסימות – אגם, אביגיל ואודיה. הן המורות
-                הכי טובות שלי לסבלנות, לקשב ולנוכחות אמיתית. מה שאני לומדת מהן בבית, אני מביאה גם
-                לכיסא הטיפול: להקשיב באמת, להסביר לאט, ולהיות שם עד שהכאב נגמר.
+                אמא של שלוש בנות
+              </h2>
+              <p
+                style={{
+                  fontSize: "15.5px",
+                  lineHeight: 2.1,
+                  color: "#4E4E4E",
+                  fontWeight: 300,
+                  margin: "0 0 44px",
+                  maxWidth: "640px",
+                }}
+              >
+                מעבר לקליניקה אני קודם כול אמא לשלוש בנות — אגם, אביגיל ואודיה. מהן אני לומדת סבלנות
+                וקשב, ואת אלה אני מביאה גם לכיסא הטיפול: להקשיב עד הסוף, להסביר לאט, וללוות עד שהכאב
+                נגמר.
               </p>
-              <ul className="grid gap-4 sm:grid-cols-3">
+              <div
+                className="ipa-daughters"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3,1fr)",
+                  borderTop: "1px solid #E2DFD8",
+                }}
+              >
                 {daughters.map((d, i) => (
-                  <li
+                  <div
                     key={d.name}
-                    className="p-6 text-center"
                     style={{
-                      background: "var(--paper)",
-                      border: "1px solid var(--green-100)",
-                      borderRadius: 20,
+                      padding: "30px 26px",
+                      borderLeft: i === daughters.length - 1 ? "none" : "1px solid #E2DFD8",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
                     }}
                   >
-                    <div
+                    <span
+                      aria-hidden
                       style={{
-                        fontFamily: "var(--font-serif)",
-                        fontWeight: 700,
-                        fontSize: "1.1rem",
-                        color: "var(--green-600)",
-                        letterSpacing: "0.18em",
+                        fontFamily: BODONI,
+                        fontWeight: 400,
+                        fontSize: "18px",
+                        color: "#726B5E",
                       }}
                     >
                       0{i + 1}
-                    </div>
-                    <div
-                      className="mt-3"
+                    </span>
+                    <span style={{ fontWeight: 600, fontSize: "19px", color: "#141414" }}>
+                      {d.name}
+                    </span>
+                    <span
                       style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 400,
-                        fontSize: "1.6rem",
-                        color: "var(--ink-900)",
+                        fontWeight: 300,
+                        fontSize: "13.5px",
+                        letterSpacing: "0.08em",
+                        color: "#6B6B6B",
                       }}
                     >
-                      {d.name}
-                    </div>
-                    <div
-                      className="mt-1"
-                      style={{ color: "var(--ink-600)", fontSize: 13, letterSpacing: "0.08em" }}
-                    >
                       {d.role}
-                    </div>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Credentials */}
+          <section
+            className="ipa-section"
+            style={{ background: "#FFFFFF", padding: "110px 6%", borderTop: "1px solid #ECEAE6" }}
+          >
+            <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+              <Eyebrow>CREDENTIALS</Eyebrow>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "28px",
+                  margin: "0 0 48px",
+                  color: "#141414",
+                }}
+              >
+                הרקע המקצועי
+              </h2>
+              <ul
+                className="ipa-cred-grid"
+                style={{
+                  listStyle: "none",
+                  margin: 0,
+                  padding: 0,
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2,1fr)",
+                  borderTop: "1px solid #ECEAE6",
+                }}
+              >
+                {credentials.map((c, i) => (
+                  <li
+                    key={c}
+                    style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: "20px",
+                      padding: "26px 4px",
+                      borderBottom: "1px solid #ECEAE6",
+                      borderLeft: i % 2 === 0 ? "1px solid #ECEAE6" : "none",
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{
+                        fontFamily: BODONI,
+                        fontWeight: 400,
+                        fontSize: "20px",
+                        color: "#726B5E",
+                        flexShrink: 0,
+                      }}
+                    >
+                      0{i + 1}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "15.5px",
+                        lineHeight: 1.9,
+                        color: "#141414",
+                        fontWeight: 300,
+                      }}
+                    >
+                      {c}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
           </section>
 
-          <section
-            className="py-20"
-            style={{ background: "var(--paper)", borderTop: "1px solid var(--stone-100)" }}
-          >
-            <div className="mx-auto max-w-[1320px] px-6 md:px-10">
-              <header className="mb-12 grid gap-3 md:grid-cols-[110px_1fr] md:items-end md:gap-10">
-                <SerifNumber>03</SerifNumber>
-                <div>
-                  <BrandEyebrow className="mb-3 block">הכשרה וניסיון</BrandEyebrow>
-                  <h2
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 300,
-                      fontSize: "clamp(1.8rem, 3.2vw, 2.6rem)",
-                      lineHeight: 1.1,
-                      letterSpacing: "-0.02em",
-                      color: "var(--ink-900)",
-                    }}
-                  >
-                    הרקע המקצועי
-                  </h2>
-                </div>
-              </header>
-              <ul
-                className="grid gap-px overflow-hidden md:grid-cols-2"
+          {/* Contact band */}
+          <section style={{ background: "#0C2B23", padding: "120px 6%" }}>
+            <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center" }}>
+              <div
+                className="ipa-display"
                 style={{
-                  background: "var(--stone-100)",
-                  borderRadius: 20,
-                  border: "1px solid var(--stone-100)",
+                  fontFamily: BODONI,
+                  fontSize: "40px",
+                  letterSpacing: "0.16em",
+                  color: "#FFFFFF",
+                  fontWeight: 400,
+                  marginBottom: "28px",
+                  marginLeft: "-0.16em",
+                  lineHeight: 1.15,
                 }}
               >
-                {credentials.map((c, i) => (
-                  <li
-                    key={c}
-                    className="flex items-start gap-4 p-7"
-                    style={{ background: "var(--paper)" }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontWeight: 700,
-                        fontSize: "1.6rem",
-                        color: "var(--green-700)",
-                        lineHeight: 1,
-                      }}
-                    >
-                      0{i + 1}
-                    </span>
-                    <span style={{ color: "var(--ink-900)", fontSize: "0.98rem", lineHeight: 1.6 }}>
-                      {c}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
+                CONTACT
+              </div>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "26px",
+                  lineHeight: 1.5,
+                  margin: "0 0 20px",
+                  color: "#FFFFFF",
+                }}
+              >
+                נתחיל בשיחה
+              </h2>
+              <p
+                style={{
+                  fontSize: "16px",
+                  lineHeight: 2.1,
+                  color: "#B9C9C0",
+                  fontWeight: 300,
+                  margin: "0 0 46px",
+                }}
+              >
+                מטופלים — לתיאום אבחון בקליניקה בעלי.
+                <br />
+                פדיקוריסטיות — לשיחת התאמה על ההכשרה הבאה.
+              </p>
               <div
-                className="mt-14 flex flex-wrap justify-center gap-4 pt-12"
-                style={{ borderTop: "1px solid var(--stone-100)" }}
+                style={{
+                  display: "flex",
+                  gap: "26px",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
               >
                 <a
+                  className="ipa-btn-solid"
                   href={site.whatsappUrl}
                   target="_blank"
                   rel="noopener nofollow"
-                  className="inline-flex h-12 items-center gap-2.5 px-7"
                   style={{
-                    background: "var(--green-600)",
-                    color: "var(--paper)",
-                    borderRadius: 999,
-                    fontWeight: 700,
-                    fontSize: 15,
+                    background: "#0E3B2E",
+                    color: "#FFFFFF",
+                    border: "1px solid #FFFFFF",
+                    padding: "16px 44px",
+                    fontWeight: 400,
+                    fontSize: "14px",
+                    letterSpacing: "0.2em",
                   }}
                 >
-                  <Phone className="h-[16px] w-[16px]" strokeWidth={1.5} aria-hidden /> קביעת תור
-                  בוואטסאפ
+                  לתיאום אבחון
                 </a>
                 <a
+                  className="ipa-btn-ghost"
                   href={`mailto:${site.email}`}
-                  className="inline-flex h-12 items-center gap-2.5 px-6"
                   style={{
-                    background: "transparent",
-                    color: "var(--green-700)",
-                    border: "1.5px solid var(--green-600)",
-                    borderRadius: 999,
-                    fontWeight: 600,
-                    fontSize: 15,
+                    color: "#B9C9C0",
+                    fontWeight: 400,
+                    fontSize: "14px",
+                    letterSpacing: "0.14em",
+                    borderBottom: "1px solid #B9C9C0",
+                    paddingBottom: "4px",
                   }}
                 >
-                  <Mail className="h-[16px] w-[16px]" strokeWidth={1.5} aria-hidden /> שלחו לי מייל
+                  שלחו לי מייל ←
                 </a>
               </div>
+              <p
+                style={{
+                  fontSize: "12.5px",
+                  lineHeight: 1.9,
+                  color: "#7E9A8E",
+                  fontWeight: 300,
+                  margin: "48px 0 0",
+                  paddingTop: "26px",
+                  borderTop: "1px solid rgba(255,255,255,0.14)",
+                }}
+              >
+                המידע בעמוד זה הסברתי בלבד ואינו מחליף בדיקה אישית בקליניקה או ייעוץ רפואי. אם יש
+                פצע פתוח, חשד לזיהום או סוכרת לא מאוזנת — פנו להערכה לפני כל טיפול.
+              </p>
             </div>
           </section>
         </article>

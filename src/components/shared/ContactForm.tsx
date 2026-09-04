@@ -4,12 +4,22 @@
  * המדיניות בדאטאבייס דורשת אימייל תקין או טלפון, ולא מאפשרת להזריק
  * סטטוס או הערות מהדפדפן. כלומר הוולידציה כאן היא לנוחות המשתמשת,
  * והאכיפה האמיתית היא בשרת.
+ *
+ * העיצוב לפי מערכת המותג של דף הבית: שדות ללא מסגרת וללא רדיוס —
+ * קו תחתון בלבד — וכפתור שליחה מלבני בירוק העמוק.
  */
 
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+
+const BODONI = "'Bodoni Moda',serif";
+
+const FORM_CSS = `
+.ipf input:focus, .ipf textarea:focus { border-bottom-color:#0E3B2E; }
+.ipf-submit:hover:not(:disabled) { background:#141414; }
+`;
 
 const Schema = z
   .object({
@@ -23,13 +33,13 @@ const Schema = z
     message: z.string().trim().max(2000).optional(),
   })
   .refine((v) => v.phone !== "" || v.email !== "", {
-    message: "צריך טלפון או אימייל כדי שאוכל לחזור אליך",
+    message: "צריך טלפון או אימייל כדי שאוכל לחזור אליכם",
     path: ["phone"],
   });
 
 export function ContactForm({
   serviceSlug,
-  title = "השאירי פרטים ואחזור אלייך",
+  title = "השאירו פרטים ואחזור אליכם",
   note,
 }: {
   serviceSlug?: string;
@@ -74,54 +84,104 @@ export function ContactForm({
       return;
     }
     setSent(true);
-    toast.success("הפרטים התקבלו, אחזור אלייך בהקדם");
+    toast.success("הפרטים התקבלו, אחזור אליכם בהקדם");
   }
 
   if (sent) {
     return (
       <div
         dir="rtl"
-        className="px-6 py-8 text-center"
-        style={{ background: "var(--surface-soft)", borderRadius: 16 }}
+        className="ipf px-6 py-10 text-center"
+        style={{ background: "#F7F5F1", border: "1px solid #ECEAE6" }}
       >
-        <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--ink-900)" }}>
+        <div
+          style={{
+            fontFamily: BODONI,
+            fontSize: "13px",
+            letterSpacing: "0.4em",
+            marginLeft: "-0.4em",
+            color: "#6B6B6B",
+            marginBottom: "14px",
+          }}
+        >
+          RECEIVED
+        </div>
+        <p style={{ fontWeight: 700, fontSize: "19px", color: "#141414", margin: 0 }}>
           תודה, קיבלתי את הפרטים
         </p>
-        <p className="mt-1.5 text-[14.5px]" style={{ color: "var(--text-muted)" }}>
-          אחזור אלייך בהקדם. אם זה דחוף — אפשר גם בוואטסאפ.
+        <p
+          style={{
+            marginTop: "10px",
+            fontSize: "14.5px",
+            fontWeight: 300,
+            color: "#6B6B6B",
+            lineHeight: 1.9,
+          }}
+        >
+          אחזור אליכם בהקדם. אם זה דחוף — אפשר גם בוואטסאפ.
         </p>
       </div>
     );
   }
 
   const field: React.CSSProperties = {
-    border: "1px solid var(--stone-300)",
-    borderRadius: 10,
-    background: "var(--paper)",
-    color: "var(--ink-900)",
+    border: "none",
+    borderBottom: "1px solid #8F8474",
+    background: "transparent",
+    color: "#141414",
     width: "100%",
-    padding: "12px 14px",
-    fontSize: 15,
+    padding: "12px 2px",
+    fontSize: "15.5px",
+    fontWeight: 300,
+    outline: "none",
     textAlign: "right",
+    fontFamily: "'Assistant',sans-serif",
+  };
+
+  const labelStyle: React.CSSProperties = {
+    display: "block",
+    marginBottom: "2px",
+    fontSize: "12px",
+    letterSpacing: "0.16em",
+    fontWeight: 400,
+    color: "#6B6B6B",
   };
 
   return (
-    <form dir="rtl" onSubmit={handleSubmit} noValidate className="text-right">
-      <p
-        className="mb-1.5 text-[19px]"
-        style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--ink-900)" }}
+    <form dir="rtl" onSubmit={handleSubmit} noValidate className="ipf text-right">
+      <style dangerouslySetInnerHTML={{ __html: FORM_CSS }} />
+      <div
+        style={{
+          fontFamily: BODONI,
+          fontSize: "13px",
+          letterSpacing: "0.4em",
+          marginLeft: "-0.4em",
+          color: "#6B6B6B",
+          marginBottom: "12px",
+        }}
       >
+        GET IN TOUCH
+      </div>
+      <p style={{ fontWeight: 700, fontSize: "21px", color: "#141414", margin: "0 0 8px" }}>
         {title}
       </p>
-      {note && (
-        <p className="mb-4 text-[14px]" style={{ color: "var(--text-muted)" }}>
+      {note ? (
+        <p
+          style={{
+            fontSize: "14px",
+            fontWeight: 300,
+            color: "#6B6B6B",
+            lineHeight: 1.85,
+            margin: "0 0 26px",
+          }}
+        >
           {note}
         </p>
-      )}
+      ) : null}
 
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2" style={{ marginTop: note ? 0 : "26px" }}>
         <div>
-          <label htmlFor="cf-name" className="mb-1 block text-[13.5px]" style={{ fontWeight: 600 }}>
+          <label htmlFor="cf-name" style={labelStyle}>
             שם
           </label>
           <input
@@ -134,7 +194,7 @@ export function ContactForm({
           {errors.name && <FieldError>{errors.name}</FieldError>}
         </div>
         <div>
-          <label htmlFor="cf-phone" className="mb-1 block text-[13.5px]" style={{ fontWeight: 600 }}>
+          <label htmlFor="cf-phone" style={labelStyle}>
             טלפון
           </label>
           <input
@@ -150,9 +210,9 @@ export function ContactForm({
         </div>
       </div>
 
-      <div className="mt-3">
-        <label htmlFor="cf-email" className="mb-1 block text-[13.5px]" style={{ fontWeight: 600 }}>
-          אימייל <span style={{ fontWeight: 400, color: "var(--text-muted)" }}>(לא חובה)</span>
+      <div style={{ marginTop: "24px" }}>
+        <label htmlFor="cf-email" style={labelStyle}>
+          אימייל (לא חובה)
         </label>
         <input
           id="cf-email"
@@ -166,9 +226,9 @@ export function ContactForm({
         {errors.email && <FieldError>{errors.email}</FieldError>}
       </div>
 
-      <div className="mt-3">
-        <label htmlFor="cf-message" className="mb-1 block text-[13.5px]" style={{ fontWeight: 600 }}>
-          מה מטריד אותך? <span style={{ fontWeight: 400, color: "var(--text-muted)" }}>(לא חובה)</span>
+      <div style={{ marginTop: "24px" }}>
+        <label htmlFor="cf-message" style={labelStyle}>
+          מה מטריד אתכם? (לא חובה)
         </label>
         <textarea
           id="cf-message"
@@ -179,12 +239,36 @@ export function ContactForm({
         />
       </div>
 
-      <button type="submit" disabled={sending} className="btn-cta mt-4 w-full md:w-auto">
+      <button
+        type="submit"
+        disabled={sending}
+        className="ipf-submit mt-8 w-full md:w-auto"
+        style={{
+          background: "#0E3B2E",
+          color: "#FFFFFF",
+          border: "none",
+          padding: "17px 48px",
+          fontWeight: 400,
+          fontSize: "14px",
+          letterSpacing: "0.2em",
+          cursor: sending ? "not-allowed" : "pointer",
+          opacity: sending ? 0.6 : 1,
+          transition: "background 0.2s",
+        }}
+      >
         {sending ? "שולחת..." : "שליחה"}
       </button>
 
-      <p className="mt-3 text-[12.5px]" style={{ color: "var(--text-muted)" }}>
-        הפרטים נשמרים אצלי בלבד ומשמשים ליצירת קשר איתך.
+      <p
+        style={{
+          marginTop: "18px",
+          fontSize: "12.5px",
+          fontWeight: 300,
+          color: "#6B6B6B",
+          letterSpacing: "0.04em",
+        }}
+      >
+        הפרטים נשמרים אצלי בלבד ומשמשים ליצירת קשר איתכם.
       </p>
     </form>
   );
@@ -192,7 +276,10 @@ export function ContactForm({
 
 function FieldError({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mt-1 text-[12.5px]" style={{ color: "#B4231C", fontWeight: 600 }} role="alert">
+    <p
+      style={{ marginTop: "8px", fontSize: "12.5px", color: "#B4231C", fontWeight: 400 }}
+      role="alert"
+    >
       {children}
     </p>
   );

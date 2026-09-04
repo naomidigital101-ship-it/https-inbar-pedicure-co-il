@@ -1,16 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, MessageCircle, Phone, MapPin, Clock } from "lucide-react";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
-import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
 import { SITE } from "@/lib/site-config";
 import { useSite } from "@/lib/use-site";
 import { ContactForm } from "@/components/shared/ContactForm";
 
+/*
+ * העמוד בנוי על מערכת המיתוג של דף הבית (src/routes/index.tsx):
+ * ללא רדיוס, ללא צל, קווי שיער בלבד, פס כהה אחד לרגע יצירת הקשר.
+ */
+
+const BODONI = "'Bodoni Moda',serif";
+const FONTS_HREF =
+  "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Assistant:wght@200;300;400;600;700&display=swap";
+
 const PAGE_URL = `${SITE.url}/contact`;
-const TITLE = `צרו קשר | ${SITE.brand} – פדיקור טיפולי ב${SITE.city}`;
-const DESCRIPTION = `קביעת תור לטיפול פדיקור טיפולי אצל ${SITE.brand} ב${SITE.city}. טלפון ${SITE.phoneDisplay}, וואטסאפ או מייל. שעות פעילות: ${SITE.hoursDisplay}.`;
+const TITLE = `צרו קשר | ${SITE.brand} — פדיקור טיפולי ב${SITE.city}`;
+const DESCRIPTION = `תיאום אבחון וטיפול אצל ${SITE.brand}, פדיקוריסטית טיפולית ב${SITE.city}, אזור בנימין. טלפון ${SITE.phoneDisplay}, וואטסאפ או מייל. שעות פעילות: ${SITE.hoursDisplay}.`;
+
+const CONTACT_CSS = `
+.ipc { direction:rtl; font-family:'Assistant',sans-serif; color:#141414; background:#FFFFFF; }
+.ipc a { transition:color 0.2s, background 0.2s, border-color 0.2s; }
+.ipc-btn-solid:hover { background:#141414; color:#FFFFFF; }
+.ipc-link:hover { color:#FFFFFF; border-color:#FFFFFF; }
+.ipc details summary::-webkit-details-marker { display:none; }
+@media (max-width: 1000px) {
+  .ipc-grid { grid-template-columns:1fr !important; gap:64px !important; }
+}
+@media (max-width: 900px) {
+  .ipc-section { padding-top:80px !important; padding-bottom:80px !important; }
+}
+@media (max-width: 560px) {
+  .ipc-display { font-size:30px !important; }
+  .ipc-h1 { font-size:34px !important; }
+  .ipc-card { padding:40px 24px !important; }
+}
+`;
 
 const contactSchema = {
   "@context": "https://schema.org",
@@ -21,18 +47,58 @@ const contactSchema = {
   description: DESCRIPTION,
 };
 
+const FAQS = [
+  {
+    q: "כמה זמן לוקחת פגישה ראשונה?",
+    a: "פגישת אבחון ראשונה נמשכת 45 עד 60 דקות. בזמן הזה אני בודקת את כפות הרגליים והציפורניים, מאבחנת, מסבירה לכם מה ראיתי ומציעה תוכנית טיפול. לרוב מבצעים גם את הטיפול הראשון באותה פגישה.",
+  },
+  {
+    q: "האם הטיפול כואב?",
+    a: "רוב הטיפולים אינם כואבים. בטיפולים פולשניים יותר, כמו אורתוניקסיה לציפורן חודרנית, אני עובדת בכלים עדינים ובהדרגה. אם עולה כאב — אני עוצרת.",
+  },
+  {
+    q: "האם יש קבלה לקופת חולים או לביטוח משלים?",
+    a: "אני מנפיקה קבלה רשמית בכל פגישה. חלק מהביטוחים המשלימים מחזירים על פדיקור טיפולי, בתנאים משתנים. כדאי לבדוק מול הביטוח שלכם לפני הפגישה.",
+  },
+  {
+    q: "האם אפשר להגיע ללא תיאום מראש?",
+    a: "לא. הקליניקה פועלת בתורים מתואמים בלבד, כדי להבטיח לכל מטופל זמן מלא ופרטיות. אפשר לתאם בוואטסאפ, בטלפון או בטופס בעמוד הזה.",
+  },
+  {
+    q: "האם הקליניקה מתאימה לחולי סוכרת?",
+    a: "כן. אני מטפלת בכף רגל סוכרתית לפי פרוטוקול אגודת אייל: בלי חתכים, בלי השרייה, עם ציוד חד-פעמי והערכת סיכון תקופתית, לצד הדרכה לבחירת הנעלה מתאימה. חשוב לציין את אבחנת הסוכרת כבר בתיאום התור.",
+  },
+];
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
+      { name: "geo.placename", content: "עלי, אזור בנימין" },
+      { name: "geo.region", content: "IL" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: PAGE_URL },
     ],
-    links: [{ rel: "canonical", href: PAGE_URL }],
+    links: [
+      { rel: "canonical", href: PAGE_URL },
+      { rel: "stylesheet", href: FONTS_HREF },
+    ],
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(contactSchema) },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -49,239 +115,302 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+function Eyebrow({ children }: { children: string }) {
+  return (
+    <div
+      style={{
+        fontFamily: BODONI,
+        fontSize: "14px",
+        letterSpacing: "0.5em",
+        color: "#6B6B6B",
+        fontWeight: 400,
+        marginBottom: "22px",
+        marginLeft: "-0.5em",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function ContactPage() {
   const site = useSite();
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col" style={{ background: "#FFFFFF" }}>
+      <style dangerouslySetInnerHTML={{ __html: CONTACT_CSS }} />
       <SiteHeader />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="ipc flex-1">
         <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "צור קשר" }]} />
-        <article
-          className="relative overflow-hidden"
-          style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
-        >
-          <BrandHeroBackdrop label="CONTACT · 00" />
-          <div className="relative mx-auto max-w-[1100px] px-6 py-14 md:px-10 md:py-20">
-            <div className="mb-6 flex items-center gap-3">
-              <BrandEyebrow>יצירת קשר</BrandEyebrow>
-              <span aria-hidden className="h-px w-12" style={{ background: "var(--green-400)" }} />
-            </div>
 
-            <h1
-              className="mb-6"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 300,
-                fontSize: "clamp(2.4rem, 5.6vw, 4rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.03em",
-                color: "var(--green-700)",
-              }}
-            >
-              נשמח לשמוע מכם
-            </h1>
-
-            <p
-              className="mb-12 max-w-2xl"
-              style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}
-            >
-              מלאו פרטים בוואטסאפ או התקשרו, ואחזור אליכם בהקדם לתיאום פגישת אבחון. כל פנייה מטופלת
-              באופן אישי, ללא שיפוטיות.
-            </p>
-
-            <div
-              className="mb-12 max-w-3xl space-y-4"
-              style={{ color: "var(--ink-900)", fontSize: "1rem", lineHeight: 1.85 }}
-            >
-              <p>
-                הקליניקה של {site.brand} ממוקמת ב{site.city} שב{site.region} ומשרתת את כל היישובים
-                בסביבה – בית אל, עפרה, פסגות, כוכב יעקב, גבעת אסף, רימונים, ירושלים וגוש בנימין
-                כולו. לקליניקה הגעה נוחה ברכב, חניה חופשית בסמוך, וגישה למבוגרים ולמטופלים עם ניידות
-                מוגבלת. בכל פגישה אני מקדישה זמן מלא לאבחון, להסבר ולטיפול – בלי תורים כפולים ובלי
-                לחץ של זמן.
-              </p>
-              <p>
-                מטפלת בילדים מגיל 6 ומעלה, בנשים בהריון (כולל טיפולים מותאמים בטוחים לעיבור),
-                במבוגרים ובאנשי גיל הזהב. מתמחה במצבים הדורשים תשומת לב מיוחדת: כף רגל סוכרתית, חולי
-                כליות, נטילת מדללי דם, לאחר ניתוחים אורתופדיים, מצבי סיכון לזיהום ועוד. כל הציוד
-                עובר חיטוי ועיקור באוטוקלאב לפי תקני משרד הבריאות, וחלק גדול מהפריטים הוא חד-פעמי.
-              </p>
-              <p>
-                לפני הפגישה הראשונה ארצה לדעת אם יש לכם רגישות לחומרים, אם אתם נוטלים תרופות קבועות,
-                ואם יש לכם מחלות רקע. אפשר לשלוח את המידע מראש בוואטסאפ – זה חוסך זמן בקליניקה
-                ומאפשר לי להגיע מוכנה. ביטול תור: אנא הודיעו לפחות 24 שעות מראש כדי שאוכל לפנות את
-                המקום למטופל אחר שמחכה.
-              </p>
-            </div>
-
-            <div
-              className="mb-12 grid gap-6 p-7 md:grid-cols-[1fr_auto] md:items-center md:gap-10"
-              style={{
-                background: "var(--green-50)",
-                border: "1px solid var(--green-100)",
-                borderRadius: 20,
-              }}
-            >
-              <p style={{ color: "var(--ink-900)", lineHeight: 1.8, fontSize: "1rem" }}>
-                <strong style={{ color: "var(--green-700)" }}>מילה אישית ממני –</strong> מעבר להיותי
-                פדיקוריסטית, אני אמא לשלוש בנות: אגם, אביגיל ואודיה. לכן אני מקפידה על שעות קבועות
-                בקליניקה, מתחייבת לזמן הטיפול שלכם בלי הפרעות, וזמינה בוואטסאפ למענה אישי גם בין
-                המטופלים. אם אני לא עונה ברגע זה – זה כי אני באמצע טיפול, ואחזור אליכם תוך שעות
-                ספורות.
-              </p>
-              <span
-                aria-hidden
-                className="hidden md:block h-16 w-px"
-                style={{ background: "var(--green-100)" }}
-              />
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              <ContactCard
-                href={site.whatsappUrl}
-                external
-                eyebrow="וואטסאפ"
-                title={site.phoneDisplay}
-                sub="הדרך המהירה ביותר לקבוע תור"
-                icon={<MessageCircle className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
-              />
-              <ContactCard
-                href={site.telUrl}
-                eyebrow="טלפון"
-                title={site.phoneDisplay}
-                sub="חיוג ישיר"
-                icon={<Phone className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
-              />
-              <ContactCard
-                href={`mailto:${site.email}`}
-                eyebrow="דוא״ל"
-                title={site.email}
-                sub="לפניות שאינן דחופות"
-                icon={<Mail className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
-              />
-              <ContactCard
-                eyebrow="מיקום"
-                title={`${site.city}, ${site.region}`}
-                sub="ניווט ב-Waze ←"
-                subHref={site.wazeUrl}
-                icon={<MapPin className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
-              />
-              <div className="md:col-span-2">
-                <ContactCard
-                  eyebrow="שעות פעילות"
-                  title={site.hoursDisplay}
-                  sub="בשישי-שבת לא זמינה"
-                  icon={<Clock className="h-6 w-6" strokeWidth={1.5} aria-hidden />}
-                />
-              </div>
-            </div>
-
-            <div
-              className="mt-12 p-10 text-center"
-              style={{
-                background: "var(--green-50)",
-                border: "1px solid var(--green-100)",
-                borderRadius: 20,
-              }}
-            >
-              <BrandEyebrow>לא בטוחים מה יש לכם?</BrandEyebrow>
-              <h2
-                className="mt-3 mb-3"
+        <article>
+          {/* Intro */}
+          <section className="ipc-section" style={{ background: "#FFFFFF", padding: "90px 6%" }}>
+            <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+              <Eyebrow>CONTACT</Eyebrow>
+              <h1
+                className="ipc-h1"
                 style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 300,
-                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-                  letterSpacing: "-0.02em",
-                  color: "var(--ink-900)",
-                }}
-              >
-                בואו נבדוק יחד
-              </h2>
-              <p
-                className="mx-auto mb-6 max-w-xl"
-                style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
-              >
-                לא צריך לדעת מראש. הגיעו לפגישה, אבדוק את כף הרגל, אבצע אבחנה ואסביר מה הבעיה ואיך
-                לטפל בה.
-              </p>
-              <a
-                href={site.whatsappUrl}
-                target="_blank"
-                rel="noopener nofollow"
-                className="inline-flex h-12 items-center gap-2.5 px-7"
-                style={{
-                  background: "var(--green-600)",
-                  color: "var(--paper)",
-                  borderRadius: 999,
                   fontWeight: 700,
-                  fontSize: 15,
+                  fontSize: "44px",
+                  lineHeight: 1.3,
+                  margin: "0 0 24px",
+                  color: "#141414",
                 }}
               >
-                <MessageCircle className="h-[18px] w-[18px]" strokeWidth={1.5} />
-                שליחת הודעה בוואטסאפ
-              </a>
-            </div>
-
-            <section className="mt-16 max-w-3xl">
-              <div
-                className="mb-14 p-7 md:p-9"
-                style={{ background: "var(--surface-soft)", borderRadius: 18 }}
-              >
-                <ContactForm note="אפשר גם להתקשר או לשלוח וואטסאפ — מה שנוח לך." />
-              </div>
-              <h2
-                className="mb-6"
+                דברו איתנו
+              </h1>
+              <p
                 style={{
-                  fontFamily: "var(--font-display)",
+                  fontSize: "17px",
+                  lineHeight: 2,
+                  color: "#4E4E4E",
                   fontWeight: 300,
-                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-                  letterSpacing: "-0.02em",
-                  color: "var(--green-700)",
+                  margin: 0,
                 }}
               >
-                שאלות נפוצות לפני קביעת תור
+                השאירו פרטים, שלחו וואטסאפ או התקשרו — ואחזור אליכם לתיאום פגישת אבחון. כל פנייה
+                מטופלת באופן אישי, בלי שיפוט.
+              </p>
+            </div>
+          </section>
+
+          {/* Practical detail */}
+          <section
+            className="ipc-section"
+            style={{ background: "#F7F5F1", padding: "110px 6%", borderTop: "1px solid #ECEAE6" }}
+          >
+            <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+              <Eyebrow>THE CLINIC</Eyebrow>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "28px",
+                  margin: "0 0 34px",
+                  color: "#141414",
+                }}
+              >
+                לפני שאתם מגיעים
               </h2>
-              <dl className="space-y-5">
-                {[
-                  {
-                    q: "כמה זמן לוקחת פגישה ראשונה?",
-                    a: "פגישת אבחון ראשונה נמשכת בין 45 ל-60 דקות. בזמן הזה אני בודקת את כפות הרגליים והציפורניים, מאבחנת את הבעיה, מסבירה לכם מה ראיתי ומציעה תוכנית טיפול. לרוב מבצעים גם את הטיפול הראשון באותה פגישה.",
-                  },
-                  {
-                    q: "האם הטיפול כואב?",
-                    a: "רוב הטיפולים שלנו אינם כואבים. בטיפולים פולשניים יותר (כמו אורתוניקסיה לציפורן חודרנית) משתמשים בכלים עדינים ובהדרגתיות, ובמידת הצורך משלבים חומרי הרדמה מקומיים. אם יש כאב חזק – אנחנו עוצרים.",
-                  },
-                  {
-                    q: "האם יש קבלה לקופת חולים או לביטוח משלים?",
-                    a: "אנו מנפיקים קבלה רשמית בכל פגישה. חלק גדול מהביטוחים המשלימים (מכבי זהב, כללית מושלם, לאומית זהב, מאוחדת עדיף) מחזירים על טיפולי פדיקור טיפולי. כדאי לבדוק מול הביטוח שלכם לפני הפגישה.",
-                  },
-                  {
-                    q: "האם אפשר להגיע ללא קביעת תור מראש?",
-                    a: "לא. הקליניקה פועלת בתורים מתואמים בלבד כדי להבטיח לכל מטופל זמן מלא ופרטיות. תוכלו לקבוע תור בוואטסאפ, בטלפון או דרך טופס יצירת הקשר.",
-                  },
-                  {
-                    q: "האם הקליניקה מתאימה לחולי סוכרת?",
-                    a: "כן, ודאי. אני מתמחה בכף רגל סוכרתית לפי קנון אגודת אייל, כולל בדיקת מוניטרינג סיכון שנתית, טיפול במניעת פצעים, וייעוץ לבחירת נעליים מתאימות. חשוב להזכיר את אבחנת הסוכרת בעת קביעת התור.",
-                  },
-                ].map((f, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-5"
+              <div
+                style={{
+                  fontSize: "15.5px",
+                  lineHeight: 2.1,
+                  color: "#4E4E4E",
+                  fontWeight: 300,
+                }}
+              >
+                <p style={{ margin: "0 0 20px" }}>
+                  הקליניקה שלי נמצאת ב{site.city}, {site.region}, ומשרתת את היישובים בסביבה — אריאל,
+                  שילה, עפרה, ירושלים ויישובי בנימין והשומרון. ההגעה נוחה ברכב, יש חניה חופשית
+                  בסמוך, והכניסה מותאמת גם למטופלים עם ניידות מוגבלת. בכל פגישה אני מקדישה זמן מלא
+                  לאבחון, להסבר ולטיפול — בלי תורים כפולים ובלי לחץ של זמן.
+                </p>
+                <p style={{ margin: "0 0 20px" }}>
+                  אני מטפלת בילדים מגיל 6 ומעלה, בנשים בהיריון (בטיפולים מותאמים ובטוחים לעובר),
+                  במבוגרים ובבני הגיל השלישי. אני מתמחה במצבים שדורשים תשומת לב מיוחדת: כף רגל
+                  סוכרתית, חולי כליות, נטילת מדללי דם, החלמה מניתוחים אורתופדיים ומצבי סיכון לזיהום.
+                  כל הציוד הרב-פעמי עובר חיטוי ועיקור באוטוקלאב לפי תקני משרד הבריאות, וחלק גדול
+                  מהפריטים הוא חד-פעמי ונפתח מולכם.
+                </p>
+                <p style={{ margin: 0 }}>
+                  לפני הפגישה הראשונה חשוב שאדע אם יש לכם רגישות לחומרים, אילו תרופות אתם נוטלים דרך
+                  קבע ואילו מחלות רקע יש לכם. אפשר לשלוח את המידע מראש בוואטסאפ — זה חוסך זמן
+                  בקליניקה ומאפשר לי להגיע מוכנה. לביטול תור, אנא הודיעו לפחות 24 שעות מראש כדי
+                  שאוכל לפנות את המקום למטופל אחר שממתין.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  marginTop: "48px",
+                  paddingTop: "34px",
+                  borderTop: "1px solid #E2DFD8",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: BODONI,
+                    fontSize: "13px",
+                    letterSpacing: "0.4em",
+                    color: "#726B5E",
+                    marginLeft: "-0.4em",
+                    marginBottom: "14px",
+                  }}
+                >
+                  A PERSONAL NOTE
+                </div>
+                <p
+                  style={{
+                    fontSize: "15.5px",
+                    lineHeight: 2.1,
+                    color: "#4E4E4E",
+                    fontWeight: 300,
+                    margin: 0,
+                  }}
+                >
+                  מעבר להיותי פדיקוריסטית אני אמא לשלוש בנות — אגם, אביגיל ואודיה. לכן אני עובדת
+                  בשעות קבועות, מתחייבת לזמן הטיפול שלכם בלי הפרעות, ועונה בוואטסאפ בין המטופלים. אם
+                  אני לא עונה ברגע זה, זה משום שאני באמצע טיפול — ואחזור אליכם באותו יום.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Dark contact band + form */}
+          <section style={{ background: "#0C2B23", padding: "120px 6%" }}>
+            <div
+              className="ipc-grid"
+              style={{
+                maxWidth: "1050px",
+                margin: "0 auto",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "90px",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <div
+                  className="ipc-display"
+                  style={{
+                    fontFamily: BODONI,
+                    fontSize: "40px",
+                    letterSpacing: "0.16em",
+                    color: "#FFFFFF",
+                    fontWeight: 400,
+                    marginBottom: "28px",
+                    marginLeft: "-0.16em",
+                    lineHeight: 1.15,
+                  }}
+                >
+                  GET IN TOUCH
+                </div>
+                <h2
+                  style={{
+                    fontWeight: 700,
+                    fontSize: "26px",
+                    lineHeight: 1.5,
+                    margin: "0 0 20px",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  נתחיל בשיחה
+                </h2>
+                <p
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: 2.1,
+                    color: "#B9C9C0",
+                    fontWeight: 300,
+                    margin: "0 0 44px",
+                  }}
+                >
+                  מטופלים — לתיאום אבחון בקליניקה ב{site.city}.
+                  <br />
+                  פדיקוריסטיות — לשיחת התאמה על ההכשרה הבאה.
+                </p>
+                <div style={{ display: "grid", gap: "22px" }}>
+                  <DarkRow
+                    label="וואטסאפ"
+                    href={site.whatsappUrl}
+                    external
+                    value="שיחה ישירה עם ענבר"
+                  />
+                  <DarkRow label="טלפון" href={site.telUrl} value={site.phoneDisplay} big />
+                  <DarkRow label="דוא״ל" href={`mailto:${site.email}`} value={site.email} />
+                  <DarkRow
+                    label="קליניקה"
+                    href={site.wazeUrl}
+                    external
+                    value={`${site.city}, ${site.region} — ניווט ב-Waze ←`}
+                  />
+                  <DarkRow label="שעות" value={`${site.hoursDisplay} · שישי-שבת סגור`} />
+                </div>
+              </div>
+
+              <div className="ipc-card" style={{ background: "#FFFFFF", padding: "56px 50px" }}>
+                <ContactForm note="אפשר גם להתקשר או לשלוח וואטסאפ — מה שנוח לכם." />
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="ipc-section" style={{ background: "#FFFFFF", padding: "110px 6%" }}>
+            <div style={{ maxWidth: "780px", margin: "0 auto" }}>
+              <Eyebrow>FAQ</Eyebrow>
+              <h2
+                style={{
+                  fontWeight: 700,
+                  fontSize: "28px",
+                  margin: "0 0 44px",
+                  color: "#141414",
+                }}
+              >
+                שאלות נפוצות לפני תיאום תור
+              </h2>
+              <div style={{ borderTop: "1px solid #ECEAE6" }}>
+                {FAQS.map((faq) => (
+                  <details
+                    key={faq.q}
+                    style={{ borderBottom: "1px solid #ECEAE6", padding: "26px 4px" }}
                   >
-                    <dt
-                      className="mb-2 text-base font-semibold"
-                      style={{ color: "var(--ink-900)" }}
+                    <summary
+                      style={{
+                        fontWeight: 400,
+                        fontSize: "17px",
+                        cursor: "pointer",
+                        listStyle: "none",
+                        color: "#141414",
+                        letterSpacing: "0.03em",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "20px",
+                      }}
                     >
-                      {f.q}
-                    </dt>
-                    <dd className="text-sm" style={{ color: "var(--ink-900)", lineHeight: 1.85 }}>
-                      {f.a}
-                    </dd>
-                  </div>
+                      {faq.q}
+                      <span
+                        aria-hidden
+                        style={{
+                          fontFamily: BODONI,
+                          fontWeight: 400,
+                          fontSize: "24px",
+                          color: "#726B5E",
+                          flexShrink: 0,
+                        }}
+                      >
+                        +
+                      </span>
+                    </summary>
+                    <p
+                      style={{
+                        fontSize: "15px",
+                        lineHeight: 2.05,
+                        color: "#6E6E6E",
+                        margin: "18px 0 0",
+                        fontWeight: 300,
+                        maxWidth: "640px",
+                      }}
+                    >
+                      {faq.a}
+                    </p>
+                  </details>
                 ))}
-              </dl>
-            </section>
-          </div>
+              </div>
+              <p
+                style={{
+                  marginTop: "40px",
+                  fontSize: "13px",
+                  lineHeight: 1.95,
+                  color: "#6B6B6B",
+                  fontWeight: 300,
+                }}
+              >
+                המידע בעמוד זה הסברתי בלבד ואינו מחליף בדיקה אישית או ייעוץ רפואי. בפצע פתוח, חשד
+                לזיהום או סוכרת לא מאוזנת — פנו להערכה מקדימה לפני כל טיפול.
+              </p>
+            </div>
+          </section>
         </article>
       </main>
       <SiteFooter />
@@ -289,84 +418,63 @@ function ContactPage() {
   );
 }
 
-function ContactCard({
+function DarkRow({
+  label,
+  value,
   href,
   external,
-  eyebrow,
-  title,
-  sub,
-  subHref,
-  icon,
+  big,
 }: {
+  label: string;
+  value: string;
   href?: string;
   external?: boolean;
-  eyebrow: string;
-  title: string;
-  sub?: string;
-  subHref?: string;
-  icon: React.ReactNode;
+  big?: boolean;
 }) {
   const inner = (
     <>
       <span
-        aria-hidden
-        className="flex h-11 w-11 flex-shrink-0 items-center justify-center"
-        style={{ background: "var(--green-50)", color: "var(--green-700)", borderRadius: 12 }}
+        style={{
+          fontSize: "12px",
+          letterSpacing: "0.3em",
+          color: "#7E9A8E",
+          minWidth: "84px",
+          flexShrink: 0,
+        }}
       >
-        {icon}
+        {label}
       </span>
-      <div className="min-w-0">
-        <div className="mb-1">
-          <BrandEyebrow style={{ fontSize: 11 }}>{eyebrow}</BrandEyebrow>
-        </div>
-        <div
-          className="break-all"
-          style={{ color: "var(--ink-900)", fontWeight: 600, fontSize: 15 }}
-        >
-          {title}
-        </div>
-        {sub ? (
-          subHref ? (
-            <a
-              href={subHref}
-              target="_blank"
-              rel="noopener nofollow"
-              className="mt-1 inline-block"
-              style={{ color: "var(--green-700)", fontSize: 12, fontWeight: 600 }}
-            >
-              {sub}
-            </a>
-          ) : (
-            <p className="mt-1" style={{ color: "var(--ink-600)", fontSize: 12 }}>
-              {sub}
-            </p>
-          )
-        ) : null}
-      </div>
+      <span
+        style={{
+          fontWeight: 300,
+          fontSize: big ? "23px" : "16px",
+          letterSpacing: big ? "0.06em" : "normal",
+          wordBreak: "break-word",
+        }}
+      >
+        {value}
+      </span>
     </>
   );
-  const cls = "group flex items-start gap-4 p-6 transition-colors";
-  const baseStyle = {
-    background: "var(--paper)",
-    border: "1px solid var(--stone-100)",
-    borderRadius: 20,
-  } as const;
-  if (href) {
-    return (
-      <a
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener" : undefined}
-        className={cls}
-        style={baseStyle}
-      >
-        {inner}
-      </a>
-    );
+  const style: React.CSSProperties = {
+    display: "flex",
+    alignItems: "baseline",
+    gap: "18px",
+    borderBottom: "1px solid rgba(255,255,255,0.34)",
+    paddingBottom: "18px",
+  };
+  if (!href) {
+    return <div style={{ ...style, color: "#B9C9C0" }}>{inner}</div>;
   }
   return (
-    <div className={cls} style={baseStyle}>
+    <a
+      className="ipc-link"
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener nofollow" : undefined}
+      style={{ ...style, color: "#FFFFFF" }}
+    >
       {inner}
-    </div>
+    </a>
   );
 }

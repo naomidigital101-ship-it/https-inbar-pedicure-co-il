@@ -20,7 +20,7 @@ const IdeasOutput = z.object({
 });
 
 const BRAND_CONTEXT = `
-ענבר פרחי — פדיקוריסטית טיפולית בבית אל (אזור בנימין/ירושלים, ישראל).
+ענבר פרחי — פדיקוריסטית טיפולית בעלי (אזור בנימין, ישראל).
 תחומי טיפול: כף רגל סוכרתית, ציפורן חודרנית/אורתוניקסיה (גשר ציפורן), יבלות ויבלות ויראליות,
 פטרת ציפורניים ועור, עור סדוק/עקבים סדוקים, שיקום ציפורן BIO, רגליים לחיילים/ספורטאים.
 טון: מקצועי-טיפולי, חם, נגיש, אנושי, אמין. אסור "רפואי", "קליני", "מטפלת רפואית" — היא לא רופאה.
@@ -46,7 +46,10 @@ const IDEAS_SYSTEM = `
 החזירי בעברית בלבד. ללא מקפים ארוכים (—), ללא אימוג'ים בכותרת.
 `.trim();
 
-export async function brainstormIdeas(opts: { freeform?: string; count?: number }): Promise<Idea[]> {
+export async function brainstormIdeas(opts: {
+  freeform?: string;
+  count?: number;
+}): Promise<Idea[]> {
   const apiKey = getLovableApiKey();
   const gateway = createLovableAiGateway(apiKey);
   const count = opts.count ?? 8;
@@ -64,8 +67,9 @@ export async function brainstormIdeas(opts: { freeform?: string; count?: number 
     experimental_output: Output.object({ schema: IdeasOutput }),
   });
 
-  const parsed = (result as unknown as { experimental_output?: z.infer<typeof IdeasOutput> }).experimental_output
-    ?? IdeasOutput.parse(JSON.parse(result.text));
+  const parsed =
+    (result as unknown as { experimental_output?: z.infer<typeof IdeasOutput> })
+      .experimental_output ?? IdeasOutput.parse(JSON.parse(result.text));
   return parsed.ideas.filter((i) => i.originality_score >= 7);
 }
 
@@ -107,17 +111,19 @@ export async function generateCaption(opts: {
     experimental_output: Output.object({ schema: CaptionOutput }),
   });
 
-  const parsed = (result as unknown as { experimental_output?: z.infer<typeof CaptionOutput> }).experimental_output
-    ?? CaptionOutput.parse(JSON.parse(result.text));
+  const parsed =
+    (result as unknown as { experimental_output?: z.infer<typeof CaptionOutput> })
+      .experimental_output ?? CaptionOutput.parse(JSON.parse(result.text));
   return parsed;
 }
 
 /* ---------- Image ---------- */
 
-export async function generateInstagramImage(opts: { prompt: string }): Promise<{ path: string; signedUrl: string }> {
+export async function generateInstagramImage(opts: {
+  prompt: string;
+}): Promise<{ path: string; signedUrl: string }> {
   const apiKey = getLovableApiKey();
-  const fullPrompt =
-    `${opts.prompt}\n\nסגנון: אילוסטרציה נקייה ומקצועית בפלטת מנטה רכה (#b8dcd4, #5fa898) על רקע קרם (#fdfbf7). מינימליסטי, אסתטי לאינסטגרם, ריבוע 1:1. ללא טקסט בתמונה. ללא דם, ללא תמונות מטרידות.`;
+  const fullPrompt = `${opts.prompt}\n\nסגנון: אילוסטרציה נקייה ומקצועית בפלטת מנטה רכה (#b8dcd4, #5fa898) על רקע קרם (#fdfbf7). מינימליסטי, אסתטי לאינסטגרם, ריבוע 1:1. ללא טקסט בתמונה. ללא דם, ללא תמונות מטרידות.`;
 
   const res = await fetch("https://ai.gateway.lovable.dev/v1/images/generations", {
     method: "POST",
@@ -202,35 +208,37 @@ export async function publishToInstagram(opts: {
   }
 
   // Step 1: create media container
-  const containerRes = await fetch(
-    `https://graph.facebook.com/v21.0/${igAccountId}/media`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        image_url: opts.imageUrl,
-        caption: opts.caption,
-        access_token: token,
-      }),
-    },
-  );
+  const containerRes = await fetch(`https://graph.facebook.com/v21.0/${igAccountId}/media`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      image_url: opts.imageUrl,
+      caption: opts.caption,
+      access_token: token,
+    }),
+  });
   if (!containerRes.ok) {
-    return { ok: false, reason: "error", message: `Container failed: ${(await containerRes.text()).slice(0, 300)}` };
+    return {
+      ok: false,
+      reason: "error",
+      message: `Container failed: ${(await containerRes.text()).slice(0, 300)}`,
+    };
   }
   const containerJson = (await containerRes.json()) as { id?: string };
   if (!containerJson.id) return { ok: false, reason: "error", message: "No container id" };
 
   // Step 2: publish
-  const pubRes = await fetch(
-    `https://graph.facebook.com/v21.0/${igAccountId}/media_publish`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ creation_id: containerJson.id, access_token: token }),
-    },
-  );
+  const pubRes = await fetch(`https://graph.facebook.com/v21.0/${igAccountId}/media_publish`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ creation_id: containerJson.id, access_token: token }),
+  });
   if (!pubRes.ok) {
-    return { ok: false, reason: "error", message: `Publish failed: ${(await pubRes.text()).slice(0, 300)}` };
+    return {
+      ok: false,
+      reason: "error",
+      message: `Publish failed: ${(await pubRes.text()).slice(0, 300)}`,
+    };
   }
   const pubJson = (await pubRes.json()) as { id?: string };
   if (!pubJson.id) return { ok: false, reason: "error", message: "No media id from publish" };

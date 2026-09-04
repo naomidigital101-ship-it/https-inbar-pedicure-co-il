@@ -188,7 +188,9 @@ export function rowToServicePage(row: ServiceRow): ServicePage {
     sections: row.sections ?? [],
     redFlags: row.red_flags ?? [],
     faqs: row.faqs ?? [],
-    sources: row.sources ?? [],
+    // סקשן המקורות הוסר מהאתר; לא מחזירים אותו כדי שהקישורים לא
+    // יישלחו ב-payload של העמוד ולא ייסרקו על ידי בוטים.
+    sources: [],
   };
 }
 

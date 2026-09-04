@@ -1,5 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { MessageCircle, Phone, ShieldCheck, Stethoscope, HeartPulse, ScissorsLineDashed, Sparkles } from "lucide-react";
+import {
+  MessageCircle,
+  Phone,
+  ShieldCheck,
+  Stethoscope,
+  HeartPulse,
+  ScissorsLineDashed,
+  Sparkles,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,7 +29,7 @@ export const Route = createFileRoute("/branding/")({
       {
         name: "description",
         content:
-          "שפת המיתוג של הקליניקה — פלטה, טיפוגרפיה Ellinia CLM ו-Heebo, מרווחים, אלמנטים גרפיים וקומפוננטות.",
+          "שפת המיתוג של הקליניקה — פלטה, טיפוגרפיה Assistant ו-Bodoni Moda, מרווחים וקומפוננטות.",
       },
       { name: "robots", content: "noindex,nofollow" },
     ],
@@ -29,11 +37,23 @@ export const Route = createFileRoute("/branding/")({
   component: BrandingPage,
 });
 
-const PALETTE: Array<{ name: string; varName: string; hex: string; note?: string; dark?: boolean }> = [
+const PALETTE: Array<{
+  name: string;
+  varName: string;
+  hex: string;
+  note?: string;
+  dark?: boolean;
+}> = [
   { name: "Paper", varName: "--paper", hex: "#FAFAF8", note: "רקע ראשי, כמעט-לבן חם" },
   { name: "Stone 50", varName: "--stone-50", hex: "#F5F4F1", note: "רקעי משנה" },
   { name: "Green 50", varName: "--green-50", hex: "#F4F9F7", note: "רקעי סקשן מנטה" },
-  { name: "Green 400", varName: "--green-400", hex: "#8DC2B3", note: "קווי קשת, גוונים רכים", dark: false },
+  {
+    name: "Green 400",
+    varName: "--green-400",
+    hex: "#8DC2B3",
+    note: "קווי קשת, גוונים רכים",
+    dark: false,
+  },
   { name: "Green 600", varName: "--green-600", hex: "#6FAE9C", note: "כפתורים ראשיים", dark: true },
   { name: "Green 700", varName: "--green-700", hex: "#4F8C7B", note: "כותרות, hover", dark: true },
   { name: "Ink 900", varName: "--ink-900", hex: "#1E2422", note: "טקסט כהה", dark: true },
@@ -120,7 +140,13 @@ function BrandingHero() {
         <span
           aria-hidden
           className="absolute hidden md:block"
-          style={{ top: "14%", right: "6%", width: 1, height: 56, background: "rgba(30,36,34,0.12)" }}
+          style={{
+            top: "14%",
+            right: "6%",
+            width: 1,
+            height: 56,
+            background: "rgba(30,36,34,0.12)",
+          }}
         />
         <span
           aria-hidden
@@ -141,7 +167,13 @@ function BrandingHero() {
         <span
           aria-hidden
           className="absolute hidden md:block"
-          style={{ bottom: "10%", left: "8%", width: 110, height: 1, background: "rgba(30,36,34,0.10)" }}
+          style={{
+            bottom: "10%",
+            left: "8%",
+            width: 110,
+            height: 1,
+            background: "rgba(30,36,34,0.10)",
+          }}
         />
         <Halftone className="absolute -bottom-10 -left-10 hidden sm:block" />
       </div>
@@ -172,14 +204,11 @@ function BrandingHero() {
           className="mt-5 max-w-[640px]"
           style={{ color: "var(--ink-600)", fontSize: "1.02rem", lineHeight: 1.65 }}
         >
-          פלטת מנטה רגועה, טיפוגרפיה עברית מודרנית ופרטים שקטים שיוצרים תחושה של קליניקה מדויקת.
-          כל קומפוננטה באתר נשענת על אותם טוקנים — שינוי כאן משתקף בכל מקום.
+          פלטת מנטה רגועה, טיפוגרפיה עברית מודרנית ופרטים שקטים שיוצרים תחושה של קליניקה מדויקת. כל
+          קומפוננטה באתר נשענת על אותם טוקנים — שינוי כאן משתקף בכל מקום.
         </p>
 
-        <nav
-          aria-label="קיצורים בעמוד"
-          className="mt-8 flex flex-wrap gap-2"
-        >
+        <nav aria-label="קיצורים בעמוד" className="mt-8 flex flex-wrap gap-2">
           {NAV_ITEMS.map(([href, label]) => (
             <a
               key={href}
@@ -230,11 +259,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section
-      id={id}
-      className="py-16 md:py-24"
-      style={{ borderTop: "1px solid var(--stone-100)" }}
-    >
+    <section id={id} className="py-16 md:py-24" style={{ borderTop: "1px solid var(--stone-100)" }}>
       <div className="mx-auto max-w-[1320px] px-6 md:px-10">
         <header className="mb-10 grid gap-3 md:grid-cols-[140px_1fr] md:items-end md:gap-10">
           <div
@@ -294,33 +319,42 @@ function PaletteSection() {
       title="פלטה"
       description="מנטה רגועה על נייר חם. ירוקים עמוקים לכותרות וכפתורים, אפורים-דיו לטקסט, וזהב עדין בתפקיד אקסנט בלבד."
     >
-      <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "var(--stone-100)" }}>
+      <div
+        className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3"
+        style={{ background: "var(--stone-100)" }}
+      >
         {PALETTE.map((c) => (
-          <article
-            key={c.varName}
-            className="flex flex-col"
-            style={{ background: "var(--paper)" }}
-          >
+          <article key={c.varName} className="flex flex-col" style={{ background: "var(--paper)" }}>
             <div
               className="h-32"
               style={{
                 background: c.hex,
-                borderBottom: c.hex.toLowerCase() === "#fafaf8" ? "1px solid var(--stone-100)" : "none",
+                borderBottom:
+                  c.hex.toLowerCase() === "#fafaf8" ? "1px solid var(--stone-100)" : "none",
               }}
               aria-hidden
             />
             <div className="p-5">
-              <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.95rem" }}>{c.name}</div>
+              <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.95rem" }}>
+                {c.name}
+              </div>
               <div
                 className="mt-1 flex items-center gap-2"
-                style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}
+                style={{
+                  fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                  fontSize: 12,
+                  color: "var(--ink-600)",
+                }}
               >
                 <span>{c.hex.toUpperCase()}</span>
                 <span aria-hidden>·</span>
                 <span>{c.varName}</span>
               </div>
               {c.note ? (
-                <p className="mt-2" style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--ink-600)" }}>
+                <p
+                  className="mt-2"
+                  style={{ fontSize: 12.5, lineHeight: 1.55, color: "var(--ink-600)" }}
+                >
                   {c.note}
                 </p>
               ) : null}
@@ -341,7 +375,7 @@ function TypographySection() {
       number="02"
       eyebrow="Typography"
       title="טיפוגרפיה"
-      description="Ellinia CLM לכותרות תצוגה, Heebo לטקסט רץ. ספרות והדגשות עדינות ב-Frank Ruhl Libre."
+      description="Assistant לכל העברית (200-700). Bodoni Moda למילות תצוגה לטיניות בלבד, uppercase עם tracking 0.4-0.5em."
     >
       <div className="grid gap-px" style={{ background: "var(--stone-100)" }}>
         <FontFamilyRow
@@ -402,7 +436,14 @@ function TypographySection() {
           label="H3"
           meta="1.5rem · 700"
           element={
-            <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--ink-900)" }}>
+            <h3
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: "1.5rem",
+                color: "var(--ink-900)",
+              }}
+            >
               תקני אגודת אייל
             </h3>
           }
@@ -427,9 +468,11 @@ function TypographySection() {
           label="Body"
           meta="1rem · 400 · line-height 1.65"
           element={
-            <p style={{ maxWidth: 640, fontSize: "1rem", lineHeight: 1.65, color: "var(--ink-900)" }}>
-              קליניקה שקטה ומדויקת בבית אל. שתים-עשרה שנות ניסיון בטיפול קליני בכף הרגל,
-              עבודה לפי פרוטוקולים בינלאומיים והקפדה על סטריליות מלאה.
+            <p
+              style={{ maxWidth: 640, fontSize: "1rem", lineHeight: 1.65, color: "var(--ink-900)" }}
+            >
+              קליניקה שקטה ומדויקת בעלי. שתים-עשרה שנות ניסיון בטיפול קליני בכף הרגל, עבודה לפי
+              פרוטוקולים בינלאומיים והקפדה על סטריליות מלאה.
             </p>
           }
         />
@@ -454,7 +497,14 @@ function TypographySection() {
           label="Caption"
           meta="12px · 500 · tracking 0.06em"
           element={
-            <span style={{ fontSize: 12, letterSpacing: "0.06em", color: "var(--ink-600)", fontWeight: 500 }}>
+            <span
+              style={{
+                fontSize: 12,
+                letterSpacing: "0.06em",
+                color: "var(--ink-600)",
+                fontWeight: 500,
+              }}
+            >
               שנות ניסיון קליני
             </span>
           }
@@ -472,7 +522,13 @@ function FontFamilyRow({ label, meta, family }: { label: string; meta: string; f
     >
       <div>
         <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.95rem" }}>{label}</div>
-        <div style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}>
+        <div
+          style={{
+            fontFamily: "ui-monospace, SFMono-Regular, monospace",
+            fontSize: 12,
+            color: "var(--ink-600)",
+          }}
+        >
           {meta}
         </div>
       </div>
@@ -490,7 +546,15 @@ function FontFamilyRow({ label, meta, family }: { label: string; meta: string; f
   );
 }
 
-function TypeScaleRow({ label, meta, element }: { label: string; meta: string; element: React.ReactNode }) {
+function TypeScaleRow({
+  label,
+  meta,
+  element,
+}: {
+  label: string;
+  meta: string;
+  element: React.ReactNode;
+}) {
   return (
     <div
       className="grid gap-4 p-6 md:grid-cols-[200px_1fr] md:items-center md:gap-10"
@@ -498,7 +562,13 @@ function TypeScaleRow({ label, meta, element }: { label: string; meta: string; e
     >
       <div>
         <div style={{ fontWeight: 700, color: "var(--ink-900)", fontSize: "0.9rem" }}>{label}</div>
-        <div style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}>
+        <div
+          style={{
+            fontFamily: "ui-monospace, SFMono-Regular, monospace",
+            fontSize: 12,
+            color: "var(--ink-600)",
+          }}
+        >
           {meta}
         </div>
       </div>
@@ -534,7 +604,11 @@ function SpacingSection() {
           <div key={s.token} className="flex items-center gap-4">
             <div
               className="w-20"
-              style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}
+              style={{
+                fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                fontSize: 12,
+                color: "var(--ink-600)",
+              }}
             >
               space-{s.token}
             </div>
@@ -543,7 +617,13 @@ function SpacingSection() {
               style={{ width: `${s.px}px`, background: "var(--green-600)", borderRadius: 999 }}
               aria-hidden
             />
-            <div style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-900)" }}>
+            <div
+              style={{
+                fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                fontSize: 12,
+                color: "var(--ink-900)",
+              }}
+            >
               {s.px}px
             </div>
           </div>
@@ -587,7 +667,11 @@ function RadiiSection() {
             </div>
             <div
               className="text-center"
-              style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 12, color: "var(--ink-600)" }}
+              style={{
+                fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                fontSize: 12,
+                color: "var(--ink-600)",
+              }}
             >
               {r.value}
             </div>
@@ -597,9 +681,18 @@ function RadiiSection() {
 
       <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {[
-          { name: "shadow / quiet", style: "0 1px 2px rgba(30,36,34,0.04), 0 8px 24px -16px rgba(30,36,34,0.10)" },
-          { name: "shadow / soft", style: "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)" },
-          { name: "shadow / clinical", style: "0 4px 12px rgba(79,140,123,0.10), 0 28px 60px -30px rgba(79,140,123,0.25)" },
+          {
+            name: "shadow / quiet",
+            style: "0 1px 2px rgba(30,36,34,0.04), 0 8px 24px -16px rgba(30,36,34,0.10)",
+          },
+          {
+            name: "shadow / soft",
+            style: "0 2px 6px rgba(30,36,34,0.06), 0 18px 40px -24px rgba(30,36,34,0.18)",
+          },
+          {
+            name: "shadow / clinical",
+            style: "0 4px 12px rgba(79,140,123,0.10), 0 28px 60px -30px rgba(79,140,123,0.25)",
+          },
         ].map((s) => (
           <div
             key={s.name}
@@ -657,11 +750,23 @@ function GraphicsSection() {
         <DemoTile label="Hairline rules">
           <span
             className="absolute"
-            style={{ top: "20%", right: "12%", width: 1, height: 64, background: "rgba(30,36,34,0.18)" }}
+            style={{
+              top: "20%",
+              right: "12%",
+              width: 1,
+              height: 64,
+              background: "rgba(30,36,34,0.18)",
+            }}
           />
           <span
             className="absolute"
-            style={{ bottom: "20%", left: "12%", width: 140, height: 1, background: "rgba(30,36,34,0.18)" }}
+            style={{
+              bottom: "20%",
+              left: "12%",
+              width: 140,
+              height: 1,
+              background: "rgba(30,36,34,0.18)",
+            }}
           />
         </DemoTile>
 
@@ -696,7 +801,13 @@ function DemoTile({ label, children }: { label: string; children: React.ReactNod
       {children}
       <div
         className="relative p-5"
-        style={{ fontSize: 12, letterSpacing: "0.18em", color: "var(--ink-600)", fontWeight: 600, textTransform: "uppercase" }}
+        style={{
+          fontSize: 12,
+          letterSpacing: "0.18em",
+          color: "var(--ink-600)",
+          fontWeight: 600,
+          textTransform: "uppercase",
+        }}
       >
         {label}
       </div>
@@ -878,25 +989,41 @@ function FormsSection() {
         </div>
         <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
           <div>
-            <Label htmlFor="bg-name" className="mb-2 block text-sm" style={{ color: "var(--ink-900)", fontWeight: 600 }}>
+            <Label
+              htmlFor="bg-name"
+              className="mb-2 block text-sm"
+              style={{ color: "var(--ink-900)", fontWeight: 600 }}
+            >
               שם מלא
             </Label>
             <Input
               id="bg-name"
               placeholder="ישראלה ישראלי"
               className="h-12 px-4 text-base"
-              style={{ borderRadius: 14, background: "var(--paper)", border: "1px solid var(--stone-100)" }}
+              style={{
+                borderRadius: 14,
+                background: "var(--paper)",
+                border: "1px solid var(--stone-100)",
+              }}
             />
           </div>
           <div>
-            <Label htmlFor="bg-service" className="mb-2 block text-sm" style={{ color: "var(--ink-900)", fontWeight: 600 }}>
+            <Label
+              htmlFor="bg-service"
+              className="mb-2 block text-sm"
+              style={{ color: "var(--ink-900)", fontWeight: 600 }}
+            >
               סוג טיפול
             </Label>
             <Select>
               <SelectTrigger
                 id="bg-service"
                 className="h-12 px-4 text-base"
-                style={{ borderRadius: 14, background: "var(--paper)", border: "1px solid var(--stone-100)" }}
+                style={{
+                  borderRadius: 14,
+                  background: "var(--paper)",
+                  border: "1px solid var(--stone-100)",
+                }}
               >
                 <SelectValue placeholder="בחרי טיפול" />
               </SelectTrigger>
@@ -909,7 +1036,11 @@ function FormsSection() {
             </Select>
           </div>
           <div>
-            <Label htmlFor="bg-msg" className="mb-2 block text-sm" style={{ color: "var(--ink-900)", fontWeight: 600 }}>
+            <Label
+              htmlFor="bg-msg"
+              className="mb-2 block text-sm"
+              style={{ color: "var(--ink-900)", fontWeight: 600 }}
+            >
               הודעה
             </Label>
             <Textarea
@@ -917,7 +1048,11 @@ function FormsSection() {
               rows={4}
               placeholder="ספרי לנו על הצורך שלך…"
               className="px-4 py-3 text-base"
-              style={{ borderRadius: 14, background: "var(--paper)", border: "1px solid var(--stone-100)" }}
+              style={{
+                borderRadius: 14,
+                background: "var(--paper)",
+                border: "1px solid var(--stone-100)",
+              }}
             />
           </div>
           <label className="flex items-center gap-3 text-sm" style={{ color: "var(--ink-900)" }}>
@@ -958,7 +1093,11 @@ function ComponentsSection() {
       <div className="grid gap-8 md:grid-cols-2">
         <article
           className="p-8"
-          style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+          style={{
+            background: "var(--paper)",
+            border: "1px solid var(--stone-100)",
+            borderRadius: 20,
+          }}
         >
           <span
             className="block mb-4 text-[11px] tracking-[0.22em] uppercase"
@@ -976,7 +1115,9 @@ function ComponentsSection() {
                 >
                   <Icon className="h-[16px] w-[16px]" strokeWidth={1.5} />
                 </span>
-                <span style={{ fontSize: "0.9rem", lineHeight: 1.5, color: "var(--ink-900)" }}>{label}</span>
+                <span style={{ fontSize: "0.9rem", lineHeight: 1.5, color: "var(--ink-900)" }}>
+                  {label}
+                </span>
               </li>
             ))}
           </ul>
@@ -984,7 +1125,11 @@ function ComponentsSection() {
 
         <article
           className="p-8"
-          style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+          style={{
+            background: "var(--paper)",
+            border: "1px solid var(--stone-100)",
+            borderRadius: 20,
+          }}
         >
           <span
             className="block mb-4 text-[11px] tracking-[0.22em] uppercase"
@@ -992,13 +1137,20 @@ function ComponentsSection() {
           >
             Trust strip
           </span>
-          <dl className="grid grid-cols-3 gap-px" style={{ background: "rgba(141, 194, 179, 0.45)" }}>
+          <dl
+            className="grid grid-cols-3 gap-px"
+            style={{ background: "rgba(141, 194, 179, 0.45)" }}
+          >
             {[
               { value: "12", label: "שנות ניסיון קליני" },
               { value: "אגודת אייל", label: "פרוטוקול בינלאומי" },
               { value: "1:1", label: "טיפול אישי בלבד" },
             ].map((s) => (
-              <div key={s.label} className="flex flex-col gap-0.5 px-3 py-4" style={{ background: "var(--paper)" }}>
+              <div
+                key={s.label}
+                className="flex flex-col gap-0.5 px-3 py-4"
+                style={{ background: "var(--paper)" }}
+              >
                 <dt
                   style={{
                     fontFamily: "var(--font-serif)",
@@ -1011,7 +1163,15 @@ function ComponentsSection() {
                 >
                   {s.value}
                 </dt>
-                <dd style={{ fontSize: 11, letterSpacing: "0.06em", color: "var(--ink-600)", lineHeight: 1.5, fontWeight: 500 }}>
+                <dd
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.06em",
+                    color: "var(--ink-600)",
+                    lineHeight: 1.5,
+                    fontWeight: 500,
+                  }}
+                >
                   {s.label}
                 </dd>
               </div>
@@ -1021,7 +1181,11 @@ function ComponentsSection() {
 
         <article
           className="p-8 md:col-span-2"
-          style={{ background: "var(--paper)", border: "1px solid var(--stone-100)", borderRadius: 20 }}
+          style={{
+            background: "var(--paper)",
+            border: "1px solid var(--stone-100)",
+            borderRadius: 20,
+          }}
         >
           <span
             className="block mb-4 text-[11px] tracking-[0.22em] uppercase"
