@@ -39,9 +39,15 @@ const HEADER_CSS = `
   .bh-links { display:none !important; }
   .bh-burger { display:inline-flex !important; }
   .bh-panel.is-open { display:block !important; }
-  .bh-grid { padding:12px 5%; }
-  .bh-logo img { height:64px; margin:-6px 0; }
   .bh-cta { display:none; }
+  /*
+   * במובייל כפתור הוואטסאפ יורד, ולכן הלוגו הממורכז של הדסקטופ היה
+   * נשאר תלוי באמצע מול עמודה ריקה. כאן הוא נצמד לקצה השמאלי מול
+   * ההמבורגר שבקצה הימני — שני עוגנים, אותו גאטר של 5% משני הצדדים.
+   */
+  .bh-grid { grid-template-columns:auto 1fr; padding:12px 5%; }
+  .bh-logo { justify-content:flex-end; }
+  .bh-logo img { height:64px; margin:-6px 0; }
 }
 @media (max-width: 560px) {
   .bh-grid { padding:10px 4%; }
