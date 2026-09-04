@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
@@ -7,6 +8,7 @@ import { type ServicePage } from "@/lib/services-content";
 import { getService, listServices, type ServiceCard } from "@/lib/cms.functions";
 import { useSite } from "@/lib/use-site";
 import { OnycholysisVisuals } from "@/components/services/OnycholysisVisuals";
+import { SERVICE_HERO } from "@/components/services/service-images";
 import {
   Dash,
   DisplayEyebrow,
@@ -26,6 +28,7 @@ import {
   MUTED,
   ON_DARK_BODY,
   ON_DARK_LABEL,
+  SOFT,
   TAUPE,
   btnSolid,
   btnTextLink,
@@ -168,10 +171,66 @@ function ServicePage() {
     priceVisible: boolean;
   };
   const site = useSite();
+  const hero = SERVICE_HERO[s.slug];
+
+  /*
+   * ניווט פנימי דביק: עמודי הטיפול ארוכים, והריל מראה איפה נמצאים
+   * ומה עוד נשאר. הפס העליון מוסיף את אותה תחושה גם במובייל, שם
+   * הריל מוסתר.
+   */
+  const railItems = useMemo(
+    () => [
+      ...s.sections.map((sec, i) => ({ id: `svc-sec-${i}`, label: sec.heading })),
+      ...(s.redFlags.length ? [{ id: "svc-red-flags", label: "מתי לפנות מיד" }] : []),
+      ...(s.faqs.length ? [{ id: "svc-faq", label: "שאלות נפוצות" }] : []),
+    ],
+    [s],
+  );
+
+  const [progress, setProgress] = useState(0);
+  const [activeId, setActiveId] = useState("");
+
+  /*
+   * גם פס ההתקדמות וגם סימון המקטע הפעיל מחושבים מאותו מאזין גלילה.
+   * חישוב לפי מיקום עדיף כאן על IntersectionObserver: הוא דטרמיניסטי,
+   * לא תלוי בסף חשיפה, והמקטע ה"פעיל" הוא תמיד האחרון שעבר את קו
+   * הניווט הדביק — גם כשמקטע ארוך ממלא את כל המסך.
+   */
+  useEffect(() => {
+    const NAV_OFFSET = 160;
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0);
+
+      let current = "";
+      for (const item of railItems) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top <= NAV_OFFSET) current = item.id;
+      }
+      setActiveId(current);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [railItems]);
+
+  const facts = [
+    ...(priceVisible && priceText ? [{ label: "מחיר", value: priceText, gold: true }] : []),
+    ...s.quickFacts.map((f) => ({ ...f, gold: false })),
+  ];
 
   return (
     <div className="flex min-h-screen flex-col" style={{ background: "#FFFFFF" }}>
       <ServicesStyles />
+      <div
+        className="svc-progress"
+        style={{ width: `${Math.round(progress * 100)}%` }}
+        aria-hidden
+      />
       <SiteHeader />
       <main id="main-content" className="svc-scope flex-1">
         <Breadcrumb
@@ -182,43 +241,28 @@ function ServicePage() {
           ]}
         />
 
-        {/* Hero */}
-        <section
-          style={{
-            background: "#FFFFFF",
-            padding: "96px 6% 80px",
-            textAlign: "center",
-            borderBottom: `1px solid ${HAIRLINE}`,
-          }}
-        >
-          <div style={{ maxWidth: "780px", margin: "0 auto" }}>
-            <DisplayEyebrow size={14} tracking={0.4}>
+        {/* Hero — הקלוז-אפ הקליני של המצב לצד הטקסט */}
+        <header className="svc-hero">
+          <div className="svc-hero-text">
+            <DisplayEyebrow size={13} tracking={0.4}>
               Clinical treatment
             </DisplayEyebrow>
-            <SectionLabel size={12} style={{ marginTop: "12px" }}>
+            <SectionLabel size={11.5} style={{ marginTop: "12px" }}>
               פדיקור טיפולי · {site.city}
             </SectionLabel>
             <h1
               style={{
-                ...headingStyle("clamp(30px, 4.6vw, 42px)"),
+                ...headingStyle("clamp(28px, 3.6vw, 40px)"),
                 lineHeight: 1.35,
                 margin: "20px 0 16px",
               }}
             >
               {s.title}
             </h1>
-            <p style={{ ...subheadingStyle("19px"), lineHeight: 1.85, margin: "0 0 42px" }}>
+            <p style={{ ...subheadingStyle("18.5px"), lineHeight: 1.9, margin: "0 0 38px" }}>
               {s.subtitle}
             </p>
-            <div
-              style={{
-                display: "flex",
-                gap: "26px",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div style={{ display: "flex", gap: "26px", flexWrap: "wrap", alignItems: "center" }}>
               <a
                 className="svc-btn-solid"
                 href={site.whatsappUrl}
@@ -226,332 +270,403 @@ function ServicePage() {
                 rel="noopener nofollow"
                 style={btnSolid}
               >
-                קביעת תור בוואטסאפ
+                לתיאום אבחון
               </a>
               <a className="svc-text-link" href={site.telUrl} style={btnTextLink}>
                 {site.phoneDisplay} ←
               </a>
             </div>
           </div>
-        </section>
-
-        {/* Intro */}
-        <section style={{ background: "#FFFFFF", padding: "80px 6% 0" }}>
-          <div style={{ maxWidth: "820px", margin: "0 auto" }}>
-            <div
-              style={{
-                background: CREAM,
-                borderInlineStart: `1px solid ${GREEN}`,
-                padding: "30px 34px",
-                marginBottom: "44px",
-              }}
-            >
-              <SectionLabel size={11}>בקצרה</SectionLabel>
-              <p
+          <div className="svc-hero-media">
+            {hero ? (
+              <img src={hero.src} alt={hero.alt} width={1000} height={1000} loading="eager" />
+            ) : (
+              <div
                 style={{
-                  fontWeight: 300,
-                  fontSize: "16px",
-                  lineHeight: 2,
-                  color: INK,
-                  margin: "12px 0 0",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                {s.tldr}
-              </p>
-            </div>
+                <DisplayEyebrow size={13} color={TAUPE}>
+                  Inbar Farhi
+                </DisplayEyebrow>
+              </div>
+            )}
+          </div>
+        </header>
 
-            <div
-              className="svc-facts"
+        {/* עובדות מהירות — פס אחד לרוחב, מתחת לקיפול הראשון */}
+        {facts.length > 0 && (
+          <section
+            className="svc-facts"
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${Math.min(facts.length, 5)},1fr)`,
+              gap: "1px",
+              background: HAIRLINE,
+              borderBottom: `1px solid ${HAIRLINE}`,
+            }}
+          >
+            {facts.map((f) => (
+              <div
+                key={f.label}
+                style={{
+                  background: f.gold ? CREAM : "#FFFFFF",
+                  padding: "30px 20px",
+                  textAlign: "center",
+                }}
+              >
+                <SectionLabel size={10} color={f.gold ? GOLD : SOFT}>
+                  {f.label}
+                </SectionLabel>
+                <p
+                  style={{
+                    fontSize: "14.5px",
+                    fontWeight: 600,
+                    color: INK,
+                    margin: "10px 0 0",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {f.value}
+                </p>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* בקצרה — התשובה בשלוש שורות, לפני שנכנסים לעומק */}
+        <section style={{ background: CREAM, padding: "70px 6%" }}>
+          <div style={{ maxWidth: "820px", margin: "0 auto", textAlign: "center" }}>
+            <DisplayEyebrow size={13} color={TAUPE}>
+              In short
+            </DisplayEyebrow>
+            <p
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4,1fr)",
-                gap: "1px",
-                background: HAIRLINE,
-                border: `1px solid ${HAIRLINE}`,
-                marginBottom: "44px",
+                fontWeight: 300,
+                fontSize: "clamp(17px, 2vw, 20px)",
+                lineHeight: 1.95,
+                color: INK,
+                margin: "24px 0 0",
+                textAlign: "right",
               }}
             >
-              {/* מחיר מוצג רק אם ענבר הפעילה אותו לטיפול הזה */}
-              {priceVisible && priceText && (
-                <div style={{ background: CREAM, padding: "24px 16px", textAlign: "center" }}>
-                  <SectionLabel size={10} color={GOLD}>
-                    מחיר
-                  </SectionLabel>
-                  <p
-                    style={{
-                      fontSize: "15px",
-                      fontWeight: 600,
-                      color: INK,
-                      margin: "10px 0 0",
-                    }}
-                  >
-                    {priceText}
-                  </p>
-                </div>
-              )}
-              {s.quickFacts.map((f) => (
-                <div
-                  key={f.label}
-                  style={{ background: "#FFFFFF", padding: "24px 16px", textAlign: "center" }}
-                >
-                  <SectionLabel size={10}>{f.label}</SectionLabel>
-                  <p
-                    style={{
-                      fontSize: "14.5px",
-                      fontWeight: 600,
-                      color: INK,
-                      margin: "10px 0 0",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {f.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <p
-              style={{ fontWeight: 300, fontSize: "17px", lineHeight: 2.05, color: INK, margin: 0 }}
-            >
-              {s.intro}
+              {s.tldr}
             </p>
           </div>
         </section>
 
-        {/* Sections */}
-        <section style={{ background: "#FFFFFF", padding: "60px 6% 20px" }}>
-          {s.slug === "onycholysis" && <OnycholysisVisuals />}
-          <div style={{ maxWidth: "820px", margin: "0 auto" }}>
-            {s.sections.map((sec, i) => (
-              <article
-                key={i}
+        {/* גוף העמוד: תוכן + ריל דביק */}
+        <section style={{ background: "#FFFFFF", padding: "80px 6% 40px" }}>
+          <div className="svc-body-grid">
+            <div style={{ minWidth: 0 }}>
+              <p
                 style={{
-                  borderTop: `1px solid ${HAIRLINE}`,
-                  padding: "48px 0 8px",
+                  fontWeight: 300,
+                  fontSize: "17.5px",
+                  lineHeight: 2.05,
+                  color: INK,
+                  margin: "0 0 20px",
                 }}
               >
-                <h2 style={{ ...headingStyle("clamp(21px, 2.6vw, 26px)"), marginBottom: "20px" }}>
-                  {sec.heading}
-                </h2>
-                {sec.body && (
-                  <p
-                    style={{
-                      fontWeight: 300,
-                      fontSize: "16px",
-                      lineHeight: 2.05,
-                      color: MUTED,
-                      margin: "0 0 20px",
-                    }}
-                  >
-                    {sec.body}
-                  </p>
-                )}
-                {sec.bullets && (
-                  <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
-                    {sec.bullets.map((b) => (
-                      <li
-                        key={b}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "14px",
-                          fontWeight: 300,
-                          fontSize: "16px",
-                          lineHeight: 1.95,
-                          color: MUTED,
-                          padding: "6px 0",
-                        }}
-                      >
-                        <Dash />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {sec.table && (
-                  <div style={{ marginTop: "26px", overflowX: "auto" }}>
-                    <table
-                      style={{ width: "100%", borderCollapse: "collapse", fontSize: "14.5px" }}
-                    >
-                      <thead>
-                        <tr style={{ background: CREAM }}>
-                          {sec.table.headers.map((h) => (
-                            <th
-                              key={h}
-                              style={{
-                                border: `1px solid ${HAIRLINE}`,
-                                padding: "14px 16px",
-                                textAlign: "right",
-                                color: INK,
-                                fontWeight: 600,
-                                letterSpacing: "0.04em",
-                              }}
-                            >
-                              {h}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sec.table.rows.map((row, ri) => (
-                          <tr key={ri} style={{ background: "#FFFFFF" }}>
-                            {row.map((c, ci) => (
-                              <td
-                                key={ci}
-                                style={{
-                                  border: `1px solid ${HAIRLINE}`,
-                                  padding: "14px 16px",
-                                  color: MUTED,
-                                  fontWeight: 300,
-                                  lineHeight: 1.8,
-                                }}
-                              >
-                                {c}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {sec.fromClinic && (
+                {s.intro}
+              </p>
+
+              {s.slug === "onycholysis" && <OnycholysisVisuals />}
+
+              {s.sections.map((sec, i) => (
+                <article
+                  key={i}
+                  id={`svc-sec-${i}`}
+                  style={{ borderTop: `1px solid ${HAIRLINE}`, padding: "52px 0 8px" }}
+                >
                   <div
                     style={{
-                      marginTop: "28px",
-                      background: CREAM,
-                      borderInlineStart: `1px solid ${GOLD}`,
-                      padding: "26px 30px",
-                    }}
-                  >
-                    <SectionLabel size={11} color={GOLD}>
-                      מהקליניקה שלי
-                    </SectionLabel>
-                    <p
-                      style={{
-                        fontWeight: 300,
-                        fontSize: "15px",
-                        lineHeight: 2,
-                        color: INK,
-                        margin: "12px 0 0",
-                      }}
-                    >
-                      {sec.fromClinic}
-                    </p>
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Red flags */}
-        <section
-          style={{
-            background: CREAM,
-            padding: "90px 6%",
-            borderTop: `1px solid ${HAIRLINE}`,
-            borderBottom: `1px solid ${HAIRLINE}`,
-          }}
-        >
-          <div style={{ maxWidth: "820px", margin: "0 auto", textAlign: "center" }}>
-            <SectionLabel size={12} color={ALERT}>
-              אזהרה
-            </SectionLabel>
-            <h2 style={{ ...headingStyle("clamp(22px, 2.8vw, 28px)"), margin: "18px 0 34px" }}>
-              מתי לפנות מיידית לרופא
-            </h2>
-            <ul
-              style={{
-                margin: "0 auto",
-                padding: 0,
-                listStyle: "none",
-                maxWidth: "620px",
-                textAlign: "right",
-                borderTop: `1px solid ${HAIRLINE}`,
-              }}
-            >
-              {s.redFlags.map((r) => (
-                <li
-                  key={r}
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "14px",
-                    fontWeight: 300,
-                    fontSize: "16px",
-                    lineHeight: 1.95,
-                    color: INK,
-                    padding: "16px 2px",
-                    borderBottom: `1px solid ${HAIRLINE}`,
-                  }}
-                >
-                  <Dash color={ALERT} />
-                  <span>{r}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section style={{ background: "#FFFFFF", padding: "110px 6%" }}>
-          <div style={{ maxWidth: "820px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "50px" }}>
-              <DisplayEyebrow size={15}>FAQ</DisplayEyebrow>
-              <h2 style={{ ...headingStyle("28px"), marginTop: "16px" }}>שאלות נפוצות</h2>
-            </div>
-            <div style={{ borderTop: `1px solid ${HAIRLINE}` }}>
-              {s.faqs.map((f) => (
-                <details
-                  key={f.q}
-                  style={{ borderBottom: `1px solid ${HAIRLINE}`, padding: "26px 4px" }}
-                >
-                  <summary
-                    style={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
+                      alignItems: "baseline",
                       gap: "20px",
-                      cursor: "pointer",
-                      listStyle: "none",
-                      fontWeight: 400,
-                      fontSize: "17px",
-                      letterSpacing: "0.03em",
-                      color: INK,
+                      marginBottom: "18px",
                     }}
                   >
-                    <span>{f.q}</span>
                     <span
                       aria-hidden
                       style={{
                         fontFamily: BODONI,
+                        fontSize: "22px",
                         fontWeight: 400,
-                        fontSize: "24px",
                         color: TAUPE,
                         flexShrink: 0,
                       }}
                     >
-                      +
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                  </summary>
-                  <p
-                    style={{
-                      fontWeight: 300,
-                      fontSize: "15px",
-                      lineHeight: 2.05,
-                      color: "#6E6E6E",
-                      margin: "18px 0 0",
-                      maxWidth: "660px",
-                    }}
-                  >
-                    {f.a}
-                  </p>
-                </details>
+                    <h2 style={{ ...headingStyle("clamp(20px, 2.4vw, 24px)"), lineHeight: 1.5 }}>
+                      {sec.heading}
+                    </h2>
+                  </div>
+
+                  {sec.body && (
+                    <p
+                      style={{
+                        fontWeight: 300,
+                        fontSize: "16.5px",
+                        lineHeight: 2.05,
+                        color: MUTED,
+                        margin: "0 0 22px",
+                      }}
+                    >
+                      {sec.body}
+                    </p>
+                  )}
+
+                  {sec.bullets && sec.bullets.length > 0 && (
+                    <ul style={{ listStyle: "none", margin: "0 0 22px", padding: 0 }}>
+                      {sec.bullets.map((b, bi) => (
+                        <li
+                          key={bi}
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "14px 1fr",
+                            gap: "16px",
+                            alignItems: "baseline",
+                            padding: "13px 0",
+                            borderBottom: `1px solid ${HAIRLINE}`,
+                          }}
+                        >
+                          <Dash />
+                          <span
+                            style={{
+                              fontWeight: 300,
+                              fontSize: "16px",
+                              lineHeight: 1.95,
+                              color: MUTED,
+                            }}
+                          >
+                            {b}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {sec.table && (
+                    <div style={{ overflowX: "auto", margin: "0 0 22px" }}>
+                      <table className="svc-table">
+                        <thead>
+                          <tr>
+                            {sec.table.headers.map((h) => (
+                              <th key={h}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {sec.table.rows.map((row, ri) => (
+                            <tr key={ri}>
+                              {row.map((cell, ci) => (
+                                <td
+                                  key={ci}
+                                  style={ci === 0 ? { color: INK, fontWeight: 400 } : undefined}
+                                >
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  {sec.fromClinic && (
+                    <figure
+                      style={{
+                        background: CREAM,
+                        borderInlineStart: `2px solid ${GREEN}`,
+                        padding: "28px 32px",
+                        margin: "8px 0 0",
+                      }}
+                    >
+                      <SectionLabel size={10.5} color={GREEN}>
+                        מהקליניקה שלי
+                      </SectionLabel>
+                      <blockquote
+                        style={{
+                          fontWeight: 300,
+                          fontSize: "16px",
+                          lineHeight: 2,
+                          color: INK,
+                          margin: "12px 0 0",
+                        }}
+                      >
+                        {sec.fromClinic}
+                      </blockquote>
+                    </figure>
+                  )}
+                </article>
               ))}
             </div>
+
+            <aside className="svc-rail" aria-label="ניווט בתוך העמוד">
+              <DisplayEyebrow size={11} color={TAUPE}>
+                On this page
+              </DisplayEyebrow>
+              <nav style={{ margin: "18px 0 32px", borderTop: `1px solid ${HAIRLINE}` }}>
+                {railItems.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`svc-rail-link${activeId === item.id ? " is-active" : ""}`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+              <div style={{ border: `1px solid ${HAIRLINE}`, padding: "26px 22px" }}>
+                <SectionLabel size={10.5} color={GREEN}>
+                  לתיאום אבחון
+                </SectionLabel>
+                <p
+                  style={{
+                    fontWeight: 300,
+                    fontSize: "14px",
+                    lineHeight: 1.9,
+                    color: MUTED,
+                    margin: "12px 0 20px",
+                  }}
+                >
+                  {site.city}, {site.region}
+                  <br />
+                  {site.hoursDisplay}
+                </p>
+                <a
+                  className="svc-btn-solid"
+                  href={site.whatsappUrl}
+                  target="_blank"
+                  rel="noopener nofollow"
+                  style={{ ...btnSolid, display: "block", padding: "14px 10px", fontSize: 13 }}
+                >
+                  וואטסאפ
+                </a>
+                <a
+                  className="svc-text-link"
+                  href={site.telUrl}
+                  style={{ ...btnTextLink, marginTop: 18, fontSize: 13.5 }}
+                >
+                  {site.phoneDisplay} ←
+                </a>
+              </div>
+            </aside>
           </div>
         </section>
+
+        {/* מתי לפנות מיד */}
+        {s.redFlags.length > 0 && (
+          <section
+            id="svc-red-flags"
+            style={{
+              background: CREAM,
+              padding: "80px 6%",
+              borderTop: `1px solid ${HAIRLINE}`,
+              borderBottom: `1px solid ${HAIRLINE}`,
+            }}
+          >
+            <div style={{ maxWidth: "820px", margin: "0 auto" }}>
+              <DisplayEyebrow size={13} color={ALERT}>
+                Red flags
+              </DisplayEyebrow>
+              <h2 style={{ ...headingStyle("24px"), margin: "16px 0 8px" }}>מתי לפנות מיד לרופא</h2>
+              <p style={{ ...subheadingStyle("15.5px"), margin: "0 0 30px" }}>
+                המצבים האלה לא ממתינים לתור לפדיקור טיפולי.
+              </p>
+              <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                {s.redFlags.map((f, i) => (
+                  <li
+                    key={i}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "14px 1fr",
+                      gap: "16px",
+                      alignItems: "baseline",
+                      padding: "16px 0",
+                      borderTop: `1px solid ${HAIRLINE}`,
+                    }}
+                  >
+                    <Dash color={ALERT} />
+                    <span
+                      style={{ fontWeight: 300, fontSize: "16px", lineHeight: 1.95, color: INK }}
+                    >
+                      {f}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* שאלות נפוצות */}
+        {s.faqs.length > 0 && (
+          <section id="svc-faq" style={{ background: "#FFFFFF", padding: "100px 6%" }}>
+            <div style={{ maxWidth: "780px", margin: "0 auto" }}>
+              <div style={{ textAlign: "center", marginBottom: "48px" }}>
+                <DisplayEyebrow size={13} color={TAUPE}>
+                  FAQ
+                </DisplayEyebrow>
+                <h2 style={{ ...headingStyle("26px"), marginTop: "16px" }}>שאלות נפוצות</h2>
+              </div>
+              <div style={{ borderTop: `1px solid ${HAIRLINE}` }}>
+                {s.faqs.map((f) => (
+                  <details
+                    key={f.q}
+                    style={{ borderBottom: `1px solid ${HAIRLINE}`, padding: "26px 4px" }}
+                  >
+                    <summary
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "20px",
+                        cursor: "pointer",
+                        listStyle: "none",
+                        fontSize: "17px",
+                        fontWeight: 400,
+                        color: INK,
+                        letterSpacing: "0.03em",
+                      }}
+                    >
+                      {f.q}
+                      <span
+                        aria-hidden
+                        style={{
+                          fontFamily: BODONI,
+                          fontSize: "24px",
+                          color: TAUPE,
+                          flexShrink: 0,
+                        }}
+                      >
+                        +
+                      </span>
+                    </summary>
+                    <p
+                      style={{
+                        fontWeight: 300,
+                        fontSize: "15.5px",
+                        lineHeight: 2.05,
+                        color: MUTED,
+                        margin: "18px 0 0",
+                        maxWidth: "640px",
+                      }}
+                    >
+                      {f.a}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Related */}
         {related.length > 0 && (
@@ -681,6 +796,28 @@ function ServicePage() {
           </div>
         </section>
       </main>
+
+      {/* במובייל הריל הדביק מוסתר, אז ה-CTA עובר לסרגל תחתון קבוע */}
+      <div className="svc-mobile-cta">
+        <a
+          className="svc-btn-solid"
+          href={site.whatsappUrl}
+          target="_blank"
+          rel="noopener nofollow"
+          style={{ ...btnSolid, flex: 1, padding: "14px 10px", fontSize: 13 }}
+        >
+          לתיאום אבחון
+        </a>
+        <a
+          className="svc-text-link"
+          href={site.telUrl}
+          aria-label={`חיוג ל${site.phoneDisplay}`}
+          style={{ ...btnTextLink, fontSize: 13, whiteSpace: "nowrap" }}
+        >
+          חיוג
+        </a>
+      </div>
+
       <SiteFooter />
     </div>
   );
