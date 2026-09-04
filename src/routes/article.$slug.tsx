@@ -7,6 +7,7 @@ import { ArticleHero } from "@/components/article/ArticleHero";
 import { TableOfContents } from "@/components/article/TableOfContents";
 import { ArticleBody } from "@/components/article/ArticleBody";
 import { RelatedArticles } from "@/components/article/RelatedArticles";
+import { C } from "@/components/article/editorial";
 import { getArticleBySlug, getRelatedArticles } from "@/lib/articles";
 import { getPublishedAiArticleBySlug } from "@/lib/ai-content.functions";
 
@@ -90,25 +91,26 @@ export const Route = createFileRoute("/article/$slug")({
         : {}),
       speakable: {
         "@type": "SpeakableSpecification",
-        cssSelector: ["[data-speakable=\"true\"]", "h1", "h2"],
+        cssSelector: ['[data-speakable="true"]', "h1", "h2"],
       },
     };
 
-    const faqSchema = article.faqs && article.faqs.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          speakable: {
-            "@type": "SpeakableSpecification",
-            cssSelector: ["dt", "dd"],
-          },
-          mainEntity: article.faqs.map((f) => ({
-            "@type": "Question",
-            name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
-        }
-      : null;
+    const faqSchema =
+      article.faqs && article.faqs.length > 0
+        ? {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["dt", "dd"],
+            },
+            mainEntity: article.faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }
+        : null;
 
     const howToSchema = article.howTo
       ? {
@@ -198,22 +200,28 @@ export const Route = createFileRoute("/article/$slug")({
           children: JSON.stringify(articleSchema),
         },
         ...(faqSchema
-          ? [{
-              type: "application/ld+json",
-              children: JSON.stringify(faqSchema),
-            }]
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify(faqSchema),
+              },
+            ]
           : []),
         ...(howToSchema
-          ? [{
-              type: "application/ld+json",
-              children: JSON.stringify(howToSchema),
-            }]
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify(howToSchema),
+              },
+            ]
           : []),
         ...(videoSchema
-          ? [{
-              type: "application/ld+json",
-              children: JSON.stringify(videoSchema),
-            }]
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify(videoSchema),
+              },
+            ]
           : []),
       ],
     };
@@ -225,7 +233,7 @@ function ArticlePage() {
   const { article, related } = Route.useLoaderData();
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col" style={{ background: C.paper }}>
       <SiteHeader />
       <main id="main-content" className="flex-1">
         <Breadcrumb
@@ -237,8 +245,8 @@ function ArticlePage() {
         />
         <ArticleHero article={article} />
 
-        <div className="mx-auto max-w-[1400px] px-4 py-12 md:px-8 md:py-16">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[28%_72%]">
+        <div className="mx-auto max-w-[1200px] px-[6%] py-20 md:py-24">
+          <div className="grid grid-cols-1 gap-14 lg:grid-cols-[26%_74%] lg:gap-16">
             <aside className="order-2 lg:order-1">
               <TableOfContents sections={article.sections} />
             </aside>

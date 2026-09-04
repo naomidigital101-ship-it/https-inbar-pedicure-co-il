@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ArticleSection } from "@/lib/articles";
+import { BODONI, C } from "./editorial";
 
 export function TableOfContents({ sections }: { sections: ArticleSection[] }) {
   const [activeId, setActiveId] = useState<string>(sections[0]?.id ?? "");
@@ -30,47 +31,43 @@ export function TableOfContents({ sections }: { sections: ArticleSection[] }) {
   return (
     <nav
       aria-label="תוכן עניינים"
-      className="sticky top-8 p-6"
-      style={{
-        background: "var(--paper)",
-        border: "1px solid var(--stone-100)",
-        borderRadius: 16,
-      }}
+      className="sticky top-8"
+      style={{ borderTop: `1px solid ${C.line}`, paddingTop: 22 }}
     >
       <h2
         className="mb-4"
         style={{
-          fontSize: 11,
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: "var(--green-700)",
-          fontWeight: 600,
+          fontSize: 12,
+          letterSpacing: "0.3em",
+          color: C.mutedSoft,
+          fontWeight: 400,
         }}
       >
         תוכן עניינים
       </h2>
-      <ol className="space-y-3">
+      <ol>
         {sections.map((s, idx) => {
           const isActive = activeId === s.id;
           return (
-            <li key={s.id}>
+            <li key={s.id} style={{ borderBottom: `1px solid ${C.line}` }}>
               <a
                 href={`#${s.id}`}
-                className="flex items-start gap-3 pr-3 transition-colors"
+                className="flex items-start gap-3 py-3 transition-colors"
                 style={{
-                  borderInlineEnd: `2px solid ${isActive ? "var(--green-600)" : "transparent"}`,
-                  color: isActive ? "var(--ink-900)" : "var(--ink-600)",
+                  borderInlineEnd: `1px solid ${isActive ? C.green : "transparent"}`,
+                  paddingInlineEnd: 12,
+                  color: isActive ? C.ink : C.muted,
                   fontSize: 14,
-                  fontWeight: isActive ? 600 : 400,
-                  lineHeight: 1.4,
+                  fontWeight: isActive ? 600 : 300,
+                  lineHeight: 1.6,
                 }}
               >
                 <span
                   style={{
-                    fontFamily: "var(--font-serif)",
-                    fontWeight: 700,
-                    fontSize: 12,
-                    color: isActive ? "var(--green-700)" : "var(--ink-600)",
+                    fontFamily: BODONI,
+                    fontWeight: 400,
+                    fontSize: 13,
+                    color: isActive ? C.green : C.taupe,
                   }}
                 >
                   {String(idx + 1).padStart(2, "0")}

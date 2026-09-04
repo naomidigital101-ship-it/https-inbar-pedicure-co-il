@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { C } from "@/components/article/editorial";
 
 export function Pagination({
   categorySlug,
@@ -15,18 +16,36 @@ export function Pagination({
   const prev = currentPage > 1 ? currentPage - 1 : null;
   const next = currentPage < totalPages ? currentPage + 1 : null;
 
-  const pageHref = (p: number) =>
-    p === 1 ? undefined : { page: p };
+  const pageHref = (p: number) => (p === 1 ? undefined : { page: p });
 
-  const navStyle = { background: "var(--paper)", border: "1px solid var(--stone-100)", color: "var(--ink-900)", borderRadius: 999 } as const;
-  const navDisabled = { background: "var(--paper)", border: "1px solid var(--stone-100)", color: "var(--stone-300)", borderRadius: 999 } as const;
+  const stepStyle = {
+    border: `1px solid ${C.ink}`,
+    color: C.ink,
+    fontSize: 12,
+    fontWeight: 400,
+    letterSpacing: "0.14em",
+  } as const;
+  const stepDisabled = {
+    border: `1px solid ${C.line}`,
+    color: C.edge,
+    fontSize: 12,
+    fontWeight: 400,
+    letterSpacing: "0.14em",
+  } as const;
+  const numStyle = {
+    border: `1px solid ${C.line}`,
+    color: C.ink,
+    fontSize: 14,
+    fontWeight: 300,
+  } as const;
+
   return (
     <nav
       aria-label="ניווט עמודים"
-      className="mt-12 flex flex-wrap items-center justify-between gap-4 pt-8"
-      style={{ borderTop: "1px solid var(--stone-100)" }}
+      className="mt-16 flex flex-wrap items-center justify-between gap-4 pt-8"
+      style={{ borderTop: `1px solid ${C.line}` }}
     >
-      <div style={{ fontSize: 11, color: "var(--ink-600)", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600 }}>
+      <div style={{ fontSize: 12, color: C.mutedSoft, letterSpacing: "0.24em", fontWeight: 400 }}>
         עמוד {currentPage} מתוך {totalPages}
       </div>
 
@@ -37,8 +56,8 @@ export function Pagination({
               to="/category/$slug"
               params={{ slug: categorySlug }}
               search={pageHref(prev)}
-              className="inline-flex items-center gap-2 px-4 py-2"
-              style={{ ...navStyle, fontSize: 12, fontWeight: 600 }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 transition-colors hover:bg-[#0E3B2E] hover:text-white"
+              style={stepStyle}
               aria-label="עמוד קודם"
             >
               <span aria-hidden>→</span>
@@ -47,8 +66,8 @@ export function Pagination({
           ) : (
             <span
               aria-disabled
-              className="inline-flex cursor-not-allowed items-center gap-2 px-4 py-2"
-              style={{ ...navDisabled, fontSize: 12, fontWeight: 600 }}
+              className="inline-flex cursor-not-allowed items-center gap-2 px-5 py-2.5"
+              style={stepDisabled}
             >
               <span aria-hidden>→</span>
               הקודם
@@ -64,7 +83,7 @@ export function Pagination({
                 <span
                   aria-current="page"
                   className="inline-flex h-10 w-10 items-center justify-center"
-                  style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 14 }}
+                  style={{ background: C.green, color: C.paper, fontSize: 14, fontWeight: 400 }}
                 >
                   {p}
                 </span>
@@ -73,8 +92,8 @@ export function Pagination({
                   to="/category/$slug"
                   params={{ slug: categorySlug }}
                   search={pageHref(p)}
-                  className="inline-flex h-10 w-10 items-center justify-center"
-                  style={{ ...navStyle, fontSize: 14, fontWeight: 600 }}
+                  className="inline-flex h-10 w-10 items-center justify-center transition-colors hover:border-[#141414]"
+                  style={numStyle}
                   aria-label={`עמוד ${p}`}
                 >
                   {p}
@@ -90,8 +109,8 @@ export function Pagination({
               to="/category/$slug"
               params={{ slug: categorySlug }}
               search={pageHref(next)}
-              className="inline-flex items-center gap-2 px-4 py-2"
-              style={{ ...navStyle, fontSize: 12, fontWeight: 600 }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 transition-colors hover:bg-[#0E3B2E] hover:text-white"
+              style={stepStyle}
               aria-label="עמוד הבא"
             >
               הבא
@@ -100,8 +119,8 @@ export function Pagination({
           ) : (
             <span
               aria-disabled
-              className="inline-flex cursor-not-allowed items-center gap-2 px-4 py-2"
-              style={{ ...navDisabled, fontSize: 12, fontWeight: 600 }}
+              className="inline-flex cursor-not-allowed items-center gap-2 px-5 py-2.5"
+              style={stepDisabled}
             >
               הבא
               <span aria-hidden>←</span>

@@ -7,13 +7,10 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { CategoryHero } from "@/components/category/CategoryHero";
 import { CategoryGrid } from "@/components/category/CategoryGrid";
 import { Pagination } from "@/components/category/Pagination";
+import { C, LatinEyebrow } from "@/components/article/editorial";
 import { getCategoryBySlug } from "@/lib/categories";
 import { articles as staticArticles } from "@/lib/articles";
-import {
-  mergeArticleCards,
-  staticArticleToCard,
-  type ArticleCard,
-} from "@/lib/article-cards";
+import { mergeArticleCards, staticArticleToCard, type ArticleCard } from "@/lib/article-cards";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
 import { CATEGORY_LONG_CONTENT } from "@/lib/category-content";
 
@@ -92,8 +89,7 @@ export const Route = createFileRoute("/category/$slug")({
       ],
     };
 
-    const canonicalHref =
-      currentPage > 1 ? `${absUrl}?page=${currentPage}` : absUrl;
+    const canonicalHref = currentPage > 1 ? `${absUrl}?page=${currentPage}` : absUrl;
 
     return {
       meta: [
@@ -126,24 +122,18 @@ export const Route = createFileRoute("/category/$slug")({
 });
 
 function CategoryPage() {
-  const { category, pageArticles, totalArticles, currentPage, totalPages } =
-    Route.useLoaderData();
+  const { category, pageArticles, totalArticles, currentPage, totalPages } = Route.useLoaderData();
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col" style={{ background: C.paper }}>
       <SiteHeader />
       <main id="main-content" className="flex-1">
-        <Breadcrumb
-          items={[
-            { label: "בית", href: "/" },
-            { label: category.name },
-          ]}
-        />
+        <Breadcrumb items={[{ label: "בית", href: "/" }, { label: category.name }]} />
         <CategoryHero category={category} totalArticles={totalArticles} />
 
         <CategoryLongContent slug={category.slug} />
 
-        <section className="mx-auto max-w-[1400px] px-4 py-12 md:px-8 md:py-16">
+        <section className="mx-auto max-w-[1150px] px-[6%] py-24 md:py-28">
           <CategoryGrid articles={pageArticles} />
           <Pagination
             categorySlug={category.slug}
@@ -163,51 +153,53 @@ function CategoryLongContent({ slug }: { slug: string }) {
   const content = CATEGORY_LONG_CONTENT[slug as keyof typeof CATEGORY_LONG_CONTENT];
   if (!content) return null;
   return (
-    <section className="mx-auto max-w-[900px] px-6 pt-12 pb-4 md:px-10">
-      <div className="space-y-4" style={{ color: "var(--ink-900)", fontSize: "1.02rem", lineHeight: 1.85 }}>
+    <section className="mx-auto max-w-[820px] px-[6%] pt-24 pb-4">
+      <div
+        className="space-y-5"
+        style={{ color: C.muted, fontSize: "1.02rem", lineHeight: 2, fontWeight: 300 }}
+      >
         {content.intro.map((p, i) => (
           <p key={`ci-${i}`}>{p}</p>
         ))}
       </div>
+
       {content.topics.length > 0 && (
-        <div className="mt-10 grid gap-6">
+        <div className="mt-14" style={{ borderTop: `1px solid ${C.line}` }}>
           {content.topics.map((t, i) => (
-            <div key={`ct-${i}`} className="rounded-xl border border-[var(--green-100)] bg-[var(--green-50)] p-6">
+            <div key={`ct-${i}`} className="py-8" style={{ borderBottom: `1px solid ${C.line}` }}>
               <h2
-                className="mb-2"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 500,
-                  fontSize: "1.25rem",
-                  color: "var(--ink-900)",
-                }}
+                className="mb-3"
+                style={{ fontWeight: 600, fontSize: "1.2rem", color: C.ink, lineHeight: 1.6 }}
               >
                 {t.heading}
               </h2>
-              <p style={{ color: "var(--ink-900)", lineHeight: 1.85, fontSize: "0.98rem" }}>{t.body}</p>
+              <p style={{ color: C.muted, lineHeight: 2, fontSize: "0.98rem", fontWeight: 300 }}>
+                {t.body}
+              </p>
             </div>
           ))}
         </div>
       )}
+
       {content.faqs.length > 0 && (
-        <div className="mt-10">
-          <h2
-            className="mb-4"
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 300,
-              fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)",
-              letterSpacing: "-0.02em",
-              color: "var(--green-700)",
-            }}
-          >
-            שאלות נפוצות
-          </h2>
-          <dl className="space-y-4">
+        <div className="mt-16">
+          <div className="mb-10 text-center">
+            <LatinEyebrow tracking="0.5em" fontSize={14} className="mb-4">
+              FAQ
+            </LatinEyebrow>
+            <h2 style={{ fontWeight: 700, fontSize: "1.6rem", color: C.ink, margin: 0 }}>
+              שאלות נפוצות
+            </h2>
+          </div>
+          <dl style={{ borderTop: `1px solid ${C.line}` }}>
             {content.faqs.map((f, i) => (
-              <div key={`cf-${i}`} className="rounded-lg border border-[var(--stone-100)] bg-[var(--paper)] p-5">
-                <dt className="mb-1 font-semibold" style={{ color: "var(--ink-900)" }}>{f.q}</dt>
-                <dd style={{ color: "var(--ink-900)", lineHeight: 1.85, fontSize: "0.96rem" }}>{f.a}</dd>
+              <div key={`cf-${i}`} className="py-7" style={{ borderBottom: `1px solid ${C.line}` }}>
+                <dt className="mb-2" style={{ color: C.ink, fontWeight: 600, fontSize: "1.02rem" }}>
+                  {f.q}
+                </dt>
+                <dd style={{ color: C.muted, lineHeight: 2, fontSize: "0.96rem", fontWeight: 300 }}>
+                  {f.a}
+                </dd>
               </div>
             ))}
           </dl>

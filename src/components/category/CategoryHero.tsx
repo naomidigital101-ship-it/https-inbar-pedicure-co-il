@@ -1,5 +1,11 @@
 import type { Category } from "@/lib/categories";
-import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
+import { C, LatinEyebrow } from "@/components/article/editorial";
+
+/** ‎"[ MOD: 01 // CARE ]" → "CARE · 01" — קוד הקטגוריה בשפת התצוגה החדשה. */
+function latinCode(modCode: string): string {
+  const m = /(\d+)\s*\/\/\s*([A-Za-z]+)/.exec(modCode);
+  return m ? `${m[2]} · ${m[1]}` : "Journal";
+}
 
 export function CategoryHero({
   category,
@@ -9,48 +15,50 @@ export function CategoryHero({
   totalArticles: number;
 }) {
   return (
-    <header
-      className="relative overflow-hidden"
-      style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
-    >
-      <BrandHeroBackdrop label={`CATEGORY · ${category.modCode}`} />
-      <div className="relative mx-auto max-w-[1320px] px-6 py-16 md:px-10 md:py-20">
-        <div className="mb-6 flex items-center gap-3">
-          <BrandEyebrow>{category.modCode}</BrandEyebrow>
-          <span aria-hidden className="h-px w-12" style={{ background: "var(--green-400)" }} />
-          <span
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontWeight: 500,
-              fontSize: 13,
-              color: "var(--ink-600)",
-            }}
-          >
-            {totalArticles} מאמרים
-          </span>
-        </div>
+    <header style={{ background: C.paper, borderBottom: `1px solid ${C.line}` }}>
+      <div className="mx-auto max-w-[900px] px-[6%] py-20 text-center md:py-28">
+        <LatinEyebrow tracking="0.5em" fontSize={15} className="mb-5">
+          {latinCode(category.modCode)}
+        </LatinEyebrow>
 
         <h1
-          className="mb-6"
           style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 300,
-            fontSize: "clamp(2.4rem, 5.6vw, 4.4rem)",
-            lineHeight: 1.05,
-            letterSpacing: "-0.03em",
-            color: "var(--green-700)",
-            maxWidth: 880,
+            fontWeight: 700,
+            fontSize: "clamp(2rem, 4.4vw, 3rem)",
+            lineHeight: 1.3,
+            color: C.ink,
+            margin: "0 0 20px",
+            textWrap: "balance",
           }}
         >
           {category.name}
         </h1>
 
         <p
-          className="max-w-4xl"
-          style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}
+          style={{
+            fontWeight: 300,
+            fontSize: "1.05rem",
+            lineHeight: 2,
+            color: C.muted,
+            margin: "0 auto 32px",
+            maxWidth: 620,
+          }}
         >
           {category.description}
         </p>
+
+        <div
+          style={{
+            borderTop: `1px solid ${C.line}`,
+            paddingTop: 22,
+            fontSize: 12,
+            fontWeight: 400,
+            letterSpacing: "0.3em",
+            color: C.mutedSoft,
+          }}
+        >
+          {totalArticles} מאמרים
+        </div>
       </div>
     </header>
   );

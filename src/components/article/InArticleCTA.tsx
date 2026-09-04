@@ -1,39 +1,32 @@
-import { BrandEyebrow } from "@/components/brand/BrandPrimitives";
+import { C, TrackedLabel, SOLID_BUTTON } from "./editorial";
 
 export function InArticleCTA() {
   return (
     <aside
-      className="my-12 p-8 md:p-10"
-      style={{
-        background: "var(--green-50)",
-        border: "1px solid var(--green-100)",
-        borderRadius: 20,
-      }}
+      className="my-14 px-8 py-12 text-center md:px-12"
+      style={{ background: C.cream, border: `1px solid ${C.line}` }}
     >
-      <BrandEyebrow>שווה לדעת</BrandEyebrow>
+      <TrackedLabel className="mb-5">מהקליניקה</TrackedLabel>
       <h3
-        className="mt-3 mb-3"
+        className="mb-4"
         style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 300,
-          fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)",
-          color: "var(--green-700)",
-          letterSpacing: "-0.02em",
-          lineHeight: 1.15,
+          fontWeight: 700,
+          fontSize: "clamp(1.3rem, 2.4vw, 1.7rem)",
+          color: C.ink,
+          lineHeight: 1.5,
         }}
       >
-        רוצה ליווי אישי בתהליך טיפוח כף הרגל?
+        רוצים שנבדוק את כף הרגל שלכם לעומק?
       </h3>
-      <p className="mb-6 max-w-2xl" style={{ color: "var(--ink-600)", fontSize: 15, lineHeight: 1.7 }}>
-        כל מקרה הוא תהליך אישי. אצלי תקבלי בדיקה יסודית, התאמה של תוכנית טיפוח לאורח החיים שלך והנחיות ביתיות מסודרות. ליווי בוואטסאפ לאורך הדרך, בלי הבטחות שווא ובלי קיצורי דרך.
-      </p>
-      <a
-        href="#lead-magnet"
-        className="inline-flex h-12 items-center gap-2 px-7"
-        style={{ background: "var(--green-600)", color: "var(--paper)", borderRadius: 999, fontWeight: 700, fontSize: 15 }}
+      <p
+        className="mx-auto mb-9 max-w-[560px]"
+        style={{ color: C.muted, fontSize: 15.5, lineHeight: 2, fontWeight: 300 }}
       >
-        לקביעת פגישת ייעוץ
-        <span aria-hidden>←</span>
+        כל מקרה מתחיל באבחון. בקליניקה בעלי אני בודקת את מבנה כף הרגל, ההנעלה ותבנית ההליכה, בונה
+        תוכנית טיפול מותאמת ומעבירה הנחיות ביתיות מסודרות, עם ליווי בוואטסאפ לאורך הדרך.
+      </p>
+      <a href="#lead-magnet" className="transition-colors hover:bg-[#141414]" style={SOLID_BUTTON}>
+        לתיאום אבחון
       </a>
     </aside>
   );

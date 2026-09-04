@@ -1,65 +1,75 @@
 import type { Article } from "@/lib/articles";
-import { BrandHeroBackdrop, BrandEyebrow } from "@/components/brand/BrandPrimitives";
+import { C, TrackedLabel } from "./editorial";
 
 export function ArticleHero({ article }: { article: Article }) {
   return (
-    <header
-      className="relative overflow-hidden"
-      style={{ background: "var(--paper)", borderBottom: "1px solid var(--stone-100)" }}
-    >
-      <BrandHeroBackdrop label="ARTICLE · 00" />
-      <div className="relative mx-auto max-w-[1320px] px-6 py-12 md:px-10 md:py-16">
-        <div className="mb-6 flex items-center gap-3">
-          <BrandEyebrow>{article.category}</BrandEyebrow>
-          <span aria-hidden className="h-px w-12" style={{ background: "var(--green-400)" }} />
-        </div>
+    <header style={{ background: C.paper, borderBottom: `1px solid ${C.line}` }}>
+      <div className="mx-auto max-w-[900px] px-[6%] py-16 text-center md:py-24">
+        <TrackedLabel className="mb-6">{article.category}</TrackedLabel>
 
         <h1
-          className="mb-6"
           style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 300,
-            fontSize: "clamp(2rem, 5vw, 3.8rem)",
-            lineHeight: 1.1,
-            letterSpacing: "-0.03em",
-            color: "var(--ink-900)",
-            maxWidth: 920,
+            fontWeight: 700,
+            fontSize: "clamp(1.9rem, 4.2vw, 2.9rem)",
+            lineHeight: 1.35,
+            color: C.ink,
+            margin: "0 0 20px",
+            textWrap: "balance",
           }}
         >
           {article.title}
         </h1>
 
         <p
-          className="mb-8 max-w-3xl"
-          style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.7 }}
+          style={{
+            fontWeight: 300,
+            fontSize: "1.125rem",
+            lineHeight: 1.85,
+            color: C.muted,
+            margin: "0 auto 40px",
+            maxWidth: 640,
+          }}
         >
           {article.excerpt}
         </p>
 
         <div
-          className="flex flex-wrap items-center gap-x-5 gap-y-2"
-          style={{ fontSize: 12.5, color: "var(--ink-600)", letterSpacing: "0.04em" }}
+          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+          style={{
+            borderTop: `1px solid ${C.line}`,
+            paddingTop: 24,
+            fontSize: 12.5,
+            fontWeight: 300,
+            letterSpacing: "0.08em",
+            color: C.mutedSoft,
+          }}
         >
           <span>
-            כותב: <span style={{ color: "var(--ink-900)", fontWeight: 600 }}>{article.author}</span>
+            מאת <span style={{ color: C.ink, fontWeight: 400 }}>{article.author}</span>
           </span>
-          <span aria-hidden style={{ color: "var(--stone-300)" }}>·</span>
-          <time dateTime={article.date} style={{ color: "var(--ink-900)" }}>
+          <span aria-hidden style={{ color: C.edge }}>
+            ·
+          </span>
+          <time dateTime={article.date} style={{ color: C.ink }}>
             {article.dateLabel}
           </time>
           {article.dateModified && article.dateModifiedLabel && (
             <>
-              <span aria-hidden style={{ color: "var(--stone-300)" }}>·</span>
+              <span aria-hidden style={{ color: C.edge }}>
+                ·
+              </span>
               <span>
-                עודכן:{" "}
-                <time dateTime={article.dateModified} style={{ color: "var(--ink-900)" }}>
+                עודכן{" "}
+                <time dateTime={article.dateModified} style={{ color: C.ink }}>
                   {article.dateModifiedLabel}
                 </time>
               </span>
             </>
           )}
-          <span aria-hidden style={{ color: "var(--stone-300)" }}>·</span>
-          <span style={{ color: "var(--green-700)", fontWeight: 600 }}>{article.readingTime}</span>
+          <span aria-hidden style={{ color: C.edge }}>
+            ·
+          </span>
+          <span style={{ color: C.green }}>{article.readingTime}</span>
         </div>
       </div>
     </header>

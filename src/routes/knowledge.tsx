@@ -3,11 +3,11 @@ import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
 import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { LeadMagnet } from "@/components/shared/LeadMagnet";
-import { BrandHeroBackdrop, BrandEyebrow, SerifNumber } from "@/components/brand/BrandPrimitives";
+import { BODONI, C, LatinEyebrow, READ_MORE_LINK } from "@/components/article/editorial";
+import { CategoryGrid } from "@/components/category/CategoryGrid";
 import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import { useSite } from "@/lib/use-site";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
-import type { ArticleCard } from "@/lib/article-cards";
 
 const PAGE_URL = `${SITE.url}/knowledge`;
 const TITLE = `מרכז הידע — מדריכים מקצועיים בפדיקור טיפולי | ${SITE.brand}`;
@@ -74,66 +74,60 @@ function KnowledgeIndex() {
   const site = useSite();
   const { articles } = Route.useLoaderData();
   return (
-    <div style={{ background: "var(--paper)" }}>
+    <div style={{ background: C.paper }}>
       <SiteHeader />
-      <main>
-        <section className="relative overflow-hidden" style={{ background: "var(--stone-50)" }}>
-          <BrandHeroBackdrop />
-          <div className="relative mx-auto max-w-[1200px] px-6 pt-10 pb-16 md:pt-14 md:pb-24">
-            <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "מרכז הידע" }]} />
-            <div className="mt-8 max-w-3xl">
-              <BrandEyebrow>מרכז הידע · {site.brand}</BrandEyebrow>
-              <h1
-                className="mt-4 text-balance"
-                style={{
-                  fontFamily: "'Frank Ruhl Libre', serif",
-                  fontSize: "clamp(2rem, 4.4vw, 3.4rem)",
-                  fontWeight: 500,
-                  lineHeight: 1.1,
-                  color: "var(--ink-900)",
-                }}
-              >
-                ידע מקצועי על בריאות כף הרגל,
-                <br />
-                בשפה שכולם מבינים.
-              </h1>
-              <p
-                className="mt-6 max-w-2xl"
-                style={{ color: "var(--ink-600)", fontSize: "1.05rem", lineHeight: 1.75 }}
-              >
-                מאמרים, מדריכים ותשובות לשאלות הנפוצות שמטופלים שואלים אותי בקליניקה — מבוסס{" "}
-                {site.yearsExperience} שנות ניסיון, פרוטוקולים סטריליים ומקורות קליניים. בחרו
-                קטגוריה כדי להתחיל.
-              </p>
-            </div>
+      <main id="main-content">
+        <Breadcrumb items={[{ label: "בית", href: "/" }, { label: "מרכז הידע" }]} />
+
+        <section style={{ background: C.paper, borderBottom: `1px solid ${C.line}` }}>
+          <div className="mx-auto max-w-[900px] px-[6%] py-20 text-center md:py-28">
+            <LatinEyebrow tracking="0.5em" fontSize={15} className="mb-5">
+              Knowledge
+            </LatinEyebrow>
+            <h1
+              style={{
+                fontWeight: 700,
+                fontSize: "clamp(2rem, 4.4vw, 3rem)",
+                lineHeight: 1.3,
+                color: C.ink,
+                margin: "0 0 20px",
+                textWrap: "balance",
+              }}
+            >
+              ידע מקצועי על בריאות כף הרגל,
+              <br />
+              בשפה שכולם מבינים
+            </h1>
+            <p
+              style={{
+                fontWeight: 300,
+                fontSize: "1.05rem",
+                lineHeight: 2,
+                color: C.muted,
+                margin: "0 auto",
+                maxWidth: 640,
+              }}
+            >
+              מאמרים, מדריכים ותשובות לשאלות שמטופלים שואלים אותי בקליניקה — מבוססים על{" "}
+              {site.yearsExperience} שנות עבודה קלינית, פרוטוקולים סטריליים ומקורות מקצועיים. בחרו
+              קטגוריה כדי להתחיל.
+            </p>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1200px] px-6 py-16 md:py-24">
-          <div className="mb-10 flex items-end justify-between gap-6">
-            <div>
-              <BrandEyebrow>נושאים מרכזיים</BrandEyebrow>
-              <h2
-                className="mt-3"
-                style={{
-                  fontFamily: "'Frank Ruhl Libre', serif",
-                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-                  fontWeight: 500,
-                  color: "var(--ink-900)",
-                }}
-              >
-                קטגוריות מרכז הידע
-              </h2>
-            </div>
+        <section className="mx-auto max-w-[1150px] px-[6%] py-24 md:py-28">
+          <div className="mb-16 text-center">
+            <LatinEyebrow tracking="0.5em" fontSize={15} className="mb-4">
+              Topics
+            </LatinEyebrow>
+            <h2 style={{ fontWeight: 700, fontSize: "1.75rem", color: C.ink, margin: 0 }}>
+              קטגוריות מרכז הידע
+            </h2>
           </div>
 
           <div
-            className="grid grid-cols-1 gap-px overflow-hidden sm:grid-cols-2 lg:grid-cols-3"
-            style={{
-              background: "var(--stone-100)",
-              border: "1px solid var(--stone-100)",
-              borderRadius: 20,
-            }}
+            className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3"
+            style={{ background: C.line, border: `1px solid ${C.line}` }}
           >
             {KNOWLEDGE_CATEGORIES_NAV.map((c, idx) => (
               <Link
@@ -141,129 +135,41 @@ function KnowledgeIndex() {
                 to="/category/$slug"
                 params={{ slug: c.slug }}
                 aria-label={`לקטגוריית ${c.label}`}
-                className="group flex flex-col gap-4 p-8 transition-colors"
-                style={{ background: "var(--paper)" }}
+                className="flex flex-col items-center gap-4 px-8 py-12 text-center transition-colors hover:bg-[#F7F5F1]"
+                style={{ background: C.paper }}
               >
-                <div className="flex items-center justify-between">
-                  <SerifNumber style={{ fontSize: "1.6rem", color: "var(--green-700)" }}>
-                    {String(idx + 1).padStart(2, "0")}
-                  </SerifNumber>
-                  <span
-                    aria-hidden
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 999,
-                      border: "1px solid var(--stone-100)",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "var(--green-700)",
-                      fontSize: 18,
-                    }}
-                  >
-                    ←
-                  </span>
-                </div>
-                <h3
-                  style={{
-                    fontFamily: "'Frank Ruhl Libre', serif",
-                    fontSize: "1.5rem",
-                    fontWeight: 500,
-                    color: "var(--ink-900)",
-                  }}
-                >
+                <span style={{ fontFamily: BODONI, fontSize: "1.6rem", color: C.taupe }}>
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <h3 style={{ fontWeight: 600, fontSize: 18, color: C.ink, lineHeight: 1.6 }}>
                   {c.label}
                 </h3>
-                <p style={{ color: "var(--ink-600)", fontSize: 14, lineHeight: 1.7 }}>
+                <p
+                  style={{ color: C.mutedSoft, fontSize: 14.5, lineHeight: 1.95, fontWeight: 300 }}
+                >
                   {CATEGORY_DESCRIPTIONS[c.slug] ?? "מאמרים ומדריכים בנושא."}
                 </p>
-                <span
-                  className="mt-auto inline-flex items-center gap-2 pt-4 text-sm"
-                  style={{
-                    color: "var(--green-700)",
-                    fontWeight: 500,
-                    borderTop: "1px solid var(--stone-100)",
-                  }}
-                >
-                  כל המאמרים בקטגוריה
-                </span>
+                <span style={{ ...READ_MORE_LINK, marginTop: 8 }}>לקטגוריה</span>
               </Link>
             ))}
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1200px] px-6 pb-20">
+        <section className="mx-auto max-w-[1150px] px-[6%] pb-24">
           <LeadMagnet />
         </section>
 
         {articles.length > 0 ? (
-          <section className="mx-auto max-w-[1200px] px-6 pb-24">
-            <div className="mb-10">
-              <BrandEyebrow>כל המאמרים</BrandEyebrow>
-              <h2
-                className="mt-3"
-                style={{
-                  fontFamily: "'Frank Ruhl Libre', serif",
-                  fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-                  fontWeight: 500,
-                  color: "var(--ink-900)",
-                }}
-              >
-                מאמרים אחרונים ב{site.brand}
+          <section className="mx-auto max-w-[1150px] px-[6%] pb-28">
+            <div className="mb-16 text-center">
+              <LatinEyebrow tracking="0.5em" fontSize={15} className="mb-4">
+                Journal
+              </LatinEyebrow>
+              <h2 style={{ fontWeight: 700, fontSize: "1.75rem", color: C.ink, margin: 0 }}>
+                כל המאמרים ב{site.brand}
               </h2>
             </div>
-            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {articles.map((a: ArticleCard) => (
-                <li key={a.slug}>
-                  <Link
-                    to="/article/$slug"
-                    params={{ slug: a.slug }}
-                    className="group block h-full overflow-hidden rounded-2xl border transition-all hover:-translate-y-0.5"
-                    style={{ background: "var(--paper)", borderColor: "var(--stone-100)" }}
-                    aria-label={a.title}
-                  >
-                    <div
-                      className="aspect-[16/10] overflow-hidden"
-                      style={{ background: "var(--stone-50)" }}
-                    >
-                      <img
-                        src={a.heroImage}
-                        alt={a.heroAlt}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform group-hover:scale-[1.03]"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <p className="text-xs" style={{ color: "var(--green-700)", fontWeight: 500 }}>
-                        {a.category} · {a.dateLabel}
-                      </p>
-                      <h3
-                        className="mt-3"
-                        style={{
-                          fontFamily: "'Frank Ruhl Libre', serif",
-                          fontSize: "1.25rem",
-                          lineHeight: 1.3,
-                          color: "var(--ink-900)",
-                          fontWeight: 500,
-                        }}
-                      >
-                        {a.title}
-                      </h3>
-                      <p
-                        className="mt-3 text-sm"
-                        style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
-                      >
-                        {a.excerpt}
-                      </p>
-                      <p className="mt-4 text-xs" style={{ color: "var(--ink-600)" }}>
-                        {a.readingTime}
-                      </p>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <CategoryGrid articles={articles} />
           </section>
         ) : null}
       </main>
