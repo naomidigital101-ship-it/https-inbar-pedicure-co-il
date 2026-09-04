@@ -12,6 +12,7 @@ import imgFungus from "@/assets/treatments/fungus.webp";
 import imgDiabetic from "@/assets/treatments/diabetic-feet.webp";
 import imgCracked from "@/assets/treatments/cracked-heels.webp";
 import imgOnycho from "@/assets/treatments/onycholysis.webp";
+import imgSports from "@/assets/treatments/sports-feet.webp";
 
 export type HomeService = {
   num: string;
@@ -70,6 +71,14 @@ export const DESIGN_SERVICES: readonly HomeService[] = [
     href: "/services/onycholysis",
     img: imgOnycho,
     alt: "שיקום ציפורן BIO: ג'ל שקוף נמרח במכחול על ציפורן פגומה",
+  },
+  {
+    num: "07",
+    title: "ספורטאים וחיילים",
+    desc: "שלפוחיות, ציפורן שחורה ויבלות מאמץ - שיקום מהיר לחזרה לפעילות.",
+    href: "/services/sports-feet",
+    img: imgSports,
+    alt: "שלפוחית חיכוך וקאלוס בכף רגל של ספורטאי אחרי מאמץ ממושך",
   },
 ] as const;
 

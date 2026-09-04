@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
@@ -62,7 +64,7 @@ const HOME_CSS = `
 
 
 @media (max-width: 1100px) {
-  .ip-circles-grid { grid-template-columns:repeat(3,1fr) !important; }
+  .ip-circles-grid { grid-template-columns:repeat(4,1fr) !important; }
   .ip-clinic-grid { grid-template-columns:1fr !important; gap:60px !important; }
   .ip-clinic-aside { position:static !important; }
   .ip-about-grid, .ip-contact-grid { grid-template-columns:1fr !important; gap:60px !important; }
@@ -145,9 +147,7 @@ export const Route = createFileRoute("/")({
       { property: "og:image", content: SITE.url + heroImage },
       { name: "twitter:image", content: SITE.url + heroImage },
     ],
-    links: [
-      { rel: "canonical", href: SITE.url + "/" },
-    ],
+    links: [{ rel: "canonical", href: SITE.url + "/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -207,10 +207,13 @@ function HomePage() {
   const { articles, reviews, rating } = Route.useLoaderData();
 
   /*
-   * כפתור "שליחה" בעיצוב הוא קישור לוואטסאפ. כדי שמה שהמבקר הקליד
-   * לא ילך לאיבוד, הערכים נארזים לתוך גוף ההודעה.
+   * כפתור "שליחה" בעיצוב היה קישור לוואטסאפ בלבד, כך שמי שנטש אחרי
+   * שוואטסאפ נפתח פשוט נעלם. עכשיו הפנייה נשמרת קודם בטבלת leads —
+   * כמו בטופס של עמוד יצירת הקשר — ורק אחר כך נפתח וואטסאפ עם
+   * ההודעה המוכנה. כשל בשמירה לא חוסם את המבקר.
    */
   const [form, setForm] = useState({ name: "", phone: "", email: "", audience: "", concern: "" });
+  const [sending, setSending] = useState(false);
   const formMessage = [
     "שלום, נשמח שתחזרו אלינו",
     form.name && `שם: ${form.name}`,
@@ -223,6 +226,33 @@ function HomePage() {
     .join("\n");
 
   // מאמרים וביקורות מגיעים מהמערכת; תוכן העיצוב משמש כברירת מחדל כשאין נתונים.
+  async function submitLead(e: FormEvent) {
+    e.preventDefault();
+    const name = form.name.trim();
+    const phone = form.phone.trim();
+    const email = form.email.trim();
+    if (name.length < 2) {
+      toast.error("נא למלא שם");
+      return;
+    }
+    if (!phone && !email) {
+      toast.error("צריך טלפון או אימייל כדי שאוכל לחזור אליכם");
+      return;
+    }
+    setSending(true);
+    const { error } = await supabase.from("leads").insert({
+      name,
+      phone: phone || null,
+      email: email ? email.toLowerCase() : null,
+      message: [form.audience, form.concern].filter(Boolean).join(" · ") || null,
+      source_page: typeof window !== "undefined" ? window.location.pathname : null,
+      status: "new",
+    });
+    setSending(false);
+    if (error) toast.error("השמירה נכשלה, ממשיכים לוואטסאפ");
+    window.location.href = `${WA}?text=${encodeURIComponent(formMessage)}`;
+  }
+
   const journal = articles.length
     ? articles.map((a) => ({
         cat: a.category,
@@ -396,7 +426,7 @@ function HomePage() {
                 maxWidth: "1240px",
                 margin: "0 auto",
                 display: "grid",
-                gridTemplateColumns: "repeat(6,1fr)",
+                gridTemplateColumns: "repeat(7,1fr)",
                 gap: "34px",
                 alignItems: "start",
               }}
@@ -1518,10 +1548,11 @@ function HomePage() {
                 >
                   השאירו פרטים ואחזור אליכם
                 </h3>
-                <div style={{ display: "grid", gap: "24px" }}>
+                <form onSubmit={submitLead} style={{ display: "grid", gap: "24px" }}>
                   <input
                     className="ip-input"
                     type="text"
+                    required
                     aria-label="שם מלא"
                     autoComplete="name"
                     placeholder="שם מלא"
@@ -1633,9 +1664,10 @@ function HomePage() {
                       textAlign: "right",
                     }}
                   />
-                  <a
+                  <button
                     className="ip-btn-solid"
-                    href={`${WA}?text=${encodeURIComponent(formMessage)}`}
+                    type="submit"
+                    disabled={sending}
                     style={{
                       background: "#0E3B2E",
                       color: "#FFFFFF",
@@ -1645,10 +1677,12 @@ function HomePage() {
                       textAlign: "center",
                       letterSpacing: "0.24em",
                       marginTop: "10px",
+                      border: "none",
+                      cursor: sending ? "wait" : "pointer",
                     }}
                   >
-                    שליחה
-                  </a>
+                    {sending ? "רגע…" : "שליחה"}
+                  </button>
                   <div
                     style={{
                       fontSize: "12px",
@@ -1659,7 +1693,7 @@ function HomePage() {
                   >
                     הפרטים נשמרים בדיסקרטיות מלאה
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </section>

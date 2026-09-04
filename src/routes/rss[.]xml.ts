@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { categories } from "@/lib/categories";
 import { articles } from "@/lib/articles";
+import { staticArticleToCard } from "@/lib/article-cards";
+import type { ArticleCard } from "@/lib/article-cards";
+import type { GeneratedArticlePayload } from "@/lib/ai-content.server";
 import { SITE } from "@/lib/site-config";
 
 const BASE_URL = SITE.url;
@@ -21,9 +26,39 @@ export const Route = createFileRoute("/rss.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const sorted = [...articles].sort((a, b) =>
-          a.date < b.date ? 1 : -1,
-        );
+        /*
+         * המאמרים חיים בדאטאבייס, לא בקובץ. הפיד קרא ממערך הסטטי הריק
+         * ולכן שידר 0 פריטים בזמן שהאתר מצהיר עליו בכל עמוד. כאן הוא
+         * שולף מאותו מקור שממנו נבנה הסייטמאפ, ומוסיף את הסטטיים אם יש.
+         */
+        const { data: rows } = await supabaseAdmin
+          .from("ai_articles")
+          .select("slug, title, payload, published_at, created_at")
+          .eq("status", "published")
+          .order("published_at", { ascending: false, nullsFirst: false });
+
+        const fromDb: ArticleCard[] = (rows ?? []).map((row) => {
+          const p = row.payload as GeneratedArticlePayload;
+          const date = row.published_at ?? row.created_at;
+          const cat = categories.find((c) => c.slug === p.categorySlug);
+          return {
+            slug: row.slug,
+            title: row.title ?? p.title,
+            excerpt: p.excerpt ?? "",
+            category: cat?.name ?? p.category ?? p.categorySlug,
+            categorySlug: p.categorySlug,
+            date,
+            dateLabel: "",
+            readingTime: "",
+            heroImage: "",
+            heroAlt: "",
+          };
+        });
+
+        const bySlug = new Map<string, ArticleCard>();
+        for (const a of articles.map(staticArticleToCard)) bySlug.set(a.slug, a);
+        for (const a of fromDb) if (!bySlug.has(a.slug)) bySlug.set(a.slug, a);
+        const sorted = [...bySlug.values()].sort((a, b) => (a.date < b.date ? 1 : -1));
 
         const items = sorted.map((a) => {
           const url = `${BASE_URL}/article/${a.slug}`;
@@ -36,7 +71,6 @@ export const Route = createFileRoute("/rss.xml")({
             `      <pubDate>${pubDate}</pubDate>`,
             `      <description>${escapeXml(a.excerpt)}</description>`,
             `      <category>${escapeXml(a.category)}</category>`,
-            `      <author>noreply@${SITE.domain} (${escapeXml(a.author)})</author>`,
             `    </item>`,
           ].join("\n");
         });
