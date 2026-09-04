@@ -128,7 +128,7 @@ export function AccessibilityMenu() {
             aria-modal="true"
             aria-labelledby="a11y-title"
             dir="rtl"
-            className="fixed bottom-20 left-4 z-[9999] max-h-[80vh] w-[min(360px,calc(100vw-2rem))] overflow-y-auto rounded-xl border border-foreground/20 bg-white text-black shadow-2xl"
+            className="fixed bottom-20 left-4 z-[9999] max-h-[80vh] w-[min(360px,calc(100vw-2rem))] overflow-y-auto border border-[#ECEAE6] bg-white text-black"
             style={{ fontFamily: "Heebo, sans-serif" }}
           >
             <div className="flex items-center justify-between border-b border-black/10 bg-[#0066cc] px-4 py-3 text-white">

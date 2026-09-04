@@ -36,24 +36,10 @@ export function CookieConsent() {
       dir="rtl"
       className="fixed inset-x-4 bottom-4 z-[60] mx-auto max-w-2xl md:inset-x-auto md:right-6 md:left-6"
       style={{
-        background: "color-mix(in oklab, var(--paper) 96%, transparent)",
-        backdropFilter: "saturate(140%) blur(10px)",
-        border: "1px solid var(--stone-100)",
-        borderRadius: 18,
-        boxShadow:
-          "0 1px 0 rgb(255 255 255 / 0.6) inset, 0 24px 48px -20px rgb(30 36 34 / 0.28)",
+        background: "#FFFFFF",
+        border: "1px solid #ECEAE6",
       }}
     >
-      {/* Gold hairline accent — מותג */}
-      <div
-        aria-hidden
-        className="absolute inset-x-6 top-0 h-px"
-        style={{
-          background:
-            "linear-gradient(90deg, transparent 0%, var(--accent-gold) 30%, var(--accent-gold) 70%, transparent 100%)",
-          opacity: 0.6,
-        }}
-      />
       <button
         type="button"
         onClick={accept}
@@ -89,12 +75,9 @@ export function CookieConsent() {
           >
             פרטיות באתר ענבר פרחי
           </p>
-          <p
-            className="mt-1.5 text-[0.92rem] leading-relaxed"
-            style={{ color: "var(--ink-900)" }}
-          >
-            האתר משתמש בקוקיז כדי לשפר את חוויית הגלישה ולנתח שימוש. בהמשך
-            השימוש באתר, את/ה מסכים/ה ל
+          <p className="mt-1.5 text-[0.92rem] leading-relaxed" style={{ color: "var(--ink-900)" }}>
+            האתר משתמש בקוקיז כדי לשפר את חוויית הגלישה ולנתח שימוש. בהמשך השימוש באתר, את/ה מסכים/ה
+            ל
             <Link
               to="/privacy"
               className="mx-1 underline underline-offset-4 transition-colors"
@@ -110,19 +93,15 @@ export function CookieConsent() {
           onClick={accept}
           className="group relative inline-flex h-11 shrink-0 items-center justify-center gap-2 px-6 text-[0.88rem] font-medium transition-all"
           style={{
-            background: "var(--green-700)",
-            color: "var(--paper)",
-            borderRadius: 999,
-            boxShadow:
-              "0 1px 0 rgb(255 255 255 / 0.15) inset, 0 8px 20px -12px rgb(79 140 123 / 0.55)",
+            background: "#0E3B2E",
+            color: "#FFFFFF",
+            letterSpacing: "0.16em",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--green-800)";
-            e.currentTarget.style.transform = "translateY(-1px)";
+            e.currentTarget.style.background = "#141414";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = "var(--green-700)";
-            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.background = "#0E3B2E";
           }}
           aria-label="אישור שימוש בקוקיז"
         >
