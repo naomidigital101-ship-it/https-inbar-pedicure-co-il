@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { AccessibilityMenu } from "@/components/shared/AccessibilityMenu";
 import { CookieConsent } from "@/components/shared/CookieConsent";
+import { GoogleAnalytics } from "@/components/shared/GoogleAnalytics";
 import { SiteBanner } from "@/components/shared/SiteBanner";
 import { SITE } from "@/lib/site-config";
 import { getSiteValues, listReviews } from "@/lib/cms.functions";
@@ -228,6 +229,7 @@ function RootComponent() {
         <Outlet />
         <AccessibilityMenu />
         <CookieConsent />
+        <GoogleAnalytics />
       </SiteProvider>
     </QueryClientProvider>
   );
