@@ -13,7 +13,6 @@ import {
   DESIGN_FAQS,
   DESIGN_PILLARS,
   DESIGN_SERVICES,
-  DESIGN_TESTIMONIALS,
   DESIGN_TRACKS,
 } from "@/lib/home-design";
 import heroAsset from "@/assets/inbar-hero-clinical.webp.asset.json";
@@ -117,7 +116,6 @@ export const Route = createFileRoute("/")({
     return {
       articles: articles.slice(0, 3),
       reviews: reviews.reviews.slice(0, 3),
-      rating: { average: reviews.average, count: reviews.count },
     };
   },
   head: () => ({
@@ -161,50 +159,13 @@ export const Route = createFileRoute("/")({
           })),
         }),
       },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": ["LocalBusiness", "HealthAndBeautyBusiness"],
-          name: SITE.brand,
-          description:
-            "קליניקה לפדיקור טיפולי בגישה קלינית בעלי, אזור בנימין, והכשרות מקצועיות לפדיקוריסטיות בכל הארץ.",
-          url: SITE.url,
-          telephone: SITE.phoneIntl,
-          email: SITE.email,
-          image: SITE.url + heroImage,
-          priceRange: "₪₪",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "עלי",
-            addressRegion: "אזור בנימין",
-            addressCountry: "IL",
-          },
-          areaServed: [
-            { "@type": "City", name: "עלי" },
-            { "@type": "City", name: "אריאל" },
-            { "@type": "City", name: "שילה" },
-            { "@type": "City", name: "עפרה" },
-            { "@type": "City", name: "ירושלים" },
-            { "@type": "AdministrativeArea", name: "אזור בנימין" },
-          ],
-          openingHoursSpecification: [
-            {
-              "@type": "OpeningHoursSpecification",
-              dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-              opens: "09:00",
-              closes: "20:00",
-            },
-          ],
-        }),
-      },
     ],
   }),
   component: HomePage,
 });
 
 function HomePage() {
-  const { articles, reviews, rating } = Route.useLoaderData();
+  const { articles, reviews } = Route.useLoaderData();
 
   /*
    * כפתור "שליחה" בעיצוב היה קישור לוואטסאפ בלבד, כך שמי שנטש אחרי
@@ -262,11 +223,7 @@ function HomePage() {
       }))
     : DESIGN_ARTICLES.map((a) => ({ ...a }));
 
-  const testimonials = reviews.length
-    ? reviews.map((r) => ({ quote: r.body, name: r.author_name }))
-    : DESIGN_TESTIMONIALS.map((t) => ({ ...t }));
-
-  const ratingLabel = rating.average ? rating.average.toFixed(1) : "5.0";
+  const testimonials = reviews.map((r) => ({ quote: r.body, name: r.author_name }));
 
   return (
     <>
@@ -1007,9 +964,8 @@ function HomePage() {
                     textAlign: "right",
                   }}
                 >
-                  יותר מ-12 שנה אני מטפלת בכף הרגל בגישה הקלינית הקפדנית ביותר — ובשנים האחרונות גם
-                  מלמדת אותה. הקליניקה שלי אינה מכון יופי: כל החלטה מתבססת על ראיות, פרוטוקולים
-                  בינלאומיים והבנה עמוקה של הפיזיולוגיה.
+                  אני מטפלת בכף הרגל בגישה הקלינית — וגם מלמדת אותה. הקליניקה שלי אינה מכון יופי: כל
+                  החלטה מתבססת על ראיות, פרוטוקולים בינלאומיים והבנה עמוקה של הפיזיולוגיה.
                 </p>
                 <p
                   style={{
@@ -1033,37 +989,8 @@ function HomePage() {
                     borderTop: "1px solid #E2DFD8",
                   }}
                 >
-                  <span
-                    style={{
-                      padding: "18px 26px 0",
-                      fontSize: "13.5px",
-                      fontWeight: 400,
-                      letterSpacing: "0.08em",
-                      borderLeft: "1px solid #E2DFD8",
-                    }}
-                  >
-                    בוגרת קורסים בינלאומיים
-                  </span>
-                  <span
-                    style={{
-                      padding: "18px 26px 0",
-                      fontSize: "13.5px",
-                      fontWeight: 400,
-                      letterSpacing: "0.08em",
-                      borderLeft: "1px solid #E2DFD8",
-                    }}
-                  >
+                  <span style={{ padding: "18px 26px 0", fontSize: "13.5px" }}>
                     פרוטוקול אגודת אייל
-                  </span>
-                  <span
-                    style={{
-                      padding: "18px 26px 0",
-                      fontSize: "13.5px",
-                      fontWeight: 400,
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    150+ שעות השתלמות בשנה
                   </span>
                 </div>
               </div>
@@ -1106,123 +1033,92 @@ function HomePage() {
           </section>
 
           {/* Testimonials */}
-          <section style={{ padding: "120px 6%", maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "70px" }}>
-              <div
-                style={{
-                  fontFamily: BODONI,
-                  fontSize: "15px",
-                  letterSpacing: "0.5em",
-                  color: "#6B6B6B",
-                  fontWeight: 400,
-                  marginLeft: "-0.5em",
-                }}
-              >
-                GOOGLE REVIEWS
-              </div>
-              <h2 className="ip-sr">ביקורות גוגל על הקליניקה</h2>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                  marginTop: "22px",
-                }}
-              >
-                <span style={{ color: "#947105", fontSize: "17px", letterSpacing: "0.2em" }}>
-                  ★★★★★
-                </span>
-                <span style={{ fontWeight: 300, fontSize: "14px", color: "#4E4E4E" }}>
-                  {ratingLabel} · ביקורות מאומתות מגוגל
-                </span>
-              </div>
-            </div>
-            <div
-              className="ip-testi-grid"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3,1fr)",
-                borderTop: "1px solid #ECEAE6",
-                borderBottom: "1px solid #ECEAE6",
-              }}
-            >
-              {testimonials.map((t, i) => (
+          {testimonials.length > 0 && (
+            <section style={{ padding: "120px 6%", maxWidth: "1100px", margin: "0 auto" }}>
+              <div style={{ textAlign: "center", marginBottom: "70px" }}>
                 <div
-                  key={`${t.name}-${i}`}
                   style={{
-                    padding: "52px 40px",
-                    borderLeft: "1px solid #ECEAE6",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "26px",
-                    textAlign: "center",
+                    fontFamily: BODONI,
+                    fontSize: "15px",
+                    letterSpacing: "0.5em",
+                    color: "#6B6B6B",
+                    fontWeight: 400,
+                    marginLeft: "-0.5em",
                   }}
                 >
-                  <span
-                    aria-hidden
-                    style={{
-                      fontFamily: BODONI,
-                      fontSize: "40px",
-                      color: "#726B5E",
-                      lineHeight: 0.5,
-                      height: "20px",
-                    }}
-                  >
-                    &quot;
-                  </span>
-                  <p
-                    style={{
-                      fontWeight: 300,
-                      fontSize: "15.5px",
-                      lineHeight: 2.05,
-                      color: "#4E4E4E",
-                      margin: 0,
-                      flex: 1,
-                    }}
-                  >
-                    {t.quote}
-                  </p>
+                  TESTIMONIALS
+                </div>
+                <h2 className="ip-sr">חוות דעת על הקליניקה</h2>
+              </div>
+              <div
+                className="ip-testi-grid"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3,1fr)",
+                  borderTop: "1px solid #ECEAE6",
+                  borderBottom: "1px solid #ECEAE6",
+                }}
+              >
+                {testimonials.map((t, i) => (
                   <div
+                    key={`${t.name}-${i}`}
                     style={{
+                      padding: "52px 40px",
+                      borderLeft: "1px solid #ECEAE6",
                       display: "flex",
                       flexDirection: "column",
-                      gap: "6px",
-                      alignItems: "center",
+                      gap: "26px",
+                      textAlign: "center",
                     }}
                   >
                     <span
                       aria-hidden
-                      style={{ color: "#947105", fontSize: "13px", letterSpacing: "0.2em" }}
-                    >
-                      ★★★★★
-                    </span>
-                    <span className="ip-sr">דירוג 5 מתוך 5 כוכבים</span>
-                    <span
                       style={{
-                        fontWeight: 600,
-                        fontSize: "14.5px",
-                        color: "#141414",
-                        letterSpacing: "0.08em",
+                        fontFamily: BODONI,
+                        fontSize: "40px",
+                        color: "#726B5E",
+                        lineHeight: 0.5,
+                        height: "20px",
                       }}
                     >
-                      {t.name}
+                      &quot;
                     </span>
-                    <span
+                    <p
                       style={{
                         fontWeight: 300,
-                        fontSize: "12.5px",
-                        color: "#6B6B6B",
-                        letterSpacing: "0.06em",
+                        fontSize: "15.5px",
+                        lineHeight: 2.05,
+                        color: "#4E4E4E",
+                        margin: 0,
+                        flex: 1,
                       }}
                     >
-                      ביקורת גוגל מאומתת
-                    </span>
+                      {t.quote}
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "6px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontWeight: 600,
+                          fontSize: "14.5px",
+                          color: "#141414",
+                          letterSpacing: "0.08em",
+                        }}
+                      >
+                        {t.name}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Knowledge */}
           <section

@@ -258,10 +258,7 @@ function SketchCard({ sketch }: { sketch: Sketch }) {
         >
           {sketch.title}
         </p>
-        <p
-          className="mt-4 text-[14.5px]"
-          style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
-        >
+        <p className="mt-4 text-[14.5px]" style={{ color: "var(--ink-600)", lineHeight: 1.7 }}>
           {sketch.description}
         </p>
         <div
@@ -294,7 +291,7 @@ function LogoSketchesPage() {
   return (
     <div className="flex min-h-screen flex-col" style={{ background: "var(--paper)" }}>
       <SiteHeader />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden">
           <div
@@ -351,8 +348,8 @@ function LogoSketchesPage() {
               style={{ color: "var(--ink-600)", lineHeight: 1.7 }}
             >
               כל סקיצה נאמנה לשפת המותג הקיימת — French Pharmacy, ירוק עמוק, נייר חם וזהב מאופק.
-              הטקסט בסקיצות באנגלית כדי לשמור על דיוק טיפוגרפי; השם והכותרת בעברית מוצגים מתחת
-              לסמל ברנדור React. בחרי כיוון ואני אהפוך אותו ל-SVG חד עם וריאציות מלאות.
+              הטקסט בסקיצות באנגלית כדי לשמור על דיוק טיפוגרפי; השם והכותרת בעברית מוצגים מתחת לסמל
+              ברנדור React. בחרי כיוון ואני אהפוך אותו ל-SVG חד עם וריאציות מלאות.
             </p>
 
             {/* Palette strip */}
@@ -468,9 +465,9 @@ function LogoSketchesPage() {
                     className="mt-4 text-[15px]"
                     style={{ color: "var(--ink-600)", lineHeight: 1.75 }}
                   >
-                    אות I דקה ומדויקת יותר, חמש אצבעות בראש ועקב מעוגל בבסיס,
-                    עם נקודת זהב בנקודת הלחץ. סמל עצמאי, ללא טקסט — מוכן לשימוש
-                    כפטיש ויזואלי, favicon, חותם על אריזות וחתימת מייל.
+                    אות I דקה ומדויקת יותר, חמש אצבעות בראש ועקב מעוגל בבסיס, עם נקודת זהב בנקודת
+                    הלחץ. סמל עצמאי, ללא טקסט — מוכן לשימוש כפטיש ויזואלי, favicon, חותם על אריזות
+                    וחתימת מייל.
                   </p>
                 </div>
                 {/* Dark preview */}

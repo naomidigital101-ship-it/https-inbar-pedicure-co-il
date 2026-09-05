@@ -10,8 +10,7 @@ const BODONI = "'Bodoni Moda',serif";
 const FONTS_HREF =
   "https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Assistant:wght@200;300;400;600;700&display=swap";
 
-const TITLE = "הצ׳קליסט מוכן להורדה | ענבר פרחי";
-const CHECKLIST_PDF_URL = "/downloads/checklist-47.pdf";
+const TITLE = "תודה | ענבר פרחי";
 
 const THANKS_CSS = `
 .ipt { direction:rtl; font-family:'Assistant',sans-serif; color:#141414; background:#FFFFFF; }
@@ -29,7 +28,7 @@ export const Route = createFileRoute("/thank-you")({
     meta: [
       { title: TITLE },
       { name: "robots", content: "noindex, nofollow" },
-      { name: "description", content: "תודה על ההרשמה." },
+      { name: "description", content: "ענבר פרחי — מאמרים ויצירת קשר." },
     ],
     links: [{ rel: "stylesheet", href: FONTS_HREF }],
   }),
@@ -79,7 +78,7 @@ function ThankYouPage() {
                 color: "#141414",
               }}
             >
-              הצ׳קליסט שלכם מוכן להורדה
+              תודה שביקרתם
             </h1>
             <p
               style={{
@@ -90,8 +89,7 @@ function ThankYouPage() {
                 margin: "0 0 46px",
               }}
             >
-              ההורדה מתחילה אוטומטית. אם היא לא התחילה, לחצו על הכפתור והורידו את ה-PDF המלא — 48
-              פריטים, ארבעה עמודים.
+              אפשר להמשיך לקרוא באתר או ליצור קשר עם ענבר.
             </p>
             <div
               style={{
@@ -102,10 +100,9 @@ function ThankYouPage() {
                 justifyContent: "center",
               }}
             >
-              <a
+              <Link
                 className="ipt-btn-solid"
-                href={CHECKLIST_PDF_URL}
-                download="madrich-pedicure-tipuli.pdf"
+                to="/contact"
                 style={{
                   background: "#0E3B2E",
                   color: "#FFFFFF",
@@ -116,8 +113,8 @@ function ThankYouPage() {
                   display: "inline-block",
                 }}
               >
-                הורדת הצ׳קליסט (PDF)
-              </a>
+                יצירת קשר
+              </Link>
               <Link
                 to="/"
                 className="ipt-btn-outline"
@@ -134,19 +131,6 @@ function ThankYouPage() {
                 חזרה לדף הבית
               </Link>
             </div>
-            <p
-              style={{
-                marginTop: "44px",
-                paddingTop: "26px",
-                borderTop: "1px solid #ECEAE6",
-                fontSize: "13px",
-                lineHeight: 1.95,
-                color: "#6B6B6B",
-                fontWeight: 300,
-              }}
-            >
-              הצ׳קליסט הוא חומר הסברה כללי ואינו מחליף בדיקה אישית בקליניקה או ייעוץ רפואי.
-            </p>
           </div>
         </section>
 

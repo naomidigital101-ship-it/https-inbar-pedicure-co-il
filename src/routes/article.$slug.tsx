@@ -9,13 +9,17 @@ import { ArticleBody } from "@/components/article/ArticleBody";
 import { RelatedArticles } from "@/components/article/RelatedArticles";
 import { C } from "@/components/article/editorial";
 import { getArticleBySlug, getRelatedArticles } from "@/lib/articles";
+import { sanitizePublicLinks } from "@/lib/public-content-links";
 import { getPublishedAiArticleBySlug } from "@/lib/ai-content.functions";
 
 export const Route = createFileRoute("/article/$slug")({
   loader: async ({ params }) => {
     const staticArticle = getArticleBySlug(params.slug);
     if (staticArticle) {
-      return { article: staticArticle, related: getRelatedArticles(staticArticle.relatedSlugs) };
+      return {
+        article: sanitizePublicLinks(staticArticle),
+        related: getRelatedArticles(staticArticle.relatedSlugs),
+      };
     }
     const aiArticle = await getPublishedAiArticleBySlug({ data: { slug: params.slug } });
     if (!aiArticle) throw notFound();
@@ -65,15 +69,9 @@ export const Route = createFileRoute("/article/$slug")({
         "@type": "Person",
         name: article.author,
         ...(article.authorBio ? { description: article.authorBio } : {}),
-        jobTitle: "פדיקוריסטית טיפולית",
-        knowsAbout: [
-          "טיפוח כף הרגל",
-          "טיפול בציפורניים",
-          "יבלות ועור מעובה",
-          "כף רגל סוכרתית",
-          "התאמת נעליים",
-          "אורתופדיה שיקומית",
-        ],
+        ...(article.author.trim() === "ענבר פרחי"
+          ? { "@id": SITE + "/about#inbar-farchi", url: SITE + "/about" }
+          : {}),
       },
       publisher: {
         "@type": "Organization",

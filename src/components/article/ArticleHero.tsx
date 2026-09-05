@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { Article } from "@/lib/articles";
 import { C, TrackedLabel } from "./editorial";
 
@@ -45,7 +46,17 @@ export function ArticleHero({ article }: { article: Article }) {
           }}
         >
           <span>
-            מאת <span style={{ color: C.ink, fontWeight: 400 }}>{article.author}</span>
+            מאת{" "}
+            {article.author.trim() === "ענבר פרחי" ? (
+              <Link
+                to="/about"
+                style={{ color: C.ink, fontWeight: 400, textDecoration: "underline" }}
+              >
+                {article.author}
+              </Link>
+            ) : (
+              <span style={{ color: C.ink, fontWeight: 400 }}>{article.author}</span>
+            )}
           </span>
           <span aria-hidden style={{ color: C.edge }}>
             ·

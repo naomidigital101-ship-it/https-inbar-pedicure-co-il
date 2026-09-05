@@ -5,8 +5,8 @@ import { Breadcrumb } from "@/components/article/Breadcrumb";
 import { LeadMagnet } from "@/components/shared/LeadMagnet";
 import { BODONI, C, LatinEyebrow, READ_MORE_LINK } from "@/components/article/editorial";
 import { CategoryGrid } from "@/components/category/CategoryGrid";
-import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import { useSite } from "@/lib/use-site";
+import { SITE, KNOWLEDGE_CATEGORIES_NAV } from "@/lib/site-config";
 import { listPublishedAiArticleCards } from "@/lib/ai-content.functions";
 
 const PAGE_URL = `${SITE.url}/knowledge`;
@@ -108,9 +108,7 @@ function KnowledgeIndex() {
                 maxWidth: 640,
               }}
             >
-              מאמרים, מדריכים ותשובות לשאלות שמטופלים שואלים אותי בקליניקה — מבוססים על{" "}
-              {site.yearsExperience} שנות עבודה קלינית, פרוטוקולים סטריליים ומקורות מקצועיים. בחרו
-              קטגוריה כדי להתחיל.
+              מאמרים, מדריכים ותשובות בנושאי כף הרגל. בחרו קטגוריה כדי להתחיל.
             </p>
           </div>
         </section>

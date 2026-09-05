@@ -5,6 +5,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { categories } from "./categories";
 import { articles as staticArticles } from "./articles";
 import { DIABETES_CANON } from "./diabetes-canon";
+import { sanitizePublicLinks } from "./public-content-links";
 
 /* ---------- Zod schemas for AI structured output ---------- */
 
@@ -31,7 +32,11 @@ export const TopicSuggestionSchema = z.object({
 });
 
 export const ArticlePayloadSchema = z.object({
-  slug: z.string().regex(/^[a-z0-9-]+$/).min(3).max(80),
+  slug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/)
+    .min(3)
+    .max(80),
   title: z.string().min(10).max(120),
   excerpt: z.string().min(40).max(220),
   metaDescription: z.string().min(80).max(160),
@@ -101,9 +106,7 @@ export const ArticlePayloadSchema = z.object({
     .array(z.object({ q: z.string(), a: z.string() }))
     .min(3)
     .max(8),
-  glossary: z
-    .array(z.object({ term: z.string(), definition: z.string() }))
-    .optional(),
+  glossary: z.array(z.object({ term: z.string(), definition: z.string() })).optional(),
   contextualLinks: z
     .array(
       z.object({
@@ -124,16 +127,15 @@ export const ArticlePayloadSchema = z.object({
       rows: z.array(z.array(z.string())).min(2).max(20),
     })
     .optional(),
-  checklist: z
-    .preprocess(
-      (v) => (v === null ? undefined : v),
-      z
-        .object({
-          title: z.string().max(120).optional(),
-          items: z.array(z.string()).min(3).max(20),
-        })
-        .optional(),
-    ),
+  checklist: z.preprocess(
+    (v) => (v === null ? undefined : v),
+    z
+      .object({
+        title: z.string().max(120).optional(),
+        items: z.array(z.string()).min(3).max(20),
+      })
+      .optional(),
+  ),
   sources: z
     .array(z.object({ label: z.string(), url: z.string().url() }))
     .max(10)
@@ -145,10 +147,28 @@ export type GeneratedArticlePayload = z.infer<typeof ArticlePayloadSchema>;
 
 /* ---------- Helpers ---------- */
 
-const HEBREW_DAYS = ["יום ראשון", "יום שני", "יום שלישי", "יום רביעי", "יום חמישי", "יום שישי", "שבת"];
+const HEBREW_DAYS = [
+  "יום ראשון",
+  "יום שני",
+  "יום שלישי",
+  "יום רביעי",
+  "יום חמישי",
+  "יום שישי",
+  "שבת",
+];
 const HEBREW_MONTHS = [
-  "ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני",
-  "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר",
+  "ינואר",
+  "פברואר",
+  "מרץ",
+  "אפריל",
+  "מאי",
+  "יוני",
+  "יולי",
+  "אוגוסט",
+  "ספטמבר",
+  "אוקטובר",
+  "נובמבר",
+  "דצמבר",
 ];
 
 export function formatHebrewDate(iso: string): string {
@@ -169,21 +189,23 @@ export function estimateReadingTime(payload: GeneratedArticlePayload): string {
 
 /** Sanitize Hebrew text — strip em-dash and AI tells. */
 export function sanitizeHebrew(text: string): string {
-  return text
-    .replace(/—/g, "-")
-    .replace(/–/g, "-")
-    .replace(/\u2014/g, "-")
-    .replace(/\u2013/g, "-")
-    // Strip leftover markdown that the renderer doesn't parse
-    .replace(/\*{2,}/g, "")
-    .replace(/^#{2,}\s+/gm, "")
-    .replace(/__([^_]+)__/g, "$1")
-    // Strip stray Arabic characters that leaked into Hebrew text
-    .replace(/[\u0600-\u06FF]/g, "")
-    // Replacement char
-    .replace(/\uFFFD/g, "")
-    .replace(/\s+/g, (m) => (m.includes("\n") ? m : " "))
-    .trim();
+  return (
+    text
+      .replace(/—/g, "-")
+      .replace(/–/g, "-")
+      .replace(/\u2014/g, "-")
+      .replace(/\u2013/g, "-")
+      // Strip leftover markdown that the renderer doesn't parse
+      .replace(/\*{2,}/g, "")
+      .replace(/^#{2,}\s+/gm, "")
+      .replace(/__([^_]+)__/g, "$1")
+      // Strip stray Arabic characters that leaked into Hebrew text
+      .replace(/[\u0600-\u06FF]/g, "")
+      // Replacement char
+      .replace(/\uFFFD/g, "")
+      .replace(/\s+/g, (m) => (m.includes("\n") ? m : " "))
+      .trim()
+  );
 }
 
 export function sanitizePayload(p: GeneratedArticlePayload): GeneratedArticlePayload {
@@ -278,7 +300,11 @@ async function callJSON<T extends z.ZodTypeAny>(
       lastErr = err;
       const msg = (err as Error)?.message ?? "";
       // Retry on transient upstream failures and structured-output mismatches.
-      if (!/Invalid JSON|Unexpected end of JSON input|No object generated|response did not match|schema|structured|fetch failed|ECONNRESET|timeout|502|503|504|empty/i.test(msg)) {
+      if (
+        !/Invalid JSON|Unexpected end of JSON input|No object generated|response did not match|schema|structured|fetch failed|ECONNRESET|timeout|502|503|504|empty/i.test(
+          msg,
+        )
+      ) {
         throw err;
       }
       await new Promise((r) => setTimeout(r, 1500 * (attempt + 1)));
@@ -311,9 +337,7 @@ async function callJSON<T extends z.ZodTypeAny>(
     try {
       parsed = JSON.parse(repairJson(jsonStr));
     } catch {
-      throw new Error(
-        `AI returned invalid JSON: ${(e as Error).message}\n${text.slice(0, 400)}`,
-      );
+      throw new Error(`AI returned invalid JSON: ${(e as Error).message}\n${text.slice(0, 400)}`);
     }
   }
   try {
@@ -334,7 +358,7 @@ function extractJson(text: string): string {
     .replace(/```json\s*/gi, "")
     .replace(/```\s*/g, "")
     .trim();
-  const start = cleaned.search(/[\[{]/);
+  const start = cleaned.search(/[[{]/);
   if (start === -1) return cleaned;
 
   const opening = cleaned[start];
@@ -352,6 +376,8 @@ function extractJson(text: string): string {
 function repairJson(input: string): string {
   let s = input
     .trim()
+    // Deliberately strip control characters that are invalid inside generated JSON.
+    // eslint-disable-next-line no-control-regex
     .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "")
     .replace(/,(\s*[}\]])/g, "$1");
   const stack: string[] = [];
@@ -359,9 +385,18 @@ function repairJson(input: string): string {
   let escape = false;
   for (let i = 0; i < s.length; i++) {
     const ch = s[i];
-    if (escape) { escape = false; continue; }
-    if (ch === "\\") { escape = true; continue; }
-    if (ch === '"') { inString = !inString; continue; }
+    if (escape) {
+      escape = false;
+      continue;
+    }
+    if (ch === "\\") {
+      escape = true;
+      continue;
+    }
+    if (ch === '"') {
+      inString = !inString;
+      continue;
+    }
     if (inString) continue;
     if (ch === "{" || ch === "[") stack.push(ch);
     else if (ch === "}" || ch === "]") stack.pop();
@@ -482,13 +517,11 @@ export async function generateArticleCore(opts: {
   model: string;
 }): Promise<GeneratedArticlePayload> {
   // Build internal links candidate list
-  const internalLinkCandidates = [
-    ...staticArticles.map((a) => ({ title: a.title, slug: a.slug })),
-  ];
+  const internalLinkCandidates = [...staticArticles.map((a) => ({ title: a.title, slug: a.slug }))];
 
   const cat = categories.find((c) => c.slug === opts.topic.category_slug);
 
-  const system = `את כותבת תוכן בכירה באתר של ענבר פרחי, פדיקוריסטית טיפולית עם 12+ שנות ניסיון בקליניקה לטיפוח כף הרגל (לא פודיאטרית, לא אחות, לא רופאה). את כותבת בטון מקצועי, חם, מבוסס - כמי שמסבירה ללקוחה בקליניקה: ברור, ענייני, בלי לזלזל ובלי לפחד.
+  const system = `את כותבת תוכן בכירה באתר של ענבר פרחי, פדיקוריסטית טיפולית בקליניקה לטיפוח כף הרגל (לא פודיאטרית, לא אחות, לא רופאה). את כותבת בטון מקצועי, חם, מבוסס - כמי שמסבירה ללקוחה בקליניקה: ברור, ענייני, בלי לזלזל ובלי לפחד.
 
 חשוב: התואר המקצועי הוא "פדיקוריסטית טיפולית" בלבד. אסור להציג את ענבר כפודיאטרית, מומחית רפואית, אחות, רופאה או כל תואר אחר.
 
@@ -637,12 +670,10 @@ export async function generateHeroImage(opts: {
   }
 
   const path = `${opts.slug}-${Date.now()}.png`;
-  const { error: upErr } = await supabaseAdmin.storage
-    .from("article-images")
-    .upload(path, bytes, {
-      contentType: "image/png",
-      upsert: false,
-    });
+  const { error: upErr } = await supabaseAdmin.storage.from("article-images").upload(path, bytes, {
+    contentType: "image/png",
+    upsert: false,
+  });
   if (upErr) throw new Error(`Storage upload failed: ${upErr.message}`);
 
   const { data: pub } = supabaseAdmin.storage.from("article-images").getPublicUrl(path);
@@ -693,7 +724,10 @@ export async function runArticleQA(opts: {
     { re: /\[\s*(TBD|TODO|XXX|PLACEHOLDER|FILL[_ ]?IN)\s*\]/i, msg: "מציין placeholder בטקסט" },
     { re: /\b(lorem ipsum|dolor sit amet)\b/i, msg: "טקסט Lorem Ipsum" },
     { re: /\{\{[^}]+\}\}/, msg: "תבנית {{...}} לא הוחלפה" },
-    { re: /undefined|\bNaN\b|\[object Object\]/, msg: "ערך JS שדלף לטקסט (undefined/NaN/[object Object])" },
+    {
+      re: /undefined|\bNaN\b|\[object Object\]/,
+      msg: "ערך JS שדלף לטקסט (undefined/NaN/[object Object])",
+    },
     { re: /\?{3,}|!{4,}/, msg: "רצף של ??? או !!!! בטקסט" },
     { re: /(.)\1{6,}/, msg: "תו חוזר 7+ פעמים (גיבריש)" },
     { re: /[\u0600-\u06FF]/, msg: "אותיות ערביות בטקסט עברי" },
@@ -779,7 +813,11 @@ export async function runArticleQA(opts: {
     (l) => !l.external && l.href.startsWith("/article/"),
   ).length;
   if (internalCount < 4)
-    issues.push({ severity: "error", category: "links", message: `פחות מ-4 קישורים פנימיים (${internalCount})` });
+    issues.push({
+      severity: "error",
+      category: "links",
+      message: `פחות מ-4 קישורים פנימיים (${internalCount})`,
+    });
   const validSlugs = new Set(staticArticles.map((a) => a.slug));
   for (const l of p.contextualLinks) {
     if (l.href.startsWith("/article/")) {
@@ -797,30 +835,66 @@ export async function runArticleQA(opts: {
   // External link safety + relevance whitelist (topic = podiatry / foot health)
   const SAFE_EXTERNAL_HOSTS = new Set<string>([
     // Israeli health authorities & HMOs
-    "health.gov.il", "gov.il", "clalit.co.il", "maccabi4u.co.il", "leumit.co.il",
-    "meuhedet.co.il", "hadassah.org.il", "sheba.co.il", "rambam.org.il",
-    "tasmc.org.il", "telavivsourasky.org.il", "assuta.co.il",
+    "health.gov.il",
+    "gov.il",
+    "clalit.co.il",
+    "maccabi4u.co.il",
+    "leumit.co.il",
+    "meuhedet.co.il",
+    "hadassah.org.il",
+    "sheba.co.il",
+    "rambam.org.il",
+    "tasmc.org.il",
+    "telavivsourasky.org.il",
+    "assuta.co.il",
     // International health authorities
-    "who.int", "cdc.gov", "nih.gov", "nhs.uk", "fda.gov", "europa.eu",
+    "who.int",
+    "cdc.gov",
+    "nih.gov",
+    "nhs.uk",
+    "fda.gov",
+    "europa.eu",
     "ema.europa.eu",
     // Medical research databases
-    "pubmed.ncbi.nlm.nih.gov", "ncbi.nlm.nih.gov", "cochranelibrary.com",
-    "cochrane.org", "uptodate.com", "medscape.com",
+    "pubmed.ncbi.nlm.nih.gov",
+    "ncbi.nlm.nih.gov",
+    "cochranelibrary.com",
+    "cochrane.org",
+    "uptodate.com",
+    "medscape.com",
     // Top medical journals
-    "bmj.com", "nejm.org", "jamanetwork.com", "thelancet.com", "nature.com",
-    "sciencedirect.com", "springer.com", "wiley.com", "bjsm.bmj.com",
+    "bmj.com",
+    "nejm.org",
+    "jamanetwork.com",
+    "thelancet.com",
+    "nature.com",
+    "sciencedirect.com",
+    "springer.com",
+    "wiley.com",
+    "bjsm.bmj.com",
     // Clinical guidelines
-    "nice.org.uk", "aaos.org", "apma.org",
+    "nice.org.uk",
+    "aaos.org",
+    "apma.org",
     "eyal.org.il",
     // Renowned clinics & medical references
-    "mayoclinic.org", "clevelandclinic.org", "hopkinsmedicine.org",
-    "health.harvard.edu", "medlineplus.gov", "merckmanuals.com",
-    "msdmanuals.com", "kp.org",
+    "mayoclinic.org",
+    "clevelandclinic.org",
+    "hopkinsmedicine.org",
+    "health.harvard.edu",
+    "medlineplus.gov",
+    "merckmanuals.com",
+    "msdmanuals.com",
+    "kp.org",
     // Sports medicine
-    "acsm.org", "sportsmedicineaustralia.com.au",
+    "acsm.org",
+    "sportsmedicineaustralia.com.au",
     // General reference
-    "en.wikipedia.org", "he.wikipedia.org",
-    "youtube.com", "youtu.be", "youtube-nocookie.com",
+    "en.wikipedia.org",
+    "he.wikipedia.org",
+    "youtube.com",
+    "youtu.be",
+    "youtube-nocookie.com",
   ]);
   const isSafeHost = (host: string) =>
     SAFE_EXTERNAL_HOSTS.has(host) ||
@@ -886,7 +960,11 @@ export async function runArticleQA(opts: {
           });
         }
       } catch {
-        issues.push({ severity: "error", category: "links", message: `מקור עם URL פגום: ${s.url}` });
+        issues.push({
+          severity: "error",
+          category: "links",
+          message: `מקור עם URL פגום: ${s.url}`,
+        });
       }
     }
   }
@@ -906,17 +984,21 @@ export async function runArticleQA(opts: {
   const hasVideo = p.sections.some(
     (s) => Boolean(s.youtubeId) || Boolean((s as unknown as { video?: unknown }).video),
   );
-  const hasInfographic = p.sections.some(
-    (s) => Boolean((s as unknown as { infographic?: unknown }).infographic),
+  const hasInfographic = p.sections.some((s) =>
+    Boolean((s as unknown as { infographic?: unknown }).infographic),
   );
-  const calloutCount = p.sections.filter(
-    (s) => Boolean((s as unknown as { callout?: unknown }).callout),
+  const calloutCount = p.sections.filter((s) =>
+    Boolean((s as unknown as { callout?: unknown }).callout),
   ).length;
   const hasSpecTable = Boolean((p as unknown as { specTable?: unknown }).specTable);
-  const hasChecklist = Boolean((p as unknown as { checklist?: { items?: unknown[] } }).checklist?.items?.length);
-  const hasGlossary = Array.isArray((p as unknown as { glossary?: unknown[] }).glossary) &&
+  const hasChecklist = Boolean(
+    (p as unknown as { checklist?: { items?: unknown[] } }).checklist?.items?.length,
+  );
+  const hasGlossary =
+    Array.isArray((p as unknown as { glossary?: unknown[] }).glossary) &&
     ((p as unknown as { glossary?: unknown[] }).glossary?.length ?? 0) >= 3;
-  const hasTldr = Array.isArray((p as unknown as { tldr?: unknown[] }).tldr) &&
+  const hasTldr =
+    Array.isArray((p as unknown as { tldr?: unknown[] }).tldr) &&
     ((p as unknown as { tldr?: unknown[] }).tldr?.length ?? 0) >= 2;
 
   const interactiveScore =
@@ -939,7 +1021,9 @@ export async function runArticleQA(opts: {
         !hasChecklist && "צ'קליסט",
         !hasGlossary && "מילון מונחים",
         !hasTldr && "TL;DR",
-      ].filter(Boolean).join(", ")}`,
+      ]
+        .filter(Boolean)
+        .join(", ")}`,
     });
   }
   if (calloutCount < 1) {
@@ -986,13 +1070,32 @@ export async function runArticleQA(opts: {
 
   // Concept-without-image: sections that mention a tool/part keyword but have no visual
   const VISUAL_KEYWORDS = [
-    "מפתח אלן", "מפתח רגעים", "טורקיומטר", "פלאג", "פילטר", "מצת",
-    "ברגים", "בורג", "שרשרת", "גלגל שיניים", "בלמים", "רפידות",
-    "מצמד", "פיסטון", "שסתום", "קרבורטור", "כובע",
+    "מפתח אלן",
+    "מפתח רגעים",
+    "טורקיומטר",
+    "פלאג",
+    "פילטר",
+    "מצת",
+    "ברגים",
+    "בורג",
+    "שרשרת",
+    "גלגל שיניים",
+    "בלמים",
+    "רפידות",
+    "מצמד",
+    "פיסטון",
+    "שסתום",
+    "קרבורטור",
+    "כובע",
   ];
   let missingConceptVisuals = 0;
   for (const s of p.sections) {
-    const text = (s.paragraphs?.join(" ") ?? "") + " " + (s.list?.map((it) => (typeof it === "string" ? it : (it as { text: string }).text)).join(" ") ?? "");
+    const text =
+      (s.paragraphs?.join(" ") ?? "") +
+      " " +
+      (s.list
+        ?.map((it) => (typeof it === "string" ? it : (it as { text: string }).text))
+        .join(" ") ?? "");
     const hasVisual =
       Boolean(s.inlineImagePrompt) ||
       Boolean((s as unknown as { image?: unknown }).image) ||
@@ -1059,7 +1162,10 @@ ${p.intro.join("\n")}`,
 
 כותרת: ${p.title}
 תקציר: ${p.excerpt}
-סעיפים: ${p.sections.map((s) => s.heading + ": " + (s.paragraphs?.join(" ") ?? s.list?.join(", ") ?? "")).join("\n").slice(0, 4000)}`,
+סעיפים: ${p.sections
+        .map((s) => s.heading + ": " + (s.paragraphs?.join(" ") ?? s.list?.join(", ") ?? ""))
+        .join("\n")
+        .slice(0, 4000)}`,
       z.object({
         suspicious: z.array(z.object({ claim: z.string(), reason: z.string() })).max(20),
       }),
@@ -1197,7 +1303,10 @@ export async function repairArticleIssues(opts: {
   if (needsTextFix) {
     try {
       const sectionsBrief = p.sections
-        .map((s) => `- id="${s.id}" | ${s.heading}\n  ${(s.paragraphs?.join(" ") ?? "").slice(0, 300)}`)
+        .map(
+          (s) =>
+            `- id="${s.id}" | ${s.heading}\n  ${(s.paragraphs?.join(" ") ?? "").slice(0, 300)}`,
+        )
         .join("\n");
 
       const repairSystem = `את עורכת תוכן בכירה באתר פודיאטריה רפואי בעברית. אסור מקף ארוך, אסור ביטויי מילוי שיווקיים, אסור סימני AI. כתיבה ישירה, חמה, מקצועית, מגיעה לעניין במשפט הראשון. כל פסקה - עובדה רפואית אחת או פעולה אחת. אסור "בעולם של היום", "חשוב להבין ש", "כידוע לכולנו". טון של פודיאטרית מנוסה שמסבירה למטופלת בקליניקה.`;
@@ -1271,8 +1380,6 @@ ${sectionsBrief}
 
   return { payload: result.changed ? sanitizePayload(p) : p, result };
 }
-
-
 
 /**
  * עובר על sections עם inlineImagePrompt ומייצר תמונות אינליין.
@@ -1384,11 +1491,25 @@ const FactCheckSchema = z.object({
   corrections: z
     .array(
       z.object({
-        original: z.string().min(3).max(1000).describe("הטקסט המדויק שמופיע במאמר, כפי שהוא, כדי שנוכל למצוא ולהחליף"),
-        corrected: z.string().min(3).max(1000).describe("הטקסט המתוקן, באותה שפה ובאותו סגנון, בלי מקף ארוך"),
+        original: z
+          .string()
+          .min(3)
+          .max(1000)
+          .describe("הטקסט המדויק שמופיע במאמר, כפי שהוא, כדי שנוכל למצוא ולהחליף"),
+        corrected: z
+          .string()
+          .min(3)
+          .max(1000)
+          .describe("הטקסט המתוקן, באותה שפה ובאותו סגנון, בלי מקף ארוך"),
         whatWasWrong: z.string().min(5).max(400).describe("הסבר קצר בעברית מה היה לא נכון"),
-        source: z.string().min(3).max(300).describe("המקור הסמכותי שעליו ההתבסס התיקון (שם דומיין/יצרן/תקן)"),
-        confidence: z.enum(["high", "medium"]).describe("גבוה רק אם זה ידוע ומאומת מול מקור סמכותי"),
+        source: z
+          .string()
+          .min(3)
+          .max(300)
+          .describe("המקור הסמכותי שעליו ההתבסס התיקון (שם דומיין/יצרן/תקן)"),
+        confidence: z
+          .enum(["high", "medium"])
+          .describe("גבוה רק אם זה ידוע ומאומת מול מקור סמכותי"),
       }),
     )
     .max(30)
@@ -1436,7 +1557,8 @@ function collectArticleTexts(p: GeneratedArticlePayload): string[] {
     out.push(s.heading);
     if (s.paragraphs) out.push(...s.paragraphs);
     if (s.list) {
-      for (const it of s.list) out.push(typeof it === "string" ? it : (it as { text: string }).text);
+      for (const it of s.list)
+        out.push(typeof it === "string" ? it : (it as { text: string }).text);
     }
     if (s.callout) out.push(s.callout.title, s.callout.body);
   }
@@ -1445,7 +1567,11 @@ function collectArticleTexts(p: GeneratedArticlePayload): string[] {
   return out;
 }
 
-function replaceInPayload(p: GeneratedArticlePayload, original: string, corrected: string): boolean {
+function replaceInPayload(
+  p: GeneratedArticlePayload,
+  original: string,
+  corrected: string,
+): boolean {
   let did = false;
   const fix = (s: string): string => {
     if (s.includes(original)) {
@@ -1514,7 +1640,13 @@ ${corpus}
     console.error(`Fact-check AI call failed for ${opts.slug}:`, e);
     return {
       payload: opts.payload,
-      result: { changed: false, claimsReviewed: 0, correctionsProposed: 0, correctionsApplied: 0, corrections: [] },
+      result: {
+        changed: false,
+        claimsReviewed: 0,
+        correctionsProposed: 0,
+        correctionsApplied: 0,
+        corrections: [],
+      },
     };
   }
 
@@ -1604,7 +1736,10 @@ ${internalLinkCandidates}
     enrichment = await callJSON(opts.qaModel, system, prompt, EnrichmentSchema);
   } catch (e) {
     console.error(`Enrichment AI call failed for ${opts.slug}:`, e);
-    return { payload: p, result: { changed: false, imagesGenerated: 0, videosAdded: 0, faqsAdded: 0, linksAdded: 0 } };
+    return {
+      payload: p,
+      result: { changed: false, imagesGenerated: 0, videosAdded: 0, faqsAdded: 0, linksAdded: 0 },
+    };
   }
 
   let changed = false;
@@ -1702,18 +1837,16 @@ ${internalLinkCandidates}
 
 /* ---------- 5. Build Article object from DB row ---------- */
 
-export function payloadToArticle(
-  row: {
-    slug: string;
-    title: string;
-    payload: unknown;
-    hero_image_url: string | null;
-    published_at: string | null;
-    created_at: string;
-    updated_at: string;
-  },
-) {
-  const p = row.payload as GeneratedArticlePayload;
+export function payloadToArticle(row: {
+  slug: string;
+  title: string;
+  payload: unknown;
+  hero_image_url: string | null;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+}) {
+  const p = sanitizePublicLinks(row.payload as GeneratedArticlePayload);
   const date = row.published_at ?? row.created_at;
   const dateModified = row.updated_at;
   const cat = categories.find((c) => c.slug === p.categorySlug);
@@ -1746,7 +1879,9 @@ export function payloadToArticle(
       ordered: s.ordered,
       callout: s.callout,
       image: (s as unknown as { image?: { src: string; alt: string; caption?: string } }).image,
-      infographic: (s as unknown as { infographic?: { src: string; alt: string; caption?: string } }).infographic,
+      infographic: (
+        s as unknown as { infographic?: { src: string; alt: string; caption?: string } }
+      ).infographic,
       video: s.youtubeId
         ? { youtubeId: s.youtubeId, title: s.youtubeTitle ?? s.heading }
         : undefined,

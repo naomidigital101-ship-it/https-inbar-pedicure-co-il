@@ -20,7 +20,7 @@ const PAGE_URL = `${SITE.url}/about`;
 const HERO_ABS = `${SITE.url}${heroAsset.url}`;
 const TITLE = `אודות ${SITE.brand} | פדיקוריסטית טיפולית בעלי`;
 const DESCRIPTION =
-  "ענבר פרחי, פדיקוריסטית טיפולית בעלי, אזור בנימין. 12+ שנות ניסיון בטיפול קליני ביבלות, פטרת, ציפורן חודרנית וכף רגל סוכרתית. מרצה ומכשירה פדיקוריסטיות בכל הארץ.";
+  "ענבר פרחי, פדיקוריסטית טיפולית בעלי, אזור בנימין. טיפול קליני ביבלות, פטרת, ציפורן חודרנית וכף רגל סוכרתית. מרצה ומכשירה פדיקוריסטיות בכל הארץ.";
 
 const ABOUT_CSS = `
 .ipa { direction:rtl; font-family:'Assistant',sans-serif; color:#141414; background:#FFFFFF; }
@@ -48,6 +48,8 @@ const personSchema = {
   url: PAGE_URL,
   mainEntity: {
     "@type": "Person",
+    "@id": PAGE_URL + "#inbar-farchi",
+    url: PAGE_URL,
     name: SITE.brand,
     jobTitle: "פדיקוריסטית טיפולית",
     description: DESCRIPTION,
@@ -150,12 +152,10 @@ const daughters = [
 ];
 
 const credentials = [
-  "12+ שנות ניסיון בטיפול קליני בכף הרגל",
   "השתלמויות קבועות בבית החולים איכילוב",
   "כף רגל סוכרתית לפי פרוטוקול אגודת אייל",
   "התמחות בשיטת BIO לשיקום ציפורניים",
   "מרצה ומכשירה פדיקוריסטיות טיפוליות",
-  "200+ מטופלים בשנה במגוון מצבי כף רגל",
 ];
 
 function Eyebrow({ children, dark = false }: { children: string; dark?: boolean }) {

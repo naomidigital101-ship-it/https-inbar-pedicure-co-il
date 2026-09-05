@@ -11,6 +11,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { buildSiteValues, SITE_DEFAULTS } from "@/lib/site-values";
+import { publicService, publicCategoryDescription } from "@/lib/public-business-claims";
 import { SERVICES, SERVICES_BY_SLUG } from "@/lib/services-content";
 import { categories as CODE_CATEGORIES } from "@/lib/categories";
 import { BLOCK_DEFS } from "@/lib/content-blocks";
@@ -138,7 +139,7 @@ function fallbackDetail(slug: string): ServiceDetail | null {
   const s = SERVICES_BY_SLUG[slug];
   if (!s) return null;
   return {
-    service: s,
+    service: publicService(s),
     seo: {
       metaTitle: s.metaTitle,
       metaDescription: s.metaDescription,
@@ -175,7 +176,7 @@ export const getService = createServerFn({ method: "GET" })
         : rowToServicePage(r);
 
       return {
-        service,
+        service: publicService(service),
         seo: {
           metaTitle: r.meta_title ?? service.metaTitle,
           metaDescription: r.meta_description ?? service.metaDescription,
@@ -214,7 +215,7 @@ const FALLBACK_CATEGORIES: PublicCategory[] = CODE_CATEGORIES.map((c) => ({
   label: c.shortName,
   name: c.name,
   shortName: c.shortName,
-  description: c.description,
+  description: publicCategoryDescription(c.description),
   modCode: c.modCode,
   heroImage: null,
 }));
@@ -240,7 +241,7 @@ export const listCategories = createServerFn({ method: "GET" }).handler(
             name: r.title ?? code?.name ?? r.label,
             shortName: r.short_name ?? code?.shortName ?? r.label,
             // התיאורים מיובאים מהקוד בפעולת הייבוא החד-פעמית; עד אז נופלים אליו.
-            description: r.description ?? code?.description ?? "",
+            description: publicCategoryDescription(r.description ?? code?.description ?? ""),
             modCode: r.mod_code ?? code?.modCode ?? "",
             heroImage: r.hero_image,
           };

@@ -7,6 +7,9 @@
 
 /** מפת redirects: מפתח = path ישן (decoded), ערך = path חדש. */
 const RAW_MAP: Record<string, string> = {
+  // Broken article links identified in the 2026-09-05 live audit.
+  "/article/corns-and-calluses-treatment": "/services/corns",
+  "/article/foot-fungus-prevention-and-care": "/services/fungus",
   // עמודי מערכת
   "/אודותיי": "/about",
   "/מדיניות-פרטיות": "/privacy",
@@ -35,7 +38,8 @@ const RAW_MAP: Record<string, string> = {
   "/article/cracked-heels-and-dry-skin": "/article/dry-skin-cracked-heels-care-guide",
   "/article/dry-cracked-heels-treatment": "/article/dry-skin-cracked-heels-care-guide",
   "/article/treating-dry-cracked-heels": "/article/dry-skin-cracked-heels-care-guide",
-  "/article/how-to-cut-toenails-correctly": "/article/how-to-cut-toenails-correctly-prevent-ingrown-toenail",
+  "/article/how-to-cut-toenails-correctly":
+    "/article/how-to-cut-toenails-correctly-prevent-ingrown-toenail",
   "/article/fungus-on-toes": "/article/nail-fungus-causes-and-treatment",
   "/article/piteret-tsipornayim-beragliim": "/article/nail-fungus-causes-and-treatment",
   "/article/peteret-tsipornaim": "/article/nail-fungus-causes-and-treatment",

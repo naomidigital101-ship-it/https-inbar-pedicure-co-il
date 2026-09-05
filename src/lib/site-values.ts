@@ -28,44 +28,23 @@ export const SITE_DEFAULTS: SiteValues = {
   wazeUrl: SITE.wazeUrl,
   email: SITE.email,
   hoursDisplay: SITE.hoursDisplay,
-  yearsExperience: String(SITE.yearsExperience),
-  treatmentsCount: SITE.treatmentsCount,
+  yearsExperience: "",
+  treatmentsCount: "",
   bannerEnabled: false,
   bannerText: "",
   bannerLink: "",
   homeHeroKicker: "מטפלת · מרצה · מכשירה פדיקוריסטיות",
   homeHeroTitle: "הליכה בלי כאב מתחילה כאן",
-  homeHeroSubtitle:
-    "הקליניקה של ענבר פרחי לפדיקור טיפולי — מרצה ומכשירה פדיקוריסטיות בכל הארץ",
-  homeHeroLede:
-    "12+ שנות ניסיון קליני, אבחון מדויק וטיפול סטרילי — ומאות מטופלים שחזרו ללכת בלי כאב.",
+  homeHeroSubtitle: "הקליניקה של ענבר פרחי לפדיקור טיפולי — מרצה ומכשירה פדיקוריסטיות בכל הארץ",
+  homeHeroLede: "הקליניקה של ענבר פרחי לפדיקור טיפולי בעלי, אזור בנימין.",
   homeHeroCtaPrimary: "לתיאום טיפול בקליניקה",
   homeHeroCtaSecondary: "אני פדיקוריסטית — להכשרות",
-  homeHeroStats: [
-    { num: "12+", label: "שנות ניסיון קליני" },
-    { num: "200+", label: "מטופלים בשנה" },
-    { num: "20+", label: "פדיקוריסטיות הוכשרו" },
-    { num: "150+", label: "שעות השתלמות בשנה" },
-  ],
+  homeHeroStats: [],
   homeHeroImage: "",
   homeFlagshipKicker: "תחומי הליבה",
   homeFlagshipTitle: "שלושה תחומים שאני מתמחה בהם",
   defaultOgImage: "",
 };
-
-function parseStats(raw: string | undefined): { num: string; label: string }[] {
-  if (!raw) return SITE_DEFAULTS.homeHeroStats;
-  try {
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return SITE_DEFAULTS.homeHeroStats;
-    const clean = parsed
-      .filter((s) => s && typeof s.num === "string" && typeof s.label === "string")
-      .map((s) => ({ num: s.num as string, label: s.label as string }));
-    return clean.length ? clean : SITE_DEFAULTS.homeHeroStats;
-  } catch {
-    return SITE_DEFAULTS.homeHeroStats;
-  }
-}
 
 /** בונה את ערכי האתר מהשורות, עם נפילה לברירת מחדל לכל שדה בנפרד. */
 export function buildSiteValues(rows: Pick<SettingRow, "key" | "value">[]): SiteValues {
@@ -89,29 +68,24 @@ export function buildSiteValues(rows: Pick<SettingRow, "key" | "value">[]): Site
     phoneIntl,
     whatsappNumber,
     whatsappUrl: `https://wa.me/${whatsappNumber}`,
-    whatsappDefaultMessage: get(
-      "whatsapp_default_message",
-      SITE_DEFAULTS.whatsappDefaultMessage,
-    ),
+    whatsappDefaultMessage: get("whatsapp_default_message", SITE_DEFAULTS.whatsappDefaultMessage),
     telUrl: `tel:${phoneIntl}`,
     wazeUrl: get("waze_url", SITE_DEFAULTS.wazeUrl),
     email: get("email", SITE_DEFAULTS.email),
     hoursDisplay: get("hours_display", SITE_DEFAULTS.hoursDisplay),
-    yearsExperience: get("years_experience", SITE_DEFAULTS.yearsExperience),
-    treatmentsCount: get("treatments_count", SITE_DEFAULTS.treatmentsCount),
+    // Numerical business claims are withheld until written evidence is supplied.
+    yearsExperience: "",
+    treatmentsCount: "",
     bannerEnabled: m.get("banner_enabled") === "true",
     bannerText: m.get("banner_text") ?? "",
     bannerLink: m.get("banner_link") ?? "",
     homeHeroKicker: get("home_hero_kicker", SITE_DEFAULTS.homeHeroKicker),
     homeHeroTitle: get("home_hero_title", SITE_DEFAULTS.homeHeroTitle),
     homeHeroSubtitle: get("home_hero_subtitle", SITE_DEFAULTS.homeHeroSubtitle),
-    homeHeroLede: get("home_hero_lede", SITE_DEFAULTS.homeHeroLede),
+    homeHeroLede: SITE_DEFAULTS.homeHeroLede,
     homeHeroCtaPrimary: get("home_hero_cta_primary", SITE_DEFAULTS.homeHeroCtaPrimary),
-    homeHeroCtaSecondary: get(
-      "home_hero_cta_secondary",
-      SITE_DEFAULTS.homeHeroCtaSecondary,
-    ),
-    homeHeroStats: parseStats(m.get("home_hero_stats")),
+    homeHeroCtaSecondary: get("home_hero_cta_secondary", SITE_DEFAULTS.homeHeroCtaSecondary),
+    homeHeroStats: [],
     homeHeroImage: m.get("home_hero_image") ?? "",
     homeFlagshipKicker: get("home_flagship_kicker", SITE_DEFAULTS.homeFlagshipKicker),
     homeFlagshipTitle: get("home_flagship_title", SITE_DEFAULTS.homeFlagshipTitle),

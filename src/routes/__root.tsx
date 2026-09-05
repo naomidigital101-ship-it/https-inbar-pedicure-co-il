@@ -14,13 +14,18 @@ import { CookieConsent } from "@/components/shared/CookieConsent";
 import { GoogleAnalytics } from "@/components/shared/GoogleAnalytics";
 import { SiteBanner } from "@/components/shared/SiteBanner";
 import { SITE } from "@/lib/site-config";
-import { getSiteValues, listReviews } from "@/lib/cms.functions";
+import { getSiteValues } from "@/lib/cms.functions";
 import { SITE_DEFAULTS } from "@/lib/site-values";
 import { SiteProvider } from "@/lib/use-site";
 
 function NotFoundComponent() {
   return (
-    <div dir="rtl" className="flex min-h-screen items-center justify-center bg-background px-4">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      dir="rtl"
+      className="flex min-h-screen items-center justify-center bg-background px-4"
+    >
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">העמוד לא נמצא</h2>
@@ -36,7 +41,7 @@ function NotFoundComponent() {
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -45,7 +50,12 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
 
   return (
-    <div dir="rtl" className="flex min-h-screen items-center justify-center bg-background px-4">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      dir="rtl"
+      className="flex min-h-screen items-center justify-center bg-background px-4"
+    >
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           העמוד לא נטען כראוי
@@ -71,23 +81,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           </a>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   // ערכי האתר נטענים פעם אחת כאן ומשמשים גם את תגיות ה-head וגם את כל
   // הקומפוננטות דרך SiteProvider — מקור אמת אחד לכל האתר.
-  loader: async () => {
-    const [site, reviews] = await Promise.all([
-      getSiteValues(),
-      listReviews().catch(() => ({ reviews: [], average: null, count: 0 })),
-    ]);
-    return { site, rating: { average: reviews.average, count: reviews.count } };
-  },
+  loader: async () => ({ site: await getSiteValues() }),
   head: ({ loaderData }) => {
     const site = loaderData?.site ?? SITE_DEFAULTS;
-    const rating = loaderData?.rating;
     return {
       meta: [
         { charSet: "utf-8" },
@@ -148,7 +151,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             description: site.shortDescription,
             telephone: site.phoneIntl,
             email: site.email,
-            priceRange: "₪₪",
             image: site.defaultOgImage || site.url + "/apple-touch-icon.png",
             address: {
               "@type": "PostalAddress",
@@ -160,7 +162,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               { "@type": "City", name: site.city },
               { "@type": "AdministrativeArea", name: site.region },
               { "@type": "City", name: "ירושלים" },
-              { "@type": "City", name: "רמאללה" },
             ],
             openingHoursSpecification: SITE.hoursOpeningSpec,
             knowsAbout: [
@@ -173,22 +174,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "אורטוניקסיה",
               "שיקום ציפורן BIO",
             ],
-            ...(rating?.average && rating.count
-              ? {
-                  aggregateRating: {
-                    "@type": "AggregateRating",
-                    ratingValue: rating.average,
-                    reviewCount: rating.count,
-                    bestRating: 5,
-                    worstRating: 1,
-                  },
-                }
-              : {}),
             founder: {
               "@type": "Person",
               name: site.brand,
               jobTitle: "פדיקוריסטית טיפולית",
-              description: `פדיקוריסטית טיפולית עם מעל ${site.yearsExperience} שנות ניסיון, מרצה לפדיקוריסטיות, מתמחה בטיפול בכף הרגל של חולי סוכרת.`,
+              "@id": site.url + "/about#inbar-farchi",
+              url: site.url + "/about",
             },
           }),
         },
