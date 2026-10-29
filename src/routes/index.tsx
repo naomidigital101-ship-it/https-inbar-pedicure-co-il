@@ -145,7 +145,10 @@ export const Route = createFileRoute("/")({
       { property: "og:image", content: SITE.url + heroImage },
       { name: "twitter:image", content: SITE.url + heroImage },
     ],
-    links: [{ rel: "canonical", href: SITE.url + "/" }],
+    links: [
+      { rel: "canonical", href: SITE.url + "/" },
+      { rel: "preload", as: "image", href: heroImage, fetchPriority: "high" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
