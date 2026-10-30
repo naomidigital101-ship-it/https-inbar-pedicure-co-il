@@ -27,7 +27,7 @@ const HEADER_CSS = `
 .bh-links { display:flex; gap:30px; font-weight:300; font-size:14.5px; letter-spacing:0.12em; }
 .bh-links a { padding:12px 0; }
 .bh-logo { display:flex; align-items:center; justify-content:center; }
-.bh-logo img { height:96px; display:block; margin:-10px 0; }
+.bh-logo img { width:auto; height:96px; max-width:100%; object-fit:contain; display:block; margin:-10px 0; }
 .bh-cta { display:flex; gap:22px; justify-content:left; align-items:center; }
 .bh-wa { border:1px solid #141414; padding:10px 26px; letter-spacing:0.16em; font-size:13px; display:inline-flex; align-items:center; gap:9px; font-weight:300; }
 .bh-wa:hover { background:#0E3B2E; border-color:#0E3B2E; color:#FFFFFF; }
