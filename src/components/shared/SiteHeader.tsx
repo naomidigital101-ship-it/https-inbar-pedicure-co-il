@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSite } from "@/lib/use-site";
-import logoImage from "@/assets/inbar-logo-farhi.png";
+const logoImage = "/performance/inbar-logo-600.webp";
 
 /**
  * ההדר של המותג — אותו ניווט שאושר בחבילת המיתוג של דף הבית: לוגו ממורכז
@@ -116,7 +116,7 @@ export function SiteHeader() {
           </div>
 
           <a className="bh-logo" href="/" aria-label={`${site.brand} — לדף הבית`}>
-            <img src={logoImage} alt="" />
+            <img src={logoImage} width={600} height={200} alt="" />
           </a>
 
           <div className="bh-cta">

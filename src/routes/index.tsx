@@ -15,9 +15,10 @@ import {
   DESIGN_SERVICES,
   DESIGN_TRACKS,
 } from "@/lib/home-design";
-import heroAsset from "@/assets/inbar-hero-clinical.webp.asset.json";
 
-const heroImage = heroAsset.url;
+const heroImage = "/performance/inbar-hero-1870.webp";
+const heroSrcSet =
+  "/performance/inbar-hero-640.webp 640w, /performance/inbar-hero-960.webp 960w, /performance/inbar-hero-1870.webp 1870w";
 
 /*
  * דף הבית מיושם אחד לאחד מקובץ העיצוב "Inbar Homepage.dc.html":
@@ -147,7 +148,14 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: SITE.url + "/" },
-      { rel: "preload", as: "image", href: heroImage, fetchPriority: "high" },
+      {
+        rel: "preload",
+        as: "image",
+        href: heroImage,
+        imageSrcSet: heroSrcSet,
+        imageSizes: "100vw",
+        fetchPriority: "high",
+      },
     ],
     scripts: [
       {
@@ -239,6 +247,8 @@ function HomePage() {
           <header style={{ position: "relative", background: "#FFFFFF" }}>
             <img
               src={heroImage}
+              srcSet={heroSrcSet}
+              sizes="100vw"
               alt="ענבר פרחי בקליניקה עם מודל אנטומי של כף הרגל"
               width={1870}
               height={841}
