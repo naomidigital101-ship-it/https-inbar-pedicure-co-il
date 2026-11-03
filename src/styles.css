@@ -5,7 +5,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Assistant — הפונט היחיד לעברית במערכת המיתוג. Bodoni Moda
+/* Assistant לגוף הטקסט, Ploni לכותרות הציבוריות. Bodoni Moda
    למילות תצוגה לטיניות נטען מ-Google Fonts ב-__root. */
 @import "@fontsource/assistant/200.css";
 @import "@fontsource/assistant/300.css";
@@ -23,7 +23,7 @@
 /*
  * ענבר פרחי — מערכת עיצוב עריכתית-קלינית (מיתוג 2026)
  * ירוק מותג #0E3B2E · פס כהה #0C2B23 · שמנת #F7F5F1 · hairline #ECEAE6.
- * Assistant לכל העברית, Bodoni Moda למילות תצוגה לטיניות. אפס radius,
+ * Assistant לגוף הטקסט, Ploni לכותרות, Bodoni Moda למילות תצוגה לטיניות. אפס radius,
  * אפס צללים. הוספת צבע: עדכן :root + רישום ב-@theme inline.
  */
 
@@ -282,6 +282,15 @@
   h1 {
     font-weight: 700;
     line-height: 1.35;
+  }
+
+  /* Use the existing heading font rule without changing admin or brand sketches. */
+  main:not([data-admin]):not([data-branding]) :is(h1, h2, h3, h4, h5, h6, .font-heading, .heading) {
+    --font-display: "Ploni", "Assistant", sans-serif;
+    font-family: var(--font-display);
+    font-kerning: normal;
+    font-synthesis: none;
+    letter-spacing: normal;
   }
 
   h3,

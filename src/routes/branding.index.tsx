@@ -84,7 +84,7 @@ function BrandingPage() {
   return (
     <div dir="rtl" lang="he" className="min-h-screen" style={{ background: "var(--paper)" }}>
       <SiteHeader />
-      <main id="main-content">
+      <main id="main-content" data-branding>
         <BrandingHero />
         <PaletteSection />
         <TypographySection />

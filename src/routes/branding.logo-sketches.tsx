@@ -291,7 +291,7 @@ function LogoSketchesPage() {
   return (
     <div className="flex min-h-screen flex-col" style={{ background: "var(--paper)" }}>
       <SiteHeader />
-      <main id="main-content" tabIndex={-1} className="flex-1">
+      <main id="main-content" data-branding tabIndex={-1} className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden">
           <div

@@ -14,7 +14,7 @@ const SERVICES_CSS = `
  * important בשכבה גוברת על הצהרה חסרת-שכבה, ולכן העקיפה נכתבת לאותה שכבה.
  */
 @layer base {
-  .svc-scope :is(h1,h2,h3) { font-family:'Assistant',sans-serif !important; }
+  .svc-scope :is(h1,h2,h3) { font-family:var(--font-display) !important; }
 }
 .svc-scope :is(h1,h2,h3) { letter-spacing:normal; line-height:normal; font-weight:400; }
 .svc-scope details summary::-webkit-details-marker { display:none; }

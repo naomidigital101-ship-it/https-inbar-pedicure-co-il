@@ -48,7 +48,7 @@ const HOME_CSS = `
  * העקיפה חייבת להיכתב לתוך אותה שכבה — שם מכריעה הספציפיות.
  */
 @layer base {
-  .ip-page :is(h1,h2,h3,h4) { font-family:'Assistant',sans-serif !important; }
+  .ip-page :is(h1,h2,h3,h4) { font-family:var(--font-display) !important; }
 }
 .ip-page :is(h1,h2,h3,h4) { letter-spacing:normal; line-height:normal; font-weight:400; }
 .ip-page p { font-family:'Assistant',sans-serif; }
