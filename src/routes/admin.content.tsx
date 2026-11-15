@@ -88,7 +88,7 @@ function AdminContent() {
   return (
     // הכותרת והניווט מגיעים ממעטפת האדמין (routes/admin.tsx);
     // כאן נשאר רק ניווט המשנה בין חלקי מנוע התוכן.
-    <div dir="rtl">
+    <div className="admin-content-page" dir="rtl">
       <header className="mb-6">
         <h1
           className="mb-3 text-[26px]"

@@ -4,7 +4,7 @@
  */
 
 import { createFileRoute, Outlet, useNavigate, useRouterState, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import {
@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { checkIsAdmin } from "@/lib/admin.functions";
+import { Toaster } from "@/components/ui/sonner";
+import "@/components/admin/admin-theme.css";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -63,6 +65,39 @@ function AdminLayout() {
   const [authState, setAuthState] = useState<"checking" | "ready" | "blocked">("checking");
   const [menuOpen, setMenuOpen] = useState(false);
   const isAdminFn = useServerFn(checkIsAdmin);
+  const drawerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const menuButton = menuButtonRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const drawer = drawerRef.current;
+    const focusable = () =>
+      Array.from(drawer?.querySelectorAll<HTMLElement>("a[href],button:not([disabled])") ?? []);
+    focusable()[0]?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      const first = items[0],
+        last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+      menuButton?.focus();
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     if (isLogin) return;
@@ -108,15 +143,17 @@ function AdminLayout() {
   }, [isAdminFn, navigate, isLogin]);
 
   // ההתחברות מוצגת כמו שהיא — בלי סרגל צד ובלי בדיקת הרשאות
-  if (isLogin) return <Outlet />;
+  if (isLogin)
+    return (
+      <>
+        <Outlet />
+        <Toaster dir="rtl" position="top-center" />
+      </>
+    );
 
   if (authState !== "ready") {
     return (
-      <div
-        className="flex min-h-screen items-center justify-center"
-        style={{ background: "var(--surface-warm)" }}
-        dir="rtl"
-      >
+      <div className="admin-theme admin-checking" dir="rtl">
         <p className="text-[14px]" style={{ color: "var(--ink-600)" }}>
           בודקת הרשאות...
         </p>
@@ -132,112 +169,125 @@ function AdminLayout() {
   const isActive = (to: string, exact?: boolean) =>
     exact ? pathname === to : pathname.startsWith(to);
 
-  const sidebar = (
-    <nav className="flex h-full flex-col" aria-label="ניווט ניהול">
-      <div className="px-5 py-6">
-        <p
-          className="text-[11px]"
-          style={{ color: "var(--green-400)", letterSpacing: "0.18em", fontWeight: 700 }}
-        >
-          ניהול האתר
-        </p>
-        <p
-          className="mt-1 text-[19px] text-white"
-          style={{ fontFamily: "var(--font-display)", fontWeight: 800 }}
-        >
-          ענבר פרחי
-        </p>
-      </div>
-
-      <ul className="flex-1 space-y-0.5 px-3 pb-4">
-        {NAV.map((item) => {
-          const Icon = item.icon;
-          const active = isActive(item.to, item.exact);
-          return (
-            <li key={item.to}>
-              <Link
-                // הניווט מוגדר כטבלת נתונים; הנתיבים עצמם מאומתים ע"י
-                // routeTree.gen.ts בזמן הבנייה.
-                to={item.to as "/admin"}
-                onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2.5 text-[14.5px] transition-colors"
-                style={{
-                  borderRadius: 10,
-                  fontWeight: active ? 700 : 500,
-                  color: active ? "#fff" : "rgba(255,255,255,0.72)",
-                  background: active ? "rgba(255,255,255,0.12)" : "transparent",
-                }}
-              >
-                <Icon className="h-[18px] w-[18px] flex-shrink-0" strokeWidth={1.75} aria-hidden />
-                {item.label}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-
-      <div className="space-y-1 px-3 pb-5">
-        <a
-          href="/"
-          target="_blank"
-          rel="noopener"
-          className="flex items-center gap-3 px-3 py-2.5 text-[14px]"
-          style={{ borderRadius: 10, color: "rgba(255,255,255,0.72)", fontWeight: 500 }}
-        >
-          <ExternalLink className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
-          צפייה באתר
-        </a>
-        <button
-          onClick={handleLogout}
-          className="flex w-full items-center gap-3 px-3 py-2.5 text-[14px]"
-          style={{ borderRadius: 10, color: "rgba(255,255,255,0.72)", fontWeight: 500 }}
-        >
-          <LogOut className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
-          יציאה
-        </button>
-      </div>
-    </nav>
-  );
+  const groups = [
+    { label: "", routes: ["/admin"] },
+    { label: "עבודה שוטפת", routes: ["/admin/leads"] },
+    {
+      label: "האתר והתוכן",
+      routes: [
+        "/admin/services",
+        "/admin/homepage",
+        "/admin/content",
+        "/admin/categories",
+        "/admin/reviews",
+        "/admin/gallery",
+        "/admin/media",
+      ],
+    },
+    { label: "הגדרות", routes: ["/admin/business", "/admin/tools"] },
+  ];
+  const activeLabel = NAV.find((item) => isActive(item.to, item.exact))?.label ?? "ניהול האתר";
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--surface-warm)" }} dir="rtl">
-      {/* סרגל עליון — מובייל בלבד */}
-      <header
-        className="sticky top-0 z-30 flex items-center justify-between px-4 py-3 md:hidden"
-        style={{ background: "var(--green-900)" }}
+    <div className={`admin-theme admin-shell${menuOpen ? " is-menu-open" : ""}`} dir="rtl">
+      <button
+        className="admin-menu-shade"
+        aria-label="סגירת תפריט הניהול"
+        tabIndex={-1}
+        onClick={() => setMenuOpen(false)}
+      />
+      <aside
+        ref={drawerRef}
+        id="admin-navigation"
+        className="admin-sidebar"
+        role={menuOpen ? "dialog" : undefined}
+        aria-modal={menuOpen || undefined}
+        aria-label="ניווט ניהול"
       >
-        <span
-          className="text-[16px] text-white"
-          style={{ fontFamily: "var(--font-display)", fontWeight: 800 }}
-        >
-          ניהול האתר
-        </span>
-        <button
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label={menuOpen ? "סגירת התפריט" : "פתיחת התפריט"}
-          aria-expanded={menuOpen}
-          className="inline-flex h-9 w-9 items-center justify-center text-white"
-        >
-          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </header>
-
-      {menuOpen && (
-        <div className="md:hidden" style={{ background: "var(--green-900)" }}>
-          {sidebar}
+        <div className="admin-sidebar-brand">
+          <img src="/performance/inbar-logo-600.webp" width={600} height={200} alt="ענבר פרחי" />
+          <p>ניהול האתר והתוכן</p>
+          <button
+            className="admin-drawer-close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="סגירת התפריט"
+          >
+            <X size={20} />
+          </button>
         </div>
-      )}
-
-      <div className="flex">
-        <aside
-          className="sticky top-0 hidden h-screen w-[248px] flex-shrink-0 md:block"
-          style={{ background: "var(--green-900)" }}
-        >
-          {sidebar}
-        </aside>
-
-        <main data-admin id="main-content" className="min-w-0 flex-1 px-4 py-6 md:px-8 md:py-10">
-          <div className="mx-auto max-w-[1120px]">
+        <nav className="admin-navigation" aria-label="מסכי הניהול">
+          {groups.map((group, index) => (
+            <div key={index}>
+              {group.label && <p className="admin-nav-group">{group.label}</p>}
+              {group.routes.map((to) => {
+                const item = NAV.find((entry) => entry.to === to)!;
+                const Icon = item.icon;
+                const active = isActive(item.to, item.exact);
+                return (
+                  <Link
+                    key={to}
+                    to={item.to as "/admin"}
+                    onClick={() => setMenuOpen(false)}
+                    className={`admin-nav-link${active ? " is-active" : ""}`}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    <Icon size={19} strokeWidth={1.65} aria-hidden />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
+        </nav>
+        <div className="admin-sidebar-footer">
+          <a className="admin-nav-link" href="/" target="_blank" rel="noopener noreferrer">
+            <ExternalLink size={18} aria-hidden />
+            צפייה באתר
+          </a>
+          <button className="admin-nav-link" onClick={handleLogout}>
+            <LogOut size={18} aria-hidden />
+            יציאה מהמערכת
+          </button>
+          <div className="admin-account">
+            <span className="admin-avatar" aria-hidden>
+              ע
+            </span>
+            <div>
+              ענבר פרחי<small>ניהול האתר</small>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div className="admin-workspace">
+        <Toaster dir="rtl" position="top-center" />
+        <header className="admin-topbar">
+          <div className="admin-breadcrumb">
+            <button
+              ref={menuButtonRef}
+              className="admin-menu-toggle"
+              onClick={() => setMenuOpen(true)}
+              aria-label="פתיחת תפריט הניהול"
+              aria-expanded={menuOpen}
+              aria-controls="admin-navigation"
+            >
+              <Menu size={21} />
+            </button>
+            <span>סביבת ניהול</span>
+            <span aria-hidden>/</span>
+            <strong>{activeLabel}</strong>
+          </div>
+          <div className="admin-topbar-actions">
+            <a href="/" target="_blank" rel="noopener noreferrer">
+              פתיחת האתר
+              <ExternalLink size={16} aria-hidden />
+            </a>
+            <span className="admin-avatar" aria-hidden>
+              ע
+            </span>
+          </div>
+        </header>
+        <main data-admin id="main-content" className="admin-main" tabIndex={-1}>
+          <div className="admin-page-content">
             <Outlet />
           </div>
         </main>

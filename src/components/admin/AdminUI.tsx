@@ -23,21 +23,21 @@ export function PageHeader({
   actions?: ReactNode;
 }) {
   return (
-    <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+    <div className="admin-page-header mb-8 flex flex-wrap items-start justify-between gap-4">
       <div>
         <h1
           className="text-[26px] md:text-[30px]"
           style={{
             fontFamily: "var(--font-display)",
-            fontWeight: 800,
+            fontWeight: 700,
             color: "var(--ink-900)",
-            letterSpacing: "-0.02em",
+            letterSpacing: "normal",
           }}
         >
           {title}
         </h1>
         {description && (
-          <p className="mt-1.5 max-w-2xl text-[14.5px]" style={{ color: "var(--ink-600)" }}>
+          <p className="admin-page-header-description mt-1.5" style={{ color: "var(--ink-600)" }}>
             {description}
           </p>
         )}
@@ -65,8 +65,8 @@ export function Card({
     >
       {(title || actions) && (
         <header
-          className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 md:px-6"
-          style={{ borderBottom: "1px solid var(--stone-100)", background: "var(--green-50)" }}
+          className="admin-card-header flex flex-wrap items-center justify-between gap-3"
+          style={{ borderBottom: "1px solid var(--stone-100)", background: "#fff" }}
         >
           <div>
             {title && (
@@ -90,7 +90,7 @@ export function Card({
           {actions && <div className="flex items-center gap-2">{actions}</div>}
         </header>
       )}
-      <div className="px-5 py-5 md:px-6">{children}</div>
+      <div className="admin-card-body">{children}</div>
     </section>
   );
 }
@@ -98,7 +98,7 @@ export function Card({
 export function EmptyState({ title, hint }: { title: string; hint?: string }) {
   return (
     <div
-      className="px-6 py-12 text-center"
+      className="admin-empty-state px-6 py-12 text-center"
       style={{ border: "1px dashed var(--stone-300)", borderRadius: 12 }}
     >
       <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--ink-900)" }}>
@@ -140,8 +140,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     <button
       ref={ref}
       disabled={disabled || loading}
-      className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 text-[14px] transition-opacity disabled:cursor-not-allowed disabled:opacity-55 ${className}`}
-      style={{ ...styles[variant], borderRadius: 999, fontWeight: 700 }}
+      className={`admin-button inline-flex items-center justify-center gap-2 px-4 py-2.5 text-[14px] transition-opacity disabled:cursor-not-allowed disabled:opacity-55 ${className}`}
+      style={{ ...styles[variant], borderRadius: 8, fontWeight: 700 }}
       {...rest}
     >
       {loading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
@@ -178,7 +178,7 @@ export function Field({
     <div className="mb-4">
       <label
         htmlFor={htmlFor}
-        className="mb-1.5 block text-[13.5px]"
+        className="admin-field-label mb-1.5 block"
         style={{ fontWeight: 700, color: "var(--ink-900)" }}
       >
         {label}
@@ -205,7 +205,7 @@ export function TextInput({
   return (
     <input
       dir={ltr ? "ltr" : "rtl"}
-      className="w-full px-3.5 py-2.5 text-[14.5px] focus:outline-none"
+      className="admin-input w-full px-3.5 py-2.5 text-[14.5px] focus:outline-none"
       style={{ ...inputStyle, textAlign: ltr ? "left" : "right" }}
       {...rest}
     />
@@ -217,7 +217,7 @@ export function TextArea({ rows = 4, ...rest }: React.TextareaHTMLAttributes<HTM
     <textarea
       rows={rows}
       dir="rtl"
-      className="w-full px-3.5 py-2.5 text-[14.5px] leading-relaxed focus:outline-none"
+      className="admin-input w-full px-3.5 py-2.5 text-[14.5px] leading-relaxed focus:outline-none"
       style={{ ...inputStyle, textAlign: "right", resize: "vertical" }}
       {...rest}
     />
@@ -228,7 +228,7 @@ export function Select({ children, ...rest }: React.SelectHTMLAttributes<HTMLSel
   return (
     <select
       dir="rtl"
-      className="w-full px-3.5 py-2.5 text-[14.5px] focus:outline-none"
+      className="admin-input w-full px-3.5 py-2.5 text-[14.5px] focus:outline-none"
       style={{ ...inputStyle, textAlign: "right" }}
       {...rest}
     >
@@ -427,7 +427,7 @@ export function SaveBar({
 }) {
   return (
     <div
-      className="sticky bottom-0 z-20 -mx-4 mt-8 flex flex-wrap items-center justify-between gap-3 px-4 py-3 md:-mx-8 md:px-8"
+      className="admin-savebar sticky bottom-0 z-20 -mx-4 mt-8 flex flex-wrap items-center justify-between gap-3 px-4 py-3 md:-mx-8 md:px-8"
       style={{
         background: "rgba(255,255,255,0.94)",
         backdropFilter: "blur(8px)",
@@ -467,7 +467,7 @@ export function Badge({
   return (
     <span
       className="inline-block px-2.5 py-1 text-[12px]"
-      style={{ ...tones[tone], borderRadius: 999, fontWeight: 700 }}
+      style={{ ...tones[tone], borderRadius: 5, fontWeight: 700 }}
     >
       {children}
     </span>
