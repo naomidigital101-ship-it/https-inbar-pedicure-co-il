@@ -204,6 +204,13 @@ function LeadCard({
         </div>
 
         <div className="w-full md:w-[220px]">
+          <a
+            className="admin-button mb-3 inline-flex w-full items-center justify-center px-4 py-2.5"
+            style={{ background: "var(--accent)", color: "#fff", borderRadius: 8 }}
+            href={`/admin/clinic?lead=${lead.id}`}
+          >
+            פתיחת כרטיס לקוחה
+          </a>
           <Select
             value={lead.status}
             disabled={saving}

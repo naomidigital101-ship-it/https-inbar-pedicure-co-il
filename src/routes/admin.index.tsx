@@ -156,6 +156,11 @@ function AdminDashboard() {
       <div className="admin-dashboard-grid">
         <Card title="מתחילים מכאן" description="פעולות שימושיות לניהול היומיומי">
           <div className="admin-quick-actions">
+            <a href="/admin/clinic">
+              <Stethoscope size={24} strokeWidth={1.6} aria-hidden />
+              <strong>ניהול הקליניקה</strong>
+              <small>לקוחות, תורים ותיעוד טיפולים</small>
+            </a>
             <Link to="/admin/content">
               <Newspaper size={24} strokeWidth={1.6} aria-hidden />
               <strong>ניהול מאמרים</strong>

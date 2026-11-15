@@ -18,6 +18,7 @@ import {
   FolderTree,
   Image,
   Inbox,
+  CalendarDays,
   Wrench,
   LogOut,
   Menu,
@@ -44,6 +45,7 @@ type NavItem = {
 };
 
 const NAV: NavItem[] = [
+  { to: "/admin/clinic", label: "ניהול הקליניקה", icon: CalendarDays },
   { to: "/admin", label: "לוח בקרה", icon: LayoutDashboard, exact: true },
   { to: "/admin/services", label: "טיפולים", icon: Stethoscope },
   { to: "/admin/homepage", label: "דף הבית", icon: Home },
@@ -171,7 +173,7 @@ function AdminLayout() {
 
   const groups = [
     { label: "", routes: ["/admin"] },
-    { label: "עבודה שוטפת", routes: ["/admin/leads"] },
+    { label: "עבודה שוטפת", routes: ["/admin/clinic", "/admin/leads"] },
     {
       label: "האתר והתוכן",
       routes: [
