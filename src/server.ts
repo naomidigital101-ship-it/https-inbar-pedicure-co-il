@@ -27,12 +27,12 @@ function brandedErrorResponse(): Response {
 
 const CSP_VALUE = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.youtube-nocookie.com https://www.googletagmanager.com",
+  "script-src 'self' 'unsafe-inline' https://www.youtube-nocookie.com https://www.googletagmanager.com https://*.clarity.ms",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "img-src 'self' data: blob: https:",
+  "img-src 'self' data: blob: https: https://*.clarity.ms https://c.bing.com",
   "media-src 'self' https:",
-  "connect-src 'self' https:",
+  "connect-src 'self' https: https://*.clarity.ms https://c.bing.com",
   "frame-src https://www.youtube-nocookie.com https://www.youtube.com",
   "object-src 'none'",
   "base-uri 'self'",

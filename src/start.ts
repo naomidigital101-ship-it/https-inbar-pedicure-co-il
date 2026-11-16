@@ -6,11 +6,11 @@ import { findLegacyRedirect } from "./lib/legacy-redirects";
 
 const CSP_VALUE = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' https://*.clarity.ms",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: https:",
-  "connect-src 'self'",
+  "img-src 'self' data: https: https://*.clarity.ms https://c.bing.com",
+  "connect-src 'self' https://*.clarity.ms https://c.bing.com",
   "frame-src 'none'",
   "object-src 'none'",
   "base-uri 'self'",

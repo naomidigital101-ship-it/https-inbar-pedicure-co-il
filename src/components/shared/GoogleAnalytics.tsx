@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
+import { startClarity, stopClarity } from "@/lib/clarity";
 
 const MEASUREMENT_ID = "G-44F1N7VL3V";
 const CONSENT_KEY = "lr_cookie_consent_v1";
@@ -29,6 +30,11 @@ export function GoogleAnalytics() {
       window.removeEventListener("storage", readConsent);
     };
   }, []);
+
+  useEffect(() => {
+    if (consented) startClarity();
+    else stopClarity();
+  }, [consented]);
 
   useEffect(() => {
     if (!consented || !["inbar-pedicure.co.il", "www.inbar-pedicure.co.il"].includes(location.hostname)) return;
