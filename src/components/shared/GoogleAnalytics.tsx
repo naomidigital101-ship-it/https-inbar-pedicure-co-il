@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { startClarity, stopClarity } from "@/lib/clarity";
+import {
+  ANALYTICS_EXCLUDED_PATH,
+  ANALYTICS_HOSTS,
+  CONSENT_KEY,
+  MEASUREMENT_ID,
+  startContactClickTracking,
+} from "@/lib/analytics";
 
-const MEASUREMENT_ID = "G-44F1N7VL3V";
-const CONSENT_KEY = "lr_cookie_consent_v1";
 type AnalyticsWindow = Window & {
   dataLayer?: unknown[];
   gtag?: (...args: unknown[]) => void;
@@ -23,6 +28,8 @@ export function GoogleAnalytics() {
       }
     };
     readConsent();
+    // GA4 contact-link clicks; each click re-checks consent and that GA is loaded.
+    startContactClickTracking();
     window.addEventListener("analytics-consent", readConsent);
     window.addEventListener("storage", readConsent);
     return () => {
@@ -37,8 +44,8 @@ export function GoogleAnalytics() {
   }, [consented]);
 
   useEffect(() => {
-    if (!consented || !["inbar-pedicure.co.il", "www.inbar-pedicure.co.il"].includes(location.hostname)) return;
-    if (/^\/(admin|auth|api|lovable)(\/|$)/.test(pathname)) {
+    if (!consented || !ANALYTICS_HOSTS.includes(location.hostname)) return;
+    if (ANALYTICS_EXCLUDED_PATH.test(pathname)) {
       lastPage.current = null;
       return;
     }

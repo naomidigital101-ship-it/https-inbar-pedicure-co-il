@@ -13,6 +13,7 @@ import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import { trackLead } from "@/lib/analytics";
 
 const BODONI = "'Bodoni Moda',serif";
 
@@ -83,6 +84,7 @@ export function ContactForm({
       toast.error("השליחה נכשלה. אפשר לנסות שוב או לפנות בוואטסאפ.");
       return;
     }
+    trackLead("contact_form");
     setSent(true);
     toast.success("הפרטים התקבלו, אחזור אליכם בהקדם");
   }

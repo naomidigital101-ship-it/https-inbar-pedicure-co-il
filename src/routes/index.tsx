@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { trackLead } from "@/lib/analytics";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/shared/SiteHeader";
 import { SiteFooter } from "@/components/shared/SiteFooter";
@@ -222,6 +223,7 @@ function HomePage() {
     });
     setSending(false);
     if (error) toast.error("השמירה נכשלה, ממשיכים לוואטסאפ");
+    else trackLead("home_lead_form");
     window.location.href = `${WA}?text=${encodeURIComponent(formMessage)}`;
   }
 
