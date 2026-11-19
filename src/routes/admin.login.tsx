@@ -90,7 +90,7 @@ function AdminLogin() {
         <div className="admin-login-inner">
           <img
             className="admin-login-logo"
-            src="/performance/inbar-logo-600.webp"
+            src="/performance/inbar-logo-vector.svg"
             width={600}
             height={200}
             alt="ענבר פרחי"

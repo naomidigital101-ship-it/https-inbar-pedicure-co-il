@@ -207,7 +207,7 @@ function AdminLayout() {
         aria-label="ניווט ניהול"
       >
         <div className="admin-sidebar-brand">
-          <img src="/performance/inbar-logo-600.webp" width={600} height={200} alt="ענבר פרחי" />
+          <img src="/performance/inbar-logo-vector.svg" width={600} height={200} alt="ענבר פרחי" />
           <p>ניהול האתר והתוכן</p>
           <button
             className="admin-drawer-close"

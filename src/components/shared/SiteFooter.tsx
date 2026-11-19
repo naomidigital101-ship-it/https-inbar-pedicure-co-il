@@ -1,5 +1,5 @@
 import { useSite } from "@/lib/use-site";
-import logoImage from "@/assets/inbar-logo-farhi.png";
+const logoImage = "/performance/inbar-logo-vector.svg";
 
 /**
  * הפוטר של המותג — לבן, ממורכז, קווי hairline בלבד, לפי חבילת המיתוג.

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSite } from "@/lib/use-site";
-const logoImage = "/performance/inbar-logo-600.webp";
+const logoImage = "/performance/inbar-logo-vector.svg";
 
 /**
  * ההדר של המותג — אותו ניווט שאושר בחבילת המיתוג של דף הבית: לוגו ממורכז
