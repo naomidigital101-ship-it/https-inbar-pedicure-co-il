@@ -712,7 +712,7 @@
   width: calc(100% + 60px);
   border-radius: 10px 0 0 10px;
   overflow: hidden;
-  aspect-ratio: 1.8;
+  aspect-ratio: 1870 / 841;
 }
 .admin-login-photo img {
   display: block;

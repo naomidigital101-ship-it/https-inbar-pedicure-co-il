@@ -17,9 +17,9 @@ import {
   DESIGN_TRACKS,
 } from "@/lib/home-design";
 
-const heroImage = "/performance/inbar-hero-1870.webp";
+const heroImage = "/performance/inbar-hero-1870-eyal.webp";
 const heroSrcSet =
-  "/performance/inbar-hero-640.webp 640w, /performance/inbar-hero-960.webp 960w, /performance/inbar-hero-1870.webp 1870w";
+  "/performance/inbar-hero-640-eyal.webp 640w, /performance/inbar-hero-960-eyal.webp 960w, /performance/inbar-hero-1870-eyal.webp 1870w";
 
 /*
  * דף הבית מיושם אחד לאחד מקובץ העיצוב "Inbar Homepage.dc.html":

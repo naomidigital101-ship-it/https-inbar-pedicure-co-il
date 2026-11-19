@@ -192,7 +192,7 @@ function AdminLogin() {
         <div>
           <div className="admin-login-photo">
             <img
-              src="/performance/inbar-hero-960.webp"
+              src="/performance/inbar-hero-960-eyal.webp"
               alt="ענבר בקליניקה, מתוך תמונת האתר"
               width={960}
               height={432}
