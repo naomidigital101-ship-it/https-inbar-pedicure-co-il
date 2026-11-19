@@ -8,6 +8,7 @@ import { type ServicePage } from "@/lib/services-content";
 import { getService, listServices, type ServiceCard } from "@/lib/cms.functions";
 import { useSite } from "@/lib/use-site";
 import { OnycholysisVisuals } from "@/components/services/OnycholysisVisuals";
+import { CornRemovalVideo, CrackedHeelsBeforeAfter } from "@/components/services/ServiceMedia";
 import { SERVICE_HERO } from "@/components/services/service-images";
 import {
   Dash,
@@ -375,6 +376,8 @@ function ServicePage() {
               </p>
 
               {s.slug === "onycholysis" && <OnycholysisVisuals />}
+              {s.slug === "corns" && <CornRemovalVideo />}
+              {s.slug === "cracked-heels" && <CrackedHeelsBeforeAfter />}
 
               {s.sections.map((sec, i) => (
                 <article

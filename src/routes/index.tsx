@@ -81,7 +81,8 @@ const HOME_CSS = `
   /* מרווח תחתון כדי שכפתור הנגישות הצף לא ישב על שורת הדיסקליימר. */
   .ip-page { padding-bottom:88px; }
   .ip-academy-grid { grid-template-columns:1fr !important; }
-  .ip-academy-img { min-height:260px !important; }
+  .ip-academy-img { min-height:260px !important; position:static !important; max-height:none !important; padding:48px 6% !important; }
+  .ip-academy-video { height:min(72vh, 640px) !important; }
   .ip-pillars-grid, .ip-testi-grid, .ip-journal-grid { grid-template-columns:1fr !important; }
   .ip-pillars-grid > div, .ip-testi-grid > div { border-left:none !important; padding-bottom:48px !important; }
   .ip-hero-overlay { position:static !important; display:block !important; padding:56px 6% !important; }
@@ -752,30 +753,41 @@ function HomePage() {
                 justifyContent: "center",
               }}
             >
-              <div style={{ textAlign: "center", padding: "40px" }}>
-                <div
+              <figure style={{ margin: 0, padding: "24px", textAlign: "center" }}>
+                {/* הרצאה של ענבר בשיתוף המרכז הרפואי וולפסון. סרטון שקט בלופ,
+                    בלי פקדים: הוא חלק מהעיצוב, לא נגן. */}
+                <video
+                  className="ip-academy-video"
+                  src="/media/inbar-lecture-wolfson.mp4"
+                  poster="/media/inbar-lecture-wolfson-poster.webp"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="ענבר פרחי מרצה על חומרים פעילים בפודולוגיה והתאמתם לכף רגל סוכרתית, בשיתוף המרכז הרפואי וולפסון"
                   style={{
-                    fontFamily: BODONI,
-                    fontSize: "15px",
-                    letterSpacing: "0.5em",
-                    color: "#726B5E",
-                    marginLeft: "-0.5em",
-                    marginBottom: "18px",
+                    display: "block",
+                    height: "min(calc(100vh - 220px), 680px)",
+                    aspectRatio: "9 / 16",
+                    maxWidth: "100%",
+                    margin: "0 auto",
+                    objectFit: "cover",
+                    background: "#EFEDE8",
                   }}
-                >
-                  INBAR FARHI
-                </div>
-                <div
+                />
+                <figcaption
                   style={{
                     fontWeight: 300,
-                    fontSize: "14px",
-                    letterSpacing: "0.1em",
+                    fontSize: "13px",
+                    letterSpacing: "0.08em",
                     color: "#6B6B6B",
+                    marginTop: "14px",
                   }}
                 >
-                  כאן ישולב וידאו מההרצאות של ענבר
-                </div>
-              </div>
+                  מתוך הרצאה של ענבר בשיתוף המרכז הרפואי וולפסון
+                </figcaption>
+              </figure>
             </div>
             <div
               style={{
